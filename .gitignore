@@ -62,3 +62,6 @@ typings/
 
 # intellij files
 .idea
+
+# file of cash storage for MACOS users
+*.DS_Store
