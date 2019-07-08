@@ -15,7 +15,7 @@
 
 **Clone the repository**
 
-    git clone https://github.com/terradia/Documentation.git
+    git clone https://github.com/terradia/terradia-mobile.git
 
 **Go in the folder and install all dependencies**
 
