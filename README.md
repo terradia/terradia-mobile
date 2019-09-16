@@ -9,6 +9,7 @@
 **Install npm** 
 
     apt-get install nodejs
+    
 **Install expo**
 
     npm install -g expo-cli
@@ -17,9 +18,9 @@
 
     git clone https://github.com/terradia/terradia-mobile.git
 
-**Go in the folder and install all dependencies**
+**Move to the folder and install all dependencies**
 
-    cd terradia-mobile/terradia-mobile && npm install
+    cd terradia-mobile && npm install
 
 **Run expo** 
 
