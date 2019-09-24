@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import ButtonTerradia from '../buttons/Button';
 import ButtonEmpty from '../buttons/ButtonEmpty'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import styles from './styles/LoginForm.style'
 
@@ -11,6 +10,13 @@ import styles from './styles/LoginForm.style'
 
 class LoginForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
+    }
     /*
     Renvoyer vers la page de mot de passe oublié
      */
@@ -31,7 +37,8 @@ class LoginForm extends Component {
     Renvoyer vers la page register
      */
     register = () => {
-
+        console.log("avant appelle function");
+        this.props.navigateFunction();
     };
 
     /*
@@ -62,6 +69,7 @@ class LoginForm extends Component {
                         }]}
                     />
                     <Input
+                        secureTextEntry={true}
                         placeholder="Mot de passe"
                         inputContainerStyle={[{
                             width: '88%',

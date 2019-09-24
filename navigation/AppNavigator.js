@@ -1,11 +1,21 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator, createStackNavigator} from 'react-navigation';
+import {
+    createAppContainer,
+    createSwitchNavigator,
+    createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const AuthStack = createStackNavigator({
-    Login: LoginScreen
+    Login: LoginScreen,
+    Register: RegisterScreen
+    }, {
+    headerMode: 'none',
+    navigationOptions : {
+        headerVisible: false,
+    },
 });
 
 

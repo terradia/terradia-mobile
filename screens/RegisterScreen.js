@@ -1,21 +1,10 @@
 import React, {Component} from 'react';
-import { View, Image} from 'react-native';
-import LoginForm from '../components/login/LoginForm'
+import {View, Text, Image} from 'react-native';
+import styles from "./styles/Login.style";
 import { LinearGradient } from 'expo-linear-gradient';
-import styles from './styles/Login.style'
+import RegisterForm from '../components/register/RegisterForm'
 
-class LoginScreen extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    navigateScreen() {
-        const {navigate} = this.props.navigation;
-        console.log("avant navigate!");
-        navigate('Register');
-    }
-
+class RegisterScreen extends Component {
     render() {
         return (
             <LinearGradient
@@ -38,9 +27,7 @@ class LoginScreen extends Component {
                     />
                 </View>
                 <View style={styles.container}>
-                    <LoginForm
-                        navigateFunction={this.navigateScreen.bind(this)}
-                    />
+                    <RegisterForm/>
                 </View>
 
             </LinearGradient>
@@ -48,4 +35,4 @@ class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen;
+export default RegisterScreen;
