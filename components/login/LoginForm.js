@@ -1,12 +1,24 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import ButtonTerradia from '../buttons/Button';
+import {ButtonTerradia} from '../buttons/Button';
 import ButtonEmpty from '../buttons/ButtonEmpty'
 import { Input } from 'react-native-elements';
 import styles from './styles/LoginForm.style'
+import {gql} from "apollo-boost"
+import {Mutation} from "react-apollo";
 
 
 
+/*
+  Mutation login avec id et mdp
+*/
+const LOGIN = gql`
+        mutation loginMutation($email: String!, $password: String!) {
+        login(data: { email: $email, password: $password }) {
+            token
+            userId
+        }
+    }`;
 
 class LoginForm extends Component {
 
@@ -25,19 +37,12 @@ class LoginForm extends Component {
         })
     };
 
-    /*
-    Request de login avec id et mdp
-     */
-    loginRequest = () => {
-        this.setState({
-        })
-    };
+
 
     /*
     Renvoyer vers la page register
      */
     register = () => {
-        console.log("avant appelle function");
         this.props.navigateFunction();
     };
 
@@ -60,16 +65,19 @@ class LoginForm extends Component {
     render() {
         return(
             <View style={styles.container}>
-
-                <View style={styles.containerView}>
+                <Mutation mutation={LOGIN}>
+                    {(login) => (
+                    <View style={styles.containerView}>
                     <Input
                         placeholder="Adresse email"
+                        onChangeText={text => this.setState({ email: text })}
                         inputContainerStyle={[{
                             width: '88%',
                         }]}
                     />
                     <Input
                         secureTextEntry={true}
+                        onChangeText={text => this.setState({ password: text })}
                         placeholder="Mot de passe"
                         inputContainerStyle={[{
                             width: '88%',
@@ -79,11 +87,10 @@ class LoginForm extends Component {
 
 
                 <ButtonTerradia
-                    title="Connexion"
-                    onPress={this.loginRequest}
-                />
-
-
+                        title="Connexion"
+                    />
+                        )}
+                </Mutation>
                 <TouchableOpacity
                     onPress={this.forgotPassword}
                     style={styles.forgotPasswordStyle}
@@ -115,7 +122,6 @@ class LoginForm extends Component {
 
                     />
                 </View>
-
             </View>
         )
     }
