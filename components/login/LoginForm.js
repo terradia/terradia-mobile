@@ -9,8 +9,7 @@ import {Mutation} from "react-apollo";
 
 
 /*
-  Mutation login with email address
-  & password
+  Mutation login with email address & password
 */
 const LOGIN = gql`
         mutation loginMutation($email: String!, $password: String!) {
