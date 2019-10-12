@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import {ButtonTerradia} from '../buttons/Button';
+import {View, Text, TouchableOpacity, AsyncStorage} from 'react-native';
+import ButtonTerradia from '../buttons/Button';
 import ButtonEmpty from '../buttons/ButtonEmpty'
-import { Input } from 'react-native-elements';
+import {Input} from 'react-native-elements';
 import styles from './styles/LoginForm.style'
 import {gql} from "apollo-boost"
 import {Mutation} from "react-apollo";
 
 
-
 /*
-  Mutation login avec id et mdp
+  Mutation login with email address
+  & password
 */
 const LOGIN = gql`
         mutation loginMutation($email: String!, $password: String!) {
-        login(data: { email: $email, password: $password }) {
+        login(email: $email, password: $password) {
             token
             userId
         }
     }`;
+
 
 class LoginForm extends Component {
 
@@ -26,17 +27,19 @@ class LoginForm extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            returnMessage: '',
+            token: '',
+            userId: '',
         }
     }
+
     /*
     Renvoyer vers la page de mot de passe oublié
      */
     forgotPassword = () => {
-        this.setState({
-        })
+        this.setState({})
     };
-
 
 
     /*
@@ -50,45 +53,64 @@ class LoginForm extends Component {
     FACEBOOK
     */
     facebookLogin = () => {
-        this.setState({
-        })
+        this.setState({})
     };
-    
+
     /*
     APPLE
     */
     appleLogin = () => {
+        this.setState({})
+    };
+
+    OnCompletedHandler = (data) => {
+        console.log(data);
+        AsyncStorage.setItem('token', this.state.token);
+        AsyncStorage.setItem('userId', this.state.userId);
+
+    };
+
+    OnErrorHandler = (data) => {
+        console.log("data:" + data);
+        console.log("Error");
+        const mess = data.message;
         this.setState({
-        })
+            returnMessage: mess
+        });
     };
 
     render() {
-        return(
+        return (
             <View style={styles.container}>
-                <Mutation mutation={LOGIN}>
+                <Mutation mutation={LOGIN} onCompleted={this.OnCompletedHandler} onError={this.OnErrorHandler}>
                     {(login) => (
-                    <View style={styles.containerView}>
-                    <Input
-                        placeholder="Adresse email"
-                        onChangeText={text => this.setState({ email: text })}
-                        inputContainerStyle={[{
-                            width: '88%',
-                        }]}
-                    />
-                    <Input
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({ password: text })}
-                        placeholder="Mot de passe"
-                        inputContainerStyle={[{
-                            width: '88%',
-                        }]}
-                    />
-                </View>
-
-
-                <ButtonTerradia
-                        title="Connexion"
-                    />
+                            <View style={styles.wrapper}>
+                                <View style={styles.containerView}>
+                                    <Input
+                                        placeholder="Adresse email"
+                                        onChangeText={text => this.setState({email: text})}
+                                        inputContainerStyle={[{
+                                            width: '88%',
+                                        }]}
+                                    />
+                                    <Input
+                                        secureTextEntry={true}
+                                        onChangeText={text => this.setState({password: text})}
+                                        placeholder="Mot de passe"
+                                        inputContainerStyle={[{
+                                            width: '88%',
+                                        }]}
+                                    />
+                                </View>
+                                <ButtonTerradia
+                                    title="Connexion"
+                                    onPress={() => {
+                                        console.log(this.state.email);
+                                        console.log(this.state.password);
+                                        login({variables: {email: this.state.email, password: this.state.password}});
+                                    }}
+                                />
+                            </View>
                         )}
                 </Mutation>
                 <TouchableOpacity
