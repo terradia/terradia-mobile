@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 export default StyleSheet.create({
     container: {
@@ -16,8 +16,12 @@ export default StyleSheet.create({
     },
     containerView: {
         width: '100%',
-        paddingLeft: '10%',
         paddingBottom: 20,
+    },
+    wrapper: {
+        width: '100%',
+        paddingLeft: '10%',
+
     },
     forgotPasswordStyle: {
         paddingTop: 10,

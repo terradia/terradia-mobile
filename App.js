@@ -2,13 +2,13 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import { ApolloClient} from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
+import { setContext } from "apollo-link-context";
 import { ApolloProvider } from 'react-apollo'
 import { withClientState } from 'apollo-link-state'
 
@@ -31,12 +31,26 @@ const stateLink = withClientState({
 });
 
 
+const httpLink = new HttpLink({
+    uri: "https://ae8df387.ngrok.io/graphql",
+    fetch: fetch
+});
+
+const authLink = setContext((_, {headers}) => {
+    AsyncStorage.getItem("token")
+        .then(res => {
+            return {
+                headers: {
+                    ...headers,
+                    authorization: res ? `Bearer ${res}` : "",
+                }
+            }
+        });
+});
+
 const client = new ApolloClient({
-    cache,
-    link: ApolloLink.from([
-        stateLink,
-        new HttpLink({ uri: 'http://terradia.eu' })
-    ])
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
 });
 
 {/**
