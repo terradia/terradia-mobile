@@ -44,7 +44,7 @@ class RegisterForm extends Component {
             <View style={styles.container}>
                 <Mutation mutation={REGISTER} onCompleted={this.OnCompletedHandler} onError={this.OnErrorHandler}>
                     {(register) => (
-                        <View>
+                        <View style={styles.wrapper}>
                             <View style={styles.containerView}>
                                 <Input
                                     placeholder="Adresse email"

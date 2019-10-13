@@ -17,11 +17,11 @@ export default StyleSheet.create({
     containerView: {
         width: '100%',
         paddingBottom: 20,
+        paddingLeft: '10%',
     },
     wrapper: {
         width: '100%',
-        paddingLeft: '10%',
-
+        alignItems: 'center'
     },
     forgotPasswordStyle: {
         paddingTop: 10,

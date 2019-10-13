@@ -26,7 +26,7 @@ class ButtonTerradia extends Component {
     render() {
         const {style, ...rest} = this.props;
             return (
-                <View style={[{width: "80%", paddingTop: 5, paddingBottom: 5}]}>
+                <View style={[{width: "80%", paddingTop: 5, paddingBottom: 5, minWidth: "80%"}]}>
                     <Button
                         buttonStyle={[styles.basic, style]}
                         {...rest}
