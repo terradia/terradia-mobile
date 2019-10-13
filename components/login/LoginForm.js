@@ -45,7 +45,7 @@ class LoginForm extends Component {
     Renvoyer vers la page register
      */
     register = () => {
-        this.props.navigateFunction();
+        this.props.navigateRegister();
     };
 
     /*
@@ -66,6 +66,7 @@ class LoginForm extends Component {
         console.log(data);
         AsyncStorage.setItem('token', this.state.token);
         AsyncStorage.setItem('userId', this.state.userId);
+        this.props.navigateHome();
 
     };
 

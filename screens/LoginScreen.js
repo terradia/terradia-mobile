@@ -10,10 +10,15 @@ class LoginScreen extends Component {
         super(props);
     }
 
-    navigateScreen() {
+    navigateRegister() {
+        const {navigate} = this.props.navigation;
+        navigate('Register');
+    }
+
+    navigateHome() {
         const {navigate} = this.props.navigation;
         console.log("avant navigate!");
-        navigate('Register');
+        navigate('Main');
     }
 
     render() {
@@ -39,7 +44,8 @@ class LoginScreen extends Component {
                 </View>
                 <View style={styles.container}>
                     <LoginForm
-                        navigateFunction={this.navigateScreen.bind(this)}
+                        navigateRegister={this.navigateRegister.bind(this)}
+                        navigateHome={this.navigateHome.bind(this)}
                     />
                 </View>
 
