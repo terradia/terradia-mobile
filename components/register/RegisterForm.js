@@ -36,7 +36,7 @@ class RegisterForm extends Component {
 
     OnErrorHandler = (data) => {
         console.log(data);
-        Alert.alert("error");
+        Alert.alert(data.message);
     };
 
     render() {

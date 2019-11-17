@@ -32,7 +32,7 @@ const stateLink = withClientState({
 
 
 const httpLink = new HttpLink({
-    uri: "https://ae8df387.ngrok.io/graphql",
+    uri: "https://07896b0b.ngrok.io/graphql",
     fetch: fetch
 });
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, AsyncStorage} from 'react-native';
+import {View, Text, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import ButtonTerradia from '../buttons/Button';
 import ButtonEmpty from '../buttons/ButtonEmpty'
 import {Input} from 'react-native-elements';
@@ -67,13 +67,13 @@ class LoginForm extends Component {
         AsyncStorage.setItem('token', this.state.token);
         AsyncStorage.setItem('userId', this.state.userId);
         this.props.navigateHome();
-
     };
 
     OnErrorHandler = (data) => {
         console.log("data:" + data);
         console.log("Error");
         const mess = data.message;
+        Alert.alert("Adresse email ou mot de passe invalide");
         this.setState({
             returnMessage: mess
         });
