@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
 import ButtonTerradia from '../buttons/ButtonTerradia';
-import ButtonEmpty from '../buttons/ButtonEmpty'
+import ButtonEmpty from '../buttons/Button'
 import {Input} from 'react-native-elements';
 import styles from './styles/LoginForm.style'
 import {gql} from "apollo-boost"
@@ -105,6 +105,8 @@ class LoginForm extends Component {
                                 </View>
                                 <ButtonTerradia
                                     title="Connexion"
+                                    style={[{borderColor: '#FFFFFF'}]}
+                                    titleStyle={[{color: '#FFFFFF'}]}
                                     onPress={() => {
                                         console.log(this.state.email);
                                         console.log(this.state.password);

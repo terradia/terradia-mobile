@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements';
 import * as Font from 'expo-font/build/Font';
-
+import Button, {ButtonProps} from './Button';
 import styles from './styles/Button.style'
 
 /*
@@ -16,30 +16,22 @@ For use it :
 />
  */
 
-class ButtonTerradia extends Component {
+const ButtonTerradia = (props: ButtonProps) => {
 
-    constructor(props) {
-        super(props);
-        this.state = { loading: true };
-    }
-
-    render() {
-        const {style, ...rest} = this.props;
-            return (
-                <View style={[{width: "80%", paddingTop: 5, paddingBottom: 5, minWidth: "80%"}]}>
-                    <Button
-                        buttonStyle={[styles.basic, style]}
-                        {...rest}
-                        linearGradientProps={{
+    return(
+            <Button
+                style={props.style}
+                title={props.title}
+                titleStyle={props.titleStyle}
+                onPress={props.onPress}
+                disabled={props.disabled}
+                linearGradientProps={{
                             colors: ['#8FDD3D', '#5CC04A'],
                             start: {x: 0, y: 1},
                             end: {x: 1, y: 0},
                         }}
-
-                    />
-                </View>
-            );
-    }
+            />
+    )
 };
 
 export default ButtonTerradia;

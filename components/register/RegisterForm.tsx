@@ -86,6 +86,8 @@ class RegisterForm extends Component {
                             </View>
                             <ButtonTerradia
                                 title="S'enregistrer"
+                                style={[{borderColor: '#FFFFFF'}]}
+                                titleStyle={[{color: '#FFFFFF'}]}
                                 onPress={() => {
                                     register({
                                         variables: {
