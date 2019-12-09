@@ -1,21 +1,15 @@
 import React from 'react';
-import {Platform, Image} from 'react-native';
+import {Image} from 'react-native';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
-import TabBarIcon from '../components/TabBarIcon';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/GrowersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
-const config = Platform.select({
-    web: {headerMode: 'screen'},
-    default: {},
-});
 
 const ProductStack = createStackNavigator(
     {
         Product: ProductsScreen,
-    },
-    config
+    }
 );
 
 ProductStack.navigationOptions = {
@@ -36,13 +30,11 @@ ProductStack.navigationOptions = {
     }
 };
 
-ProductStack.path = '';
 
 const GrowerStack = createStackNavigator(
     {
         Grower: GrowersScreen,
-    },
-    config
+    }
 );
 
 GrowerStack.navigationOptions = {
@@ -63,13 +55,11 @@ GrowerStack.navigationOptions = {
     }
 };
 
-GrowerStack.path = '';
 
 const ProfileStack = createStackNavigator(
     {
         Profile: ProfileScreen,
-    },
-    config
+    }
 );
 
 ProfileStack.navigationOptions = {
@@ -90,7 +80,6 @@ ProfileStack.navigationOptions = {
     }
 };
 
-ProfileStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
     ProductStack,
@@ -98,6 +87,5 @@ const tabNavigator = createBottomTabNavigator({
     ProfileStack,
 });
 
-tabNavigator.path = '';
 
 export default tabNavigator;

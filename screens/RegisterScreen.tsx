@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, Image, KeyboardAvoidingView} from 'react-native';
+import React from 'react';
+import {View, Image, KeyboardAvoidingView} from 'react-native';
 import styles from "./styles/Login.style";
 import { LinearGradient } from 'expo-linear-gradient';
 import RegisterForm from '../components/register/RegisterForm'

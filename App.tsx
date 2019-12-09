@@ -33,7 +33,7 @@ const stateLink = withClientState({
 
 
 const httpLink = new HttpLink({
-    uri: "https://343ae41c.ngrok.io/graphql",
+    uri: "https://5b181454.ngrok.io/graphql",
     fetch: fetch
 });
 
@@ -57,6 +57,7 @@ const client = new ApolloClient({
 {/**
  * make client to rewrite the defaults every time the store resets
  */}
+// @ts-ignore
 client.onResetStore(stateLink.writeDefaults);
 
 {/**
