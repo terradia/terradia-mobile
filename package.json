@@ -9,7 +9,7 @@
     "test": "jest --watchAll"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -44,7 +44,12 @@
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",
     "jest-expo": "^35.0.0",
-    "cz-conventional-changelog": "^2.1.0"
+    "cz-conventional-changelog": "^2.1.0",
+    "@babel/core": "^7.6.0",
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.57.65",
+    "jetifier": "^1.6.4",
+    "typescript": "^3.4.5"
   },
   "config": {
     "commitizen": {

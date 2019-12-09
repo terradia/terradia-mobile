@@ -20,6 +20,7 @@ import AppNavigator from './navigation/AppNavigator';
  */}
 const cache = new InMemoryCache();
 const stateLink = withClientState({
+    fragmentMatcher: undefined, resolvers: undefined, typeDefs: undefined,
     cache,
     defaults: {
         testing: {
@@ -32,7 +33,7 @@ const stateLink = withClientState({
 
 
 const httpLink = new HttpLink({
-    uri: "https://07896b0b.ngrok.io/graphql",
+    uri: "https://343ae41c.ngrok.io/graphql",
     fetch: fetch
 });
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
-import ButtonTerradia from '../buttons/Button';
+import ButtonTerradia from '../buttons/ButtonTerradia';
 import ButtonEmpty from '../buttons/ButtonEmpty'
 import {Input} from 'react-native-elements';
 import styles from './styles/LoginForm.style'
@@ -80,6 +80,7 @@ class LoginForm extends Component {
     };
 
     render() {
+        // @ts-ignore
         return (
             <View style={styles.container}>
                 <Mutation mutation={LOGIN} onCompleted={this.OnCompletedHandler} onError={this.OnErrorHandler}>

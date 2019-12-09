@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styles from "../login/styles/LoginForm.style";
 import {View, Alert, AsyncStorage} from "react-native";
 import {Input} from "react-native-elements";
-import ButtonTerradia from "../buttons/Button";
+import ButtonTerradia from "../buttons/ButtonTerradia";
 import {gql} from "apollo-boost";
 import {Mutation} from 'react-apollo';
 
