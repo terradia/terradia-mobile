@@ -29,7 +29,8 @@ export declare interface ButtonProps {
     titleStyle?: object;
     onPress?: any;
     disabled?: boolean;
-    linearGradientProps?: object
+    linearGradientProps?: object;
+    loading?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
@@ -42,6 +43,7 @@ const Button = (props: ButtonProps) => {
                     onPress={props.onPress}
                     type={"outline"}
                     disabled={props.disabled}
+                    loading={props.loading}
                     linearGradientProps={props.linearGradientProps}
                     /*titleStyle={[{fontFamily: }]}*/
                 />

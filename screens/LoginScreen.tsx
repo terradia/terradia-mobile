@@ -1,28 +1,27 @@
 import React, {Component} from 'react';
-import { View, Image} from 'react-native';
+import {View, Image, KeyboardAvoidingView} from 'react-native';
 import LoginForm from '../components/login/LoginForm'
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles/Login.style'
 
-class LoginScreen extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+export declare interface LoginScreenProps {
+    navigation?: any;
+}
 
-    navigateRegister() {
-        const {navigate} = this.props.navigation;
+const LoginScreen = (props: LoginScreenProps) => {
+    const navigateRegister =() => {
+        const {navigate} = props.navigation;
         navigate('Register');
-    }
+    };
 
-    navigateHome() {
-        const {navigate} = this.props.navigation;
-        console.log("avant navigate!");
+    const navigateHome =() => {
+        const {navigate} = props.navigation;
         navigate('Main');
-    }
+    };
 
-    render() {
-        return (
+    return (
+        <KeyboardAvoidingView behavior="padding" enabled style={{flex: 1}}>
             <LinearGradient
                 colors={['#8FDD3D', '#5CC04A']}
                 style={styles.gradient}
@@ -44,14 +43,13 @@ class LoginScreen extends Component {
                 </View>
                 <View style={styles.container}>
                     <LoginForm
-                        navigateRegister={this.navigateRegister.bind(this)}
-                        navigateHome={this.navigateHome.bind(this)}
+                        navigateRegister={navigateRegister}
+                        navigateHome={navigateHome}
                     />
                 </View>
-
             </LinearGradient>
-        )
-    }
-}
+        </KeyboardAvoidingView>
+    )
+};
 
 export default LoginScreen;

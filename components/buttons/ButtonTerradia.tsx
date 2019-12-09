@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
-import { View } from 'react-native';
-// import { Button } from 'react-native-elements';
-import * as Font from 'expo-font/build/Font';
+import React from 'react';
 import Button, {ButtonProps} from './Button';
-import styles from './styles/Button.style'
 
 /*
 This button is a gradient button
@@ -25,6 +21,7 @@ const ButtonTerradia = (props: ButtonProps) => {
                 titleStyle={props.titleStyle}
                 onPress={props.onPress}
                 disabled={props.disabled}
+                loading={props.loading}
                 linearGradientProps={{
                             colors: ['#8FDD3D', '#5CC04A'],
                             start: {x: 0, y: 1},
