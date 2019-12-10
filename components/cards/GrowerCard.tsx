@@ -8,7 +8,7 @@ import style from './styles/GrowerCard.style'
 class GrowerCard extends Component {
     render() {
         return (
-            <View>
+            <View style={style.mainContainer}>
                 <TouchableOpacity activeOpacity={0.7} style={[style.wrapper, style.shadow1]}>
                     <Image
                         source={{
@@ -43,7 +43,6 @@ class GrowerCard extends Component {
                                     'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg',
                             }}
                             containerStyle={[style.shadow1, style.growerImage]}
-
                         />
                         <Text style={style.growerName}>Au brasseur</Text>
                     </View>
