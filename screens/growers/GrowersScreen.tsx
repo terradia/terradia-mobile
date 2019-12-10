@@ -10,17 +10,21 @@ const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 44 : 20) : 0;
 const HEADER_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 88 : 64) : 64;
 const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
 
-export default function GrowersScreen() {
+export declare interface GrowersScreen {
+    navigation?: any;
+}
+
+export default function GrowersScreen(props: GrowersScreen) {
 
   const renderContent = () => {
     return (
         <View style={{flex: 1}}>
           <FilterGrowers/>
-          <GrowerCard/>
-            {/*<GrowerCard/>*/}
-            {/*<GrowerCard/>*/}
-            {/*<GrowerCard/>*/}
-            {/*<GrowerCard/>*/}
+          <GrowerCard navigation={props.navigation}/>
+            <GrowerCard navigation={props.navigation}/>
+            <GrowerCard navigation={props.navigation}/>
+            <GrowerCard navigation={props.navigation}/>
+            <GrowerCard navigation={props.navigation}/>
             {/*<GrowerCard/>*/}
             {/*<GrowerCard/>*/}
             {/*<GrowerCard/>*/}

@@ -4,11 +4,13 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProfileScreen from '../screens/authentication/ProfileScreen';
+import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
 
 
 const GrowerStack = createStackNavigator(
     {
         Grower: GrowersScreen,
+        GrowersProducts: GrowersProductsScreen
     }, {
         headerMode: 'none',
     }

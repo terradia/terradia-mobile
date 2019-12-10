@@ -12,13 +12,12 @@ import AuthLoadingScreen from "../screens/authentication/AuthLoadingScreen";
 const AuthStack = createStackNavigator({
     AuthLoading: AuthLoadingScreen,
     Login: LoginScreen,
-    Register: RegisterScreen,
+    Register: RegisterScreen
     }, {
     headerMode: 'none',
     navigationOptions : {
     },
 });
-
 
 export default createAppContainer(
   createSwitchNavigator({

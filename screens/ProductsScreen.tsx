@@ -12,6 +12,8 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
+
+
 export default function ProductsScreen() {
   return (
     <View style={styles.container}>
