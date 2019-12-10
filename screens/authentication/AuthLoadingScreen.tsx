@@ -1,4 +1,4 @@
-import {LoginFormProps} from "../components/login/LoginForm";
+import {LoginFormProps} from "../../components/login/LoginForm";
 import {AsyncStorage, Image, View} from "react-native";
 import React, {useEffect} from "react";
 import { useLazyQuery } from '@apollo/react-hooks';
@@ -21,7 +21,7 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
                 const {navigate} = props.navigation;
                 console.log(data);
                 if (data && data.getUser)
-                    navigate('Product');
+                    navigate('Grower');
                 else navigate('Login');
             }
         }
@@ -39,7 +39,7 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Image
                 style={{height: 200, width: 200}}
-                source={require('../assets/images/icon-terradia.png')}
+                source={require('../../assets/images/icon-terradia.png')}
             />
         </View>
     )

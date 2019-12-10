@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Image, KeyboardAvoidingView} from 'react-native';
-import LoginForm from '../components/login/LoginForm'
+import LoginForm from '../../components/login/LoginForm'
 import { LinearGradient } from 'expo-linear-gradient';
-import styles from './styles/Login.style'
+import styles from '../styles/Login.style'
 
 
 export declare interface LoginScreenProps {
@@ -30,14 +30,14 @@ const LoginScreen = (props: LoginScreenProps) => {
                 <View style={styles.imageView}>
                     <Image
                         style={{flex:1, height: undefined, width: undefined}}
-                        source={require('../assets/images/terradia.png')}
+                        source={require('../../assets/images/terradia.png')}
                         resizeMode='contain'
                     />
                 </View>
                 <View style={styles.sloganView}>
                     <Image
                         style={{flex:1, height: undefined, width: undefined}}
-                        source={require('../assets/images/slogan.png')}
+                        source={require('../../assets/images/slogan.png')}
                         resizeMode='contain'
                     />
                 </View>

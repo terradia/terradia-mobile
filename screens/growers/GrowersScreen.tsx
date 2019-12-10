@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, SafeAreaView, TouchableOpacity, Platform, Text} from 'react-native';
-import GrowerCard from '../components/cards/GrowerCard';
+import GrowerCard from '../../components/cards/GrowerCard';
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
+import FilterGrowers from '../../components/growers/Filter';
 
 const IS_IPHONE_X = true;
 // const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
@@ -13,7 +14,17 @@ export default function GrowersScreen() {
 
   const renderContent = () => {
     return (
-        <GrowerCard/>
+        <View style={{flex: 1}}>
+          <FilterGrowers/>
+          <GrowerCard/>
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+            {/*<GrowerCard/>*/}
+        </View>
     )
   };
 
@@ -50,7 +61,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 0,
     backgroundColor: 'white',
-    marginBottom: '10%',
     flex: 1,
   },
   contentContainer: {

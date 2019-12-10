@@ -7,7 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { ApolloClient} from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
-import { ApolloLink } from 'apollo-link'
 import { setContext } from "apollo-link-context";
 import { ApolloProvider } from 'react-apollo'
 import { withClientState } from 'apollo-link-state'
@@ -33,7 +32,7 @@ const stateLink = withClientState({
 
 
 const httpLink = new HttpLink({
-    uri: "https://5b181454.ngrok.io/graphql",
+    uri: "http://dff31e95.ngrok.io"+ "/graphql",
     fetch: fetch
 });
 
