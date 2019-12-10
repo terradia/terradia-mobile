@@ -5,9 +5,9 @@ import {
     createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
-import LoginScreen from "../screens/LoginScreen";
+import LoginScreen from "../screens/authentication/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import AuthLoadingScreen from "../screens/AuthLoadingScreen";
+import AuthLoadingScreen from "../screens/authentication/AuthLoadingScreen";
 
 const AuthStack = createStackNavigator({
     AuthLoading: AuthLoadingScreen,

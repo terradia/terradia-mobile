@@ -2,18 +2,48 @@ import React from 'react';
 import {Image} from 'react-native';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import ProductsScreen from '../screens/ProductsScreen';
-import GrowersScreen from '../screens/GrowersScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import GrowersScreen from '../screens/growers/GrowersScreen';
+import ProfileScreen from '../screens/authentication/ProfileScreen';
 
+
+const GrowerStack = createStackNavigator(
+    {
+        Grower: GrowersScreen,
+    }, {
+        headerMode: 'none',
+    }
+);
+
+GrowerStack.navigationOptions = {
+    tabBarLabel: 'Producteurs',
+    header: null,
+    tabBarOptions: {
+        activeTintColor: '#5CC04A',
+        inactiveTintColor: '#ccc',
+    },
+    tabBarIcon: ({focused}) => {
+        const image = focused
+            ? require('../assets/images/TabBarNavigation/Producteurs/active.png')
+            : require('../assets/images/TabBarNavigation/Producteurs/inactive.png');
+        return (
+            <Image
+                source={image}
+            />
+        )
+    }
+};
 
 const ProductStack = createStackNavigator(
     {
         Product: ProductsScreen,
+    }, {
+        headerMode: 'none',
     }
 );
 
 ProductStack.navigationOptions = {
     tabBarLabel: 'Produits',
+    header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc',
@@ -31,34 +61,12 @@ ProductStack.navigationOptions = {
 };
 
 
-const GrowerStack = createStackNavigator(
-    {
-        Grower: GrowersScreen,
-    }
-);
-
-GrowerStack.navigationOptions = {
-    tabBarLabel: 'Producteurs',
-    tabBarOptions: {
-        activeTintColor: '#5CC04A',
-        inactiveTintColor: '#ccc',
-    },
-    tabBarIcon: ({focused}) => {
-        const image = focused
-            ? require('../assets/images/TabBarNavigation/Producteurs/active.png')
-            : require('../assets/images/TabBarNavigation/Producteurs/inactive.png');
-        return (
-            <Image
-                source={image}
-            />
-        )
-    }
-};
-
 
 const ProfileStack = createStackNavigator(
     {
         Profile: ProfileScreen,
+    }, {
+        headerMode: 'none',
     }
 );
 
@@ -82,9 +90,10 @@ ProfileStack.navigationOptions = {
 
 
 const tabNavigator = createBottomTabNavigator({
-    ProductStack,
     GrowerStack,
+    ProductStack,
     ProfileStack,
+}, {
 });
 
 

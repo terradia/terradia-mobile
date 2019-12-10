@@ -20,7 +20,7 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
             onCompleted: (data) => {
                 const {navigate} = props.navigation;
                 console.log(data);
-                if (data.getUser)
+                if (data && data.getUser)
                     navigate('Product');
                 else navigate('Login');
             }
