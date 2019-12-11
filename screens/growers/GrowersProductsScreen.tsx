@@ -1,70 +1,75 @@
 import React from 'react';
-import {View, Text, StyleSheet, Platform, TouchableOpacity} from "react-native";
-import ReactNativeParallaxHeader from 'react-native-parallax-header';
+import {View, StyleSheet, TouchableOpacity, Image, Text} from "react-native";
 import {Feather, FontAwesome, Ionicons} from '@expo/vector-icons';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import GrowersProductsHeader from '../../components/growers/products/GrowersProductsHeader'
+import GrowersProductsContent from '../../components/growers/products/GrowersProductsContent';
+import GrowersProductsCategories from '../../components/growers/products/GrowersProductsCategories';
 
-var SCREEN_HEIGHT = 812;
-const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 44 : 20) : 0;
-const HEADER_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 88 : 64) : 64;
-const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
 
-const images = {
-    background: 'https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg', // Put your own image here
-};
+export declare interface GrowersProductsScreen {
+    navigation?: any;
+}
 
-const GrowerProductsScreen = () => {
+const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     const renderNavBar = () => (
         <View style={styles.navContainer}>
+            <View style={{backgroundColor: '#5CC04A'}}>
             <View style={styles.statusBar} />
             <View style={styles.navBar}>
-                <TouchableOpacity onPress={() => {}}>
-                    <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={() => {props.navigation.goBack()}}>*/}
+                {/*    <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />*/}
+                {/*</TouchableOpacity>*/}
+                <View/>
+                <Text style={{color: 'white', fontSize: 20}}>
+                    Au brasseur Strasbourg
+                </Text>
                 <TouchableOpacity style={{flexDirection: 'row'}}>
                     <Feather style={{margin: 3, marginRight: 5}} name="share" size={24} color="white" />
                     <Ionicons style={{margin: 3}} name="ios-information-circle-outline" size={24} color="white" />
                 </TouchableOpacity>
             </View>
+            </View>
+            <View style={{backgroundColor: 'white'}}>
+                <GrowersProductsCategories/>
+            </View>
         </View>
     );
-    const _renderContent = () => {
-        return (
-            <View>
-                <Text>Je suis ocntent</Text>
-            </View>
-        )
-    };
-    const renderHeader = () => {
-        return (
-            <View>
 
+    const renderImageBackground = () => {
+        return (
+            <View>
+                <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, width: window.width, height: 250 }}/>
+                <View style={styles.brightness}/>
             </View>
         )
     };
+
+    const renderFixedHeader = () => {
+        return (
+            <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {props.navigation.goBack()}}>
+                <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
+            </TouchableOpacity>
+        )
+    };
+
     return (
-        <ReactNativeParallaxHeader
-            headerMinHeight={0}
-            headerMaxHeight={200}
-            extraScrollHeight={20}
-            navbarColor="#3498db"
-            title=""
-            titleStyle={styles.titleStyle}
-            backgroundImage={{uri:
-                'http://www.aubrasseur.fr/wp-content/uploads/2014/04/20151104-282-1300x500.jpg'}}
-            backgroundImageScale={1.1}
-            renderNavBar={renderNavBar}
-            renderContent={_renderContent}
-            containerStyle={styles.container}
-            contentContainerStyle={styles.contentContainer}
-            innerContainerStyle={styles.container}
-            scrollViewProps={{
-                onScrollBeginDrag: () => console.log('onScrollBeginDrag'),
-                onScrollEndDrag: () => console.log('onScrollEndDrag'),
-            }}
-        />
+        <ParallaxScrollView
+            style={{ backgroundColor: 'hotpink', overflow: 'hidden' }}
+            backgroundColor="white"
+            parallaxHeaderHeight={300}
+            stickyHeaderHeight={130}
+            renderFixedHeader={renderFixedHeader}
+            renderBackground={renderImageBackground}
+            renderStickyHeader={renderNavBar}
+            fadeOutForeground={false}
+            renderForeground={GrowersProductsHeader}>
+            <GrowersProductsContent/>
+        </ParallaxScrollView>
     )
 };
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -75,7 +80,6 @@ const styles = StyleSheet.create({
     },
     navContainer: {
         height: 200,
-        marginHorizontal: 10,
     },
     statusBar: {
         height: 30,
@@ -87,11 +91,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: 'transparent',
+        marginHorizontal: 10,
     },
     titleStyle: {
         color: 'white',
         fontWeight: 'bold',
         fontSize: 18,
+    },
+    brightness: {
+        flex: 1,
+        width: '100%',
+        height: 300,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, .3)',
+        position: 'absolute',
+        borderRadius: 10
     },
 });
 export default GrowerProductsScreen;

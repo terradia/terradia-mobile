@@ -1,4 +1,3 @@
-import {LoginFormProps} from "../../components/login/LoginForm";
 import {AsyncStorage, Image, View} from "react-native";
 import React, {useEffect} from "react";
 import { useLazyQuery } from '@apollo/react-hooks';

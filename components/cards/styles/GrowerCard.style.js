@@ -29,7 +29,6 @@ export default StyleSheet.create({
     headerView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        justifyItems: 'center',
         width: '100%'
     },
     rates: {
@@ -99,7 +98,7 @@ export default StyleSheet.create({
     discoverProducts: {
         marginLeft: 10,
         color: '#A1A1A1',
-        fontWeight: 500,
+        fontWeight: "500",
         fontSize: 15
     },
     tag: {
