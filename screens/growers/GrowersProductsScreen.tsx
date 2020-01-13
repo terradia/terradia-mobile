@@ -1,17 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-    View,
     StyleSheet,
-    TouchableOpacity,
-    Image,
     Text,
-    SectionList, FlatList, ListView, ScrollView
+    FlatList,
+    TouchableOpacity,
+    SectionList, View, PixelRatio
 } from "react-native";
-import {Feather, FontAwesome, Ionicons} from '@expo/vector-icons';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader'
-import GrowersProductsCategories from '../../components/growers/products/GrowersProductsCategories';
-
+import {renderFixedHeader, renderImageBackground, renderNavBar} from '../../components/growers/products/GrowersProductsHeader';
+import GrowersProductsCategories from "../../components/growers/products/GrowersProductsCategories";
+import sectionListGetItemLayout from 'react-native-section-list-get-item-layout'
 
 export declare interface GrowersProductsScreen {
     navigation?: any;
@@ -67,6 +66,10 @@ const DATA = [
         title: 'Glace',
         data: ['Vanille double boule', 'Chocolat une boule', 'Fraise'],
     },
+    {
+        title: 'Boissons',
+        data: ['bière', 'vodka', 'rhum'],
+    },
 ];
 
 const GrowerProductsScreen = (props: GrowersProductsScreen) => {
@@ -75,63 +78,54 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     useEffect(() => {
         setTimeout(() => {
             setDisplay(true);
-        }, 20)
+        }, 10)
     }, []);
-    const renderNavBar = () => (
-        <View style={styles.navContainer}>
-            <View style={{backgroundColor: '#5CC04A'}}>
-                <View style={styles.statusBar} />
-                <View style={styles.navBar}><View/>
-                    <Text style={{color: 'white', fontSize: 20}}>
-                        Au brasseur Strasbourg
-                    </Text>
-                    <TouchableOpacity style={{flexDirection: 'row'}}>
-                        <Feather style={{margin: 3, marginRight: 5}} name="share" size={24} color="white" />
-                        <Ionicons style={{margin: 3}} name="ios-information-circle-outline" size={24} color="white" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={{backgroundColor: '#5CC04A'}}>
-                <View style={{backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
-                    <GrowersProductsCategories categories={DATA.map((item) => item.title)}/>
-                </View>
-            </View>
-        </View>
-    );
-
-    const renderImageBackground = () => {
-        return (
-            <View>
-                <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, height: 250 }}/>
-                <View style={styles.brightness}/>
-            </View>
-        )
-    };
-
-    const renderFixedHeader = () => {
-        return (
-            <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {props.navigation.goBack()}}>
-                <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
-            </TouchableOpacity>
-        )
-    };
 
     const renderItem = ({item}) => {
         return (
             <Text key={item} style={{height: 50}}> {item} </Text>
         )
     };
+
+    const scrollMainList = (sectionIndex: Number) => {
+        console.log(sectionIndex);
+        list.current.scrollToLocation({itemIndex: 0, sectionIndex: sectionIndex})
+    };
+
+     const getItemLayout = sectionListGetItemLayout({
+        // The height of the row with rowData at the given sectionIndex and rowIndex
+        getItemHeight: (rowData, sectionIndex, rowIndex) => sectionIndex === 0 ? 100 : 50,
+
+        // These three properties are optional
+        getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
+        getSectionHeaderHeight: () => 130, // The height of your section headers
+        getSectionFooterHeight: () => 130, // The height of your section footers
+         listHeaderHeight: 130
+    });
+    const _getItemLayout = (data, index) => {
+        console.log(index);
+        return { length: 130, offset: 20, index };
+    };
     if (display) {
         return (
-            <FlatList
+            <SectionList
                 style={styles.containerBox}
-                data={ LIST }
+                sections={ DATA }
+                ref={list}
+                keyExtractor={item => item}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                    <View  style={ {overflow: 'hidden',
+                getItemLayout={_getItemLayout}
+                renderSectionHeader={({ section: { title } }) => (
+                    <View style={{height: 50}}>
+                        <Text>
+                            {title}
+                        </Text>
+                    </View>)}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => list.current.scrollToLocation({itemIndex: 0, sectionIndex: 4})}  style={{overflow: 'hidden',
                         paddingHorizontal: 10,
-                        height: 20,
+                        height: 30,
                         flex: 1,
                         width: '100%',
                         backgroundColor: 'white',
@@ -141,17 +135,19 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                         <Text style={ {} }>
                             { item }
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                 )}
-                    renderScrollComponent={props => (
+                    renderScrollComponent={() => (
                         <ParallaxScrollView
                             style={{flex: 1, width: '100%'}}
                             backgroundColor="white"
                             parallaxHeaderHeight={300}
                             stickyHeaderHeight={130}
-                            renderFixedHeader={renderFixedHeader}
-                            renderBackground={renderImageBackground}
-                            renderStickyHeader={renderNavBar}
+                            outputScaleValue={20}
+                            backgroundScrollSpeed={20}
+                            renderFixedHeader={() => (renderFixedHeader(props.navigation))}
+                            renderBackground={() => (renderImageBackground())}
+                            renderStickyHeader={() => (renderNavBar(DATA, scrollMainList))}
                             fadeOutForeground={false}
                             showsVerticalScrollIndicator={false}
                             renderForeground={GrowersProductsForegroundHeader}>
@@ -160,10 +156,9 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     }
     if (!display) {
         return (
-                <FlatList
+                <SectionList
                     style={styles.containerBox}
-                    data={LIST}
-                    ref={list}
+                    sections={DATA}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => item + index}
@@ -182,33 +177,6 @@ const styles = StyleSheet.create({
     },
     navContainer: {
         height: 200
-    },
-    statusBar: {
-        height: 30,
-        backgroundColor: 'transparent',
-    },
-    navBar: {
-        height: 50,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-        marginHorizontal: 10,
-    },
-    titleStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 18,
-    },
-    brightness: {
-        flex: 1,
-        width: '100%',
-        height: 300,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, .3)',
-        position: 'absolute',
-        borderRadius: 10
     },
 });
 export default GrowerProductsScreen;

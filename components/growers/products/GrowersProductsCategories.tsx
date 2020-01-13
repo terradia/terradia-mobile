@@ -7,12 +7,13 @@ const FILTER = ['Bio', 'Viande', 'Poisson', 'Légumes', 'Fruits', 'Oeuf', 'Produ
 
 export declare interface GrowersProductsCategories {
     categories?: string[];
+    scrollMainList?: any;
 }
 
 const GrowersProductsCategories = (props: GrowersProductsCategories) => {
-    const _renderItem = (item) => {
+    const _renderItem = ({item, index}) => {
         return (
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity onPress={() => props.scrollMainList(index)} style={styles.item}>
                 <Text style={styles.text}>{item}</Text>
             </TouchableOpacity>
         )
@@ -24,7 +25,7 @@ const GrowersProductsCategories = (props: GrowersProductsCategories) => {
                 data={props.categories}
                 keyExtractor={item => item}
                 horizontal={true}
-                renderItem={({item}) => _renderItem(item)}
+                renderItem={_renderItem}
                 showsHorizontalScrollIndicator={false}
             />
         </View>

@@ -11,69 +11,73 @@ import GrowersProductsCategories from "./GrowersProductsCategories";
 import {StyleSheet} from "react-native";
 
 
-export declare interface GrowerProductsHeader {
-    navigation?: any;
-    data?: any;
-}
+export const renderFixedHeader = (navigation: any) => {
+    return (
+        <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {navigation.goBack()}}>
+            <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
+        </TouchableOpacity>
+    )
+};
 
-
-const GrowerProductsHeader = forwardRef((props: GrowerProductsHeader, ref: any) => {
-    const renderFixedHeader = () => {
-        return (
-            <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {props.navigation.goBack()}}>
-                <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
-            </TouchableOpacity>
-        )
-    };
-    const renderImageBackground = () => {
-        return (
-            <View>
-                <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, height: 250 }}/>
-                <View style={styles.brightness}/>
-            </View>
-        )
-    };
-    const renderNavBar = () => (
+export const renderNavBar = (data,scrollMainList) => {
+    return (
         <View style={styles.navContainer}>
-            <View style={{backgroundColor: '#5CC04A'}}>
-                <View style={styles.statusBar} />
+            <View style={styles.backgroundContainer}>
+                <View style={styles.statusBar}/>
                 <View style={styles.navBar}><View/>
-                    <Text style={{color: 'white', fontSize: 20}}>
+                    <Text style={styles.navBarGrowerName}>
                         Au brasseur Strasbourg
                     </Text>
-                    <TouchableOpacity style={{flexDirection: 'row'}}>
-                        <Feather style={{margin: 3, marginRight: 5}} name="share" size={24} color="white" />
-                        <Ionicons style={{margin: 3}} name="ios-information-circle-outline" size={24} color="white" />
+                    <TouchableOpacity style={styles.iconsContainer}>
+                        <Feather style={styles.shareIcon} name="share" size={24} color="white"/>
+                        <Ionicons style={styles.infoIcon} name="ios-information-circle-outline" size={24} color="white"/>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{backgroundColor: '#5CC04A'}}>
-                <View style={{backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
-                    <GrowersProductsCategories categories={props.data.map((item) => item.title)}/>
+            <View style={styles.categoriesBackgroundContainer}>
+                <View style={styles.categoriesBackground}>
+                    <GrowersProductsCategories categories={data.map((item) => item.title)} scrollMainList={scrollMainList}/>
                 </View>
             </View>
         </View>
-    );
-    return (
-        <ParallaxScrollView
-            ref={ref}
-            style={{flex: 1, width: '100%'}}
-            backgroundColor="white"
-            parallaxHeaderHeight={300}
-            stickyHeaderHeight={130}
-            renderFixedHeader={renderFixedHeader}
-            renderBackground={renderImageBackground}
-            renderStickyHeader={renderNavBar}
-            fadeOutForeground={false}
-            showsVerticalScrollIndicator={false}
-            renderForeground={GrowersProductsForegroundHeader}>
-        </ParallaxScrollView>
     )
-});
+};
 
-export default GrowerProductsHeader;
+export const renderImageBackground = () => {
+    return (
+        <View>
+            <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, height: 250 }}/>
+            <View style={styles.brightness}/>
+        </View>
+    )
+};
 
 const styles = StyleSheet.create({
+    categoriesBackgroundContainer: {
+        backgroundColor: '#5CC04A'
+    },
+    categoriesBackground: {
+        backgroundColor: 'white',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
+    },
+    backgroundContainer: {
+        backgroundColor: '#5CC04A'
+    },
+    navBarGrowerName: {
+        color: 'white',
+        fontSize: 20
+    },
+    iconsContainer: {
+        flexDirection: 'row'
+    },
+    shareIcon: {
+        margin: 3,
+        marginRight: 5
+    },
+    infoIcon: {
+        margin: 3
+    },
     brightness: {
         flex: 1,
         width: '100%',
