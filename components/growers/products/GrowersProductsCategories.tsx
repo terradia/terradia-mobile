@@ -4,7 +4,12 @@ import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const FILTER = ['Bio', 'Viande', 'Poisson', 'Légumes', 'Fruits', 'Oeuf', 'Produits laitier'];
 
-const GrowersProductsCategories = () => {
+
+export declare interface GrowersProductsCategories {
+    categories?: string[];
+}
+
+const GrowersProductsCategories = (props: GrowersProductsCategories) => {
     const _renderItem = (item) => {
         return (
             <TouchableOpacity style={styles.item}>
@@ -16,7 +21,7 @@ const GrowersProductsCategories = () => {
     return (
         <View>
             <FlatList
-                data={FILTER}
+                data={props.categories}
                 keyExtractor={item => item}
                 horizontal={true}
                 renderItem={({item}) => _renderItem(item)}

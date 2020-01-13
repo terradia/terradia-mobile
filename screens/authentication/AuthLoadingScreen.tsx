@@ -22,6 +22,13 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
                 if (data && data.getUser)
                     navigate('Grower');
                 else navigate('Login');
+            },
+            onError: async (onerror) => {
+                const {navigate} = props.navigation;
+                const token = await AsyncStorage.removeItem("token");
+
+                console.log(onerror);
+                navigate('Login');
             }
         }
     );
@@ -31,6 +38,7 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
             console.log(data);
             if (!data)
                 return props.navigation.navigate('Login');
+            console.log("Ready to call load user");
             loadUser();
         });
     }, []);

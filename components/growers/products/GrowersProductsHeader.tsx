@@ -1,89 +1,102 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import { Avatar, AirbnbRating } from 'react-native-elements'
-import {FontAwesome} from "@expo/vector-icons";
+import React, {forwardRef} from 'react'
+import {} from 'react-native';
+import GrowersProductsForegroundHeader from "./GrowersProductsForegroundHeader";
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import {TouchableOpacity} from "react-native";
+import {Feather, FontAwesome, Ionicons} from "@expo/vector-icons";
+import {View} from "react-native";
+import {Image} from "react-native";
+import {Text} from "react-native";
+import GrowersProductsCategories from "./GrowersProductsCategories";
+import {StyleSheet} from "react-native";
 
-const GrowerProductsHeader = () => {
-    return (
-        <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-            <View style={{height: 300 / 2, backgroundColor: '#ECECEC', width: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 10}}>
-                <View style={{flexDirection: 'row', marginBottom: 10}}>
-                    <Avatar
-                        size={80}
-                        rounded
-                        source={{
-                            uri:
-                                'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg',
-                        }}
-                        containerStyle={[styles.shadow1, styles.growerImage]}
-                    />
-                    <View style={{marginLeft: 10, flex: 1, justifyContent: 'space-between'}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                            <View style={styles.tag}>
-                                <Text style={{color: 'white', fontWeight: '500'}}>
-                                    NOUVEAUTE
-                                </Text>
-                            </View>
-                            <Text style={{fontSize: 18}}>
-                                ~1km
-                            </Text>
-                        </View>
-                        <View>
-                            <Text style={{fontSize: 20, color: '#575757', fontWeight: '500'}}>Au brasseur Strasbourg</Text>
-                        </View>
-                        <View style={styles.rates}>
-                            <AirbnbRating
-                                defaultRating={4}
-                                size={18}
-                                showRating={false}
-                                isDisabled={true}
-                                selectedColor={'#4AA542'}
-                            />
-                            <Text style={styles.textNumberRates}>(99+)</Text>
-                        </View>
-                    </View>
 
-                </View>
-                <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', marginLeft: 10}}>
-                    <Text style={{width: '92%'}}>
-                        Ce restaurant propose des spécialités alsaciennes autour de la cuve en...
+export declare interface GrowerProductsHeader {
+    navigation?: any;
+    data?: any;
+}
+
+
+const GrowerProductsHeader = forwardRef((props: GrowerProductsHeader, ref: any) => {
+    const renderFixedHeader = () => {
+        return (
+            <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {props.navigation.goBack()}}>
+                <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
+            </TouchableOpacity>
+        )
+    };
+    const renderImageBackground = () => {
+        return (
+            <View>
+                <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, height: 250 }}/>
+                <View style={styles.brightness}/>
+            </View>
+        )
+    };
+    const renderNavBar = () => (
+        <View style={styles.navContainer}>
+            <View style={{backgroundColor: '#5CC04A'}}>
+                <View style={styles.statusBar} />
+                <View style={styles.navBar}><View/>
+                    <Text style={{color: 'white', fontSize: 20}}>
+                        Au brasseur Strasbourg
                     </Text>
-                    <TouchableOpacity style={{width: '8%', justifyContent: 'center'}}>
-                        <FontAwesome style={{margin: 3}} name="arrow-down" size={24} color="#4AA542" />
+                    <TouchableOpacity style={{flexDirection: 'row'}}>
+                        <Feather style={{margin: 3, marginRight: 5}} name="share" size={24} color="white" />
+                        <Ionicons style={{margin: 3}} name="ios-information-circle-outline" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
             </View>
+            <View style={{backgroundColor: '#5CC04A'}}>
+                <View style={{backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
+                    <GrowersProductsCategories categories={props.data.map((item) => item.title)}/>
+                </View>
+            </View>
         </View>
+    );
+    return (
+        <ParallaxScrollView
+            ref={ref}
+            style={{flex: 1, width: '100%'}}
+            backgroundColor="white"
+            parallaxHeaderHeight={300}
+            stickyHeaderHeight={130}
+            renderFixedHeader={renderFixedHeader}
+            renderBackground={renderImageBackground}
+            renderStickyHeader={renderNavBar}
+            fadeOutForeground={false}
+            showsVerticalScrollIndicator={false}
+            renderForeground={GrowersProductsForegroundHeader}>
+        </ParallaxScrollView>
     )
-};
+});
 
+export default GrowerProductsHeader;
 
-function elevationShadowStyle(elevation) {
-    return {
-        elevation,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 0.5 * elevation },
-        shadowOpacity: 0.3,
-        shadowRadius: 0.8 * elevation
-    };
-}
 const styles = StyleSheet.create({
-    shadow1: elevationShadowStyle(5),
-    growerImage: {
+    brightness: {
+        flex: 1,
+        width: '100%',
+        height: 300,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, .3)',
+        position: 'absolute',
+        borderRadius: 10
     },
-    tag: {
-        padding: 3,
-        borderRadius: 10,
-        backgroundColor: '#FFE732'
+    navContainer: {
+        height: 200
     },
-    rates: {
+    statusBar: {
+        height: 30,
+        backgroundColor: 'transparent',
+    },
+    navBar: {
+        height: 50,
+        justifyContent: 'space-between',
+        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    textNumberRates: {
-        color: '#4AA542',
-        fontSize: 16
+        backgroundColor: 'transparent',
+        marginHorizontal: 10,
     },
 });
-export default GrowerProductsHeader;
