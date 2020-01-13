@@ -70,6 +70,14 @@ const DATA = [
         title: 'Boissons',
         data: ['bière', 'vodka', 'rhum'],
     },
+    {
+        title: 'Glace1',
+        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise'],
+    },
+    {
+        title: 'Boissons2',
+        data: ['bière', 'vodka', 'rhum'],
+    },
 ];
 
 const GrowerProductsScreen = (props: GrowersProductsScreen) => {
@@ -78,7 +86,7 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     useEffect(() => {
         setTimeout(() => {
             setDisplay(true);
-        }, 10)
+        }, 1)
     }, []);
 
     const renderItem = ({item}) => {
@@ -88,24 +96,9 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     };
 
     const scrollMainList = (sectionIndex: Number) => {
-        console.log(sectionIndex);
-        list.current.scrollToLocation({itemIndex: 0, sectionIndex: sectionIndex})
+        list.current.scrollToLocation({itemIndex: 1, sectionIndex: sectionIndex, viewOffset: -120})
     };
 
-     const getItemLayout = sectionListGetItemLayout({
-        // The height of the row with rowData at the given sectionIndex and rowIndex
-        getItemHeight: (rowData, sectionIndex, rowIndex) => sectionIndex === 0 ? 100 : 50,
-
-        // These three properties are optional
-        getSeparatorHeight: () => 1 / PixelRatio.get(), // The height of your separators
-        getSectionHeaderHeight: () => 130, // The height of your section headers
-        getSectionFooterHeight: () => 130, // The height of your section footers
-         listHeaderHeight: 130
-    });
-    const _getItemLayout = (data, index) => {
-        console.log(index);
-        return { length: 130, offset: 20, index };
-    };
     if (display) {
         return (
             <SectionList
@@ -114,8 +107,8 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                 ref={list}
                 keyExtractor={item => item}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingTop: 340 }}
                 showsHorizontalScrollIndicator={false}
-                getItemLayout={_getItemLayout}
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={{height: 50}}>
                         <Text>
@@ -123,7 +116,7 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                         </Text>
                     </View>)}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => list.current.scrollToLocation({itemIndex: 0, sectionIndex: 4})}  style={{overflow: 'hidden',
+                    <TouchableOpacity onPress={() => list.current.scrollToLocation({itemIndex: 0, sectionIndex: 4, viewOffset: 1400})}  style={{overflow: 'hidden',
                         paddingHorizontal: 10,
                         height: 30,
                         flex: 1,
