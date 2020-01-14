@@ -12,7 +12,9 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+
+
+export default function ProductsScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
@@ -69,7 +71,7 @@ export default function HomeScreen() {
   );
 }
 
-HomeScreen.navigationOptions = {
+ProductsScreen.navigationOptions = {
   header: null,
 };
 

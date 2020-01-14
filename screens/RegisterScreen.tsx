@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {View, Text, Image} from 'react-native';
+import React from 'react';
+import {View, Image, KeyboardAvoidingView} from 'react-native';
 import styles from "./styles/Login.style";
 import { LinearGradient } from 'expo-linear-gradient';
 import RegisterForm from '../components/register/RegisterForm'
 
-class RegisterScreen extends Component {
-    render() {
-        return (
+const RegisterScreen =  (props) => {
+    return (
+        <KeyboardAvoidingView behavior="padding" enabled style={{flex: 1}}>
             <LinearGradient
                 colors={['#8FDD3D', '#5CC04A']}
                 style={styles.gradient}
@@ -31,8 +31,8 @@ class RegisterScreen extends Component {
                 </View>
 
             </LinearGradient>
-        )
-    }
+        </KeyboardAvoidingView>
+    )
 }
 
 export default RegisterScreen;

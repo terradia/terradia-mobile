@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
-import { View, Image} from 'react-native';
-import LoginForm from '../components/login/LoginForm'
+import {View, Image, KeyboardAvoidingView} from 'react-native';
+import LoginForm from '../../components/login/LoginForm'
 import { LinearGradient } from 'expo-linear-gradient';
-import styles from './styles/Login.style'
+import styles from '../styles/Login.style'
 
-class LoginScreen extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+export declare interface LoginScreenProps {
+    navigation?: any;
+}
 
-    navigateScreen() {
-        const {navigate} = this.props.navigation;
-        console.log("avant navigate!");
+const LoginScreen = (props: LoginScreenProps) => {
+    const navigateRegister =() => {
+        const {navigate} = props.navigation;
         navigate('Register');
-    }
+    };
 
-    render() {
-        return (
+    const navigateHome =() => {
+        const {navigate} = props.navigation;
+        navigate('Main');
+    };
+
+    return (
+        <KeyboardAvoidingView behavior="padding" enabled style={{flex: 1}}>
             <LinearGradient
                 colors={['#8FDD3D', '#5CC04A']}
                 style={styles.gradient}
@@ -26,26 +30,26 @@ class LoginScreen extends Component {
                 <View style={styles.imageView}>
                     <Image
                         style={{flex:1, height: undefined, width: undefined}}
-                        source={require('../assets/images/terradia.png')}
+                        source={require('../../assets/images/terradia.png')}
                         resizeMode='contain'
                     />
                 </View>
                 <View style={styles.sloganView}>
                     <Image
                         style={{flex:1, height: undefined, width: undefined}}
-                        source={require('../assets/images/slogan.png')}
+                        source={require('../../assets/images/slogan.png')}
                         resizeMode='contain'
                     />
                 </View>
                 <View style={styles.container}>
                     <LoginForm
-                        navigateFunction={this.navigateScreen.bind(this)}
+                        navigateRegister={navigateRegister}
+                        navigateHome={navigateHome}
                     />
                 </View>
-
             </LinearGradient>
-        )
-    }
-}
+        </KeyboardAvoidingView>
+    )
+};
 
 export default LoginScreen;
