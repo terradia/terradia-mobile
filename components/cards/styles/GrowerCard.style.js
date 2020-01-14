@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from 'react-native';
 
 function elevationShadowStyle(elevation) {
     return {
@@ -24,7 +24,7 @@ export default StyleSheet.create({
         marginRight: 10,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     headerView: {
         flexDirection: 'row',
@@ -73,7 +73,7 @@ export default StyleSheet.create({
     bottomElements: {
         flex: 1,
         marginRight: 10,
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-evenly'
     },
     backgroundImage: {
         borderRadius: 10,
@@ -87,18 +87,18 @@ export default StyleSheet.create({
         top: 50,
         zIndex: 10,
         width: '100%',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     growerName: {
         marginLeft: 10,
         marginTop: 20,
         color: 'white',
-        fontSize: 24,
+        fontSize: 24
     },
     discoverProducts: {
         marginLeft: 10,
         color: '#A1A1A1',
-        fontWeight: "500",
+        fontWeight: '500',
         fontSize: 15
     },
     tag: {

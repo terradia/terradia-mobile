@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {AirbnbRating, Avatar} from 'react-native-elements';
-import {AntDesign} from '@expo/vector-icons';
-import style from './styles/GrowerCard.style'
-import {NavigationEventsProps} from "react-navigation";
-
+import React, { Component } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { AirbnbRating, Avatar } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
+import style from './styles/GrowerCard.style';
+import { NavigationEventsProps } from 'react-navigation';
 
 export declare interface GrowerCard {
     navigation?: NavigationEventsProps;
@@ -14,14 +13,23 @@ export declare interface GrowerCard {
 const GrowerCard = (props: GrowerCard) => {
     return (
         <View style={style.mainContainer}>
-            <TouchableOpacity activeOpacity={0.7} style={[style.wrapper, style.shadow1]}
-                              onPress={() => props.navigation.navigate('GrowersProducts', { grower: props.grower})}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={[style.wrapper, style.shadow1]}
+                onPress={() =>
+                    props.navigation.navigate('GrowersProducts', {
+                        grower: props.grower
+                    })
+                }
+            >
                 <Image
                     source={{
-                        uri: 'https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg'}}
-                    style={style.backgroundImage}>
-                </Image>
-                <View style={style.brightness}/>
+                        uri:
+                            'https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg'
+                    }}
+                    style={style.backgroundImage}
+                />
+                <View style={style.brightness} />
                 <View style={style.absoluteView}>
                     <View style={style.headerView}>
                         <View style={style.rates}>
@@ -32,13 +40,21 @@ const GrowerCard = (props: GrowerCard) => {
                                 isDisabled={true}
                                 selectedColor={'white'}
                             />
-                            <Text style={style.textNumberRates}>{props.grower.numberOfMarks > 99 ? '(99+)' : '(' + props.grower.numberOfMarks+ ')'}</Text>
+                            <Text style={style.textNumberRates}>
+                                {props.grower.numberOfMarks > 99
+                                    ? '(99+)'
+                                    : '(' + props.grower.numberOfMarks + ')'}
+                            </Text>
                         </View>
                         <TouchableOpacity>
-                            <AntDesign style={[{margin: 2}, style.shadow1]} name="heart" size={24} color="#60C34A" />
+                            <AntDesign
+                                style={[{ margin: 2 }, style.shadow1]}
+                                name="heart"
+                                size={24}
+                                color="#60C34A"
+                            />
                         </TouchableOpacity>
                     </View>
-
                 </View>
                 <View style={style.growerImageContainer}>
                     <Avatar
@@ -46,7 +62,7 @@ const GrowerCard = (props: GrowerCard) => {
                         rounded
                         source={{
                             uri:
-                                'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg',
+                                'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg'
                         }}
                         containerStyle={[style.shadow1, style.growerImage]}
                     />
@@ -55,22 +71,32 @@ const GrowerCard = (props: GrowerCard) => {
                 <View style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
-                            {props.grower.products.length > 9 ? '(9+)' : props.grower.products.length} produits a découvrir
+                            {props.grower.products.length > 9
+                                ? '(9+)'
+                                : props.grower.products.length}{' '}
+                            produits a découvrir
                         </Text>
                         <View style={style.bottomInformation}>
                             <View style={style.tag}>
-                                <Text style={{color: 'white', fontWeight: '500'}}>
+                                <Text
+                                    style={{
+                                        color: 'white',
+                                        fontWeight: '500'
+                                    }}
+                                >
                                     NOUVEAUTE
                                 </Text>
                             </View>
-                            <Text style={style.bottomInformationText}>~900m</Text>
+                            <Text style={style.bottomInformationText}>
+                                ~900m
+                            </Text>
                             <Text style={style.bottomInformationText}>€€</Text>
                         </View>
                     </View>
                 </View>
             </TouchableOpacity>
         </View>
-    )
-}
+    );
+};
 
 export default GrowerCard;

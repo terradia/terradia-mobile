@@ -1,27 +1,36 @@
-import React, {forwardRef} from 'react'
+import React, { forwardRef } from 'react';
 import {} from 'react-native';
-import GrowersProductsForegroundHeader from "./GrowersProductsForegroundHeader";
-import {TouchableOpacity} from "react-native";
-import {Feather, FontAwesome, Ionicons} from "@expo/vector-icons";
-import {View} from "react-native";
-import {Image} from "react-native";
-import {Text} from "react-native";
-import GrowersProductsCategories from "./GrowersProductsCategories";
-import {StyleSheet} from "react-native";
-
+import GrowersProductsForegroundHeader from './GrowersProductsForegroundHeader';
+import { TouchableOpacity } from 'react-native';
+import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { View } from 'react-native';
+import { Image } from 'react-native';
+import { Text } from 'react-native';
+import GrowersProductsCategories from './GrowersProductsCategories';
+import { StyleSheet } from 'react-native';
 
 export const renderFixedHeader = (navigation: any) => {
     return (
-        <TouchableOpacity style={{top: 40,left: 10, height: 700, position: 'absolute'}} onPress={() => {navigation.goBack()}}>
-            <FontAwesome style={{margin: 3}} name="arrow-left" size={24} color="white" />
+        <TouchableOpacity
+            style={{ top: 40, left: 10, height: 700, position: 'absolute' }}
+            onPress={() => {
+                navigation.goBack();
+            }}
+        >
+            <FontAwesome
+                style={{ margin: 3 }}
+                name="arrow-left"
+                size={24}
+                color="white"
+            />
         </TouchableOpacity>
-    )
+    );
 };
 
 export declare interface renderNavBarProductsHeader {
     data?: any;
     scrollMainList?: any;
-    currentIndex?: Number;
+    currentIndex?: number;
     setBlockUpdateIndex?: any;
     setCurrentIndex?: any;
     grower?: object;
@@ -31,14 +40,25 @@ export const renderNavBar = (props: renderNavBarProductsHeader) => {
     return (
         <View style={styles.navContainer}>
             <View style={styles.backgroundContainer}>
-                <View style={styles.statusBar}/>
-                <View style={styles.navBar}><View/>
+                <View style={styles.statusBar} />
+                <View style={styles.navBar}>
+                    <View />
                     <Text style={styles.navBarGrowerName}>
-                        { props.grower.name }
+                        {props.grower.name}
                     </Text>
                     <TouchableOpacity style={styles.iconsContainer}>
-                        <Feather style={styles.shareIcon} name="share" size={24} color="white"/>
-                        <Ionicons style={styles.infoIcon} name="ios-information-circle-outline" size={24} color="white"/>
+                        <Feather
+                            style={styles.shareIcon}
+                            name="share"
+                            size={24}
+                            color="white"
+                        />
+                        <Ionicons
+                            style={styles.infoIcon}
+                            name="ios-information-circle-outline"
+                            size={24}
+                            color="white"
+                        />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -60,7 +80,10 @@ export const renderNavBar = (props: renderNavBarProductsHeader) => {
                                 <Text
                                     style={[
                                         styles.tabText,
-                                        { color: isActive ? '#090909' : '#9e9e9e'
+                                        {
+                                            color: isActive
+                                                ? '#090909'
+                                                : '#9e9e9e'
                                         }
                                     ]}
                                 >
@@ -68,20 +91,31 @@ export const renderNavBar = (props: renderNavBarProductsHeader) => {
                                 </Text>
                             </View>
                         )}
-                        sections={props.data.map((item, index) => ({ ...item, index }))} currentIndex={props.currentIndex} scrollMainList={props.scrollMainList}/>
+                        sections={props.data.map((item, index) => ({
+                            ...item,
+                            index
+                        }))}
+                        currentIndex={props.currentIndex}
+                        scrollMainList={props.scrollMainList}
+                    />
                 </View>
             </View>
         </View>
-    )
+    );
 };
 
 export const renderImageBackground = () => {
     return (
         <View>
-            <Image source={{ uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`, height: 250 }}/>
-            <View style={styles.brightness}/>
+            <Image
+                source={{
+                    uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`,
+                    height: 250
+                }}
+            />
+            <View style={styles.brightness} />
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -125,7 +159,7 @@ const styles = StyleSheet.create({
     },
     statusBar: {
         height: 30,
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
     navBar: {
         height: 50,
@@ -133,7 +167,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: 'transparent',
-        marginHorizontal: 10,
+        marginHorizontal: 10
     },
     tabContainer: {
         borderBottomColor: '#090909'
@@ -143,5 +177,5 @@ const styles = StyleSheet.create({
         color: '#9e9e9e',
         fontSize: 18,
         fontWeight: '500'
-    },
+    }
 });

@@ -1,13 +1,13 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
         paddingTop: 30,
         backgroundColor: 'white',
-        alignItems: "center",
+        alignItems: 'center',
         height: '100%',
         width: '100%',
-        borderRadius: 16,
+        borderRadius: 16
     },
     input: {
         marginTop: 4,
@@ -17,7 +17,7 @@ export default StyleSheet.create({
     containerView: {
         width: '100%',
         paddingBottom: 20,
-        paddingLeft: '10%',
+        paddingLeft: '10%'
     },
     wrapper: {
         width: '100%',
@@ -28,16 +28,16 @@ export default StyleSheet.create({
         color: 'red'
     },
     textTouchable: {
-        color: 'red',
+        color: 'red'
     },
     registerView: {
         width: '100%',
         alignItems: 'center',
-        paddingTop: 40,
+        paddingTop: 40
     },
     imageView: {
         height: '80%',
         alignItems: 'center',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     }
 });

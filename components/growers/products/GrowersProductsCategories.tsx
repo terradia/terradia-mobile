@@ -73,13 +73,14 @@ export default class TabBar extends React.PureComponent<IProps, any> {
             0
         );
 
-        newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
+        newScrollX =
+            newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
         return newScrollX;
-    }
+    };
 
     onTabContainerLayout = (e: LayoutChangeEvent) => {
         this._tabContainerMeasurements = e.nativeEvent.layout;
-    }
+    };
 
     onTabLayout = (key: number) => (ev: LayoutChangeEvent) => {
         const { x, width, height } = ev.nativeEvent.layout;
@@ -89,7 +90,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
             width,
             height
         };
-    }
+    };
 
     renderTab = (section: SectionListData<any>, key: number) => {
         const { renderTab, onPress, currentIndex } = this.props;
@@ -104,7 +105,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
                 {renderTab({ isActive, ...section })}
             </TouchableOpacity>
         );
-    }
+    };
 
     render() {
         const { sections, tabBarStyle } = this.props;

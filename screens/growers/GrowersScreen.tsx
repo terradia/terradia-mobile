@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, Platform, FlatList} from 'react-native';
+import { View, StyleSheet, Platform, FlatList } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import FilterGrowers from '../../components/growers/Filter';
-import {gql} from "apollo-boost";
-import {useQuery} from "@apollo/react-hooks";
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 
 const IS_IPHONE_X = true;
 // const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
@@ -13,28 +14,45 @@ const HEADER_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 88 : 64) : 64;
 const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
 
 export declare interface GrowersScreen {
-    navigation?: any;
+    navigation?: NavigationStackScreenProps;
 }
 
 const GET_COMPANIES = gql`
-    query allCompanies {getAllCompanies {
-        name,averageMark, numberOfMarks, description, products {name}
+    query allCompanies {
+        getAllCompanies {
+            name
+            averageMark
+            numberOfMarks
+            description
+            products {
+                name
+            }
+        }
     }
-    }`;
+`;
 
 export default function GrowersScreen(props: GrowersScreen) {
     const { loading, error, data } = useQuery(GET_COMPANIES);
 
     const renderContent = () => {
         if (loading) {
-            return (<View/>)
+            return <View />;
         }
         return (
-            <View style={{flex: 1}}>
-                <FilterGrowers/>
-                <FlatList data={data.getAllCompanies} keyExtractor={item => item.name} renderItem={({item}) => <GrowerCard navigation={props.navigation} grower={item}/> }/>
+            <View style={{ flex: 1 }}>
+                <FilterGrowers />
+                <FlatList
+                    data={data.getAllCompanies}
+                    keyExtractor={item => item.name}
+                    renderItem={({ item }) => (
+                        <GrowerCard
+                            navigation={props.navigation}
+                            grower={item}
+                        />
+                    )}
+                />
             </View>
-        )
+        );
     };
 
     return (
@@ -59,14 +77,14 @@ export default function GrowersScreen(props: GrowersScreen) {
 }
 
 GrowersScreen.navigationOptions = {
-    title: 'Producteurs',
+    title: 'Producteurs'
 };
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: 0,
         backgroundColor: 'white',
-        flex: 1,
+        flex: 1
     },
     contentContainer: {
         flexGrow: 1,
@@ -80,7 +98,6 @@ const styles = StyleSheet.create({
         marginRight: '30%'
     },
     innerContainerStyle: {
-        marginBottom: '10%',
-
+        marginBottom: '10%'
     }
 });
