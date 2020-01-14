@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProfileScreen from '../screens/authentication/ProfileScreen';
