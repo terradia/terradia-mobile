@@ -7,12 +7,14 @@ import style from './styles/GrowerCard.style'
 
 export declare interface GrowerCard {
     navigation?: any;
+    grower?: object;
 }
 
 const GrowerCard = (props: GrowerCard) => {
     return (
         <View style={style.mainContainer}>
-            <TouchableOpacity activeOpacity={0.7} style={[style.wrapper, style.shadow1]} onPress={() => props.navigation.navigate('GrowersProducts')}>
+            <TouchableOpacity activeOpacity={0.7} style={[style.wrapper, style.shadow1]}
+                              onPress={() => props.navigation.navigate('GrowersProducts', { grower: props.grower})}>
                 <Image
                     source={{
                         uri: 'https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg'}}
@@ -23,13 +25,13 @@ const GrowerCard = (props: GrowerCard) => {
                     <View style={style.headerView}>
                         <View style={style.rates}>
                             <AirbnbRating
-                                defaultRating={4}
+                                defaultRating={props.grower.averageMark}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
                                 selectedColor={'white'}
                             />
-                            <Text style={style.textNumberRates}>(99+)</Text>
+                            <Text style={style.textNumberRates}>{props.grower.numberOfMarks > 99 ? '(99+)' : '(' + props.grower.numberOfMarks+ ')'}</Text>
                         </View>
                         <TouchableOpacity>
                             <AntDesign style={[{margin: 2}, style.shadow1]} name="heart" size={24} color="#60C34A" />
@@ -47,12 +49,12 @@ const GrowerCard = (props: GrowerCard) => {
                         }}
                         containerStyle={[style.shadow1, style.growerImage]}
                     />
-                    <Text style={style.growerName}>Au brasseur</Text>
+                    <Text style={style.growerName}>{props.grower.name}</Text>
                 </View>
                 <View style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
-                            9+ produits a découvrir
+                            {props.grower.products.length > 9 ? '(9+)' : props.grower.products.length} produits a découvrir
                         </Text>
                         <View style={style.bottomInformation}>
                             <View style={style.tag}>

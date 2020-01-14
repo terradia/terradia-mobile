@@ -64,7 +64,7 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-
+    const [grower, setGrower] = useState(props.navigation.getParam('grower', {}))
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
