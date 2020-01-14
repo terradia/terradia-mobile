@@ -2,44 +2,22 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
     StyleSheet,
     Text,
-    FlatList,
     TouchableOpacity,
-    SectionList, View, PixelRatio
+    SectionList,
+    View
 } from "react-native";
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader'
 import {renderFixedHeader, renderImageBackground, renderNavBar} from '../../components/growers/products/GrowersProductsHeader';
-import GrowersProductsCategories from "../../components/growers/products/GrowersProductsCategories";
-import sectionListGetItemLayout from 'react-native-section-list-get-item-layout'
+
+
+const HEADER_SIZE = 170;
+const LIST_HEADER_HEIGHT = 100;
+const LIST_ELEM_HEIGHT = 50;
 
 export declare interface GrowersProductsScreen {
     navigation?: any;
 }
-
-const LIST = [
-    'Simplicity Matters',
-    'Hammock Driven Development',
-    'Value of Values',
-    'Are We There Yet?',
-    'The Language of the System',
-    'Design, Composition, and Performancrrrrrrre',
-    'Clojure core.async',
-    'The Functional Database',
-    'Deconstructing the Database',
-    'Hammock Driven Development',
-    'Value of Values',
-    'Simplicity Matters',
-    'Hammock Driven Development',
-    'Value of Values',
-    'Are We There Yet?',
-    'The Language of the System',
-    'Design, Composition, and Performance',
-    'Clojure core.async',
-    'The Functional Database',
-    'Deconstructing the Database',
-    'Hammock Driven Development',
-    'Value of Values'
-];
 
 const DATA = [
     {
@@ -82,8 +60,21 @@ const DATA = [
 
 const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     const list = useRef(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [display, setDisplay] = useState(false);
+    const [positionArray, setPositionArray] = useState([]);
+    const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
+
+    const fillArrayPositions = () =>{
+        let arr = [HEADER_SIZE];
+        DATA.forEach((item, index) => {
+            arr.push((item.data.length * LIST_ELEM_HEIGHT) + LIST_HEADER_HEIGHT + arr[index] - 10);
+        });
+        setPositionArray(arr);
+    };
+
     useEffect(() => {
+        fillArrayPositions();
         setTimeout(() => {
             setDisplay(true);
         }, 1)
@@ -99,6 +90,27 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
         list.current.scrollToLocation({itemIndex: 1, sectionIndex: sectionIndex, viewOffset: -120})
     };
 
+    const getCurrentSectionInList = (offsetY) => {
+        let itemIdx = 0;
+        if (offsetY > HEADER_SIZE)  {
+            for (let i = 0; i < positionArray.length; i++) {
+                if (offsetY <= positionArray[i]) {
+                    itemIdx = i;
+                    break;
+                }
+            }
+        }
+        itemIdx = itemIdx === 0 ? 1 : itemIdx;
+        if (itemIdx !== currentIndex) {
+            setCurrentIndex(itemIdx);
+        }
+    };
+
+    const handleScroll = (event) => {
+        if (blockUpdateIndex) return;
+        getCurrentSectionInList(event.nativeEvent.contentOffset.y)
+    };
+
     if (display) {
         return (
             <SectionList
@@ -110,15 +122,15 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                 contentContainerStyle={{ paddingTop: 340 }}
                 showsHorizontalScrollIndicator={false}
                 renderSectionHeader={({ section: { title } }) => (
-                    <View style={{height: 50}}>
+                    <View style={{height: LIST_HEADER_HEIGHT}}>
                         <Text>
                             {title}
                         </Text>
                     </View>)}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => list.current.scrollToLocation({itemIndex: 0, sectionIndex: 4, viewOffset: 1400})}  style={{overflow: 'hidden',
+                    <TouchableOpacity style={{overflow: 'hidden',
                         paddingHorizontal: 10,
-                        height: 30,
+                        height: LIST_ELEM_HEIGHT,
                         flex: 1,
                         width: '100%',
                         backgroundColor: 'white',
@@ -130,33 +142,33 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                         </Text>
                     </TouchableOpacity>
                 )}
-                    renderScrollComponent={() => (
-                        <ParallaxScrollView
-                            style={{flex: 1, width: '100%'}}
-                            backgroundColor="white"
-                            parallaxHeaderHeight={300}
-                            stickyHeaderHeight={130}
-                            outputScaleValue={20}
-                            backgroundScrollSpeed={20}
-                            renderFixedHeader={() => (renderFixedHeader(props.navigation))}
-                            renderBackground={() => (renderImageBackground())}
-                            renderStickyHeader={() => (renderNavBar(DATA, scrollMainList))}
-                            fadeOutForeground={false}
-                            showsVerticalScrollIndicator={false}
-                            renderForeground={GrowersProductsForegroundHeader}>
-                        </ParallaxScrollView>)} />
+                renderScrollComponent={() => (
+                    <ParallaxScrollView
+                        onScroll={(event) => handleScroll(event)}
+                        style={{flex: 1, width: '100%'}}
+                        backgroundColor="white"
+                        parallaxHeaderHeight={300}
+                        stickyHeaderHeight={130}
+                        renderFixedHeader={() => (renderFixedHeader(props.navigation))}
+                        renderBackground={() => (renderImageBackground())}
+                        renderStickyHeader={() => (renderNavBar(DATA, scrollMainList, currentIndex - 1, setBlockUpdateIndex, setCurrentIndex))}
+                        fadeOutForeground={false}
+                        showsVerticalScrollIndicator={false}
+                        onMomentumScrollEnd={() => setBlockUpdateIndex(false)}
+                        renderForeground={GrowersProductsForegroundHeader}>
+                    </ParallaxScrollView>)} />
         )
     }
     if (!display) {
         return (
-                <SectionList
-                    style={styles.containerBox}
-                    sections={DATA}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item, index) => item + index}
-                    renderItem={renderItem}
-                />
+            <SectionList
+                style={styles.containerBox}
+                sections={DATA}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item, index) => item + index}
+                renderItem={renderItem}
+            />
         )
     }
 };

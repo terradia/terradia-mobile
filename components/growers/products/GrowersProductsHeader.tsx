@@ -1,7 +1,6 @@
 import React, {forwardRef} from 'react'
 import {} from 'react-native';
 import GrowersProductsForegroundHeader from "./GrowersProductsForegroundHeader";
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import {TouchableOpacity} from "react-native";
 import {Feather, FontAwesome, Ionicons} from "@expo/vector-icons";
 import {View} from "react-native";
@@ -19,7 +18,7 @@ export const renderFixedHeader = (navigation: any) => {
     )
 };
 
-export const renderNavBar = (data,scrollMainList) => {
+export const renderNavBar = (data,scrollMainList, currentIndex, setBlockUpdateIndex, setCurrentIndex) => {
     return (
         <View style={styles.navContainer}>
             <View style={styles.backgroundContainer}>
@@ -36,7 +35,30 @@ export const renderNavBar = (data,scrollMainList) => {
             </View>
             <View style={styles.categoriesBackgroundContainer}>
                 <View style={styles.categoriesBackground}>
-                    <GrowersProductsCategories categories={data.map((item) => item.title)} scrollMainList={scrollMainList}/>
+                    <GrowersProductsCategories
+                        onPress={(index: number) => {
+                            setBlockUpdateIndex(true);
+                            setCurrentIndex(index + 1);
+                            scrollMainList(index);
+                        }}
+                        renderTab={({ title, isActive }) => (
+                            <View
+                                style={[
+                                    styles.tabContainer,
+                                    { borderBottomWidth: isActive ? 1 : 0 }
+                                ]}
+                            >
+                                <Text
+                                    style={[
+                                        styles.tabText,
+                                        { color: isActive ? '#090909' : '#9e9e9e' }
+                                    ]}
+                                >
+                                    {title}
+                                </Text>
+                            </View>
+                        )}
+                        sections={data.map((item, index) => ({ ...item, index }))} currentIndex={currentIndex} scrollMainList={scrollMainList}/>
                 </View>
             </View>
         </View>
@@ -102,5 +124,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'transparent',
         marginHorizontal: 10,
+    },
+    tabContainer: {
+        borderBottomColor: '#090909'
+    },
+    tabText: {
+        padding: 15,
+        color: '#9e9e9e',
+        fontSize: 18,
+        fontWeight: '500'
     },
 });
