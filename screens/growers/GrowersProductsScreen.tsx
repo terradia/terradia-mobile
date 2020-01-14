@@ -9,11 +9,11 @@ import {
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader'
 import {renderFixedHeader, renderImageBackground, renderNavBar} from '../../components/growers/products/GrowersProductsHeader';
-
+import {renderHeaders, renderItems} from '../../components/growers/products/GrowersProductsListRender'
 
 const HEADER_SIZE = 170;
-const LIST_HEADER_HEIGHT = 100;
-const LIST_ELEM_HEIGHT = 50;
+const LIST_HEADER_HEIGHT = 40;
+const LIST_ELEM_HEIGHT = 120;
 
 export declare interface GrowersProductsScreen {
     navigation?: any;
@@ -65,10 +65,15 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
 
+    /**
+     * Create an array of positions
+     * Each element of this array is the position of each section
+     * First position is Header Size + Section size
+     */
     const fillArrayPositions = () =>{
         let arr = [HEADER_SIZE];
         DATA.forEach((item, index) => {
-            arr.push((item.data.length * LIST_ELEM_HEIGHT) + LIST_HEADER_HEIGHT + arr[index] - 10);
+            arr.push((item.data.length * LIST_ELEM_HEIGHT) + LIST_HEADER_HEIGHT + arr[index]);
         });
         setPositionArray(arr);
     };
@@ -86,10 +91,21 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
         )
     };
 
+    /**
+     * Scroll to index
+     * ViewsOffset => Header size
+     * ViewPosition => On the header name (- is above + is over)
+     * @param sectionIndex
+     */
     const scrollMainList = (sectionIndex: Number) => {
-        list.current.scrollToLocation({itemIndex: 1, sectionIndex: sectionIndex, viewOffset: -120})
+        list.current.scrollToLocation({itemIndex: 1, sectionIndex: sectionIndex, viewOffset: -120, viewPosition: -0.02})
     };
 
+    /**
+     * Use array of position and use the current offset to get the current section position
+     * If offset < Header thats mean first section (header + first section)
+     * @param offsetY
+     */
     const getCurrentSectionInList = (offsetY) => {
         let itemIdx = 0;
         if (offsetY > HEADER_SIZE)  {
@@ -123,23 +139,17 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                 showsHorizontalScrollIndicator={false}
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={{height: LIST_HEADER_HEIGHT}}>
-                        <Text>
-                            {title}
-                        </Text>
+                        {renderHeaders(title)}
                     </View>)}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={{overflow: 'hidden',
-                        paddingHorizontal: 10,
-                        height: LIST_ELEM_HEIGHT,
-                        flex: 1,
-                        width: '100%',
-                        backgroundColor: 'white',
-                        borderColor: '#ccc',
-                        borderBottomWidth: 1,
-                        justifyContent: 'center'} }>
-                        <Text style={ {} }>
-                            { item }
-                        </Text>
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={{
+                            height: LIST_ELEM_HEIGHT,
+                            borderColor: '#ccc',
+                            borderTopWidth: .5
+                        } }>
+                        {renderItems(item)}
                     </TouchableOpacity>
                 )}
                 renderScrollComponent={() => (
@@ -164,6 +174,7 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
             <SectionList
                 style={styles.containerBox}
                 sections={DATA}
+                initialNumToRender={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => item + index}
