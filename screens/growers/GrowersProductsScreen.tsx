@@ -13,7 +13,7 @@ import {renderHeaders, renderItems} from '../../components/growers/products/Grow
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
-const LIST_ELEM_HEIGHT = 120;
+const LIST_ELEM_HEIGHT = 130;
 
 export declare interface GrowersProductsScreen {
     navigation?: any;
@@ -64,7 +64,7 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-    const [grower, setGrower] = useState(props.navigation.getParam('grower', {}))
+    const [grower, setGrower] = useState(props.navigation.getParam('grower', {}));
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
@@ -158,14 +158,14 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                         style={{flex: 1, width: '100%'}}
                         backgroundColor="white"
                         parallaxHeaderHeight={300}
-                        stickyHeaderHeight={130}
+                        stickyHeaderHeight={140}
                         renderFixedHeader={() => (renderFixedHeader(props.navigation))}
                         renderBackground={() => (renderImageBackground())}
-                        renderStickyHeader={() => (renderNavBar(DATA, scrollMainList, currentIndex - 1, setBlockUpdateIndex, setCurrentIndex))}
+                        renderStickyHeader={() => (renderNavBar({data: DATA, scrollMainList, currentIndex: currentIndex - 1, setBlockUpdateIndex, setCurrentIndex, grower}))}
                         fadeOutForeground={false}
                         showsVerticalScrollIndicator={false}
                         onMomentumScrollEnd={() => setBlockUpdateIndex(false)}
-                        renderForeground={GrowersProductsForegroundHeader}>
+                        renderForeground={() => GrowersProductsForegroundHeader({grower})}>
                     </ParallaxScrollView>)} />
         )
     }

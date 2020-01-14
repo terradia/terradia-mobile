@@ -3,10 +3,11 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {AirbnbRating, Avatar} from 'react-native-elements';
 import {AntDesign} from '@expo/vector-icons';
 import style from './styles/GrowerCard.style'
+import {NavigationEventsProps} from "react-navigation";
 
 
 export declare interface GrowerCard {
-    navigation?: any;
+    navigation?: NavigationEventsProps;
     grower?: object;
 }
 

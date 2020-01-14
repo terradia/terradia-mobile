@@ -3,7 +3,12 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import { Avatar, AirbnbRating } from 'react-native-elements'
 import {FontAwesome} from "@expo/vector-icons";
 
-const GrowersProductsForegroundHeader = () => {
+
+export declare interface GrowersProductsForegroundHeaderProps {
+    grower?: object;
+}
+
+const GrowersProductsForegroundHeader = (props: GrowersProductsForegroundHeaderProps) => {
     return (
         <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
             <View style={{height: 300 / 2, backgroundColor: '#ECECEC', width: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 10}}>
@@ -29,26 +34,26 @@ const GrowersProductsForegroundHeader = () => {
                             </Text>
                         </View>
                         <View>
-                            <Text style={{fontSize: 20, color: '#575757', fontWeight: '500'}}>Au brasseur Strasbourg</Text>
+                            <Text style={{fontSize: 20, color: '#575757', fontWeight: '500'}}>{ props.grower.name }</Text>
                         </View>
                         <View style={styles.rates}>
                             <AirbnbRating
-                                defaultRating={4}
+                                defaultRating={props.grower.averageMark}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
                                 selectedColor={'#4AA542'}
                             />
-                            <Text style={styles.textNumberRates}>(99+)</Text>
+                            <Text style={styles.textNumberRates}>{props.grower.numberOfMarks > 99 ? '(99+)' : '(' + props.grower.numberOfMarks+ ')'}</Text>
                         </View>
                     </View>
 
                 </View>
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', marginLeft: 10}}>
-                    <Text style={{width: '92%'}}>
-                        Ce restaurant propose des spécialités alsaciennes autour de la cuve en...
+                    <Text  numberOfLines={2} style={{width: '85%'}}>
+                        {props.grower.description}
                     </Text>
-                    <TouchableOpacity style={{width: '8%', justifyContent: 'center'}}>
+                    <TouchableOpacity style={{width: '15%', justifyContent: 'center', alignItems: 'center'}}>
                         <FontAwesome style={{margin: 3}} name="arrow-down" size={24} color="#4AA542" />
                     </TouchableOpacity>
                 </View>

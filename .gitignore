@@ -66,3 +66,7 @@ typings/
 
 # deleting DS Store from macOS
 *.DS_Store
+
+.expo/packager-info.json
+
+web-build/package-lock.json

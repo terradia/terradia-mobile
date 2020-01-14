@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Platform, Text, AsyncStorage, FlatList} from 'react-native';
+import {View, StyleSheet, Platform, FlatList} from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import FilterGrowers from '../../components/growers/Filter';
@@ -18,7 +18,7 @@ export declare interface GrowersScreen {
 
 const GET_COMPANIES = gql`
     query allCompanies {getAllCompanies {
-        name,averageMark, numberOfMarks, products {name}
+        name,averageMark, numberOfMarks, description, products {name}
     }
     }`;
 
@@ -32,11 +32,7 @@ export default function GrowersScreen(props: GrowersScreen) {
         return (
             <View style={{flex: 1}}>
                 <FilterGrowers/>
-                <FlatList data={data.getAllCompanies} renderItem={({item}) => <GrowerCard navigation={props.navigation} grower={item}/> }/>
-
-                {/*<GrowerCard/>*/}
-                {/*<GrowerCard/>*/}
-                {/*<GrowerCard/>*/}
+                <FlatList data={data.getAllCompanies} keyExtractor={item => item.name} renderItem={({item}) => <GrowerCard navigation={props.navigation} grower={item}/> }/>
             </View>
         )
     };

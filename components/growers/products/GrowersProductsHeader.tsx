@@ -18,14 +18,23 @@ export const renderFixedHeader = (navigation: any) => {
     )
 };
 
-export const renderNavBar = (data,scrollMainList, currentIndex, setBlockUpdateIndex, setCurrentIndex) => {
+export declare interface renderNavBarProductsHeader {
+    data?: any;
+    scrollMainList?: any;
+    currentIndex?: Number;
+    setBlockUpdateIndex?: any;
+    setCurrentIndex?: any;
+    grower?: object;
+}
+
+export const renderNavBar = (props: renderNavBarProductsHeader) => {
     return (
         <View style={styles.navContainer}>
             <View style={styles.backgroundContainer}>
                 <View style={styles.statusBar}/>
                 <View style={styles.navBar}><View/>
                     <Text style={styles.navBarGrowerName}>
-                        Au brasseur Strasbourg
+                        { props.grower.name }
                     </Text>
                     <TouchableOpacity style={styles.iconsContainer}>
                         <Feather style={styles.shareIcon} name="share" size={24} color="white"/>
@@ -37,28 +46,29 @@ export const renderNavBar = (data,scrollMainList, currentIndex, setBlockUpdateIn
                 <View style={styles.categoriesBackground}>
                     <GrowersProductsCategories
                         onPress={(index: number) => {
-                            setBlockUpdateIndex(true);
-                            setCurrentIndex(index + 1);
-                            scrollMainList(index);
+                            props.setBlockUpdateIndex(true);
+                            props.setCurrentIndex(index + 1);
+                            props.scrollMainList(index);
                         }}
                         renderTab={({ title, isActive }) => (
                             <View
                                 style={[
                                     styles.tabContainer,
-                                    { borderBottomWidth: isActive ? 1 : 0 }
+                                    { borderBottomWidth: isActive ? 1.5 : 0 }
                                 ]}
                             >
                                 <Text
                                     style={[
                                         styles.tabText,
-                                        { color: isActive ? '#090909' : '#9e9e9e' }
+                                        { color: isActive ? '#090909' : '#9e9e9e'
+                                        }
                                     ]}
                                 >
                                     {title}
                                 </Text>
                             </View>
                         )}
-                        sections={data.map((item, index) => ({ ...item, index }))} currentIndex={currentIndex} scrollMainList={scrollMainList}/>
+                        sections={props.data.map((item, index) => ({ ...item, index }))} currentIndex={props.currentIndex} scrollMainList={props.scrollMainList}/>
                 </View>
             </View>
         </View>
