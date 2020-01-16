@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
-import styles from './styles/Login.style';
+import styles from '../styles/Login.style';
 import { LinearGradient } from 'expo-linear-gradient';
-import RegisterForm from '../components/register/RegisterForm';
+import RegisterForm from '../../components/register/RegisterForm';
 
-const RegisterScreen = props => {
+const RegisterScreen: FunctionComponent<any> = props => {
     return (
         <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}>
             <LinearGradient
@@ -16,14 +16,14 @@ const RegisterScreen = props => {
                 <View style={styles.imageView}>
                     <Image
                         style={{ flex: 1, height: undefined, width: undefined }}
-                        source={require('../assets/images/terradia.png')}
+                        source={require('../../assets/images/terradia.png')}
                         resizeMode="contain"
                     />
                 </View>
                 <View style={styles.sloganView}>
                     <Image
                         style={{ flex: 1, height: undefined, width: undefined }}
-                        source={require('../assets/images/slogan.png')}
+                        source={require('../../assets/images/slogan.png')}
                         resizeMode="contain"
                     />
                 </View>
