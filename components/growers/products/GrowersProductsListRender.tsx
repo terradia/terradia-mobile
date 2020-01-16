@@ -4,7 +4,7 @@ import styles from './styles/GrowersProductsListRender.style';
 
 export const renderHeaders: FunctionComponent<string> = (value: string) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', paddingLeft: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: '600' }}>
                 {value.toUpperCase()}
             </Text>
@@ -23,7 +23,12 @@ export const renderItems: FunctionComponent<any> = () => {
                         </Text>
                     </View>
                     <View style={styles.spacer}>
-                        <Text style={styles.textsColor}>
+                        <Text
+                            style={[
+                                styles.textsColor,
+                                styles.productDescription
+                            ]}
+                        >
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt, incididunt,
                             incididunt
@@ -33,7 +38,7 @@ export const renderItems: FunctionComponent<any> = () => {
                         <View />
                         <View>
                             <Text style={[styles.priceTag, styles.textsColor]}>
-                                4.5$
+                                4.5€
                             </Text>
                         </View>
                     </View>

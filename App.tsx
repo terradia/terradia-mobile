@@ -98,9 +98,13 @@ async function loadResourcesAsync() {
             ...Ionicons.font,
             // We include SpaceMono because we use it in HomeScreen.js. Feel free to
             // remove this if you are not using it in your app
-            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf')
+            Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
+            MontserratSemiBold: require('./assets/fonts/Montserrat-Medium.ttf'),
+            MontserratBold: require('./assets/fonts/Montserrat-Bold.ttf'),
+            MontserratLight: require('./assets/fonts/Montserrat-Light.ttf')
         })
     ]);
+    return;
 }
 
 function handleLoadingError(error) {

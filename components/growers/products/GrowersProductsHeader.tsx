@@ -55,7 +55,6 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
             <View style={styles.backgroundContainer}>
                 <View style={styles.statusBar} />
                 <View style={styles.navBar}>
-                    <View />
                     <Text style={styles.navBarGrowerName}>{grower.name}</Text>
                     <TouchableOpacity style={styles.iconsContainer}>
                         <Feather

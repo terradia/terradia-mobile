@@ -16,7 +16,7 @@ import styles from './styles/GrowerProductsScreen.style';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
-const LIST_ELEM_HEIGHT = 130;
+const LIST_ELEM_HEIGHT = 135;
 
 export declare interface GrowersProductsScreen {
     navigation?: NavigationStackScreenProps;
@@ -177,7 +177,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                         style={{ flex: 1, width: '100%' }}
                         backgroundColor="white"
                         parallaxHeaderHeight={300}
-                        stickyHeaderHeight={140}
+                        stickyHeaderHeight={133}
                         renderFixedHeader={(): any =>
                             renderFixedHeader({ navigation })
                         }

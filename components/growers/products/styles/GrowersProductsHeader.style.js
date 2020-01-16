@@ -14,7 +14,9 @@ export default styles = StyleSheet.create({
     },
     navBarGrowerName: {
         color: 'white',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'MontserratSemiBold',
+        marginLeft: 35
     },
     iconsContainer: {
         flexDirection: 'row'

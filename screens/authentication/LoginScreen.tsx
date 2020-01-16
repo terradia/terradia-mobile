@@ -2,7 +2,7 @@ import React, { Component, FunctionComponent } from 'react';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import LoginForm from '../../components/login/LoginForm';
 import { LinearGradient } from 'expo-linear-gradient';
-import styles from '../styles/Login.style';
+import styles from './styles/Login.style';
 
 export declare interface LoginScreenProps {
     navigation?: any;
