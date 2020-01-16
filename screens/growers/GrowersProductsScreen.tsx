@@ -1,79 +1,88 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    SectionList,
-    View
-} from "react-native";
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { Text, TouchableOpacity, SectionList, View } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader'
-import {renderFixedHeader, renderImageBackground, renderNavBar} from '../../components/growers/products/GrowersProductsHeader';
-import {renderHeaders, renderItems} from '../../components/growers/products/GrowersProductsListRender'
+import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader';
+import {
+    renderFixedHeader,
+    renderImageBackground,
+    renderNavBar
+} from '../../components/growers/products/GrowersProductsHeader';
+import {
+    renderHeaders,
+    renderItems
+} from '../../components/growers/products/GrowersProductsListRender';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
+import styles from './styles/GrowerProductsScreen.style';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 130;
 
 export declare interface GrowersProductsScreen {
-    navigation?: any;
+    navigation?: NavigationStackScreenProps;
 }
 
 const DATA = [
     {
         title: 'Main dishes',
-        data: ['Pizza', 'Burger', 'Risotto'],
+        data: ['Pizza', 'Burger', 'Risotto']
     },
     {
         title: 'Sides',
-        data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+        data: ['French Fries', 'Onion Rings', 'Fried Shrimps']
     },
     {
         title: 'Drinks',
-        data: ['Water', 'Coke', 'Beer'],
+        data: ['Water', 'Coke', 'Beer']
     },
     {
         title: 'Desserts',
-        data: ['Cheese Cake', 'Ice Cream'],
+        data: ['Cheese Cake', 'Ice Cream']
     },
     {
         title: 'Bière',
-        data: ['Méga démon', '8.6', 'Maximator', 'Leffe'],
+        data: ['Méga démon', '8.6', 'Maximator', 'Leffe']
     },
     {
         title: 'Glace',
-        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise'],
+        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise']
     },
     {
         title: 'Boissons',
-        data: ['bière', 'vodka', 'rhum'],
+        data: ['bière', 'vodka', 'rhum']
     },
     {
         title: 'Glace1',
-        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise'],
+        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise']
     },
     {
         title: 'Boissons2',
-        data: ['bière', 'vodka', 'rhum'],
-    },
+        data: ['bière', 'vodka', 'rhum']
+    }
 ];
 
-const GrowerProductsScreen = (props: GrowersProductsScreen) => {
+const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
+    navigation
+}) => {
     const list = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-    const [grower, setGrower] = useState(props.navigation.getParam('grower', {}));
+    const [grower, setGrower] = useState(navigation.getParam('grower', {}));
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
      * First position is Header Size + Section size
      */
-    const fillArrayPositions = () =>{
-        let arr = [HEADER_SIZE];
+    const fillArrayPositions = (): void => {
+        const arr = [HEADER_SIZE];
         DATA.forEach((item, index) => {
-            arr.push((item.data.length * LIST_ELEM_HEIGHT) + LIST_HEADER_HEIGHT + arr[index]);
+            arr.push(
+                item.data.length * LIST_ELEM_HEIGHT +
+                    LIST_HEADER_HEIGHT +
+                    arr[index]
+            );
         });
         setPositionArray(arr);
     };
@@ -82,13 +91,16 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
         fillArrayPositions();
         setTimeout(() => {
             setDisplay(true);
-        }, 1)
+        }, 1);
     }, []);
 
-    const renderItem = ({item}) => {
+    const renderItem = ({ item }): any => {
         return (
-            <Text key={item} style={{height: 50}}> {item} </Text>
-        )
+            <Text key={item} style={{ height: 50 }}>
+                {' '}
+                {item}{' '}
+            </Text>
+        );
     };
 
     /**
@@ -97,8 +109,13 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
      * ViewPosition => On the header name (- is above + is over)
      * @param sectionIndex
      */
-    const scrollMainList = (sectionIndex: Number) => {
-        list.current.scrollToLocation({itemIndex: 1, sectionIndex: sectionIndex, viewOffset: -120, viewPosition: -0.02})
+    const scrollMainList = (sectionIndex: number): void => {
+        list.current.scrollToLocation({
+            itemIndex: 1,
+            sectionIndex: sectionIndex,
+            viewOffset: -120,
+            viewPosition: -0.02
+        });
     };
 
     /**
@@ -106,9 +123,9 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
      * If offset < Header thats mean first section (header + first section)
      * @param offsetY
      */
-    const getCurrentSectionInList = (offsetY) => {
+    const getCurrentSectionInList = (offsetY: number): void => {
         let itemIdx = 0;
-        if (offsetY > HEADER_SIZE)  {
+        if (offsetY > HEADER_SIZE) {
             for (let i = 0; i < positionArray.length; i++) {
                 if (offsetY <= positionArray[i]) {
                     itemIdx = i;
@@ -122,52 +139,71 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
         }
     };
 
-    const handleScroll = (event) => {
+    const handleScroll = (event: any): void => {
         if (blockUpdateIndex) return;
-        getCurrentSectionInList(event.nativeEvent.contentOffset.y)
+        getCurrentSectionInList(event.nativeEvent.contentOffset.y);
     };
 
     if (display) {
         return (
             <SectionList
                 style={styles.containerBox}
-                sections={ DATA }
+                sections={DATA}
                 ref={list}
-                keyExtractor={item => item}
+                keyExtractor={(item): string => item}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingTop: 340 }}
                 showsHorizontalScrollIndicator={false}
-                renderSectionHeader={({ section: { title } }) => (
-                    <View style={{height: LIST_HEADER_HEIGHT}}>
+                renderSectionHeader={({ section: { title } }): any => (
+                    <View style={{ height: LIST_HEADER_HEIGHT }}>
                         {renderHeaders(title)}
-                    </View>)}
-                renderItem={({ item }) => (
+                    </View>
+                )}
+                renderItem={({ item }): any => (
                     <TouchableOpacity
                         activeOpacity={0.7}
                         style={{
                             height: LIST_ELEM_HEIGHT,
                             borderColor: '#ccc',
-                            borderTopWidth: .5
-                        } }>
+                            borderTopWidth: 0.5
+                        }}
+                    >
                         {renderItems(item)}
                     </TouchableOpacity>
                 )}
-                renderScrollComponent={() => (
+                renderScrollComponent={(): any => (
                     <ParallaxScrollView
-                        onScroll={(event) => handleScroll(event)}
-                        style={{flex: 1, width: '100%'}}
+                        onScroll={(event): any => handleScroll(event)}
+                        style={{ flex: 1, width: '100%' }}
                         backgroundColor="white"
                         parallaxHeaderHeight={300}
                         stickyHeaderHeight={140}
-                        renderFixedHeader={() => (renderFixedHeader(props.navigation))}
-                        renderBackground={() => (renderImageBackground())}
-                        renderStickyHeader={() => (renderNavBar({data: DATA, scrollMainList, currentIndex: currentIndex - 1, setBlockUpdateIndex, setCurrentIndex, grower}))}
+                        renderFixedHeader={(): any =>
+                            renderFixedHeader({ navigation })
+                        }
+                        renderBackground={renderImageBackground}
+                        renderStickyHeader={(): any =>
+                            renderNavBar({
+                                data: DATA,
+                                scrollMainList,
+                                currentIndex: currentIndex - 1,
+                                setBlockUpdateIndex,
+                                setCurrentIndex,
+                                grower
+                            })
+                        }
                         fadeOutForeground={false}
                         showsVerticalScrollIndicator={false}
-                        onMomentumScrollEnd={() => setBlockUpdateIndex(false)}
-                        renderForeground={() => GrowersProductsForegroundHeader({grower})}>
-                    </ParallaxScrollView>)} />
-        )
+                        onMomentumScrollEnd={(): any =>
+                            setBlockUpdateIndex(false)
+                        }
+                        renderForeground={(): any =>
+                            GrowersProductsForegroundHeader({ grower })
+                        }
+                    />
+                )}
+            />
+        );
     }
     if (!display) {
         return (
@@ -177,22 +213,11 @@ const GrowerProductsScreen = (props: GrowersProductsScreen) => {
                 initialNumToRender={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => item + index}
+                keyExtractor={(item, index): any => item + index}
                 renderItem={renderItem}
             />
-        )
+        );
     }
 };
 
-
-
-const styles = StyleSheet.create({
-    containerBox: {
-        flex: 1,
-        width: '100%'
-    },
-    navContainer: {
-        height: 200
-    },
-});
 export default GrowerProductsScreen;

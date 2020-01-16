@@ -1,18 +1,19 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import { Image } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
-import ProfileScreen from '../screens/authentication/ProfileScreen';
-import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
-
+import ProfileScreen from '../screens/ProfileScreen';
+import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const GrowerStack = createStackNavigator(
     {
         Grower: GrowersScreen,
         GrowersProducts: GrowersProductsScreen
-    }, {
-        headerMode: 'none',
+    },
+    {
+        headerMode: 'none'
     }
 );
 
@@ -21,25 +22,22 @@ GrowerStack.navigationOptions = {
     header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
-        inactiveTintColor: '#ccc',
+        inactiveTintColor: '#ccc'
     },
-    tabBarIcon: ({focused}) => {
+    tabBarIcon: ({ focused }) => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Producteurs/active.png')
             : require('../assets/images/TabBarNavigation/Producteurs/inactive.png');
-        return (
-            <Image
-                source={image}
-            />
-        )
+        return <Image source={image} />;
     }
 };
 
 const ProductStack = createStackNavigator(
     {
-        Product: ProductsScreen,
-    }, {
-        headerMode: 'none',
+        Product: ProductsScreen
+    },
+    {
+        headerMode: 'none'
     }
 );
 
@@ -48,27 +46,22 @@ ProductStack.navigationOptions = {
     header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
-        inactiveTintColor: '#ccc',
+        inactiveTintColor: '#ccc'
     },
-    tabBarIcon: ({focused}) => {
+    tabBarIcon: ({ focused }) => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Products/active.png')
             : require('../assets/images/TabBarNavigation/Products/inactive.png');
-        return (
-            <Image
-                source={image}
-            />
-        )
+        return <Image source={image} />;
     }
 };
 
-
-
 const ProfileStack = createStackNavigator(
     {
-        Profile: ProfileScreen,
-    }, {
-        headerMode: 'none',
+        Profile: ProfileScreen
+    },
+    {
+        headerMode: 'none'
     }
 );
 
@@ -76,27 +69,23 @@ ProfileStack.navigationOptions = {
     tabBarLabel: 'Profil',
     tabBarOptions: {
         activeTintColor: '#5CC04A',
-        inactiveTintColor: '#ccc',
+        inactiveTintColor: '#ccc'
     },
-    tabBarIcon: ({focused}) => {
+    tabBarIcon: ({ focused }) => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Profil/active.png')
             : require('../assets/images/TabBarNavigation/Profil/inactive.png');
-        return (
-            <Image
-                source={image}
-            />
-        )
+        return <Image source={image} />;
     }
 };
 
-
-const tabNavigator = createBottomTabNavigator({
-    GrowerStack,
-    ProductStack,
-    ProfileStack,
-}, {
-});
-
+const tabNavigator = createBottomTabNavigator(
+    {
+        GrowerStack,
+        ProductStack,
+        ProfileStack
+    },
+    {}
+);
 
 export default tabNavigator;

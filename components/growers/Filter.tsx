@@ -1,43 +1,14 @@
-import React from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Platform, Text, FlatList} from 'react-native';
-import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
+import React, { FunctionComponent, ReactElement } from 'react';
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    FlatList
+} from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const FILTER = ['Trier', 'Prix', 'Nouveautés', 'diététique'];
-
-const GrowerFilter = () => {
-    const _renderItem = (item) => {
-        return (
-            <TouchableOpacity style={styles.item}>
-                <Text style={styles.text}>{item}</Text>
-                <Ionicons name="md-arrow-dropdown" size={17}/>
-            </TouchableOpacity>
-        )
-    };
-
-    const _renderItemHeader = () => {
-        return (
-            <TouchableOpacity onPress={() => {
-
-            }} style={styles.itemHeader}>
-                <FontAwesome style={{margin: 2}} name="filter" size={19} color="#60C34A" />
-            </TouchableOpacity>
-        )
-    };
-
-    return (
-        <View>
-            <FlatList
-                data={FILTER}
-                keyExtractor={item => item}
-                horizontal={true}
-                ListHeaderComponent={() => _renderItemHeader()}
-                renderItem={({item}) => _renderItem(item)}
-                showsHorizontalScrollIndicator={false}
-            />
-        </View>
-    )
-};
-export default GrowerFilter;
 
 const styles = StyleSheet.create({
     item: {
@@ -53,7 +24,7 @@ const styles = StyleSheet.create({
         padding: 5
     },
     text: {
-        fontWeight: "600",
+        fontWeight: '600',
         marginLeft: 5,
         marginRight: 5
     },
@@ -69,3 +40,41 @@ const styles = StyleSheet.create({
         color: '#274BDB'
     }
 });
+
+const GrowerFilter: FunctionComponent<any> = () => {
+    const _renderItem = item => {
+        return (
+            <TouchableOpacity style={styles.item}>
+                <Text style={styles.text}>{item}</Text>
+                <Ionicons name="md-arrow-dropdown" size={17} />
+            </TouchableOpacity>
+        );
+    };
+
+    const _renderItemHeader = (): ReactElement => {
+        return (
+            <TouchableOpacity style={styles.itemHeader}>
+                <FontAwesome
+                    style={{ margin: 2 }}
+                    name="filter"
+                    size={19}
+                    color="#60C34A"
+                />
+            </TouchableOpacity>
+        );
+    };
+
+    return (
+        <View>
+            <FlatList
+                data={FILTER}
+                keyExtractor={(item: string): string => item}
+                horizontal={true}
+                ListHeaderComponent={(): ReactElement => _renderItemHeader()}
+                renderItem={({ item }): ReactElement => _renderItem(item)}
+                showsHorizontalScrollIndicator={false}
+            />
+        </View>
+    );
+};
+export default GrowerFilter;

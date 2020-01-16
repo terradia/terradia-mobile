@@ -10,6 +10,7 @@ import {
     RegisteredStyle,
     ViewStyle
 } from 'react-native';
+import { ReactElement } from 'react';
 const WindowWidth = Dimensions.get('window').width;
 
 interface IProps {
@@ -36,7 +37,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
     private _tabContainerMeasurements!: LayoutRectangle;
     private _tabsMeasurements: ITabsLayoutRectangle = {};
 
-    componentDidUpdate(prevProps: IProps) {
+    componentDidUpdate(prevProps: IProps): void {
         if (this.props.currentIndex !== prevProps.currentIndex) {
             if (this.scrollView.current) {
                 this.scrollView.current.scrollTo({
@@ -47,7 +48,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
         }
     }
 
-    getScrollAmount = () => {
+    getScrollAmount = (): number => {
         const { currentIndex } = this.props;
         const position = currentIndex;
         const pageOffset = 0;
@@ -73,15 +74,16 @@ export default class TabBar extends React.PureComponent<IProps, any> {
             0
         );
 
-        newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
+        newScrollX =
+            newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX;
         return newScrollX;
-    }
+    };
 
-    onTabContainerLayout = (e: LayoutChangeEvent) => {
+    onTabContainerLayout = (e: LayoutChangeEvent): void => {
         this._tabContainerMeasurements = e.nativeEvent.layout;
-    }
+    };
 
-    onTabLayout = (key: number) => (ev: LayoutChangeEvent) => {
+    onTabLayout = (key: number) => (ev: LayoutChangeEvent): void => {
         const { x, width, height } = ev.nativeEvent.layout;
         this._tabsMeasurements[key] = {
             left: x,
@@ -89,24 +91,24 @@ export default class TabBar extends React.PureComponent<IProps, any> {
             width,
             height
         };
-    }
+    };
 
-    renderTab = (section: SectionListData<any>, key: number) => {
+    renderTab = (section: SectionListData<any>, key: number): ReactElement => {
         const { renderTab, onPress, currentIndex } = this.props;
         const isActive: boolean = currentIndex === key;
 
         return (
             <TouchableOpacity
-                onPress={() => onPress(key)}
+                onPress={(): void => onPress(key)}
                 key={key}
                 onLayout={this.onTabLayout(key)}
             >
                 {renderTab({ isActive, ...section })}
             </TouchableOpacity>
         );
-    }
+    };
 
-    render() {
+    render(): ReactElement {
         const { sections, tabBarStyle } = this.props;
 
         return (
