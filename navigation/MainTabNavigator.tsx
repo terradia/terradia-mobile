@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
-import ProfileScreen from '../screens/authentication/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 

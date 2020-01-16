@@ -1,7 +1,8 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { Image, Text, View } from 'react-native';
+import styles from './styles/GrowersProductsListRender.style';
 
-export const renderHeaders = (value: string) => {
+export const renderHeaders: FunctionComponent<string> = (value: string) => {
     return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
             <Text style={{ fontSize: 20, fontWeight: '600' }}>
@@ -11,7 +12,7 @@ export const renderHeaders = (value: string) => {
     );
 };
 
-export const renderItems = (value: string) => {
+export const renderItems: FunctionComponent<any> = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
@@ -51,42 +52,3 @@ export const renderItems = (value: string) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        overflow: 'hidden',
-        flex: 1
-    },
-    container: {
-        flexDirection: 'row',
-        width: '100%'
-    },
-    textsContainer: {
-        width: '70%'
-    },
-    textsColor: {
-        color: '#575757'
-    },
-    productTitle: {
-        fontSize: 18
-    },
-    priceTag: {
-        fontSize: 24
-    },
-    spacer: {
-        paddingTop: 5
-    },
-    priceContainer: {
-        paddingTop: 5,
-        alignItems: 'flex-end',
-        paddingRight: 20
-    },
-    imageContainer: {
-        justifyContent: 'center',
-        width: '30%',
-        alignItems: 'center'
-    },
-    image: {
-        borderRadius: 20
-    }
-});

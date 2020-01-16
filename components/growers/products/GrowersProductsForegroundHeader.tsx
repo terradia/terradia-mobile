@@ -1,15 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar, AirbnbRating } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
+import styles from './styles/GrowersProductsForegroundHeader.style';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import GrowersConfig from '@interfaces/Growers';
 
 export declare interface GrowersProductsForegroundHeaderProps {
-    grower?: object;
+    grower?: GrowersConfig;
 }
 
-const GrowersProductsForegroundHeader = (
-    props: GrowersProductsForegroundHeaderProps
-) => {
+const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegroundHeaderProps> = ({
+    grower
+}) => {
     return (
         <View
             style={{
@@ -73,21 +77,21 @@ const GrowersProductsForegroundHeader = (
                                     fontWeight: '500'
                                 }}
                             >
-                                {props.grower.name}
+                                {grower.name}
                             </Text>
                         </View>
                         <View style={styles.rates}>
                             <AirbnbRating
-                                defaultRating={props.grower.averageMark}
+                                defaultRating={grower.averageMark}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                selectedColor={'#4AA542'}
+                                starStyle={{ tintColor: '#4AA542' }}
                             />
                             <Text style={styles.textNumberRates}>
-                                {props.grower.numberOfMarks > 99
+                                {grower.numberOfMarks > 99
                                     ? '(99+)'
-                                    : '(' + props.grower.numberOfMarks + ')'}
+                                    : '(' + grower.numberOfMarks + ')'}
                             </Text>
                         </View>
                     </View>
@@ -101,7 +105,7 @@ const GrowersProductsForegroundHeader = (
                     }}
                 >
                     <Text numberOfLines={2} style={{ width: '85%' }}>
-                        {props.grower.description}
+                        {grower.description}
                     </Text>
                     <TouchableOpacity
                         style={{
@@ -123,31 +127,4 @@ const GrowersProductsForegroundHeader = (
     );
 };
 
-function elevationShadowStyle(elevation) {
-    return {
-        elevation,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 0.5 * elevation },
-        shadowOpacity: 0.3,
-        shadowRadius: 0.8 * elevation
-    };
-}
-const styles = StyleSheet.create({
-    shadow1: elevationShadowStyle(5),
-    growerImage: {},
-    tag: {
-        padding: 3,
-        borderRadius: 10,
-        backgroundColor: '#FFE732'
-    },
-    rates: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    textNumberRates: {
-        color: '#4AA542',
-        fontSize: 16
-    }
-});
 export default GrowersProductsForegroundHeader;

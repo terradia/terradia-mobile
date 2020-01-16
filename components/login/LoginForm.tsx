@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, AsyncStorage, Alert} from 'react-native';
+import React, { FunctionComponent, useState } from 'react';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    AsyncStorage,
+    Alert
+} from 'react-native';
 import ButtonTerradia from '../buttons/ButtonTerradia';
-import ButtonEmpty from '../buttons/Button'
-import {Input} from 'react-native-elements';
-import styles from './styles/LoginForm.style'
-import {gql} from "apollo-boost"
-import {useMutation} from '@apollo/react-hooks'
+import ButtonEmpty from '../buttons/Button';
+import { Input } from 'react-native-elements';
+import styles from './styles/LoginForm.style';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 
 /*
   Mutation login with email address & password
@@ -16,21 +22,37 @@ const LOGIN = gql`
             token
             userId
         }
-    }`;
+    }
+`;
 
 export declare interface LoginFormProps {
     navigateRegister?: any;
     navigateHome?: any;
 }
 
-const LoginForm = (props: LoginFormProps) => {
+const LoginForm: FunctionComponent<LoginFormProps> = ({
+    navigateHome,
+    navigateRegister
+}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [login, { loading: mutationLoading}] = useMutation(LOGIN, {
-        onError: (data) => {
+
+    const onCompletedHandler = (data): void => {
+        AsyncStorage.setItem('token', data.login.token).then();
+        AsyncStorage.setItem('userId', data.login.userId).then();
+        navigateHome();
+    };
+
+    const onErrorHandler = (): void => {
+        console.log('Error');
+        Alert.alert('Adresse email ou mot de passe invalide');
+    };
+
+    const [login, { loading: mutationLoading }] = useMutation(LOGIN, {
+        onError: () => {
             onErrorHandler();
         },
-        onCompleted: (data) => {
+        onCompleted: data => {
             onCompletedHandler(data);
         }
     });
@@ -38,38 +60,29 @@ const LoginForm = (props: LoginFormProps) => {
     /*
     Renvoyer vers la page de mot de passe oublié
      */
-    const forgotPassword = () => {
+    const forgotPassword = (): void => {
+        console.log('Lost password');
     };
 
     /*
     Renvoyer vers la page register
      */
-    const register = () => {
-        props.navigateRegister();
+    const register = (): void => {
+        navigateRegister();
     };
 
     /*
     FACEBOOK
     */
-    const facebookLogin = () => {
+    const facebookLogin = (): void => {
+        console.log('Facebook login');
     };
 
     /*
     APPLE
     */
-    const appleLogin = () => {
-    };
-
-    const onCompletedHandler = (data) => {
-        console.log(data);
-        AsyncStorage.setItem('token', data.login.token);
-        AsyncStorage.setItem('userId', data.login.userId);
-        props.navigateHome();
-    };
-
-    const onErrorHandler = () => {
-        console.log("Error");
-        Alert.alert("Adresse email ou mot de passe invalide");
+    const appleLogin = (): void => {
+        console.log('Apple login');
     };
 
     return (
@@ -79,29 +92,35 @@ const LoginForm = (props: LoginFormProps) => {
                     <Input
                         keyboardType={'email-address'}
                         placeholder="Adresse email"
-                        onChangeText={text => setEmail(text)}
-                        inputContainerStyle={[{
-                            width: '88%',
-                        }]}
+                        onChangeText={(text): void => setEmail(text)}
+                        inputContainerStyle={[
+                            {
+                                width: '88%'
+                            }
+                        ]}
                     />
                     <Input
                         secureTextEntry={true}
-                        onChangeText={text => setPassword(text)}
+                        onChangeText={(text): void => setPassword(text)}
                         placeholder="Mot de passe"
-                        inputContainerStyle={[{
-                            width: '88%',
-                        }]}
+                        inputContainerStyle={[
+                            {
+                                width: '88%'
+                            }
+                        ]}
                     />
                 </View>
                 <ButtonTerradia
                     title="Connexion"
-                    style={[{borderColor: '#FFFFFF'}]}
-                    titleStyle={[{color: '#FFFFFF'}]}
+                    style={[{ borderColor: '#FFFFFF' }]}
+                    titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}
-                    onPress={() => {
+                    onPress={(): void => {
                         console.log(email);
                         console.log(password);
-                        login({variables: {email: email, password: password}});
+                        login({
+                            variables: { email: email, password: password }
+                        }).then();
                     }}
                 />
             </View>
@@ -109,35 +128,31 @@ const LoginForm = (props: LoginFormProps) => {
                 onPress={forgotPassword}
                 style={styles.forgotPasswordStyle}
             >
-                <Text>
-                    Mot de passe oublié ?
-                </Text>
+                <Text>Mot de passe oublié ?</Text>
             </TouchableOpacity>
 
             <View style={styles.registerView}>
                 <ButtonEmpty
                     title="S'enregistrer"
-                    style={[{borderColor: '#5CC04A'}]}
-                    titleStyle={[{color: '#5CC04A'}]}
+                    style={[{ borderColor: '#5CC04A' }]}
+                    titleStyle={[{ color: '#5CC04A' }]}
                     onPress={register}
                 />
                 <ButtonEmpty
                     title="Connexion avec Facebook"
-                    style={[{borderColor: 'blue'}]}
-                    titleStyle={[{color: 'blue'}]}
+                    style={[{ borderColor: 'blue' }]}
+                    titleStyle={[{ color: 'blue' }]}
                     onPress={facebookLogin}
-
                 />
                 <ButtonEmpty
                     title="Connexion avec Apple"
-                    style={[{borderColor: 'black'}]}
-                    titleStyle={[{color: 'black'}]}
+                    style={[{ borderColor: 'black' }]}
+                    titleStyle={[{ color: 'black' }]}
                     onPress={appleLogin}
-
                 />
             </View>
         </View>
-    )
+    );
 };
 
 export default LoginForm;

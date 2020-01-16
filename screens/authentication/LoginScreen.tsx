@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FunctionComponent } from 'react';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import LoginForm from '../../components/login/LoginForm';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,14 +8,14 @@ export declare interface LoginScreenProps {
     navigation?: any;
 }
 
-const LoginScreen = (props: LoginScreenProps) => {
-    const navigateRegister = () => {
-        const { navigate } = props.navigation;
+const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
+    const navigateRegister = (): void => {
+        const { navigate } = navigation;
         navigate('Register');
     };
 
-    const navigateHome = () => {
-        const { navigate } = props.navigation;
+    const navigateHome = (): void => {
+        const { navigate } = navigation;
         navigate('Main');
     };
 

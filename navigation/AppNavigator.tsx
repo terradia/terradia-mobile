@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from '../screens/authentication/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import RegisterScreen from '../screens/authentication/RegisterScreen';
 import AuthLoadingScreen from '../screens/authentication/AuthLoadingScreen';
 
 const AuthStack = createStackNavigator(

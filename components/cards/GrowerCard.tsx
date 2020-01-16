@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { AirbnbRating, Avatar } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import style from './styles/GrowerCard.style';
-import { NavigationEventsProps } from 'react-navigation';
+import { NavigationParams } from 'react-navigation';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import GrowersConfig from '@interfaces/Growers';
 
 export declare interface GrowerCard {
-    navigation?: NavigationEventsProps;
-    grower?: object;
+    navigation?: NavigationParams;
+    grower?: GrowersConfig;
 }
 
-const GrowerCard = (props: GrowerCard) => {
+const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
     return (
         <View style={style.mainContainer}>
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={[style.wrapper, style.shadow1]}
-                onPress={() =>
-                    props.navigation.navigate('GrowersProducts', {
-                        grower: props.grower
+                onPress={(): void =>
+                    navigation.navigate('GrowersProducts', {
+                        grower
                     })
                 }
             >
@@ -34,16 +37,16 @@ const GrowerCard = (props: GrowerCard) => {
                     <View style={style.headerView}>
                         <View style={style.rates}>
                             <AirbnbRating
-                                defaultRating={props.grower.averageMark}
+                                defaultRating={grower.averageMark}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                selectedColor={'white'}
+                                starStyle={{ tintColor: 'white' }}
                             />
                             <Text style={style.textNumberRates}>
-                                {props.grower.numberOfMarks > 99
+                                {grower.numberOfMarks > 99
                                     ? '(99+)'
-                                    : '(' + props.grower.numberOfMarks + ')'}
+                                    : '(' + grower.numberOfMarks + ')'}
                             </Text>
                         </View>
                         <TouchableOpacity>
@@ -66,14 +69,14 @@ const GrowerCard = (props: GrowerCard) => {
                         }}
                         containerStyle={[style.shadow1, style.growerImage]}
                     />
-                    <Text style={style.growerName}>{props.grower.name}</Text>
+                    <Text style={style.growerName}>{grower.name}</Text>
                 </View>
                 <View style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
-                            {props.grower.products.length > 9
+                            {grower.products.length > 9
                                 ? '(9+)'
-                                : props.grower.products.length}{' '}
+                                : grower.products.length}{' '}
                             produits a découvrir
                         </Text>
                         <View style={style.bottomInformation}>

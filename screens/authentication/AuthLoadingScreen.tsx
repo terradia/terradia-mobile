@@ -1,5 +1,5 @@
 import { AsyncStorage, Image, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
@@ -16,16 +16,18 @@ const GET_USER = gql`
     }
 `;
 
-const AuthLoadingScreen = (props: AuthLoadingScreen) => {
+const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
+    navigation
+}) => {
     const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER, {
         onCompleted: data => {
-            const { navigate } = props.navigation;
+            const { navigate } = navigation;
             console.log(data);
             if (data && data.getUser) navigate('Grower');
             else navigate('Login');
         },
         onError: async onerror => {
-            const { navigate } = props.navigation;
+            const { navigate } = navigation;
             const token = await AsyncStorage.removeItem('token');
 
             console.log(onerror);
@@ -35,9 +37,7 @@ const AuthLoadingScreen = (props: AuthLoadingScreen) => {
 
     useEffect(() => {
         AsyncStorage.getItem('token').then(data => {
-            console.log(data);
-            if (!data) return props.navigation.navigate('Login');
-            console.log('Ready to call load user');
+            if (!data) return navigation.navigate('Login');
             loadUser();
         });
     }, []);

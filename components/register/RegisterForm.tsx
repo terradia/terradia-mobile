@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styles from '../login/styles/LoginForm.style';
 import { View, Alert, AsyncStorage } from 'react-native';
 import { Input } from 'react-native-elements';
@@ -28,12 +28,22 @@ const REGISTER = gql`
     }
 `;
 
-const RegisterForm = props => {
+const RegisterForm: FunctionComponent<any> = props => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
+
+    const onCompletedHandler = (data): any => {
+        Alert.alert('Success');
+        AsyncStorage.setItem('token', data.register.token).then();
+    };
+
+    const onErrorHandler = (data): any => {
+        Alert.alert(data.message);
+    };
+
     const [register, { loading: mutationLoading }] = useMutation(REGISTER, {
         onError: data => {
             onErrorHandler(data);
@@ -42,14 +52,6 @@ const RegisterForm = props => {
             onCompletedHandler(data);
         }
     });
-    const onCompletedHandler = data => {
-        Alert.alert('Success');
-        AsyncStorage.setItem('token', data.register.token);
-    };
-
-    const onErrorHandler = data => {
-        Alert.alert(data.message);
-    };
 
     return (
         <View style={styles.container}>
@@ -58,7 +60,7 @@ const RegisterForm = props => {
                     <Input
                         placeholder="Adresse email"
                         keyboardType={'email-address'}
-                        onChangeText={text => setEmail(text)}
+                        onChangeText={(text: string): void => setEmail(text)}
                         inputContainerStyle={[
                             {
                                 width: '88%'
@@ -68,7 +70,7 @@ const RegisterForm = props => {
                     <Input
                         keyboardType={'phone-pad'}
                         placeholder="Numéro de téléphone"
-                        onChangeText={text => setPhone(text)}
+                        onChangeText={(text: string): void => setPhone(text)}
                         inputContainerStyle={[
                             {
                                 width: '88%'
@@ -77,7 +79,7 @@ const RegisterForm = props => {
                     />
                     <Input
                         placeholder="Nom"
-                        onChangeText={text => setLastName(text)}
+                        onChangeText={(text: string): void => setLastName(text)}
                         inputContainerStyle={[
                             {
                                 width: '88%'
@@ -86,7 +88,9 @@ const RegisterForm = props => {
                     />
                     <Input
                         placeholder="Prénom"
-                        onChangeText={text => setFirstName(text)}
+                        onChangeText={(text: string): void =>
+                            setFirstName(text)
+                        }
                         inputContainerStyle={[
                             {
                                 width: '88%'
@@ -95,7 +99,7 @@ const RegisterForm = props => {
                     />
                     <Input
                         placeholder="Mot de passe"
-                        onChangeText={text => setPassword(text)}
+                        onChangeText={(text: string): void => setPassword(text)}
                         secureTextEntry={true}
                         inputContainerStyle={[
                             {
@@ -109,7 +113,7 @@ const RegisterForm = props => {
                     style={[{ borderColor: '#FFFFFF' }]}
                     titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}
-                    onPress={() => {
+                    onPress={(): void => {
                         register({
                             variables: {
                                 email: email,
@@ -118,7 +122,7 @@ const RegisterForm = props => {
                                 phone: phone,
                                 lastName: lastName
                             }
-                        });
+                        }).then();
                     }}
                 />
             </View>
