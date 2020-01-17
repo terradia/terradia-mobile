@@ -10,6 +10,8 @@ import styles from './styles/GrowersScreen.style';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
+// @ts-ignore
+import i18n from '@i18n/i18n';
 
 const IS_IPHONE_X = true;
 // const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
@@ -63,7 +65,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
                 extraScrollHeight={20}
                 navbarColor="#8FDD3D"
                 backgroundColor="#5CC04A"
-                title="Producteurs"
+                title={i18n.t('growerScreen.growers')}
                 titleStyle={styles.titleStyle}
                 backgroundImageScale={1.5}
                 renderContent={renderContent}

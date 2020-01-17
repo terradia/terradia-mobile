@@ -38,7 +38,8 @@ export default StyleSheet.create({
     },
     textNumberRates: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: 'Montserrat'
     },
     rating: {
         backgroundColor: 'transparent'
@@ -93,25 +94,29 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginTop: 20,
         color: 'white',
-        fontSize: 24
+        fontSize: 24,
+        fontFamily: 'MontserratSemiBold'
     },
     discoverProducts: {
         marginLeft: 10,
         color: '#A1A1A1',
         fontWeight: '500',
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: 'Montserrat'
     },
     tag: {
         padding: 3,
         borderRadius: 10,
-        backgroundColor: '#FFE732'
+        backgroundColor: '#FFE732',
+        fontFamily: 'MontserratSemiBold'
     },
     bottomInformation: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    bottomInformationText: {
+    bottomInformationDistance: {
         color: '#A1A1A1',
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: 'Montserrat'
     }
 });

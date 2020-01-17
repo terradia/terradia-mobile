@@ -1,5 +1,5 @@
-import React from 'react';
-import Button, {ButtonProps} from './Button';
+import React, { FunctionComponent } from 'react';
+import Button, { ButtonProps } from './Button';
 
 /*
 This button is a gradient button
@@ -12,23 +12,29 @@ For use it :
 />
  */
 
-const ButtonTerradia = (props: ButtonProps) => {
-
-    return(
-            <Button
-                style={props.style}
-                title={props.title}
-                titleStyle={props.titleStyle}
-                onPress={props.onPress}
-                disabled={props.disabled}
-                loading={props.loading}
-                linearGradientProps={{
-                            colors: ['#8FDD3D', '#5CC04A'],
-                            start: {x: 0, y: 1},
-                            end: {x: 1, y: 0},
-                        }}
-            />
-    )
+const ButtonTerradia: FunctionComponent<ButtonProps> = ({
+    style,
+    title,
+    titleStyle,
+    onPress,
+    disabled,
+    loading
+}) => {
+    return (
+        <Button
+            style={style}
+            title={title}
+            titleStyle={titleStyle}
+            onPress={onPress}
+            disabled={disabled}
+            loading={loading}
+            linearGradientProps={{
+                colors: ['#8FDD3D', '#5CC04A'],
+                start: { x: 0, y: 1 },
+                end: { x: 1, y: 0 }
+            }}
+        />
+    );
 };
 
 export default ButtonTerradia;

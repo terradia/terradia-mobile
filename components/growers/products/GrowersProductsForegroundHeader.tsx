@@ -15,25 +15,9 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
     grower
 }) => {
     return (
-        <View
-            style={{
-                height: 300,
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-            }}
-        >
-            <View
-                style={{
-                    height: 300 / 2,
-                    backgroundColor: '#ECECEC',
-                    width: '100%',
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    padding: 10
-                }}
-            >
-                <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+        <View style={styles.container}>
+            <View style={styles.secondContainer}>
+                <View style={styles.informationTop}>
                     <Avatar
                         size={80}
                         rounded
@@ -43,23 +27,12 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                         }}
                         containerStyle={[styles.shadow1, styles.growerImage]}
                     />
-                    <View
-                        style={{
-                            marginLeft: 10,
-                            flex: 1,
-                            justifyContent: 'space-between'
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-between'
-                            }}
-                        >
+                    <View style={styles.middleContainer}>
+                        <View style={styles.topContainer}>
                             <View style={styles.tag}>
                                 <Text
                                     style={{
+                                        fontFamily: 'MontserratSemiBold',
                                         color: 'white',
                                         fontWeight: '500'
                                     }}
@@ -67,18 +40,10 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                     NOUVEAUTE
                                 </Text>
                             </View>
-                            <Text style={{ fontSize: 18 }}>~1km</Text>
+                            <Text style={styles.distanceText}>~1km</Text>
                         </View>
                         <View>
-                            <Text
-                                style={{
-                                    fontSize: 20,
-                                    color: '#575757',
-                                    fontWeight: '500'
-                                }}
-                            >
-                                {grower.name}
-                            </Text>
+                            <Text style={styles.growerName}>{grower.name}</Text>
                         </View>
                         <View style={styles.rates}>
                             <AirbnbRating
@@ -86,7 +51,7 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                starStyle={{ tintColor: '#4AA542' }}
+                                selectedColor={'#4AA542'}
                             />
                             <Text style={styles.textNumberRates}>
                                 {grower.numberOfMarks > 99
@@ -96,26 +61,13 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                         </View>
                     </View>
                 </View>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        flex: 1,
-                        justifyContent: 'center',
-                        marginLeft: 10
-                    }}
-                >
-                    <Text numberOfLines={2} style={{ width: '85%' }}>
+                <View style={styles.descriptionContainer}>
+                    <Text numberOfLines={2} style={styles.description}>
                         {grower.description}
                     </Text>
-                    <TouchableOpacity
-                        style={{
-                            width: '15%',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
-                    >
+                    <TouchableOpacity style={styles.showMoreContainer}>
                         <FontAwesome
-                            style={{ margin: 3 }}
+                            style={styles.showMore}
                             name="arrow-down"
                             size={24}
                             color="#4AA542"

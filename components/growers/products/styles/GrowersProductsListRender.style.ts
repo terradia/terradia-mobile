@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
     mainContainer: {
         overflow: 'hidden',
-        flex: 1
+        flex: 1,
+        paddingLeft: 20,
+        paddingRight: 20
     },
     container: {
         flexDirection: 'row',
@@ -13,10 +15,15 @@ export default styles = StyleSheet.create({
         width: '70%'
     },
     textsColor: {
-        color: '#575757'
+        color: '#575757',
+        fontFamily: 'Montserrat'
     },
     productTitle: {
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'MontserratSemiBold'
+    },
+    productDescription: {
+        fontFamily: 'MontserratLight'
     },
     priceTag: {
         fontSize: 24
@@ -38,3 +45,5 @@ export default styles = StyleSheet.create({
         borderRadius: 20
     }
 });
+
+export default styles;

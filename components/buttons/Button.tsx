@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component, FunctionComponent } from 'react';
 import { View } from 'react-native';
 import { Button as ElementButton } from 'react-native-elements';
 
-import styles from './styles/ButtonEmpty.style'
+import styles from './styles/ButtonEmpty.style';
 
 //
 // class ButtonEmpty extends Component {
@@ -25,7 +25,7 @@ import styles from './styles/ButtonEmpty.style'
 export declare interface ButtonProps {
     style?: object;
     rest?: any;
-    title?: string;
+    title: string;
     titleStyle?: object;
     onPress?: any;
     disabled?: boolean;
@@ -33,22 +33,31 @@ export declare interface ButtonProps {
     loading?: boolean;
 }
 
-const Button = (props: ButtonProps) => {
-    return(
-            <View style={[{width:"80%", paddingTop: 5, paddingBottom: 5}]}>
-                <ElementButton
-                    buttonStyle={[styles.basic, props.style]}
-                    title={props.title}
-                    titleStyle={props.titleStyle}
-                    onPress={props.onPress}
-                    type={"outline"}
-                    disabled={props.disabled}
-                    loading={props.loading}
-                    linearGradientProps={props.linearGradientProps}
-                    /*titleStyle={[{fontFamily: }]}*/
-                />
-            </View>
-        )
+const Button: FunctionComponent<ButtonProps> = ({
+    style,
+    rest,
+    title,
+    titleStyle,
+    onPress,
+    disabled,
+    linearGradientProps,
+    loading
+}) => {
+    return (
+        <View style={[{ width: '80%', paddingTop: 5, paddingBottom: 5 }]}>
+            <ElementButton
+                buttonStyle={[styles.basic, style]}
+                title={title}
+                titleStyle={titleStyle}
+                onPress={onPress}
+                type={'outline'}
+                disabled={disabled}
+                loading={loading}
+                linearGradientProps={linearGradientProps}
+                /*titleStyle={[{fontFamily: }]}*/
+            />
+        </View>
+    );
 };
 
 export default Button;

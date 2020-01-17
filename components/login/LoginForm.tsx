@@ -12,6 +12,7 @@ import { Input } from 'react-native-elements';
 import styles from './styles/LoginForm.style';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import i18n from '@i18n/i18n';
 
 /*
   Mutation login with email address & password
@@ -91,7 +92,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                 <View style={styles.containerView}>
                     <Input
                         keyboardType={'email-address'}
-                        placeholder="Adresse email"
+                        placeholder={i18n.t('loginScreen.addrEmail')}
                         onChangeText={(text): void => setEmail(text)}
                         inputContainerStyle={[
                             {
@@ -102,7 +103,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     <Input
                         secureTextEntry={true}
                         onChangeText={(text): void => setPassword(text)}
-                        placeholder="Mot de passe"
+                        placeholder={i18n.t('loginScreen.password')}
                         inputContainerStyle={[
                             {
                                 width: '88%'
@@ -111,7 +112,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     />
                 </View>
                 <ButtonTerradia
-                    title="Connexion"
+                    title={i18n.t('loginScreen.login')}
                     style={[{ borderColor: '#FFFFFF' }]}
                     titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}
@@ -128,24 +129,24 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                 onPress={forgotPassword}
                 style={styles.forgotPasswordStyle}
             >
-                <Text>Mot de passe oublié ?</Text>
+                <Text>{i18n.t('loginScreen.forgot')}</Text>
             </TouchableOpacity>
 
             <View style={styles.registerView}>
                 <ButtonEmpty
-                    title="S'enregistrer"
+                    title={i18n.t('loginScreen.register')}
                     style={[{ borderColor: '#5CC04A' }]}
                     titleStyle={[{ color: '#5CC04A' }]}
                     onPress={register}
                 />
                 <ButtonEmpty
-                    title="Connexion avec Facebook"
+                    title={i18n.t('loginScreen.loginFacebook')}
                     style={[{ borderColor: 'blue' }]}
                     titleStyle={[{ color: 'blue' }]}
                     onPress={facebookLogin}
                 />
                 <ButtonEmpty
-                    title="Connexion avec Apple"
+                    title={i18n.t('loginScreen.loginApple')}
                     style={[{ borderColor: 'black' }]}
                     titleStyle={[{ color: 'black' }]}
                     onPress={appleLogin}

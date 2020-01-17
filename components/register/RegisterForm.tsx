@@ -5,6 +5,7 @@ import { Input } from 'react-native-elements';
 import ButtonTerradia from '../buttons/ButtonTerradia';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import i18n from '@i18n/i18n';
 
 const REGISTER = gql`
     mutation registerMutation(
@@ -58,7 +59,7 @@ const RegisterForm: FunctionComponent<any> = props => {
             <View style={styles.wrapper}>
                 <View style={styles.containerView}>
                     <Input
-                        placeholder="Adresse email"
+                        placeholder={i18n.t('registerScreen.addrEmail')}
                         keyboardType={'email-address'}
                         onChangeText={(text: string): void => setEmail(text)}
                         inputContainerStyle={[
@@ -69,7 +70,7 @@ const RegisterForm: FunctionComponent<any> = props => {
                     />
                     <Input
                         keyboardType={'phone-pad'}
-                        placeholder="Numéro de téléphone"
+                        placeholder={i18n.t('registerScreen.phone')}
                         onChangeText={(text: string): void => setPhone(text)}
                         inputContainerStyle={[
                             {
@@ -78,7 +79,7 @@ const RegisterForm: FunctionComponent<any> = props => {
                         ]}
                     />
                     <Input
-                        placeholder="Nom"
+                        placeholder={i18n.t('registerScreen.lastName')}
                         onChangeText={(text: string): void => setLastName(text)}
                         inputContainerStyle={[
                             {
@@ -87,7 +88,7 @@ const RegisterForm: FunctionComponent<any> = props => {
                         ]}
                     />
                     <Input
-                        placeholder="Prénom"
+                        placeholder={i18n.t('registerScreen.firstName')}
                         onChangeText={(text: string): void =>
                             setFirstName(text)
                         }
@@ -98,7 +99,7 @@ const RegisterForm: FunctionComponent<any> = props => {
                         ]}
                     />
                     <Input
-                        placeholder="Mot de passe"
+                        placeholder={i18n.t('registerScreen.password')}
                         onChangeText={(text: string): void => setPassword(text)}
                         secureTextEntry={true}
                         inputContainerStyle={[
@@ -109,7 +110,7 @@ const RegisterForm: FunctionComponent<any> = props => {
                     />
                 </View>
                 <ButtonTerradia
-                    title="S'enregistrer"
+                    title={i18n.t('registerScreen.register')}
                     style={[{ borderColor: '#FFFFFF' }]}
                     titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}

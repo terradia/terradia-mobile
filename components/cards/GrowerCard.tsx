@@ -7,6 +7,8 @@ import { NavigationParams } from 'react-navigation';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
+// @ts-ignore
+import i18n from '@i18n/i18n';
 
 export declare interface GrowerCard {
     navigation?: NavigationParams;
@@ -37,11 +39,11 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                     <View style={style.headerView}>
                         <View style={style.rates}>
                             <AirbnbRating
+                                selectedColor={'white'}
                                 defaultRating={grower.averageMark}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                starStyle={{ tintColor: 'white' }}
                             />
                             <Text style={style.textNumberRates}>
                                 {grower.numberOfMarks > 99
@@ -77,7 +79,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                             {grower.products.length > 9
                                 ? '(9+)'
                                 : grower.products.length}{' '}
-                            produits a découvrir
+                            {i18n.t('growersCard.productsToDiscover')}
                         </Text>
                         <View style={style.bottomInformation}>
                             <View style={style.tag}>
@@ -87,13 +89,15 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                                         fontWeight: '500'
                                     }}
                                 >
-                                    NOUVEAUTE
+                                    {i18n.t('tags.new')}
                                 </Text>
                             </View>
-                            <Text style={style.bottomInformationText}>
+                            <Text style={style.bottomInformationDistance}>
                                 ~900m
                             </Text>
-                            <Text style={style.bottomInformationText}>€€</Text>
+                            <Text style={style.bottomInformationDistance}>
+                                €€
+                            </Text>
                         </View>
                     </View>
                 </View>

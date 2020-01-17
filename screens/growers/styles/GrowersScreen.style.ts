@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 30,
-        marginRight: '30%'
+        marginRight: '30%',
+        fontFamily: 'MontserratSemiBold'
     },
     innerContainerStyle: {
         marginBottom: '10%'
