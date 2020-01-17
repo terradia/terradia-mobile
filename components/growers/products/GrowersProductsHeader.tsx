@@ -15,7 +15,6 @@ export declare interface RenderFixedHeaderProps {
     navigation: NavigationStackScreenProps;
 }
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
-    console.log(navigation);
     return (
         <TouchableOpacity
             style={{ top: 40, left: 10, height: 700, position: 'absolute' }}

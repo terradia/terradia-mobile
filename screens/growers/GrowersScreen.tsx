@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { View, Platform, FlatList } from 'react-native';
+import { View, Platform, FlatList, KeyboardAvoidingView } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import FilterGrowers from '../../components/growers/Filter';
@@ -12,6 +12,7 @@ import styles from './styles/GrowersScreen.style';
 import GrowersConfig from '@interfaces/Growers';
 // @ts-ignore
 import i18n from '@i18n/i18n';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const IS_IPHONE_X = true;
 // const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
@@ -30,6 +31,14 @@ const GET_COMPANIES = gql`
             averageMark
             numberOfMarks
             description
+            productsCategories {
+                name
+                products {
+                    name
+                    id
+                    description
+                }
+            }
             products {
                 name
             }
@@ -57,14 +66,25 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
         );
     };
 
+    const renderNavBar = (): ReactElement => {
+        return (
+            <LinearGradient
+                colors={['#8FDD3D', '#5CC04A']}
+                style={styles.gradient}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+            />
+        );
+    };
+
     return (
         <View style={styles.container}>
             <ReactNativeParallaxHeader
                 headerMinHeight={0}
                 headerMaxHeight={100}
                 extraScrollHeight={20}
-                navbarColor="#8FDD3D"
-                backgroundColor="#5CC04A"
+                navbarColor="#C14242"
+                renderNavBar={renderNavBar}
                 title={i18n.t('growerScreen.growers')}
                 titleStyle={styles.titleStyle}
                 backgroundImageScale={1.5}

@@ -22,45 +22,6 @@ export declare interface GrowersProductsScreen {
     navigation?: NavigationStackScreenProps;
 }
 
-const DATA = [
-    {
-        title: 'Main dishes',
-        data: ['Pizza', 'Burger', 'Risotto']
-    },
-    {
-        title: 'Sides',
-        data: ['French Fries', 'Onion Rings', 'Fried Shrimps']
-    },
-    {
-        title: 'Drinks',
-        data: ['Water', 'Coke', 'Beer']
-    },
-    {
-        title: 'Desserts',
-        data: ['Cheese Cake', 'Ice Cream']
-    },
-    {
-        title: 'Bière',
-        data: ['Méga démon', '8.6', 'Maximator', 'Leffe']
-    },
-    {
-        title: 'Glace',
-        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise']
-    },
-    {
-        title: 'Boissons',
-        data: ['bière', 'vodka', 'rhum']
-    },
-    {
-        title: 'Glace1',
-        data: ['Vanille double boule', 'Chocolat une boule', 'Fraise']
-    },
-    {
-        title: 'Boissons2',
-        data: ['bière', 'vodka', 'rhum']
-    }
-];
-
 const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     navigation
 }) => {
@@ -70,6 +31,24 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
     const [grower, setGrower] = useState(navigation.getParam('grower', {}));
+    const getArrayGoodName = (): any => {
+        const capitals = grower.productsCategories.map(function(obj) {
+            Object.defineProperty(
+                obj,
+                'title',
+                Object.getOwnPropertyDescriptor(obj, 'name')
+            );
+
+            Object.defineProperty(
+                obj,
+                'data',
+                Object.getOwnPropertyDescriptor(obj, 'products')
+            );
+            return obj;
+        });
+        return capitals;
+    };
+    const [products, setProducts] = useState(getArrayGoodName());
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
@@ -77,7 +56,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
      */
     const fillArrayPositions = (): void => {
         const arr = [HEADER_SIZE];
-        DATA.forEach((item, index) => {
+        products.forEach((item, index) => {
             arr.push(
                 item.data.length * LIST_ELEM_HEIGHT +
                     LIST_HEADER_HEIGHT +
@@ -95,12 +74,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     }, []);
 
     const renderItem = ({ item }): any => {
-        return (
-            <Text key={item} style={{ height: 50 }}>
-                {' '}
-                {item}{' '}
-            </Text>
-        );
+        return <Text style={{ height: 50 }}> abcd </Text>;
     };
 
     /**
@@ -148,17 +122,19 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
         return (
             <SectionList
                 style={styles.containerBox}
-                sections={DATA}
+                sections={products}
                 ref={list}
-                keyExtractor={(item): string => item}
+                keyExtractor={(item): string => item.id.toString()}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingTop: 340 }}
                 showsHorizontalScrollIndicator={false}
-                renderSectionHeader={({ section: { title } }): any => (
-                    <View style={{ height: LIST_HEADER_HEIGHT }}>
-                        {renderHeaders(title)}
-                    </View>
-                )}
+                renderSectionHeader={({ section: { title } }): any => {
+                    return (
+                        <View style={{ height: LIST_HEADER_HEIGHT }}>
+                            {renderHeaders(title)}
+                        </View>
+                    );
+                }}
                 renderItem={({ item }): any => (
                     <TouchableOpacity
                         activeOpacity={0.7}
@@ -168,7 +144,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                             borderTopWidth: 0.5
                         }}
                     >
-                        {renderItems(item)}
+                        {renderItems({product: item}z)}
                     </TouchableOpacity>
                 )}
                 renderScrollComponent={(): any => (
@@ -184,7 +160,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                         renderBackground={renderImageBackground}
                         renderStickyHeader={(): any =>
                             renderNavBar({
-                                data: DATA,
+                                data: products,
                                 scrollMainList,
                                 currentIndex: currentIndex - 1,
                                 setBlockUpdateIndex,
@@ -204,16 +180,15 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                 )}
             />
         );
-    }
-    if (!display) {
+    } else {
         return (
             <SectionList
                 style={styles.containerBox}
-                sections={DATA}
+                sections={products}
                 initialNumToRender={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index): any => item + index}
+                keyExtractor={(item): string => item.id.toString()}
                 renderItem={renderItem}
             />
         );

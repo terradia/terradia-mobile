@@ -20,6 +20,7 @@
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/bottom-tabs": "^5.0.0-alpha.34",
     "@react-navigation/drawer": "^5.0.0-alpha.36",
+    "@react-navigation/stack": "^5.0.0-alpha.58",
     "@react-navigation/web": "^1.0.0-alpha.9",
     "apollo": "^2.18.3",
     "apollo-boost": "^0.4.4",
@@ -55,6 +56,7 @@
     "react-native-screens": "~1.0.0-alpha.23",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
+    "react-navigation-collapsible": "^3.0.3",
     "react-navigation-stack": "^2.0.15",
     "react-navigation-tabs": "^2.7.0"
   },

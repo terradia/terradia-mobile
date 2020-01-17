@@ -22,7 +22,6 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
     const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER, {
         onCompleted: data => {
             const { navigate } = navigation;
-            console.log(data);
             if (data && data.getUser) navigate('Grower');
             else navigate('Login');
         },
@@ -30,7 +29,6 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
             const { navigate } = navigation;
             const token = await AsyncStorage.removeItem('token');
 
-            console.log(onerror);
             navigate('Login');
         }
     });

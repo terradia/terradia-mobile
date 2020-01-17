@@ -11,6 +11,11 @@ import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import { withClientState } from 'apollo-link-state';
 
+import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
+import Constants from 'expo-constants';
+
+setExpoStatusBarHeight(Constants.statusBarHeight);
+
 import AppNavigator from './navigation/AppNavigator';
 
 {
