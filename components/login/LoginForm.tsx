@@ -26,7 +26,7 @@ const LOGIN = gql`
     }
 `;
 
-export declare interface LoginFormProps {
+declare interface LoginFormProps {
     navigateRegister?: any;
     navigateHome?: any;
 }

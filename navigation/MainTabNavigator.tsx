@@ -1,25 +1,27 @@
-import React from 'react';
-import { Image } from 'react-native';
+import React, { ReactNode } from 'react';
+import { Image, Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import ProductsScreen from '../screens/ProductsScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
+import NavBar from '../components/header/NavBar';
 
 const GrowerStack = createStackNavigator(
     {
         Grower: GrowersScreen,
-        GrowersProducts: GrowersProductsScreen
+        GrowersProducts: {
+            screen: GrowersProductsScreen
+        }
     },
     {
-        headerMode: 'none'
+        headerMode: 'screen'
     }
 );
 
 GrowerStack.navigationOptions = {
     tabBarLabel: 'Producteurs',
-    header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc'

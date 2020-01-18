@@ -1,25 +1,32 @@
 import React, { FunctionComponent } from 'react';
 import { Image, Text, View } from 'react-native';
 import styles from './styles/GrowersProductsListRender.style';
+import GrowersProductsConfig from '@interfaces/Growers';
 
-export const renderHeaders: FunctionComponent<string> = (value: string) => {
+export const renderHeaders: FunctionComponent<string> = (title: string) => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', paddingLeft: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: '600' }}>
-                {value.toUpperCase()}
+                {title.toUpperCase()}
             </Text>
         </View>
     );
 };
 
-export const renderItems: FunctionComponent<any> = () => {
+declare interface renderListProductsProps {
+    product: GrowersProductsConfig;
+}
+
+export const renderItems: FunctionComponent<renderListProductsProps> = ({
+    product
+}) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 <View style={styles.textsContainer}>
                     <View style={styles.spacer}>
                         <Text style={[styles.textsColor, styles.productTitle]}>
-                            Ambrée St Guillaume
+                            {product.name}
                         </Text>
                     </View>
                     <View style={styles.spacer}>
@@ -29,9 +36,7 @@ export const renderItems: FunctionComponent<any> = () => {
                                 styles.productDescription
                             ]}
                         >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt, incididunt,
-                            incididunt
+                            {product.description}
                         </Text>
                     </View>
                     <View style={[styles.priceContainer, styles.spacer]}>

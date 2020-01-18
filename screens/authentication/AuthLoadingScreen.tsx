@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-export declare interface AuthLoadingScreen {
+declare interface AuthLoadingScreen {
     navigation?: any;
 }
 
@@ -16,21 +16,55 @@ const GET_USER = gql`
     }
 `;
 
+const GET_COMPANIES = gql`
+    query allCompanies {
+        getAllCompanies {
+            name
+            averageMark
+            numberOfMarks
+            description
+            productsCategories {
+                name
+                products {
+                    name
+                    id
+                    description
+                }
+            }
+            products {
+                name
+            }
+        }
+    }
+`;
+
 const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
     navigation
 }) => {
-    const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER, {
+    const [loadGrowers, { data: growers }] = useLazyQuery(GET_COMPANIES, {
         onCompleted: data => {
             const { navigate } = navigation;
-            console.log(data);
-            if (data && data.getUser) navigate('Grower');
+            if (data && data) navigate('Grower', { growers: data });
             else navigate('Login');
         },
         onError: async onerror => {
             const { navigate } = navigation;
             const token = await AsyncStorage.removeItem('token');
 
-            console.log(onerror);
+            navigate('Login');
+        }
+    });
+
+    const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER, {
+        onCompleted: data => {
+            const { navigate } = navigation;
+            if (data && data.getUser) loadGrowers();
+            else navigate('Login');
+        },
+        onError: async onerror => {
+            const { navigate } = navigation;
+            const token = await AsyncStorage.removeItem('token');
+
             navigate('Login');
         }
     });

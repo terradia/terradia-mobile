@@ -8,6 +8,7 @@ export declare interface GrowersConfig {
     products: Array<GrowersProductsConfig>;
 }
 
-declare interface GrowersProductsConfig {
+export declare interface GrowersProductsConfig {
     name: string;
+    description: string;
 }

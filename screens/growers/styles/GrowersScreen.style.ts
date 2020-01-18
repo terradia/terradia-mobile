@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flexGrow: 1,
-        marginBottom: '10%',
-        color: 'red'
+        marginBottom: '10%'
     },
     titleStyle: {
         color: 'white',
+        backgroundColor: 'transparent',
         fontWeight: 'bold',
         fontSize: 30,
         marginRight: '30%',

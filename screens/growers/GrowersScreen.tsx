@@ -1,85 +1,66 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { View, Platform, FlatList } from 'react-native';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
+import { FlatList, Animated, View } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
-import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import FilterGrowers from '../../components/growers/Filter';
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import styles from './styles/GrowersScreen.style';
+import NavBar from '../../components/header/NavBar';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
 // @ts-ignore
-import i18n from '@i18n/i18n';
+import { withCollapsible } from 'react-navigation-collapsible';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigationParam } from 'react-navigation-hooks';
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-const IS_IPHONE_X = true;
-// const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 44 : 20) : 0;
-const HEADER_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 88 : 64) : 64;
-const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
-
-export declare interface GrowersScreen {
+declare interface GrowersScreen {
     navigation: NavigationStackScreenProps;
+    collapsible: any;
 }
 
-const GET_COMPANIES = gql`
-    query allCompanies {
-        getAllCompanies {
-            name
-            averageMark
-            numberOfMarks
-            description
-            products {
-                name
-            }
-        }
-    }
-`;
-
-const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
-    const { loading, error, data } = useQuery(GET_COMPANIES);
-    const renderContent = (): ReactElement => {
-        if (loading) {
-            return <View />;
-        }
-        return (
-            <View style={{ flex: 1 }}>
-                <FilterGrowers />
-                <FlatList
-                    data={data.getAllCompanies}
-                    keyExtractor={(item: GrowersConfig): string => item.name}
-                    renderItem={({ item }): ReactElement => (
-                        <GrowerCard navigation={navigation} grower={item} />
-                    )}
-                />
-            </View>
-        );
-    };
-
+const GrowersScreen: FunctionComponent<GrowersScreen> = ({
+    navigation,
+    collapsible
+}) => {
+    const growers = useNavigationParam('growers');
+    const { paddingHeight, animatedY, onScroll } = collapsible;
     return (
-        <View style={styles.container}>
-            <ReactNativeParallaxHeader
-                headerMinHeight={0}
-                headerMaxHeight={100}
-                extraScrollHeight={20}
-                navbarColor="#8FDD3D"
-                backgroundColor="#5CC04A"
-                title={i18n.t('growerScreen.growers')}
-                titleStyle={styles.titleStyle}
-                backgroundImageScale={1.5}
-                renderContent={renderContent}
-                containerStyle={styles.container}
-                contentContainerStyle={styles.contentContainer}
-                innerContainerStyle={styles.container}
-                alwaysShowNavBar={false}
-            />
-        </View>
+        <AnimatedFlatList
+            style={{ flex: 1 }}
+            data={growers.getAllCompanies}
+            renderItem={({ item }): ReactElement => (
+                <GrowerCard navigation={navigation} grower={item} />
+            )}
+            keyExtractor={(item, index): string => String(index)}
+            contentContainerStyle={{ paddingTop: paddingHeight }}
+            scrollIndicatorInsets={{ top: paddingHeight }}
+            onScroll={onScroll}
+            _mustAddThis={animatedY}
+        />
     );
 };
 
-GrowersScreen.navigationOptions = {
-    title: 'Producteurs'
+const collapsibleParams = {
+    collapsibleComponent: FilterGrowers,
+    collapsibleBackgroundStyle: {
+        height: 50,
+        backgroundColor: 'white'
+    }
 };
 
-export default GrowersScreen;
+GrowersScreen.navigationOptions = {
+    title: '',
+    headerLeft: (): ReactElement => <NavBar />,
+    headerMode: 'screen',
+    headerBackground: (): ReactElement => (
+        <LinearGradient
+            style={{ flex: 1, height: 90 }}
+            colors={['#8FDD3D', '#5CC04A']}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 0 }}
+        />
+    ),
+    headerStyle: { height: 90, backgroundColor: 'transparent' }
+};
+
+export default withCollapsible(GrowersScreen, collapsibleParams);

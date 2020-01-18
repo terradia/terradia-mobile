@@ -7,7 +7,7 @@ import styles from './styles/GrowersProductsForegroundHeader.style';
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
 
-export declare interface GrowersProductsForegroundHeaderProps {
+declare interface GrowersProductsForegroundHeaderProps {
     grower?: GrowersConfig;
 }
 
