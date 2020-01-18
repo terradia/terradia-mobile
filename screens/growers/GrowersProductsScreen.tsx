@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, {
+    FunctionComponent,
+    ReactElement,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import { Text, TouchableOpacity, SectionList, View } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader';
@@ -13,6 +19,7 @@ import {
 } from '../../components/growers/products/GrowersProductsListRender';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProductsScreen.style';
+import { useNavigationParam } from 'react-navigation-hooks';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -30,9 +37,10 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-    const [grower, setGrower] = useState(navigation.getParam('grower', {}));
+    const grower = useNavigationParam('grower');
+
     const getArrayGoodName = (): any => {
-        const capitals = grower.productsCategories.map(function(obj) {
+        return grower.productsCategories.map(function(obj) {
             Object.defineProperty(
                 obj,
                 'title',
@@ -46,7 +54,6 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
             );
             return obj;
         });
-        return capitals;
     };
     const [products, setProducts] = useState(getArrayGoodName());
     /**
@@ -144,7 +151,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                             borderTopWidth: 0.5
                         }}
                     >
-                        {renderItems({product: item}z)}
+                        {renderItems({ product: item })}
                     </TouchableOpacity>
                 )}
                 renderScrollComponent={(): any => (
@@ -195,4 +202,8 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     }
 };
 
+GrowerProductsScreen.navigationOptions = {
+    headerMode: 'none',
+    header: (): ReactElement => null
+};
 export default GrowerProductsScreen;
