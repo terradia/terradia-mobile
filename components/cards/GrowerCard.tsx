@@ -10,7 +10,7 @@ import GrowersConfig from '@interfaces/Growers';
 // @ts-ignore
 import i18n from '@i18n/i18n';
 
-export declare interface GrowerCard {
+declare interface GrowerCard {
     navigation?: NavigationParams;
     grower?: GrowersConfig;
 }

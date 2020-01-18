@@ -25,7 +25,7 @@ const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 135;
 
-export declare interface GrowersProductsScreen {
+declare interface GrowersProductsScreen {
     navigation?: NavigationStackScreenProps;
 }
 

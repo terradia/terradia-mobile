@@ -4,7 +4,7 @@ import LoginForm from '../../components/login/LoginForm';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles/Login.style';
 
-export declare interface LoginScreenProps {
+declare interface LoginScreenProps {
     navigation?: any;
 }
 

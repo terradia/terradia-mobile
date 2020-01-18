@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigationParam } from 'react-navigation-hooks';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export declare interface GrowersScreen {
+declare interface GrowersScreen {
     navigation: NavigationStackScreenProps;
     collapsible: any;
 }

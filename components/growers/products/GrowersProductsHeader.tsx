@@ -6,14 +6,10 @@ import { View } from 'react-native';
 import { Image } from 'react-native';
 import { Text } from 'react-native';
 import GrowersProductsCategories from './GrowersProductsCategories';
-import { NavigationStackScreenProps } from 'react-navigation-stack';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
 
-export declare interface RenderFixedHeaderProps {
-    navigation: NavigationStackScreenProps;
-}
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
         <TouchableOpacity
@@ -32,7 +28,7 @@ export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     );
 };
 
-export declare interface NavBarProductsHeaderProps {
+declare interface NavBarProductsHeaderProps {
     data: any;
     scrollMainList: any;
     currentIndex: number;

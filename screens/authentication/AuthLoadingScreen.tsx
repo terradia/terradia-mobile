@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-export declare interface AuthLoadingScreen {
+declare interface AuthLoadingScreen {
     navigation?: any;
 }
 
