@@ -9,6 +9,7 @@ import GrowersProductsCategories from './GrowersProductsCategories';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
@@ -47,7 +48,11 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
 }) => {
     return (
         <View style={styles.navContainer}>
-            <View style={styles.backgroundContainer}>
+            <LinearGradient
+                colors={['#8FDD3D', '#5CC04A']}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+            >
                 <View style={styles.statusBar} />
                 <View style={styles.navBar}>
                     <Text style={styles.navBarGrowerName}>{grower.name}</Text>
@@ -66,8 +71,12 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
-            <View style={styles.categoriesBackgroundContainer}>
+            </LinearGradient>
+            <LinearGradient
+                colors={['#8FDD3D', '#5CC04A']}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+            >
                 <View style={styles.categoriesBackground}>
                     <GrowersProductsCategories
                         onPress={(index: number): void => {
@@ -79,7 +88,10 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                             <View
                                 style={[
                                     styles.tabContainer,
-                                    { borderBottomWidth: isActive ? 1.5 : 0 }
+                                    {
+                                        borderBottomWidth: isActive ? 1.5 : 0,
+                                        borderBottomColor: '#8FDD3D'
+                                    }
                                 ]}
                             >
                                 <Text
@@ -87,12 +99,13 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                                         styles.tabText,
                                         {
                                             color: isActive
-                                                ? '#090909'
-                                                : '#9e9e9e'
+                                                ? '#8FDD3D'
+                                                : '#BBBBBB',
+                                            fontFamily: 'MontserratBold'
                                         }
                                     ]}
                                 >
-                                    {title}
+                                    {title.toUpperCase()}
                                 </Text>
                             </View>
                         )}
@@ -103,7 +116,7 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                         currentIndex={currentIndex}
                     />
                 </View>
-            </View>
+            </LinearGradient>
         </View>
     );
 };

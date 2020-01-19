@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
-import i18n from '@i18n/i18n';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigationState } from 'react-navigation-hooks';
+import { Text, SafeAreaView } from 'react-native';
 
-declare interface NavBarProps {}
+declare interface NavBarProps {
+    title: string;
+}
 
-const NavBar: FunctionComponent<NavBarProps> = ({}) => {
+const NavBar: FunctionComponent<NavBarProps> = ({ title }) => {
     return (
         <SafeAreaView>
             <Text
@@ -20,7 +19,7 @@ const NavBar: FunctionComponent<NavBarProps> = ({}) => {
                     alignItems: 'center'
                 }}
             >
-                {i18n.t('growerScreen.growers')}
+                {title}
             </Text>
         </SafeAreaView>
     );

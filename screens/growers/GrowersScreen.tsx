@@ -7,10 +7,12 @@ import NavBar from '../../components/header/NavBar';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import GrowersConfig from '@interfaces/Growers';
-// @ts-ignore
 import { withCollapsible } from 'react-navigation-collapsible';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigationParam } from 'react-navigation-hooks';
+// @ts-ignore
+import i18n from '@i18n/i18n';
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 declare interface GrowersScreen {
@@ -43,15 +45,17 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
 const collapsibleParams = {
     collapsibleComponent: FilterGrowers,
     collapsibleBackgroundStyle: {
-        height: 50,
+        height: 48,
         backgroundColor: 'white'
     }
 };
 
+// @ts-ignore
 GrowersScreen.navigationOptions = {
     title: '',
-    headerLeft: (): ReactElement => <NavBar />,
-    headerMode: 'screen',
+    headerLeft: (): ReactElement => (
+        <NavBar title={i18n.t('growerScreen.growers')} />
+    ),
     headerBackground: (): ReactElement => (
         <LinearGradient
             style={{ flex: 1, height: 90 }}

@@ -24,5 +24,9 @@ export default {
         firstName: 'Nom',
         lastName: 'Prénom',
         register: "S'enregister"
+    },
+    searchScreen: {
+        search: 'Recherche',
+        search1: 'Rechercher'
     }
 };
