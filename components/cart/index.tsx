@@ -9,12 +9,7 @@ const Cart: FunctionComponent<any> = () => {
     return (
         <View>
             <Footer setModalOpen={setModalOpen} />
-            {isModalOpen ? (
-                <ModalCart
-                    isModalOpen={isModalOpen}
-                    setModalOpen={setModalOpen}
-                />
-            ) : null}
+            <ModalCart isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
         </View>
     );
 };

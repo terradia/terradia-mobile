@@ -13,18 +13,16 @@ const ModalCart: FunctionComponent<ModalProps> = ({
     isModalOpen,
     setModalOpen
 }) => {
-    const [isOpen, setOpen] = useState(isModalOpen);
-
     return (
         <View style={{ flex: 1 }}>
             <Modal
-                isVisible={isOpen}
+                isVisible={isModalOpen}
                 style={styles.modalContainer}
-                onSwipeComplete={(): void => setOpen(false)}
+                onSwipeComplete={(): void => setModalOpen(false)}
                 swipeDirection={['down']}
-                onModalHide={() => setModalOpen(false)}
+                onModalHide={(): void => setModalOpen(false)}
             >
-                <HeaderCart setModalOpen={setOpen} />
+                <HeaderCart setModalOpen={setModalOpen} />
             </Modal>
         </View>
     );
