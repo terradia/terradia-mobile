@@ -1,10 +1,13 @@
-import React, { FunctionComponent } from 'React';
+import React, { FunctionComponent, ReactElement } from 'React';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Localization from 'expo-localization';
 import { Feather, FontAwesome } from '@expo/vector-icons';
+// @ts-ignore
 import i18n from '@i18n/i18n';
 import getLocationAsync from './CurrentPositionResolver';
+import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';
+import styles from './styles/ModalScreenAddressSelect.style';
 
 const homePlace = {
     description: '850 Village drive',
@@ -20,8 +23,6 @@ const currentLocation = {
     geometry: { location: { lat: 0, lng: 0 } }
 };
 
-// const currentLocation = getLocationAsync();
-
 declare interface ModalScreenAddressSelectProps {
     setIsSearching: any;
     setCurrentAddress: any;
@@ -34,12 +35,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
     setDisplayModalAddress
 }) => {
     return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: 'space-between'
-            }}
-        >
+        <View style={styles.mainContainer}>
             <GooglePlacesAutocomplete
                 placeholder={i18n.t('searchScreen.search1')}
                 minLength={2} // minimum length of text to search
@@ -103,57 +99,19 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                     // available options: https://developers.google.com/places/web-service/autocomplete
                     types: 'address',
                     language: Localization.locale, // language of the results
-                    key: ''
+                    key: GOOGLE_MAP_API_KEY
                 }}
                 styles={{
-                    container: {
-                        width: '100%',
-                        flex: 0.9
-                    },
-                    listView: {
-                        elevation: 1
-                    },
-                    textInputContainer: {
-                        width: '100%',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 45,
-                        borderRadius: 10,
-                        backgroundColor: '#ECECEC',
-                        borderTopColor: 'transparent',
-                        borderBottomColor: 'transparent',
-                        marginBottom: 10
-                    },
-                    textInput: {
-                        height: 45,
-                        color: '#424242',
-                        fontFamily: 'Montserrat',
-                        backgroundColor: 'transparent'
-                    },
-                    description: {
-                        fontWeight: 'bold'
-                    },
-                    predefinedPlacesDescription: {
-                        color: '#1faadb',
-                        height: 'auto',
-                        paddingTop: 10,
-                        paddingBottom: 10
-                    },
-                    placesDescription: {
-                        height: 'auto',
-                        paddingTop: 7,
-                        paddingBottom: 7
-                    },
-                    row: {
-                        height: 'auto',
-                        paddingTop: 0,
-                        paddingBottom: 0
-                    },
-                    separator: {
-                        height: 0,
-                        backgroundColor: 'white'
-                    }
+                    container: styles.container,
+                    listView: styles.listView,
+                    textInputContainer: styles.textInputContainer,
+                    textInput: styles.textInput,
+                    description: styles.description,
+                    predefinedPlacesDescription:
+                        styles.predefinedPlacesDescription,
+                    placesDescription: styles.placesDescription,
+                    row: styles.row,
+                    separator: styles.separator
                 }}
                 currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
                 nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
@@ -163,26 +121,20 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                     fields: 'address_component'
                 }}
                 predefinedPlaces={[currentLocation, homePlace, workPlace]}
-                renderLeftButton={() => (
+                renderLeftButton={(): ReactElement => (
                     <Feather
                         name="search"
                         size={19}
-                        style={{ paddingLeft: 10 }}
+                        style={styles.searchButton}
                     />
                 )}
                 debounce={40} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
             <TouchableOpacity
-                onPress={() => setDisplayModalAddress(false)}
-                style={{ flex: 0.1, alignItems: 'center' }}
+                onPress={(): void => setDisplayModalAddress(false)}
+                style={styles.buttonBackContainer}
             >
-                <Text
-                    style={{
-                        fontFamily: 'MontserratSemiBold',
-                        fontSize: 20,
-                        color: '#575757'
-                    }}
-                >
+                <Text style={styles.buttonBack}>
                     {i18n.t('addressModal.back')}
                 </Text>
             </TouchableOpacity>

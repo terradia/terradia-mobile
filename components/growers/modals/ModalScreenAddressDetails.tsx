@@ -4,54 +4,12 @@ import { Feather } from '@expo/vector-icons';
 // @ts-ignore
 import i18n from '@i18n/i18n';
 import InputLightTerradia from '../../input/InputLightTerradia';
+import styles from './styles/ModalScreenAddressDetails.style';
 
 declare interface ModalScreenAddressDetailsProps {
     mainAddress: string;
     setDisplayModalAddress: any;
 }
-
-const styles = StyleSheet.create({
-    inputs: {
-        fontSize: 17
-    },
-    titlesText: {
-        fontSize: 20,
-        fontFamily: 'MontserratSemiBold'
-    },
-    mainAddressContainer: {
-        height: 32,
-        borderBottomColor: '#ECECEC',
-        borderBottomWidth: 1
-    },
-    mainAddressText: {
-        color: '#8FDD3D',
-        fontFamily: 'Montserrat',
-        fontSize: 17
-    },
-    containers: {
-        marginLeft: 10,
-        marginTop: 15,
-        marginBottom: 15
-    },
-    optionsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    optionsTexts: {
-        marginLeft: 5,
-        fontSize: 20
-    },
-    confirmButton: {
-        fontFamily: 'MontserratSemiBold',
-        fontSize: 20,
-        color: '#8FDD3D'
-    },
-    mainContainer: {
-        flex: 1,
-        width: '100%',
-        justifyContent: 'space-between'
-    }
-});
 
 const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProps> = ({
     mainAddress,
@@ -152,7 +110,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
             </View>
             <TouchableOpacity
                 onPress={(): void => setDisplayModalAddress(false)}
-                style={{ flex: 0.1, alignItems: 'center' }}
+                style={styles.applyButtonContainer}
             >
                 <Text style={styles.confirmButton}>
                     {i18n.t('addressModal.confirm')}

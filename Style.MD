@@ -12,7 +12,8 @@
 
 ##Elevation
 
-```  ...Platform.select({
+```
+...Platform.select({
                 ios: {
                     shadowColor: 'black',
                     shadowOffset: { width: 0, height: -3 },
@@ -23,4 +24,9 @@
                     elevation: 20
                 }
             }), 
-            ``` 
+```
+            
+## Tuto
+
+> https://amanhimself.dev/build-a-custom-modal-with-the-animated-api-in-react-native
+> https://amanhimself.dev/blog
