@@ -36,6 +36,8 @@ export default {
         confirm: 'Confirmer',
         deliveryOptions: 'Options de livraison',
         deliverToDoor: "Livré à la porte (Précisez l'étage)",
-        pickUpOutside: "Récupération à l'éxtérieur"
+        pickUpOutside: "Récupération à l'éxtérieur",
+        deliveryNotes: 'Informations supplémentaires',
+        apt: 'Apt / Suite / Etage'
     }
 };

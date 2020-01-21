@@ -34,13 +34,13 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                         onChangeText={value => setApt(value)}
                         value={apt}
                         style={styles.inputs}
-                        placeholder={'Apt / Suite / Etage'}
+                        placeholder={i18n.t('addressModal.apt')}
                     />
                     <InputLightTerradia
                         onChangeText={value => setInfo(value)}
                         value={info}
                         style={styles.inputs}
-                        placeholder={'Informations supplémentaires'}
+                        placeholder={i18n.t('addressModal.deliveryNotes')}
                     />
                 </View>
                 <Text style={styles.titlesText}>

@@ -36,6 +36,8 @@ export default {
         confirm: 'Apply',
         deliveryOptions: 'Delivery options',
         deliverToDoor: 'Deliver to door',
-        pickUpOutside: 'Pick up outside'
+        pickUpOutside: 'Pick up outside',
+        deliveryNotes: 'Delivery notes',
+        apt: 'Apt / Suite / Floor'
     }
 };
