@@ -37,8 +37,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
         <View
             style={{
                 flex: 1,
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                justifyContent: 'space-between'
             }}
         >
             <GooglePlacesAutocomplete
@@ -102,9 +101,9 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 getDefaultValue={() => ''}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
-                    types: 'restaurant',
-                    language: 'fr', // language of the results
-                    key: 'AIzaSyBKsZBSIh-Uk7SFw4t9i85wHaHC0CIBMg8'
+                    types: 'address',
+                    language: Localization.locale, // language of the results
+                    key: ''
                 }}
                 styles={{
                     container: {
@@ -175,7 +174,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
             />
             <TouchableOpacity
                 onPress={() => setDisplayModalAddress(false)}
-                style={{ flex: 0.1 }}
+                style={{ flex: 0.1, alignItems: 'center' }}
             >
                 <Text
                     style={{

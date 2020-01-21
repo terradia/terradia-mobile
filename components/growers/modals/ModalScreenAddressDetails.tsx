@@ -49,8 +49,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        justifyContent: 'space-between'
     }
 });
 
@@ -153,7 +152,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
             </View>
             <TouchableOpacity
                 onPress={(): void => setDisplayModalAddress(false)}
-                style={{ flex: 0.1 }}
+                style={{ flex: 0.1, alignItems: 'center' }}
             >
                 <Text style={styles.confirmButton}>
                     {i18n.t('addressModal.confirm')}
