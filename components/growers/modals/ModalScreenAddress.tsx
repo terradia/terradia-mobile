@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import ModalScreenAddressSelect from './ModalScreenAddressSelect';
 import { Feather } from '@expo/vector-icons';
 import ModalScreenAddressDetails from './ModalScreenAddressDetails';
+import i18n from '@i18n/i18n';
 
 declare interface ModalScreenAddressSelectProps {
     isOpen: boolean;
@@ -25,6 +26,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         paddingLeft: 20,
         paddingRight: 20
+    },
+    header: {
+        width: '100%',
+        height: 70,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     }
 });
 
@@ -42,15 +50,7 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
                 onSwipeComplete={() => setDisplayModalAddress(false)}
                 swipeDirection={['down']}
             >
-                <View
-                    style={{
-                        width: '100%',
-                        height: 70,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}
-                >
+                <View style={styles.header}>
                     {isSearching ? (
                         <TouchableOpacity
                             onPress={() => setDisplayModalAddress(false)}
@@ -69,8 +69,8 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
                         }}
                     >
                         {isSearching
-                            ? 'Adresse de livraison'
-                            : 'Détails de livraison'}
+                            ? i18n.t('addressModal.deliveryAddress')
+                            : i18n.t('addressModal.deliveryDetails')}
                     </Text>
                     <View />
                 </View>

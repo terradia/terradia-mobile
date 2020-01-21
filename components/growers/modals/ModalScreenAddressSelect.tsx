@@ -184,7 +184,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                         color: '#575757'
                     }}
                 >
-                    Retour
+                    {i18n.t('addressModal.back')}
                 </Text>
             </TouchableOpacity>
         </View>

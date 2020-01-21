@@ -28,5 +28,14 @@ export default {
     searchScreen: {
         search: 'Recherche',
         search1: 'Rechercher'
+    },
+    addressModal: {
+        deliveryAddress: 'Adresse de livraison',
+        deliveryDetails: 'Détails de livraison',
+        back: 'Retour',
+        confirm: 'Confirmer',
+        deliveryOptions: 'Options de livraison',
+        deliverToDoor: "Livré à la porte (Précisez l'étage)",
+        pickUpOutside: "Récupération à l'éxtérieur"
     }
 };

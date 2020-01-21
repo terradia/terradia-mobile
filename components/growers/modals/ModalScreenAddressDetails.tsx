@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from 'React';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+// @ts-ignore
 import i18n from '@i18n/i18n';
 import InputLightTerradia from '../../input/InputLightTerradia';
 
@@ -44,6 +45,12 @@ const styles = StyleSheet.create({
         fontFamily: 'MontserratSemiBold',
         fontSize: 20,
         color: '#8FDD3D'
+    },
+    mainContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     }
 });
 
@@ -55,16 +62,11 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
     const [info, setInfo] = useState('');
     const [optionNumber, setOptionNumber] = useState(0);
     return (
-        <View
-            style={{
-                flex: 1,
-                width: '100%',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}
-        >
+        <View style={styles.mainContainer}>
             <View style={{ flex: 0.9 }}>
-                <Text style={styles.titlesText}>Addresse de livraison</Text>
+                <Text style={styles.titlesText}>
+                    {i18n.t('addressModal.deliveryAddress')}
+                </Text>
                 <View style={styles.containers}>
                     <View style={styles.mainAddressContainer}>
                         <Text style={styles.mainAddressText} numberOfLines={1}>
@@ -84,7 +86,9 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                         placeholder={'Informations supplémentaires'}
                     />
                 </View>
-                <Text style={styles.titlesText}>Options de livraison</Text>
+                <Text style={styles.titlesText}>
+                    {i18n.t('addressModal.deliveryOptions')}
+                </Text>
                 <View style={styles.containers}>
                     <TouchableOpacity
                         activeOpacity={0.7}
@@ -115,7 +119,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                                 }
                             ]}
                         >
-                            Livré à la porte (Précisez l'étage)
+                            {i18n.t('addressModal.deliverToDoor')}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -142,7 +146,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                                 }
                             ]}
                         >
-                            Récupération à l'éxtérieur
+                            {i18n.t('addressModal.pickUpOutside')}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -151,7 +155,9 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                 onPress={(): void => setDisplayModalAddress(false)}
                 style={{ flex: 0.1 }}
             >
-                <Text style={styles.confirmButton}>Confirmer</Text>
+                <Text style={styles.confirmButton}>
+                    {i18n.t('addressModal.confirm')}
+                </Text>
             </TouchableOpacity>
         </View>
     );

@@ -28,5 +28,14 @@ export default {
     searchScreen: {
         search: 'Search',
         search1: 'Search'
+    },
+    addressModal: {
+        deliveryAddress: 'Delivery address',
+        deliveryDetails: 'Delivery details',
+        back: 'Back',
+        confirm: 'Apply',
+        deliveryOptions: 'Delivery options',
+        deliverToDoor: 'Deliver to door',
+        pickUpOutside: 'Pick up outside'
     }
 };
