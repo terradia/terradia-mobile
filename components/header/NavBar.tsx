@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from 'react-navigation-hooks';
 import ModalScreenAddress from '../growers/modals/ModalScreenAddress';
 
 declare interface NavBarProps {
@@ -9,8 +8,7 @@ declare interface NavBarProps {
 }
 
 const NavBar: FunctionComponent<NavBarProps> = ({ title }) => {
-    const { navigate } = useNavigation();
-    const [isModalAddressOpen, setDisplayModalAddress] = useState(true);
+    const [isModalAddressOpen, setDisplayModalAddress] = useState(false);
     return (
         <SafeAreaView>
             <ModalScreenAddress
