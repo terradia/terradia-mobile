@@ -24,5 +24,20 @@ export default {
         firstName: 'First name',
         lastName: 'Last name',
         register: 'Register now'
+    },
+    searchScreen: {
+        search: 'Search',
+        search1: 'Search'
+    },
+    addressModal: {
+        deliveryAddress: 'Delivery address',
+        deliveryDetails: 'Delivery details',
+        back: 'Back',
+        confirm: 'Apply',
+        deliveryOptions: 'Delivery options',
+        deliverToDoor: 'Deliver to door',
+        pickUpOutside: 'Pick up outside',
+        deliveryNotes: 'Delivery notes',
+        apt: 'Apt / Suite / Floor'
     }
 };

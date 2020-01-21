@@ -7,6 +7,7 @@ import {
     FlatList
 } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const FILTER = ['Trier', 'Prix', 'Nouveautés', 'diététique'];
 
@@ -65,16 +66,31 @@ const GrowerFilter: FunctionComponent<any> = () => {
     };
 
     return (
-        <View>
-            <FlatList
-                data={FILTER}
-                keyExtractor={(item: string): string => item}
-                horizontal={true}
-                ListHeaderComponent={(): ReactElement => _renderItemHeader()}
-                renderItem={({ item }): ReactElement => _renderItem(item)}
-                showsHorizontalScrollIndicator={false}
-            />
-        </View>
+        <LinearGradient
+            style={{ flex: 1, height: 90 }}
+            colors={['#8FDD3D', '#5CC04A']}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 0 }}
+        >
+            <View
+                style={{
+                    backgroundColor: 'white',
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10
+                }}
+            >
+                <FlatList
+                    data={FILTER}
+                    keyExtractor={(item: string): string => item}
+                    horizontal={true}
+                    ListHeaderComponent={(): ReactElement =>
+                        _renderItemHeader()
+                    }
+                    renderItem={({ item }): ReactElement => _renderItem(item)}
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+        </LinearGradient>
     );
 };
 export default GrowerFilter;

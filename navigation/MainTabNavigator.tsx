@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 import { Image, Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import ProductsScreen from '../screens/ProductsScreen';
+import SearchScreen from '../screens/search/SearchScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
-import NavBar from '../components/header/NavBar';
+// @ts-ignore
+import i18n from '@i18n/i18n';
 
 const GrowerStack = createStackNavigator(
     {
@@ -20,31 +21,32 @@ const GrowerStack = createStackNavigator(
     }
 );
 
-GrowerStack.navigationOptions = {
-    tabBarLabel: 'Producteurs',
+GrowerStack.navigationOptions = ({ navigation }) => ({
+    tabBarLabel: i18n.t('growerScreen.growers'),
     tabBarOptions: {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc'
     },
+    tabBarVisible: navigation.state.index < 1,
     tabBarIcon: ({ focused }) => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Producteurs/active.png')
             : require('../assets/images/TabBarNavigation/Producteurs/inactive.png');
         return <Image source={image} />;
     }
-};
+});
 
-const ProductStack = createStackNavigator(
+const SearchStack = createStackNavigator(
     {
-        Product: ProductsScreen
+        Product: SearchScreen
     },
     {
-        headerMode: 'none'
+        headerMode: 'screen'
     }
 );
 
-ProductStack.navigationOptions = {
-    tabBarLabel: 'Produits',
+SearchStack.navigationOptions = {
+    tabBarLabel: i18n.t('searchScreen.search'),
     header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
@@ -84,7 +86,7 @@ ProfileStack.navigationOptions = {
 const tabNavigator = createBottomTabNavigator(
     {
         GrowerStack,
-        ProductStack,
+        SearchStack,
         ProfileStack
     },
     {}

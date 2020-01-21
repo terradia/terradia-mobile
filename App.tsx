@@ -39,7 +39,7 @@ const stateLink = withClientState({
 });
 
 const httpLink = new HttpLink({
-    uri: 'https://10eda6d6.ngrok.io' + '/graphql',
+    uri: 'https://0b415bd0.ngrok.io' + '/graphql',
     fetch: fetch
 });
 
@@ -103,6 +103,7 @@ async function loadResourcesAsync() {
             ...Ionicons.font,
             // We include SpaceMono because we use it in HomeScreen.js. Feel free to
             // remove this if you are not using it in your app
+            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
             Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
             MontserratSemiBold: require('./assets/fonts/Montserrat-Medium.ttf'),
             MontserratBold: require('./assets/fonts/Montserrat-Bold.ttf'),

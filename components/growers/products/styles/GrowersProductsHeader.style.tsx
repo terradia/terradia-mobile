@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
     categoriesBackgroundContainer: {
         backgroundColor: '#5CC04A'
     },
@@ -10,7 +10,7 @@ export default styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     backgroundContainer: {
-        backgroundColor: '#5CC04A'
+        backgroundColor: 'transparent'
     },
     navBarGrowerName: {
         color: 'white',
@@ -63,3 +63,5 @@ export default styles = StyleSheet.create({
         fontWeight: '500'
     }
 });
+
+export default styles;

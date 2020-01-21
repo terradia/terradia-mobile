@@ -204,6 +204,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
 
 GrowerProductsScreen.navigationOptions = {
     headerMode: 'none',
-    header: (): ReactElement => null
+    header: (): ReactElement => null,
+    tabBarVisible: false
 };
 export default GrowerProductsScreen;
