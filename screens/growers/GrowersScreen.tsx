@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, useState } from 'react';
-import { FlatList, Animated, View } from 'react-native';
+import { FlatList, Animated, View, ScrollView, Text } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import FilterGrowers from '../../components/growers/Filter';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
@@ -11,9 +11,9 @@ import { withCollapsible } from 'react-navigation-collapsible';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigationParam } from 'react-navigation-hooks';
 // @ts-ignore
-import i18n from '@i18n/i18n';
-
+import Cart from '../../components/cart';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 declare interface GrowersScreen {
     navigation: NavigationStackScreenProps;
@@ -27,18 +27,21 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     const growers = useNavigationParam('growers');
     const { paddingHeight, animatedY, onScroll } = collapsible;
     return (
-        <AnimatedFlatList
-            style={{ flex: 1 }}
-            data={growers.getAllCompanies}
-            renderItem={({ item }): ReactElement => (
-                <GrowerCard navigation={navigation} grower={item} />
-            )}
-            keyExtractor={(item, index): string => String(index)}
-            contentContainerStyle={{ paddingTop: paddingHeight }}
-            scrollIndicatorInsets={{ top: paddingHeight }}
-            onScroll={onScroll}
-            _mustAddThis={animatedY}
-        />
+        <View style={{ flex: 1 }}>
+            <Animated.ScrollView _mustAddThis={animatedY} onScroll={onScroll}>
+                <FlatList
+                    style={{ flex: 1 }}
+                    data={growers.getAllCompanies}
+                    renderItem={({ item }): ReactElement => (
+                        <GrowerCard navigation={navigation} grower={item} />
+                    )}
+                    keyExtractor={(item, index): string => String(index)}
+                    contentContainerStyle={{ paddingTop: paddingHeight }}
+                    scrollIndicatorInsets={{ top: paddingHeight }}
+                />
+            </Animated.ScrollView>
+            <Cart />
+        </View>
     );
 };
 

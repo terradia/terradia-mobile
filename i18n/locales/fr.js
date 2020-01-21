@@ -39,5 +39,12 @@ export default {
         pickUpOutside: "Récupération à l'éxtérieur",
         deliveryNotes: 'Informations supplémentaires',
         apt: 'Apt / Suite / Etage'
+    },
+    cart: {
+        viewCart: 'Mon panier',
+        products: {
+            one: 'produit',
+            other: 'produits'
+        }
     }
 };

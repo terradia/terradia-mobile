@@ -1,14 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Animated, FlatList, StyleSheet } from 'react-native';
-import NavBar from '../../components/header/NavBar';
+import { Animated, FlatList, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 // @ts-ignore
-import i18n from '@i18n/i18n';
 import SearchInput from '../../components/search/SearchInput';
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 import { withCollapsible } from 'react-navigation-collapsible';
 import HorizontalList from '../../components/search/lists/HorizontalList';
-import SearchCard from '../../components/cards/SearchCard';
+import Cart from '../../components/cart';
+import VerticalList from '../../components/search/lists/VerticalList';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -38,32 +36,28 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
     const { paddingHeight, animatedY, onScroll } = collapsible;
 
     return (
-        <AnimatedFlatList
-            style={{ flex: 1 }}
-            data={DATA}
-            ListHeaderComponent={() => <HorizontalList categories={DATA} />}
-            renderItem={({ item }): ReactElement => (
-                <SearchCard
-                    width={170}
-                    height={170}
-                    textBottomPositionPercentage={30}
-                    textLeftPosition={15}
-                    title={item}
-                    containerStyle={{
-                        marginTop: 10,
-                        marginBottom: 10,
-                        flex: 0.5,
-                        alignItems: 'center'
-                    }}
+        <View style={{ flex: 1 }}>
+            <Animated.ScrollView
+                _mustAddThis={animatedY}
+                onScroll={onScroll}
+                scrollIndicatorInsets={{ top: paddingHeight }}
+                contentContainerStyle={{ paddingTop: paddingHeight }}
+            >
+                <HorizontalList
+                    categories={DATA}
+                    title={'Nos produits préférés'}
                 />
-            )}
-            numColumns={2}
-            keyExtractor={(item, index): string => String(index)}
-            contentContainerStyle={{ paddingTop: paddingHeight }}
-            scrollIndicatorInsets={{ top: paddingHeight }}
-            onScroll={onScroll}
-            _mustAddThis={animatedY}
-        />
+                <HorizontalList
+                    categories={DATA}
+                    title={'Les meilleurs catégories'}
+                />
+                <VerticalList
+                    categories={DATA}
+                    title={'Toutes les catégories'}
+                />
+            </Animated.ScrollView>
+            <Cart />
+        </View>
     );
 };
 

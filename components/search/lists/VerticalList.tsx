@@ -25,18 +25,25 @@ const HorizontalList: FunctionComponent<HorizontalListProps> = ({
         <View>
             <Text style={styles.title}>{title}</Text>
             <FlatList
+                style={{ flex: 1 }}
                 data={categories}
-                renderItem={({ item }) => (
+                renderItem={({ item }): ReactElement => (
                     <SearchCard
-                        width={130}
-                        height={130}
+                        width={170}
+                        height={170}
                         textBottomPositionPercentage={30}
-                        textLeftPosition={6}
+                        textLeftPosition={15}
                         title={item}
-                        containerStyle={{ margin: 10 }}
+                        containerStyle={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                            flex: 0.5,
+                            alignItems: 'center'
+                        }}
                     />
                 )}
-                horizontal={true}
+                numColumns={2}
+                keyExtractor={(item, index): string => String(index)}
             />
         </View>
     );

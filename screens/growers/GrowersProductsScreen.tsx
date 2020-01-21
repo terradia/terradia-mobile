@@ -20,6 +20,7 @@ import {
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProductsScreen.style';
 import { useNavigationParam } from 'react-navigation-hooks';
+import Cart from '../../components/cart';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -127,81 +128,92 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
 
     if (display) {
         return (
-            <SectionList
-                style={styles.containerBox}
-                sections={products}
-                ref={list}
-                keyExtractor={(item): string => item.id.toString()}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingTop: 340 }}
-                showsHorizontalScrollIndicator={false}
-                renderSectionHeader={({ section: { title } }): any => {
-                    return (
-                        <View style={{ height: LIST_HEADER_HEIGHT }}>
-                            {renderHeaders(title)}
-                        </View>
-                    );
-                }}
-                renderItem={({ item }): any => (
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        style={{
-                            height: LIST_ELEM_HEIGHT,
-                            borderColor: '#ccc',
-                            borderTopWidth: 0.5
-                        }}
-                    >
-                        {renderItems({ product: item })}
-                    </TouchableOpacity>
-                )}
-                renderScrollComponent={(): any => (
-                    <ParallaxScrollView
-                        onScroll={(event): any => handleScroll(event)}
-                        style={{ flex: 1, width: '100%' }}
-                        backgroundColor="white"
-                        parallaxHeaderHeight={300}
-                        stickyHeaderHeight={133}
-                        renderFixedHeader={(): any =>
-                            renderFixedHeader({ navigation })
-                        }
-                        renderBackground={renderImageBackground}
-                        renderStickyHeader={(): any =>
-                            renderNavBar({
-                                data: products,
-                                scrollMainList,
-                                currentIndex: currentIndex - 1,
-                                setBlockUpdateIndex,
-                                setCurrentIndex,
-                                grower
-                            })
-                        }
-                        fadeOutForeground={false}
-                        showsVerticalScrollIndicator={false}
-                        onMomentumScrollEnd={(): any =>
-                            setBlockUpdateIndex(false)
-                        }
-                        renderForeground={(): any =>
-                            GrowersProductsForegroundHeader({ grower })
-                        }
-                    />
-                )}
-            />
+            <View style={{ flex: 1 }}>
+                <SectionList
+                    style={styles.containerBox}
+                    sections={products}
+                    ref={list}
+                    keyExtractor={(item): string => item.id.toString()}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingTop: 340 }}
+                    showsHorizontalScrollIndicator={false}
+                    renderSectionHeader={({ section: { title } }): any => {
+                        return (
+                            <View style={{ height: LIST_HEADER_HEIGHT }}>
+                                {renderHeaders(title)}
+                            </View>
+                        );
+                    }}
+                    renderItem={({ item }): any => (
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={{
+                                height: LIST_ELEM_HEIGHT,
+                                borderColor: '#ccc',
+                                borderTopWidth: 0.5
+                            }}
+                        >
+                            {renderItems({ product: item })}
+                        </TouchableOpacity>
+                    )}
+                    renderScrollComponent={(): any => (
+                        <ParallaxScrollView
+                            onScroll={(event): any => handleScroll(event)}
+                            style={{ flex: 1, width: '100%' }}
+                            backgroundColor="white"
+                            parallaxHeaderHeight={300}
+                            stickyHeaderHeight={133}
+                            renderFixedHeader={(): any =>
+                                renderFixedHeader({ navigation })
+                            }
+                            renderBackground={renderImageBackground}
+                            renderStickyHeader={(): any =>
+                                renderNavBar({
+                                    data: products,
+                                    scrollMainList,
+                                    currentIndex: currentIndex - 1,
+                                    setBlockUpdateIndex,
+                                    setCurrentIndex,
+                                    grower
+                                })
+                            }
+                            fadeOutForeground={false}
+                            showsVerticalScrollIndicator={false}
+                            onMomentumScrollEnd={(): any =>
+                                setBlockUpdateIndex(false)
+                            }
+                            renderForeground={(): any =>
+                                GrowersProductsForegroundHeader({ grower })
+                            }
+                        />
+                    )}
+                />
+                <View style={{ paddingBottom: 10, backgroundColor: '#5CC04A' }}>
+                    <Cart />
+                </View>
+            </View>
         );
     } else {
         return (
-            <SectionList
-                style={styles.containerBox}
-                sections={products}
-                initialNumToRender={1}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item): string => item.id.toString()}
-                renderItem={renderItem}
-            />
+            <View style={{ flex: 1 }}>
+                <SectionList
+                    style={styles.containerBox}
+                    sections={products}
+                    initialNumToRender={1}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item): string => item.id.toString()}
+                    renderItem={renderItem}
+                />
+                <View style={{ paddingBottom: 10, backgroundColor: '#5CC04A' }}>
+                    <Cart />
+                </View>
+            </View>
         );
     }
 };
 
+// @ts-ignore
 GrowerProductsScreen.navigationOptions = {
     headerMode: 'none',
     header: (): ReactElement => null,

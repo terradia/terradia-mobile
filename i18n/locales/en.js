@@ -39,5 +39,12 @@ export default {
         pickUpOutside: 'Pick up outside',
         deliveryNotes: 'Delivery notes',
         apt: 'Apt / Suite / Floor'
+    },
+    cart: {
+        viewCart: 'My cart',
+        products: {
+            one: 'product',
+            other: 'products'
+        }
     }
 };
