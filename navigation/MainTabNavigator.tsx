@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Image, Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import SearchScreen from '../screens/SearchScreen';
+import SearchScreen from '../screens/search/SearchScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';

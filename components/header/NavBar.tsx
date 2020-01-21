@@ -1,26 +1,50 @@
-import React, { FunctionComponent } from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import React, { FunctionComponent, useState } from 'react';
+import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from 'react-navigation-hooks';
+import ModalScreenAddress from '../growers/modals/ModalScreenAddress';
 
 declare interface NavBarProps {
     title: string;
 }
 
 const NavBar: FunctionComponent<NavBarProps> = ({ title }) => {
+    const { navigate } = useNavigation();
+    const [isModalAddressOpen, setDisplayModalAddress] = useState(true);
     return (
         <SafeAreaView>
-            <Text
+            <ModalScreenAddress
+                isOpen={isModalAddressOpen}
+                setDisplayModalAddress={setDisplayModalAddress}
+            />
+            <TouchableOpacity
+                onPress={() => setDisplayModalAddress(!isModalAddressOpen)}
                 style={{
-                    color: 'white',
-                    backgroundColor: 'transparent',
-                    fontWeight: 'bold',
-                    fontSize: 30,
-                    marginLeft: 30,
-                    fontFamily: 'MontserratSemiBold',
-                    alignItems: 'center'
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }}
+                activeOpacity={0.7}
             >
-                {title}
-            </Text>
+                <Text
+                    style={{
+                        color: 'white',
+                        backgroundColor: 'transparent',
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                        fontFamily: 'MontserratSemiBold',
+                        alignItems: 'center'
+                    }}
+                >
+                    {title}
+                </Text>
+                <Feather
+                    style={{ margin: 3 }}
+                    name="chevron-down"
+                    size={26}
+                    color="white"
+                />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

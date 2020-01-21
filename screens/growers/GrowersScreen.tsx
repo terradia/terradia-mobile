@@ -52,19 +52,16 @@ const collapsibleParams = {
 
 // @ts-ignore
 GrowersScreen.navigationOptions = {
-    title: '',
-    headerLeft: (): ReactElement => (
-        <NavBar title={i18n.t('growerScreen.growers')} />
-    ),
+    headerTitle: (): ReactElement => <NavBar title={'810 Village dr.'} />,
     headerBackground: (): ReactElement => (
         <LinearGradient
-            style={{ flex: 1, height: 90 }}
+            style={{ flex: 1, height: 80 }}
             colors={['#8FDD3D', '#5CC04A']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
         />
     ),
-    headerStyle: { height: 90, backgroundColor: 'transparent' }
+    headerStyle: { height: 80, backgroundColor: 'transparent' }
 };
 
 export default withCollapsible(GrowersScreen, collapsibleParams);

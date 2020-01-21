@@ -1,14 +1,14 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 import { Animated, FlatList, StyleSheet } from 'react-native';
-import NavBar from '../components/header/NavBar';
+import NavBar from '../../components/header/NavBar';
 import { LinearGradient } from 'expo-linear-gradient';
 // @ts-ignore
 import i18n from '@i18n/i18n';
-import SearchInput from '../components/search/SearchInput';
+import SearchInput from '../../components/search/SearchInput';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 import { withCollapsible } from 'react-navigation-collapsible';
-import HorizontalList from '../components/search/lists/HorizontalList';
-import SearchCard from '../components/cards/SearchCard';
+import HorizontalList from '../../components/search/lists/HorizontalList';
+import SearchCard from '../../components/cards/SearchCard';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -70,18 +70,15 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
 // @ts-ignore
 SearchScreen.navigationOptions = {
     title: '',
-    headerLeft: (): ReactElement => (
-        <NavBar title={i18n.t('searchScreen.search')} />
-    ),
     headerBackground: (): ReactElement => (
         <LinearGradient
-            style={{ flex: 1, height: 90 }}
+            style={{ flex: 1, height: 45 }}
             colors={['#8FDD3D', '#5CC04A']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
         />
     ),
-    headerStyle: { height: 90, backgroundColor: 'transparent' }
+    headerStyle: { height: 45, backgroundColor: 'transparent' }
 };
 const styles = StyleSheet.create({});
 
