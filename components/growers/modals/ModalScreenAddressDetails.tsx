@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'React';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 import InputLightTerradia from '../../input/InputLightTerradia';
 import styles from './styles/ModalScreenAddressDetails.style';

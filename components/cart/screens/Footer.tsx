@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/Footer.style';
 import { Feather } from '@expo/vector-icons';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 
 declare interface FooterProps {

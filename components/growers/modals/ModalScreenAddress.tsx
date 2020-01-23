@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useState } from 'React';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import ModalScreenAddressSelect from './ModalScreenAddressSelect';
 import { Feather } from '@expo/vector-icons';
 import ModalScreenAddressDetails from './ModalScreenAddressDetails';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 import styles from './styles/ModalScreenAddress.style';
+
 declare interface ModalScreenAddressSelectProps {
     isOpen: boolean;
     setDisplayModalAddress: any;

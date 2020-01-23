@@ -6,6 +6,18 @@
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@i18n/i18n": [
+        "i18n/i18n"
+      ],
+      "@interfaces/*": [
+        "interfaces/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ]
+    }
   }
 }

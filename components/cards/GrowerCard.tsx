@@ -4,10 +4,8 @@ import { AirbnbRating, Avatar } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import style from './styles/GrowerCard.style';
 import { NavigationParams } from 'react-navigation';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import GrowersConfig from '@interfaces/Growers';
-// @ts-ignore
+
+import { GrowersConfig } from '@interfaces/Growers.d';
 import i18n from '@i18n/i18n';
 
 declare interface GrowerCard {

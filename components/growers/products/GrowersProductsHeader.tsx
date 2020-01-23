@@ -6,9 +6,7 @@ import { View } from 'react-native';
 import { Image } from 'react-native';
 import { Text } from 'react-native';
 import GrowersProductsCategories from './GrowersProductsCategories';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import GrowersConfig from '@interfaces/Growers';
+import { GrowersConfig } from '@interfaces/Growers';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {

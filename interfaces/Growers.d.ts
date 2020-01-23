@@ -1,5 +1,3 @@
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-
 export declare interface GrowersConfig {
     averageMark: number;
     description: string;

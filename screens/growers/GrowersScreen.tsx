@@ -1,23 +1,22 @@
-import React, { FunctionComponent, ReactElement, useState } from 'react';
-import { FlatList, Animated, View, ScrollView, Text } from 'react-native';
+import React, { FunctionComponent, ReactElement } from 'react';
+import { FlatList, Animated, View } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import FilterGrowers from '../../components/growers/Filter';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import NavBar from '../../components/header/NavBar';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import GrowersConfig from '@interfaces/Growers';
 import { withCollapsible } from 'react-navigation-collapsible';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigationParam } from 'react-navigation-hooks';
-// @ts-ignore
 import Cart from '../../components/cart';
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-const AnimatedView = Animated.createAnimatedComponent(View);
+import { GrowersConfig } from '@interfaces/Growers.d';
 
 declare interface GrowersScreen {
     navigation: NavigationStackScreenProps;
     collapsible: any;
+}
+
+declare interface ItemProps {
+    item: GrowersConfig;
 }
 
 const GrowersScreen: FunctionComponent<GrowersScreen> = ({
@@ -32,7 +31,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
                 <FlatList
                     style={{ flex: 1 }}
                     data={growers.getAllCompanies}
-                    renderItem={({ item }): ReactElement => (
+                    renderItem={({ item }: ItemProps): ReactElement => (
                         <GrowerCard navigation={navigation} grower={item} />
                     )}
                     keyExtractor={(item, index): string => String(index)}

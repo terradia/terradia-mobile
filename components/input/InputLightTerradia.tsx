@@ -1,14 +1,5 @@
-import React, { Component, FunctionComponent } from 'react';
-import {
-    StyleProp,
-    StyleSheet,
-    TextInput,
-    TextStyle,
-    View
-} from 'react-native';
-// @ts-ignore
-import i18n from '@i18n/i18n';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import React, { FunctionComponent } from 'react';
+import { StyleProp, StyleSheet, TextInput, TextStyle } from 'react-native';
 
 export declare interface ButtonProps {
     onChangeText: any;

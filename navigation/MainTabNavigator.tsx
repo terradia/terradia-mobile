@@ -1,12 +1,11 @@
-import React, { ReactNode } from 'react';
-import { Image, Text } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SearchScreen from '../screens/search/SearchScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 
 const GrowerStack = createStackNavigator(

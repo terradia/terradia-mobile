@@ -1,12 +1,11 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Animated, FlatList, StyleSheet, View } from 'react-native';
+import { Animated, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-// @ts-ignore
-import SearchInput from '../../components/search/SearchInput';
+import SearchInput from '@components/search/SearchInput';
 import { withCollapsible } from 'react-navigation-collapsible';
-import HorizontalList from '../../components/search/lists/HorizontalList';
-import Cart from '../../components/cart';
-import VerticalList from '../../components/search/lists/VerticalList';
+import HorizontalList from '@components/search/lists/HorizontalList';
+import Cart from '@components/cart';
+import VerticalList from '@components/search/lists/VerticalList';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -74,7 +73,6 @@ SearchScreen.navigationOptions = {
     ),
     headerStyle: { height: 45, backgroundColor: 'transparent' }
 };
-const styles = StyleSheet.create({});
 
 const collapsibleParams = {
     collapsibleComponent: SearchInput,

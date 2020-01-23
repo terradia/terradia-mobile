@@ -1,4 +1,4 @@
-import React, { Component, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import {
     StyleProp,
     StyleSheet,
@@ -6,9 +6,8 @@ import {
     TextStyle,
     View
 } from 'react-native';
-// @ts-ignore
 import i18n from '@i18n/i18n';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 export declare interface ButtonProps {
     onChangeText: any;

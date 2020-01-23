@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import styles from './styles/Header.style';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 
 declare interface HeaderCartProps {

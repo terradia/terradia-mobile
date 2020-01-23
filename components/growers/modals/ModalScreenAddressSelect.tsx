@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Localization from 'expo-localization';
 import { Feather, FontAwesome } from '@expo/vector-icons';
-// @ts-ignore
 import i18n from '@i18n/i18n';
 import getLocationAsync from './CurrentPositionResolver';
 import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';

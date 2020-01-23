@@ -7,20 +7,20 @@ import React, {
 } from 'react';
 import { Text, TouchableOpacity, SectionList, View } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import GrowersProductsForegroundHeader from '../../components/growers/products/GrowersProductsForegroundHeader';
+import GrowersProductsForegroundHeader from '@components/growers/products/GrowersProductsForegroundHeader';
 import {
     renderFixedHeader,
     renderImageBackground,
     renderNavBar
-} from '../../components/growers/products/GrowersProductsHeader';
+} from '@components/growers/products/GrowersProductsHeader';
 import {
     renderHeaders,
     renderItems
-} from '../../components/growers/products/GrowersProductsListRender';
+} from '@components/growers/products/GrowersProductsListRender';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProductsScreen.style';
 import { useNavigationParam } from 'react-navigation-hooks';
-import Cart from '../../components/cart';
+import Cart from '@components/cart';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;

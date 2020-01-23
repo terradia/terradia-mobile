@@ -3,9 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar, AirbnbRating } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from './styles/GrowersProductsForegroundHeader.style';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import GrowersConfig from '@interfaces/Growers';
+import { GrowersConfig } from '@interfaces/Growers';
 
 declare interface GrowersProductsForegroundHeaderProps {
     grower?: GrowersConfig;
