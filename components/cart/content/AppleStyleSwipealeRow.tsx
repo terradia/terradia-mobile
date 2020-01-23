@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import React, {
+    Component,
+    FunctionComponent,
+    useImperativeHandle,
+    useRef
+} from 'react';
 import { Animated, StyleSheet, Text, View, I18nManager } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
@@ -14,7 +19,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         backgroundColor: 'transparent',
-        padding: 10
+        padding: 10,
+        fontFamily: 'MontserratBold'
     },
     rightAction: {
         alignItems: 'center',
@@ -23,16 +29,34 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class AppleStyleSwipeableRow extends Component {
-    renderRightAction = (text, color, x, progress) => {
+interface AppleStyleSwipeableRowProps {
+    close: any;
+    ref: React.Ref<HTMLDivElement>;
+    setCurrentOpen: any;
+    id: number;
+}
+
+const AppleStyleSwipeableRow: FunctionComponent<AppleStyleSwipeableRowProps> = ({
+    children,
+    ref,
+    setCurrentOpen,
+    id
+}) => {
+    const refSwipeableRow = useRef(null);
+
+    const renderRightAction = (text, color, x, progress) => {
         const trans = progress.interpolate({
             inputRange: [0, 1],
             outputRange: [x, 0]
         });
+        const close = () => {
+            refSwipeableRow.current.close();
+        };
         const pressHandler = () => {
-            this.close();
+            close();
             alert(text);
         };
+
         return (
             <Animated.View
                 style={{ flex: 1, transform: [{ translateX: trans }] }}
@@ -46,34 +70,28 @@ export default class AppleStyleSwipeableRow extends Component {
             </Animated.View>
         );
     };
-    renderRightActions = progress => (
+    const renderRightActions = progress => (
         <View
             style={{
                 width: 120,
                 flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
             }}
         >
-            {this.renderRightAction('More', '#FF4A4A', 150, progress)}
+            {renderRightAction('Supprimer', '#FF4A4A', 150, progress)}
         </View>
     );
-    updateRef = ref => {
-        this._swipeableRow = ref;
-    };
-    close = () => {
-        this._swipeableRow.close();
-    };
-    render() {
-        const { children } = this.props;
-        return (
-            <Swipeable
-                ref={this.updateRef}
-                friction={2}
-                rightThreshold={40}
-                renderRightActions={this.renderRightActions}
-            >
-                {children}
-            </Swipeable>
-        );
-    }
-}
 
+    return (
+        <Swipeable
+            onSwipeableOpen={() => setCurrentOpen(id)}
+            ref={refSwipeableRow}
+            friction={2}
+            rightThreshold={40}
+            renderRightActions={renderRightActions}
+        >
+            {children}
+        </Swipeable>
+    );
+};
+
+export default AppleStyleSwipeableRow;

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -82,34 +82,29 @@ const styles = StyleSheet.create({
         padding: 10
     }
 });
-const renderRightAction = (progress, dragX) => {
-    const trans = dragX.interpolate({
-        inputRange: [0, 50, 100, 101],
-        outputRange: [-20, 0, 0, 1]
-    });
-    return (
-        <TouchableOpacity
-            style={styles.rightAction}
-            onPress={() => console.log('Close')}
-        >
-            <Animated.Text
-                style={[
-                    styles.actionText,
-                    {
-                        transform: [{ translateX: trans }]
-                    }
-                ]}
-            >
-                Archive
-            </Animated.Text>
-        </TouchableOpacity>
-    );
-};
 
 const ProductList: FunctionComponent = () => {
-    const _renderItem = ({ item }) => {
+    const [currentOpen, setCurrentOpen] = useState(-1);
+    const refSwipeableRows = useRef([]);
+
+    const openNewSwiper = id => {
+        console.log('Hello');
+        console.log(currentOpen);
+        if (currentOpen !== -1) {
+            refSwipeableRows.current[currentOpen].getAlert();
+            console.log('Close');
+        }
+        setCurrentOpen(id);
+    };
+
+    const _renderItem = ({ item, index }) => {
         return (
-            <AppleStyleSwipeableRow>
+            <AppleStyleSwipeableRow
+                id={index}
+                setCurrentOpen={openNewSwiper}
+                close={() => console.log('Close')}
+                ref={refSwipeableRows[0]}
+            >
                 <View
                     style={{
                         flexDirection: 'row',
