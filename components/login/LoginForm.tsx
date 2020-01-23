@@ -10,21 +10,9 @@ import ButtonTerradia from '../buttons/ButtonTerradia';
 import ButtonEmpty from '../buttons/Button';
 import { Input } from 'react-native-elements';
 import styles from './styles/LoginForm.style';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
-
-/*
-  Mutation login with email address & password
-*/
-const LOGIN = gql`
-    mutation loginMutation($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-            userId
-        }
-    }
-`;
+import LOGIN from '../../graphql/login.graphql';
 
 declare interface LoginFormProps {
     navigateRegister?: any;

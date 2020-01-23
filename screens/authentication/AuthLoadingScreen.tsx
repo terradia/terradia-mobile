@@ -1,67 +1,34 @@
 import { AsyncStorage, Image, View } from 'react-native';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import { CompaniesData } from '@interfaces/Companies';
+import getAllCompanies from '../../graphql/getAllCompanies.graphql';
+import getUser from '../../graphql/getUser.graphql';
 
 declare interface AuthLoadingScreen {
     navigation?: any;
 }
 
-const GET_USER = gql`
-    query getUser {
-        getUser {
-            id
-            lastName
-        }
-    }
-`;
-
-const GET_COMPANIES = gql`
-    query allCompanies {
-        getAllCompanies {
-            name
-            averageMark
-            numberOfMarks
-            description
-            productsCategories {
-                name
-                products {
-                    name
-                    id
-                    description
-                }
-            }
-            products {
-                name
-                id
-                description
-            }
-        }
-    }
-`;
-
 const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
     navigation
 }) => {
-    const [loadGrowers, { data: growers }] = useLazyQuery<CompaniesData, any>(
-        GET_COMPANIES,
-        {
-            onCompleted: data => {
-                const { navigate } = navigation;
-                if (data && data) navigate('Grower', { growers: data });
-                else navigate('Login');
-            },
-            onError: async onerror => {
-                const { navigate } = navigation;
-                const token = await AsyncStorage.removeItem('token');
+    const [loadGrowers, { data: growers }] = useLazyQuery<{
+        getAllCompanies: CompaniesData;
+    }>(getAllCompanies, {
+        onCompleted: data => {
+            const { navigate } = navigation;
+            if (data && data) navigate('Grower', { growers: growers });
+            else navigate('Login');
+        },
+        onError: async onerror => {
+            const { navigate } = navigation;
+            const token = await AsyncStorage.removeItem('token');
 
-                navigate('Login');
-            }
+            navigate('Login');
         }
-    );
+    });
 
-    const [loadUser, { called, loading, data }] = useLazyQuery(GET_USER, {
+    const [loadUser, { called, loading, data }] = useLazyQuery(getUser, {
         onCompleted: data => {
             const { navigate } = navigation;
             if (data && data.getUser) loadGrowers();
@@ -69,8 +36,7 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
         },
         onError: async onerror => {
             const { navigate } = navigation;
-            const token = await AsyncStorage.removeItem('token');
-
+            await AsyncStorage.removeItem('token');
             navigate('Login');
         }
     });

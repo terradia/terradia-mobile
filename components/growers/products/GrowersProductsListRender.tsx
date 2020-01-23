@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Image, Text, View } from 'react-native';
 import styles from './styles/GrowersProductsListRender.style';
-import GrowersProductsConfig from '@interfaces/Growers';
+import { GrowersProductsConfig } from '@interfaces/Growers';
 
 export const renderHeaders: FunctionComponent<string> = (title: string) => {
     return (
@@ -13,11 +13,11 @@ export const renderHeaders: FunctionComponent<string> = (title: string) => {
     );
 };
 
-declare interface renderListProductsProps {
+declare interface RenderListProductsProps {
     product: GrowersProductsConfig;
 }
 
-export const renderItems: FunctionComponent<renderListProductsProps> = ({
+export const renderItems: FunctionComponent<RenderListProductsProps> = ({
     product
 }) => {
     return (

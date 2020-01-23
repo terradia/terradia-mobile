@@ -1,0 +1,21 @@
+query allCompanies {
+    getAllCompanies {
+        name
+        averageMark
+        numberOfMarks
+        description
+        productsCategories {
+            name
+            products {
+                name
+                id
+                description
+            }
+        }
+        products {
+            name
+            id
+            description
+        }
+    }
+}

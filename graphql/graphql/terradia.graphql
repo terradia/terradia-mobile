@@ -1,0 +1,144 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Category {
+    id: String!
+    name: String!
+    parentCategoryId: String
+    products: [Product]
+}
+
+type Company {
+    averageMark: Float
+    cover: String
+    createdAt: Date
+    description: String
+    email: String
+    id: ID!
+    logo: String
+    name: String!
+    numberOfMarks: Int
+    phone: String
+    products: [Product]
+    productsCategories: [CompanyProductsCategory]
+    reviews: [CompanyReview]
+    updatedAt: Date
+    users: [User]
+}
+
+type CompanyProductsCategory {
+    company: Company!
+    id: ID!
+    name: String!
+    products: [Product]!
+}
+
+type CompanyReview {
+    company: Company
+    customer: Customer
+    customerMark: Int!
+    description: String
+    id: String!
+    title: String!
+}
+
+type Customer {
+    companyReviews: [CompanyReview]
+    favoriteCompanies: [Company]
+    id: String!
+    user: User!
+}
+
+type Mutation {
+    _: Boolean
+    addCategoryToProduct(categoryName: String!, productId: String!): Product!
+    addFavoriteCompany(companyId: String!): Customer
+    addProductToCompanyCategory(categoryId: String!, productId: String!): Product
+    createCategory(name: String!, parentCategoryId: String): Category!
+    createCompany(description: String, email: String, name: String!, phone: String): Company!
+    createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
+    createCompanyReview(companyId: String, customerMark: Int, description: String, title: String): CompanyReview
+    createProduct(description: String!, name: String!): Product!
+    defineUserAsCustomer(userId: String!): Customer
+    deleteCategory(id: String!): Category!
+    login(email: String!, password: String!): SigninAnswer!
+    register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
+    removeFavoriteCompany(companyId: String!): Customer
+    removeProductFromCompanyCategory(productId: String!): Product
+}
+
+type Product {
+    categories: [Category]
+    company: Company
+    companyProductsCategory: CompanyProductsCategory
+    createdAt: Date
+    description: String!
+    id: ID!
+    image: String
+    name: String!
+    productReviews: [CompanyReview]
+    updatedAt: Date
+}
+
+type Query {
+    _: Boolean
+    getAllCategories: [Category]!
+    getAllCompanies(page: Int, pageSize: Int): [Company]
+    getAllCompanyProductsCategories(companyId: String!): [CompanyProductsCategory]
+    getAllCustomers: [Customer]
+    getAllProducts: [Product]!
+    getCategoryByName(name: String!): Category
+    getCompany(id: ID!): Company
+    getCompanyByName(name: String!): Company
+    getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
+    getCustomer(userId: String!): Customer
+    getCustomerFavoriteCompanies(userId: String): [Company]
+    getProduct(id: ID!): Product!
+    getProductsByCompany(companyId: String): [Product]!
+    getProductsByCompanyByCategory(companyId: String): [Category]!
+    getUser: User
+}
+
+type SigninAnswer {
+    token: String!
+    userId: String!
+}
+
+type SignupAnswer {
+    message: String!
+    token: String!
+    userId: String!
+}
+
+type Subscription {
+    _: Boolean
+}
+
+type User {
+    company: Company
+    customer: Customer
+    email: String!
+    firstName: String!
+    id: ID!
+    lastName: String!
+    password: String!
+    phone: String!
+    validated: Boolean
+}
+
+enum CacheControlScope {
+    PRIVATE
+    PUBLIC
+}
+
+
+scalar Date
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload

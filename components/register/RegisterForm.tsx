@@ -3,31 +3,9 @@ import styles from '../login/styles/LoginForm.style';
 import { View, Alert, AsyncStorage } from 'react-native';
 import { Input } from 'react-native-elements';
 import ButtonTerradia from '../buttons/ButtonTerradia';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
-
-const REGISTER = gql`
-    mutation registerMutation(
-        $email: String!
-        $password: String!
-        $firstName: String!
-        $lastName: String!
-        $phone: String!
-    ) {
-        register(
-            email: $email
-            password: $password
-            phone: $phone
-            firstName: $firstName
-            lastName: $lastName
-        ) {
-            token
-            message
-            userId
-        }
-    }
-`;
+import REGISTER from '../../graphql/register.graphql';
 
 const RegisterForm: FunctionComponent<any> = props => {
     const [email, setEmail] = useState('');

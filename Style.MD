@@ -30,3 +30,7 @@
 
 > https://amanhimself.dev/build-a-custom-modal-with-the-animated-api-in-react-native
 > https://amanhimself.dev/blog
+
+## Graphql
+
+> https://jimkyndemeyer.github.io/js-graphql-intellij-plugin/docs/developer-guide
