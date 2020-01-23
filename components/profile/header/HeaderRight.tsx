@@ -25,7 +25,7 @@ const HeaderLeft: FunctionComponent<any> = () => {
                 color="white"
             />
             <Ionicons
-                style={{ margin: 3 }}
+                style={{ margin: 3, marginLeft: 10 }}
                 name="ios-cog"
                 size={28}
                 color="white"

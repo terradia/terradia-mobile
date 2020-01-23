@@ -26,6 +26,15 @@ const styles = StyleSheet.create({
     },
     icon: {
         flex: 1.2
+    },
+    container: {
+        backgroundColor: 'white',
+        width: '45%',
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        padding: 10
     }
 });
 
@@ -35,18 +44,8 @@ const ItemMenuCard: FunctionComponent<ItemMenuCardsProps> = ({
 }) => {
     return (
         <TouchableOpacity
-            style={[
-                styles.shadow,
-                {
-                    backgroundColor: 'white',
-                    width: '45%',
-                    height: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 10,
-                    padding: 10
-                }
-            ]}
+            activeOpacity={0.7}
+            style={[styles.shadow, styles.container]}
         >
             <View style={styles.icon}>{icon}</View>
             <Text style={styles.text}>{title}</Text>
