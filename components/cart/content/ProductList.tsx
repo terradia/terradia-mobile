@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
+import React, {
+    createRef,
+    FunctionComponent,
+    useCallback,
+    useRef,
+    useState
+} from 'react';
 import {
     View,
     Text,
@@ -83,27 +89,42 @@ const styles = StyleSheet.create({
     }
 });
 
+function useHookWithRefCallback() {
+    const ref = useRef(null);
+    const setRef = useCallback(node => {
+        if (ref.current) {
+            // Make sure to cleanup any events/references added to the last instance
+        }
+
+        if (node) {
+            // Check if a node is actually passed. Otherwise node would be null.
+            // You can now do what you need to, addEventListeners, measure, etc.
+        }
+
+        // Save a reference to the node
+        ref.current = node;
+    }, []);
+
+    return [setRef];
+}
+
 const ProductList: FunctionComponent = () => {
     const [currentOpen, setCurrentOpen] = useState(-1);
-    const refSwipeableRows = useRef([]);
+    const elRef = useRef([]);
 
     const openNewSwiper = id => {
-        console.log('Hello');
-        console.log(currentOpen);
         if (currentOpen !== -1) {
-            refSwipeableRows.current[currentOpen].getAlert();
-            console.log('Close');
+            elRef.current[currentOpen].close();
         }
         setCurrentOpen(id);
     };
-
     const _renderItem = ({ item, index }) => {
         return (
             <AppleStyleSwipeableRow
                 id={index}
                 setCurrentOpen={openNewSwiper}
                 close={() => console.log('Close')}
-                ref={refSwipeableRows[0]}
+                ref={ins => (elRef.current[index] = ins)}
             >
                 <View
                     style={{
@@ -115,7 +136,7 @@ const ProductList: FunctionComponent = () => {
                 >
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.itemGreen}>{item.quantity}</Text>
-                        <Text style={{ marginLeft: 5 }}>{item.name}</Text>
+                        <Text style={{ marginLeft: 10 }}>{item.name}</Text>
                     </View>
                     <View>
                         <Text style={styles.itemGreen}>{item.price}</Text>
@@ -131,6 +152,7 @@ const ProductList: FunctionComponent = () => {
             <Text style={styles.title}>Votre commande</Text>
             <FlatList
                 data={DATA}
+                extraData={[currentOpen, elRef]}
                 renderItem={_renderItem}
                 keyExtractor={(item, index) => `message ${index}`}
             />

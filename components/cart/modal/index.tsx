@@ -22,7 +22,6 @@ const ModalCart: FunctionComponent<ModalProps> = ({
                 isVisible={isModalOpen}
                 style={styles.modalContainer}
                 onSwipeComplete={(): void => setModalOpen(false)}
-                swipeDirection={['down']}
                 onModalHide={(): void => setModalOpen(false)}
             >
                 <HeaderCart setModalOpen={setModalOpen} />

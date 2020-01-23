@@ -4,7 +4,7 @@ import Footer from './screens/Footer';
 import ModalCart from './modal';
 
 const Cart: FunctionComponent<any> = () => {
-    const [isModalOpen, setModalOpen] = useState(true);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     return (
         <View>

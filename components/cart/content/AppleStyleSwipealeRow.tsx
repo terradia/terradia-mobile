@@ -1,6 +1,8 @@
 import React, {
     Component,
+    forwardRef,
     FunctionComponent,
+    RefForwardingComponent,
     useImperativeHandle,
     useRef
 } from 'react';
@@ -35,15 +37,20 @@ interface AppleStyleSwipeableRowProps {
     setCurrentOpen: any;
     id: number;
 }
-
-const AppleStyleSwipeableRow: FunctionComponent<AppleStyleSwipeableRowProps> = ({
-    children,
-    ref,
-    setCurrentOpen,
-    id
-}) => {
+export interface MyInputHandles {
+    close(): void;
+}
+const AppleStyleSwipeableRow: RefForwardingComponent<
+    MyInputHandles,
+    AppleStyleSwipeableRowProps
+> = forwardRef(({ children, setCurrentOpen, id }, ref) => {
     const refSwipeableRow = useRef(null);
 
+    useImperativeHandle(ref, () => ({
+        close: () => {
+            refSwipeableRow.current.close();
+        }
+    }));
     const renderRightAction = (text, color, x, progress) => {
         const trans = progress.interpolate({
             inputRange: [0, 1],
@@ -83,7 +90,7 @@ const AppleStyleSwipeableRow: FunctionComponent<AppleStyleSwipeableRowProps> = (
 
     return (
         <Swipeable
-            onSwipeableOpen={() => setCurrentOpen(id)}
+            onSwipeableWillOpen={() => setCurrentOpen(id)}
             ref={refSwipeableRow}
             friction={2}
             rightThreshold={40}
@@ -92,6 +99,6 @@ const AppleStyleSwipeableRow: FunctionComponent<AppleStyleSwipeableRowProps> = (
             {children}
         </Swipeable>
     );
-};
+});
 
 export default AppleStyleSwipeableRow;
