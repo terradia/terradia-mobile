@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Modal from 'react-native-modal';
 import styles from './styles/index.style';
 import HeaderCart from './Header';
+import AddressInformation from '../content/AddressInformations';
+import DeliveryDate from '../content/DeliveryDate';
+import ProductList from '../content/ProductList';
 
 declare interface ModalProps {
     isModalOpen: boolean;
@@ -23,6 +26,11 @@ const ModalCart: FunctionComponent<ModalProps> = ({
                 onModalHide={(): void => setModalOpen(false)}
             >
                 <HeaderCart setModalOpen={setModalOpen} />
+                <ScrollView style={{ width: '100%', flex: 1 }}>
+                    <AddressInformation />
+                    <DeliveryDate />
+                    <ProductList />
+                </ScrollView>
             </Modal>
         </View>
     );

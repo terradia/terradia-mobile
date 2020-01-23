@@ -6,11 +6,13 @@ const styles = StyleSheet.create({
         height: 70,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 20
     },
     headerTitle: {
         fontSize: 20,
-        fontFamily: 'MontserratBold'
+        fontFamily: 'MontserratBold',
+        color: '#575757'
     }
 });
 
