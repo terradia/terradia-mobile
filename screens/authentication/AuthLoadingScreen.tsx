@@ -29,26 +29,14 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
             navigate('Login');
         }
     });
-    const [loadUserAddresses] = useLazyQuery<{
-        getAddressesByUser;
-    }>(getAddressesByUser, {
-        onCompleted: data => {
-            loadGrowers();
-        }
-    });
-    const [loadAddress] = useLazyQuery<{
-        getActiveAddress;
-    }>(getActiveAddress, {
-        onCompleted: data => {
-            loadUserAddresses();
-        }
-    });
 
-    const [loadUser, { called, loading, data }] = useLazyQuery(getUser, {
+    const [loadUser, { client }] = useLazyQuery(getUser, {
         onCompleted: data => {
             const { navigate } = navigation;
             if (data && data.getUser) {
-                loadAddress();
+                client.query({ query: getActiveAddress });
+                client.query({ query: getAddressesByUser });
+                loadGrowers();
             } else navigate('Login');
         },
         onError: async onerror => {

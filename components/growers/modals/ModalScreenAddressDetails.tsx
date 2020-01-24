@@ -26,22 +26,19 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
 }) => {
     console.log(mainAddress);
     console.log(mainAddress);
-    const [createAddress, { data, loading }] = useMutation(CreateAddress);
-    const [loadUserAddresses, { loading: loadingUserAddresses }] = useLazyQuery(
-        getAddressesByUser,
+    const [createAddress, { data, loading, client }] = useMutation(
+        CreateAddress,
         {
-            fetchPolicy: 'network-only',
-            onCompleted: data => {
+            onCompleted: () => {
+                client.query({
+                    query: getAddressesByUser,
+                    fetchPolicy: 'network-only'
+                });
+                client.query({
+                    query: getActiveAddress,
+                    fetchPolicy: 'network-only'
+                });
                 setDisplayModalAddress(false);
-            }
-        }
-    );
-    const [updateAddress, { loading: loadingAddress }] = useLazyQuery(
-        getActiveAddress,
-        {
-            fetchPolicy: 'network-only',
-            onCompleted: data => {
-                loadUserAddresses();
             }
         }
     );
@@ -52,7 +49,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
     return (
         <View style={styles.mainContainer}>
             <Spinner
-                visible={loading || loadingAddress || loadingUserAddresses}
+                visible={loading}
                 textContent={'Loading...'}
                 textStyle={{}}
             />
@@ -153,9 +150,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                             apartment: apt,
                             id: mainAddress.id || null
                         }
-                    }).then(() => {
-                        updateAddress();
-                    });
+                    }).then(() => {});
                 }}
                 style={styles.applyButtonContainer}
             >

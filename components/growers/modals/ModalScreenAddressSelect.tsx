@@ -30,9 +30,9 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
     setDisplayModalAddress
 }) => {
     const { loading, data } = useQuery(getAllAddressesByUser, {
-        fetchPolicy: 'cache-only'
+        fetchPolicy: 'cache-first'
     });
-    if (loading || !data) return <View />;
+    if (loading || !data) return <View style={styles.mainContainer} />;
     return (
         <View style={styles.mainContainer}>
             <GooglePlacesAutocomplete
@@ -89,7 +89,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                         setCurrentAddress(addr);
                         setIsSearching(false);
                     } else {
-                        console.log("data");
+                        console.log('data');
                         console.log(data);
                         setCurrentAddress({
                             address: data.address || data.description,
