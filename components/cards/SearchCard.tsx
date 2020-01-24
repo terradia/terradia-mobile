@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import ImageOpacity from '../images/ImageOpacity';
+import styles from './styles/SearchCard.style';
 
 declare interface SearchCard {
     width: number;
@@ -10,20 +11,6 @@ declare interface SearchCard {
     title: string;
     containerStyle: StyleProp<ViewStyle>;
 }
-
-const styles = StyleSheet.create({
-    container: {
-        position: 'relative'
-    },
-    name: {
-        position: 'absolute',
-        bottom: 25,
-        left: 6,
-        color: 'white',
-        fontFamily: 'MontserratSemiBold',
-        fontSize: 16
-    }
-});
 
 const SearchCard: FunctionComponent<SearchCard> = ({
     width,

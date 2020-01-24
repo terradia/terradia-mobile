@@ -6,6 +6,15 @@ schema {
     subscription: Subscription
 }
 
+type Address {
+    active: Boolean!
+    address: String!
+    apartment: String
+    customer: Customer
+    id: String!
+    information: String
+}
+
 type Category {
     id: String!
     name: String!
@@ -63,6 +72,7 @@ type Mutation {
     createCompany(description: String, email: String, name: String!, phone: String): Company!
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String, customerMark: Int, description: String, title: String): CompanyReview
+    createOrUpdateAddress(address: String!, apartment: String, id: String, information: String): Address
     createProduct(description: String!, name: String!): Product!
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
@@ -71,6 +81,7 @@ type Mutation {
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
     removeProductFromCompanyCategory(productId: String!): Product
+    setActiveAddress(id: String!): Address
 }
 
 type Product {
@@ -88,6 +99,8 @@ type Product {
 
 type Query {
     _: Boolean
+    getActiveAddress: Address
+    getAllAddressesByUser: [Address]
     getAllCategories: [Category]!
     getAllCompanies(page: Int, pageSize: Int): [Company]
     getAllCompanyProductsCategories(companyId: String!): [CompanyProductsCategory]

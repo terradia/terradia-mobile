@@ -1,0 +1,6 @@
+query getAddressesByUser {
+    getAllAddressesByUser {
+        address
+        id
+    }
+}

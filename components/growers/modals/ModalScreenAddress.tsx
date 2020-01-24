@@ -18,6 +18,11 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
 }) => {
     const [isSearching, setIsSearching] = useState(true);
     const [currentAddress, setCurrentAddress] = useState(null);
+
+    const closeModal = (value): void => {
+        setIsSearching(true);
+        setDisplayModalAddress(value);
+    };
     return (
         <View style={styles.container}>
             <Modal
@@ -25,6 +30,7 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
                 style={styles.modalContainer}
                 onSwipeComplete={(): void => setDisplayModalAddress(false)}
                 swipeDirection={['down']}
+                propagateSwipe={true}
             >
                 <View style={styles.header}>
                     {isSearching ? (
@@ -49,12 +55,12 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
                     <ModalScreenAddressSelect
                         setIsSearching={setIsSearching}
                         setCurrentAddress={setCurrentAddress}
-                        setDisplayModalAddress={setDisplayModalAddress}
+                        setDisplayModalAddress={closeModal}
                     />
                 ) : (
                     <ModalScreenAddressDetails
                         mainAddress={currentAddress}
-                        setDisplayModalAddress={setDisplayModalAddress}
+                        setDisplayModalAddress={closeModal}
                     />
                 )}
             </Modal>
