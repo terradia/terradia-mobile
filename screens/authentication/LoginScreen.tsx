@@ -1,22 +1,23 @@
-import React, { Component, FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import LoginForm from '../../components/login/LoginForm';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles/Login.style';
+import Preload from './Preload';
 
 declare interface LoginScreenProps {
     navigation?: any;
 }
 
 const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
+    const preloadRef = useRef(null);
     const navigateRegister = (): void => {
         const { navigate } = navigation;
         navigate('Register');
     };
 
-    const navigateHome = (): void => {
-        const { navigate } = navigation;
-        navigate('Main');
+    const successLogin = (): void => {
+        preloadRef.current.preload();
     };
 
     return (
@@ -44,9 +45,10 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                 <View style={styles.container}>
                     <LoginForm
                         navigateRegister={navigateRegister}
-                        navigateHome={navigateHome}
+                        navigateHome={successLogin}
                     />
                 </View>
+                <Preload ref={preloadRef} />
             </LinearGradient>
         </KeyboardAvoidingView>
     );

@@ -1,11 +1,12 @@
 import { AsyncStorage, Image, View } from 'react-native';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { CompaniesData } from '@interfaces/Companies';
 import getAllCompanies from '../../graphql/getAllCompanies.graphql';
 import getUser from '../../graphql/getUser.graphql';
 import getActiveAddress from '../../graphql/getActiveAddress.graphql';
 import getAddressesByUser from '../../graphql/getAddressesByUser.graphql';
+import Preload from './Preload';
 
 declare interface AuthLoadingScreen {
     navigation?: any;
@@ -14,48 +15,19 @@ declare interface AuthLoadingScreen {
 const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
     navigation
 }) => {
-    const [loadGrowers, { data: growers }] = useLazyQuery<{
-        getAllCompanies: CompaniesData;
-    }>(getAllCompanies, {
-        onCompleted: data => {
-            const { navigate } = navigation;
-            if (data && data) navigate('Grower', { growers: growers });
-            else navigate('Login');
-        },
-        onError: async onerror => {
-            const { navigate } = navigation;
-            const token = await AsyncStorage.removeItem('token');
-
-            navigate('Login');
-        }
-    });
-
-    const [loadUser, { client }] = useLazyQuery(getUser, {
-        onCompleted: data => {
-            const { navigate } = navigation;
-            if (data && data.getUser) {
-                client.query({ query: getActiveAddress });
-                client.query({ query: getAddressesByUser });
-                loadGrowers();
-            } else navigate('Login');
-        },
-        onError: async onerror => {
-            const { navigate } = navigation;
-            await AsyncStorage.removeItem('token');
-            navigate('Login');
-        }
-    });
+    const preloadRef = useRef(null);
 
     useEffect(() => {
         AsyncStorage.getItem('token').then(data => {
             if (!data) return navigation.navigate('Login');
-            loadUser();
+            preloadRef.current.preload();
         });
     }, []);
     return (
         <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
+            <Preload ref={preloadRef} />
             <Image
                 style={{ height: 200, width: 200 }}
                 source={require('../../assets/images/icon-terradia.png')}
