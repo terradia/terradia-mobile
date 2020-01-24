@@ -1,20 +1,7 @@
-import React, {
-    createRef,
-    FunctionComponent,
-    useCallback,
-    useRef,
-    useState
-} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    TouchableOpacity,
-    Animated
-} from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import React, { FunctionComponent, ReactElement, useRef, useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import AppleStyleSwipeableRow from './AppleStyleSwipealeRow';
+import styles from './styles/ProductList.style';
 
 const DATA = [
     {
@@ -39,75 +26,6 @@ const DATA = [
     }
 ];
 
-const styles = StyleSheet.create({
-    container: {
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    title: {
-        fontFamily: 'MontserratBold',
-        fontSize: 16,
-        color: '#575757',
-        marginBottom: 30
-    },
-    itemGreen: {
-        fontFamily: 'MontserratSemiBold',
-        fontSize: 14,
-        color: '#8FDD3D'
-    },
-    bottomItemDivider: {
-        height: 1,
-        width: '100%',
-        backgroundColor: '#C7C7CC'
-    },
-    total: {
-        fontFamily: 'MontserratBold',
-        fontSize: 16,
-        color: '#575757'
-    },
-    totalPrice: {
-        fontFamily: 'MontserratBold',
-        fontSize: 16,
-        color: '#8FDD3D',
-        marginLeft: 10
-    },
-    priceContainer: {
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
-        marginTop: 30
-    },
-    rightAction: {
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center'
-    },
-    actionText: {
-        color: 'white',
-        fontSize: 16,
-        backgroundColor: 'transparent',
-        padding: 10
-    }
-});
-
-function useHookWithRefCallback() {
-    const ref = useRef(null);
-    const setRef = useCallback(node => {
-        if (ref.current) {
-            // Make sure to cleanup any events/references added to the last instance
-        }
-
-        if (node) {
-            // Check if a node is actually passed. Otherwise node would be null.
-            // You can now do what you need to, addEventListeners, measure, etc.
-        }
-
-        // Save a reference to the node
-        ref.current = node;
-    }, []);
-
-    return [setRef];
-}
-
 const ProductList: FunctionComponent = () => {
     const [currentOpen, setCurrentOpen] = useState(-1);
     const elRef = useRef([]);
@@ -118,12 +36,12 @@ const ProductList: FunctionComponent = () => {
         }
         setCurrentOpen(id);
     };
-    const _renderItem = ({ item, index }) => {
+    const _renderItem = ({ item, index }): ReactElement => {
         return (
             <AppleStyleSwipeableRow
                 id={index}
                 setCurrentOpen={openNewSwiper}
-                close={() => console.log('Close')}
+                close={(): void => console.log('Close')}
                 ref={ins => (elRef.current[index] = ins)}
             >
                 <View
@@ -154,7 +72,7 @@ const ProductList: FunctionComponent = () => {
                 data={DATA}
                 extraData={[currentOpen, elRef]}
                 renderItem={_renderItem}
-                keyExtractor={(item, index) => `message ${index}`}
+                keyExtractor={(item, index): string => `message ${index}`}
             />
             <View style={styles.priceContainer}>
                 <Text style={styles.total}>Total</Text>
