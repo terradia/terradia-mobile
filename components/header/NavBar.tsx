@@ -2,6 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import ModalScreenAddress from '../growers/modals/ModalScreenAddress';
+import getActiveAddress from '../../graphql/getActiveAddress.graphql';
+import { useQuery } from '@apollo/react-hooks';
 
 declare interface NavBarProps {
     title: string;
@@ -9,6 +11,9 @@ declare interface NavBarProps {
 
 const NavBar: FunctionComponent<NavBarProps> = ({ title }) => {
     const [isModalAddressOpen, setDisplayModalAddress] = useState(false);
+    const { loading, error, data } = useQuery(getActiveAddress, {
+        fetchPolicy: 'cache-first'
+    });
     return (
         <SafeAreaView>
             <ModalScreenAddress
@@ -24,18 +29,20 @@ const NavBar: FunctionComponent<NavBarProps> = ({ title }) => {
                 }}
                 activeOpacity={0.7}
             >
-                <Text
-                    style={{
-                        color: 'white',
-                        backgroundColor: 'transparent',
-                        fontWeight: 'bold',
-                        fontSize: 18,
-                        fontFamily: 'MontserratSemiBold',
-                        alignItems: 'center'
-                    }}
-                >
-                    {title}
-                </Text>
+                {data && data.getActiveAddress ? (
+                    <Text
+                        style={{
+                            color: 'white',
+                            backgroundColor: 'transparent',
+                            fontWeight: 'bold',
+                            fontSize: 18,
+                            fontFamily: 'MontserratSemiBold',
+                            alignItems: 'center'
+                        }}
+                    >
+                        {data.getActiveAddress.address}
+                    </Text>
+                ) : null}
                 <Feather
                     style={{ margin: 3 }}
                     name="chevron-down"

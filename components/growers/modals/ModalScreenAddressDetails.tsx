@@ -4,9 +4,19 @@ import { Feather } from '@expo/vector-icons';
 import i18n from '@i18n/i18n';
 import InputLightTerradia from '../../input/InputLightTerradia';
 import styles from './styles/ModalScreenAddressDetails.style';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import CreateAddress from '../../../graphql/createAddress.graphql';
+import getActiveAddress from '../../../graphql/getActiveAddress.graphql';
+import Spinner from 'react-native-loading-spinner-overlay';
+import getAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
+
+declare interface ModalAddressProps {
+    address: string;
+    id: string;
+}
 
 declare interface ModalScreenAddressDetailsProps {
-    mainAddress: string;
+    mainAddress: ModalAddressProps;
     setDisplayModalAddress: any;
 }
 
@@ -14,11 +24,38 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
     mainAddress,
     setDisplayModalAddress
 }) => {
+    console.log(mainAddress);
+    console.log(mainAddress);
+    const [createAddress, { data, loading }] = useMutation(CreateAddress);
+    const [loadUserAddresses, { loading: loadingUserAddresses }] = useLazyQuery(
+        getAddressesByUser,
+        {
+            fetchPolicy: 'network-only',
+            onCompleted: data => {
+                setDisplayModalAddress(false);
+            }
+        }
+    );
+    const [updateAddress, { loading: loadingAddress }] = useLazyQuery(
+        getActiveAddress,
+        {
+            fetchPolicy: 'network-only',
+            onCompleted: data => {
+                loadUserAddresses();
+            }
+        }
+    );
+
     const [apt, setApt] = useState('');
     const [info, setInfo] = useState('');
     const [optionNumber, setOptionNumber] = useState(0);
     return (
         <View style={styles.mainContainer}>
+            <Spinner
+                visible={loading || loadingAddress || loadingUserAddresses}
+                textContent={'Loading...'}
+                textStyle={{}}
+            />
             <View style={{ flex: 0.9 }}>
                 <Text style={styles.titlesText}>
                     {i18n.t('addressModal.deliveryAddress')}
@@ -26,7 +63,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                 <View style={styles.containers}>
                     <View style={styles.mainAddressContainer}>
                         <Text style={styles.mainAddressText} numberOfLines={1}>
-                            {mainAddress}
+                            {mainAddress.address}
                         </Text>
                     </View>
                     <InputLightTerradia
@@ -108,7 +145,18 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                 </View>
             </View>
             <TouchableOpacity
-                onPress={(): void => setDisplayModalAddress(false)}
+                onPress={(): void => {
+                    createAddress({
+                        variables: {
+                            address: mainAddress.address,
+                            information: info,
+                            apartment: apt,
+                            id: mainAddress.id || null
+                        }
+                    }).then(() => {
+                        updateAddress();
+                    });
+                }}
                 style={styles.applyButtonContainer}
             >
                 <Text style={styles.confirmButton}>

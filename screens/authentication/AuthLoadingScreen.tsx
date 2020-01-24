@@ -1,9 +1,11 @@
 import { AsyncStorage, Image, View } from 'react-native';
 import React, { FunctionComponent, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { CompaniesData } from '@interfaces/Companies';
 import getAllCompanies from '../../graphql/getAllCompanies.graphql';
 import getUser from '../../graphql/getUser.graphql';
+import getActiveAddress from '../../graphql/getActiveAddress.graphql';
+import getAddressesByUser from '../../graphql/getAddressesByUser.graphql';
 
 declare interface AuthLoadingScreen {
     navigation?: any;
@@ -27,12 +29,27 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
             navigate('Login');
         }
     });
+    const [loadUserAddresses] = useLazyQuery<{
+        getAddressesByUser;
+    }>(getAddressesByUser, {
+        onCompleted: data => {
+            loadGrowers();
+        }
+    });
+    const [loadAddress] = useLazyQuery<{
+        getActiveAddress;
+    }>(getActiveAddress, {
+        onCompleted: data => {
+            loadUserAddresses();
+        }
+    });
 
     const [loadUser, { called, loading, data }] = useLazyQuery(getUser, {
         onCompleted: data => {
             const { navigate } = navigation;
-            if (data && data.getUser) loadGrowers();
-            else navigate('Login');
+            if (data && data.getUser) {
+                loadAddress();
+            } else navigate('Login');
         },
         onError: async onerror => {
             const { navigate } = navigation;

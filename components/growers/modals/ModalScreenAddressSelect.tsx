@@ -7,20 +7,16 @@ import i18n from '@i18n/i18n';
 import getLocationAsync from './CurrentPositionResolver';
 import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';
 import styles from './styles/ModalScreenAddressSelect.style';
+import getAllAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
+import { useQuery } from '@apollo/react-hooks';
 
-const homePlace = {
-    description: '850 Village drive',
-    geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }
-};
-const workPlace = {
-    description: '4 rue du dome',
-    geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }
-};
-const currentLocation = {
-    description: 'Current Location',
-    currentLocation: true,
-    geometry: { location: { lat: 0, lng: 0 } }
-};
+const currentLocation = [
+    {
+        address: 'Current Location',
+        currentLocation: true,
+        geometry: { location: { lat: 0, lng: 0 } }
+    }
+];
 
 declare interface ModalScreenAddressSelectProps {
     setIsSearching: any;
@@ -33,6 +29,10 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
     setCurrentAddress,
     setDisplayModalAddress
 }) => {
+    const { loading, data } = useQuery(getAllAddressesByUser, {
+        fetchPolicy: 'cache-only'
+    });
+    if (loading || !data) return <View />;
     return (
         <View style={styles.mainContainer}>
             <GooglePlacesAutocomplete
@@ -66,7 +66,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                                         fontSize: 20
                                     }}
                                 >
-                                    {row.description}
+                                    {row.address}
                                 </Text>
                             </View>
                         );
@@ -83,17 +83,23 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                         );
                     }
                 }} // custom description render
-                onPress={async (data, details = null) => {
+                onPress={async data => {
                     if (data.currentLocation) {
                         const addr = await getLocationAsync();
                         setCurrentAddress(addr);
                         setIsSearching(false);
                     } else {
-                        setCurrentAddress(data.description);
+                        console.log("data");
+                        console.log(data);
+                        setCurrentAddress({
+                            address: data.address || data.description,
+                            id: data.isPredefinedPlace ? data.id : null
+                        });
                         setIsSearching(false);
                     }
                 }}
                 getDefaultValue={() => ''}
+                currentLocationLabel={'address'}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
                     types: 'address',
@@ -119,7 +125,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                     // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
                     fields: 'address_component'
                 }}
-                predefinedPlaces={[currentLocation, homePlace, workPlace]}
+                predefinedPlaces={data.getAllAddressesByUser}
                 renderLeftButton={(): ReactElement => (
                     <Feather
                         name="search"
