@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement } from 'React';
+import React, { FunctionComponent, ReactElement } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Localization from 'expo-localization';

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'React';
+import React, { FunctionComponent, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import ModalScreenAddressSelect from './ModalScreenAddressSelect';
