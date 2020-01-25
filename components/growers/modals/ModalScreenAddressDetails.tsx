@@ -24,8 +24,6 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
     mainAddress,
     setDisplayModalAddress
 }) => {
-    console.log(mainAddress);
-    console.log(mainAddress);
     const [createAddress, { data, loading, client }] = useMutation(
         CreateAddress,
         {

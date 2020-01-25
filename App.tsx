@@ -14,6 +14,10 @@ import { withClientState } from 'apollo-link-state';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
 
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+
 setExpoStatusBarHeight(Constants.statusBarHeight);
 
 import AppNavigator from './navigation/AppNavigator';
@@ -39,7 +43,7 @@ const stateLink = withClientState({
 });
 
 const httpLink = new HttpLink({
-    uri: 'https://f7bf7a88.ngrok.io' + '/graphql',
+    uri: 'https://213b0080.ngrok.io' + '/graphql',
     fetch: fetch
 });
 

@@ -86,11 +86,9 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 onPress={async data => {
                     if (data.currentLocation) {
                         const addr = await getLocationAsync();
-                        setCurrentAddress(addr);
+                        setCurrentAddress({ address: addr });
                         setIsSearching(false);
                     } else {
-                        console.log('data');
-                        console.log(data);
                         setCurrentAddress({
                             address: data.address || data.description,
                             id: data.isPredefinedPlace ? data.id : null
@@ -125,7 +123,9 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                     // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
                     fields: 'address_component'
                 }}
-                predefinedPlaces={data.getAllAddressesByUser}
+                predefinedPlaces={currentLocation.concat(
+                    data.getAllAddressesByUser
+                )}
                 renderLeftButton={(): ReactElement => (
                     <Feather
                         name="search"

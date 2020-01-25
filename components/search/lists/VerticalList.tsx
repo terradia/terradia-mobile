@@ -1,10 +1,22 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import {
+    Animated,
+    FlatList,
+    Image,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 import SearchCard from '../../cards/SearchCard';
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-declare interface HorizontalListProps {
+declare interface VerticalListProps {
     categories: Array<string>;
     title: string;
+    paddingHeight: number;
+    animatedY: number;
+    onScroll: any;
+    ListHeaderComponent: any;
 }
 
 const styles = StyleSheet.create({
@@ -17,14 +29,18 @@ const styles = StyleSheet.create({
     }
 });
 
-const HorizontalList: FunctionComponent<HorizontalListProps> = ({
+const VerticalList: FunctionComponent<VerticalListProps> = ({
     categories,
-    title
+    title,
+    animatedY,
+    onScroll,
+    paddingHeight,
+    ListHeaderComponent
 }) => {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <Text style={styles.title}>{title}</Text>
-            <FlatList
+            <AnimatedFlatList
                 style={{ flex: 1 }}
                 data={categories}
                 renderItem={({ item }): ReactElement => (
@@ -42,11 +58,17 @@ const HorizontalList: FunctionComponent<HorizontalListProps> = ({
                         }}
                     />
                 )}
+                ListHeaderComponent={ListHeaderComponent}
                 numColumns={2}
                 keyExtractor={(item, index): string => String(index)}
+                _mustAddThis={animatedY}
+                onScroll={onScroll}
+                scrollIndicatorInsets={{ top: paddingHeight }}
+                contentContainerStyle={{ paddingTop: paddingHeight }}
+
             />
         </View>
     );
 };
 
-export default HorizontalList;
+export default VerticalList;

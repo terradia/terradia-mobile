@@ -10,6 +10,8 @@ import { useNavigationParam } from 'react-navigation-hooks';
 import Cart from '../../components/cart';
 import { GrowersConfig } from '@interfaces/Growers.d';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 declare interface GrowersScreen {
     navigation: NavigationStackScreenProps;
     collapsible: any;
@@ -27,18 +29,18 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     const { paddingHeight, animatedY, onScroll } = collapsible;
     return (
         <View style={{ flex: 1 }}>
-            <Animated.ScrollView _mustAddThis={animatedY} onScroll={onScroll}>
-                <FlatList
-                    style={{ flex: 1 }}
-                    data={growers.getAllCompanies}
-                    renderItem={({ item }: ItemProps): ReactElement => (
-                        <GrowerCard navigation={navigation} grower={item} />
-                    )}
-                    keyExtractor={(item, index): string => String(index)}
-                    contentContainerStyle={{ paddingTop: paddingHeight }}
-                    scrollIndicatorInsets={{ top: paddingHeight }}
-                />
-            </Animated.ScrollView>
+            <AnimatedFlatList
+                style={{ flex: 1 }}
+                data={growers.getAllCompanies}
+                renderItem={({ item }: ItemProps): ReactElement => (
+                    <GrowerCard navigation={navigation} grower={item} />
+                )}
+                keyExtractor={(item, index): string => String(index)}
+                contentContainerStyle={{ paddingTop: paddingHeight }}
+                scrollIndicatorInsets={{ top: paddingHeight }}
+                _mustAddThis={animatedY}
+                onScroll={onScroll}
+            />
             <Cart />
         </View>
     );

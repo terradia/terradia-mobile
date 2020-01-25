@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, FlatList, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchInput from '@components/search/SearchInput';
 import { withCollapsible } from 'react-navigation-collapsible';
@@ -34,14 +34,9 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
 }) => {
     const { paddingHeight, animatedY, onScroll } = collapsible;
 
-    return (
-        <View style={{ flex: 1 }}>
-            <Animated.ScrollView
-                _mustAddThis={animatedY}
-                onScroll={onScroll}
-                scrollIndicatorInsets={{ top: paddingHeight }}
-                contentContainerStyle={{ paddingTop: paddingHeight }}
-            >
+    const _renderItem = () => {
+        return (
+            <View>
                 <HorizontalList
                     categories={DATA}
                     title={'Nos produits préférés'}
@@ -50,11 +45,20 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                     categories={DATA}
                     title={'Les meilleurs catégories'}
                 />
-                <VerticalList
-                    categories={DATA}
-                    title={'Toutes les catégories'}
-                />
-            </Animated.ScrollView>
+            </View>
+        );
+    };
+
+    return (
+        <View style={{ flex: 1 }}>
+            <VerticalList
+                categories={DATA}
+                title={'Toutes les catégories'}
+                paddingHeight={paddingHeight}
+                animatedY={animatedY}
+                onScroll={onScroll}
+                ListHeaderComponent={_renderItem}
+            />
             <Cart />
         </View>
     );
