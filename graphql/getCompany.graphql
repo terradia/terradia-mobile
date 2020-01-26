@@ -1,5 +1,5 @@
-query allCompanies {
-    getAllCompanies {
+query getCompany($id: ID!) {
+    getCompany(id: $id) {
         id
         name
         averageMark
@@ -12,11 +12,6 @@ query allCompanies {
                 id
                 description
             }
-        }
-        products {
-            name
-            id
-            description
         }
     }
 }

@@ -27,7 +27,7 @@ import AppNavigator from './navigation/AppNavigator';
      * CONFIG - TODO: MOVE IT IN A CONFIG FILE LATER
      */
 }
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({});
 const stateLink = withClientState({
     fragmentMatcher: undefined,
     resolvers: undefined,
@@ -59,7 +59,21 @@ const authLink = setContext(async (_, { headers }) => {
 
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        cacheRedirects: {
+            Query: {
+                company: (_, { id }, { getCacheKey }) => {
+                    return getCacheKey({
+                        __typename: 'Company',
+                        id: id
+                    });
+                }
+            }
+        }
+    }),
+    resolvers: {
+        Query: {}
+    }
 });
 
 {

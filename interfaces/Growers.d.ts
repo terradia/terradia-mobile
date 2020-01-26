@@ -1,4 +1,5 @@
 export declare interface GrowersConfig {
+    id: string;
     averageMark: number;
     description: string;
     name: string;

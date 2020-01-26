@@ -4,6 +4,7 @@ export interface CompaniesData {
 
 interface Company {
     name: string;
+    id: string;
     averageMark: number;
     numberOfMarks: number;
     description: string;
@@ -20,4 +21,3 @@ interface Product {
     id: string;
     description: string;
 }
-

@@ -5,7 +5,13 @@ import React, {
     useRef,
     useState
 } from 'react';
-import { Text, TouchableOpacity, SectionList, View } from 'react-native';
+import {
+    Text,
+    TouchableOpacity,
+    SectionList,
+    View,
+    AsyncStorage
+} from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GrowersProductsForegroundHeader from '@components/growers/products/GrowersProductsForegroundHeader';
 import {
@@ -21,6 +27,10 @@ import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProductsScreen.style';
 import { useNavigationParam } from 'react-navigation-hooks';
 import Cart from '@components/cart';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import COMPANY from '../../graphql/company.graphql';
+import getCompany from '../../graphql/getCompany.graphql';
+import { Company } from '@interfaces/Companies';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -38,10 +48,34 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-    const grower = useNavigationParam('grower');
+    const growerId = useNavigationParam('grower');
+    const [company, setCompany] = useState();
+
+    const [loadCompany] = useLazyQuery<{
+        getCompany: Company;
+    }>(getCompany, {
+        variables: { id: growerId },
+        fetchPolicy: 'cache-first',
+        onCompleted: data => {
+            setCompany(data.getCompany);
+        },
+        onError: error => {
+            console.log(error);
+        }
+    });
+    useQuery(COMPANY, {
+        fetchPolicy: 'cache-only',
+        variables: { id: growerId },
+        onCompleted: data => {
+            if (!data.company) loadCompany();
+            else setCompany(data.company);
+        }
+    });
+
+    const [products, setProducts] = useState([]);
 
     const getArrayGoodName = (): any => {
-        return grower.productsCategories.map(function(obj) {
+        const obj = company.productsCategories.map(function(obj) {
             Object.defineProperty(
                 obj,
                 'title',
@@ -55,16 +89,18 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
             );
             return obj;
         });
+        setProducts(obj);
+        return obj;
     };
-    const [products, setProducts] = useState(getArrayGoodName());
+    // const [products, setProducts] = useState(getArrayGoodName());
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
      * First position is Header Size + Section size
      */
-    const fillArrayPositions = (): void => {
+    const fillArrayPositions = (obj): void => {
         const arr = [HEADER_SIZE];
-        products.forEach((item, index) => {
+        obj.forEach((item, index) => {
             arr.push(
                 item.data.length * LIST_ELEM_HEIGHT +
                     LIST_HEADER_HEIGHT +
@@ -75,11 +111,13 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
     };
 
     useEffect(() => {
-        fillArrayPositions();
+        if (!company) return;
+        const obj = getArrayGoodName();
+        fillArrayPositions(obj);
         setTimeout(() => {
             setDisplay(true);
         }, 1);
-    }, []);
+    }, [company]);
 
     const renderItem = ({ item }): any => {
         return <Text style={{ height: 50 }}> abcd </Text>;
@@ -126,7 +164,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
         getCurrentSectionInList(event.nativeEvent.contentOffset.y);
     };
 
-    if (display) {
+    if (display && company) {
         return (
             <View style={{ flex: 1 }}>
                 <SectionList
@@ -174,7 +212,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                                     currentIndex: currentIndex - 1,
                                     setBlockUpdateIndex,
                                     setCurrentIndex,
-                                    grower
+                                    grower: company
                                 })
                             }
                             fadeOutForeground={false}
@@ -183,7 +221,9 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
                                 setBlockUpdateIndex(false)
                             }
                             renderForeground={(): any =>
-                                GrowersProductsForegroundHeader({ grower })
+                                GrowersProductsForegroundHeader({
+                                    grower: company
+                                })
                             }
                         />
                     )}

@@ -23,6 +23,7 @@ const Preload: RefForwardingComponent<MyInputHandles, any> = forwardRef(
         const [loadGrowers, { data: growers }] = useLazyQuery<{
             getAllCompanies: CompaniesData;
         }>(getAllCompanies, {
+            fetchPolicy: 'network-only',
             onCompleted: data => {
                 if (data && data) navigate('Grower', { growers: growers });
                 else navigate('Login');

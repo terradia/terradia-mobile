@@ -1,5 +1,6 @@
-query allCompanies {
-    getAllCompanies {
+query IsUserLoggedIn($id: ID) {
+    company(id: $id) {
+        __typename
         id
         name
         averageMark
@@ -12,11 +13,6 @@ query allCompanies {
                 id
                 description
             }
-        }
-        products {
-            name
-            id
-            description
         }
     }
 }
