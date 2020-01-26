@@ -10,7 +10,7 @@ import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import { withClientState } from 'apollo-link-state';
-
+import { Linking } from 'expo';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
 
@@ -92,6 +92,19 @@ client.onResetStore(stateLink.writeDefaults);
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
+    const [prefix, setPrefix] = useState(null);
+    const SimpleApp = AppNavigator;
+    // Linking.getInitialURL().then((data) => {
+    //     setPrefix(data);
+    // });
+    //
+    // const _handleLink = (data) => {
+    //     console.log(data);
+    //     setPrefix(data);
+    // }
+    // Linking.addEventListener('url', _handleLink);
+    // Linking.addEventListener('url', callback);
+    const prefixPath = Linking.makeUrl('/');
 
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return (
@@ -104,7 +117,7 @@ export default function App(props) {
     } else {
         return (
             <ApolloProvider client={client}>
-                <AppNavigator />
+                <SimpleApp uriPrefix={prefixPath} />
             </ApolloProvider>
         );
     }

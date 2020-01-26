@@ -10,7 +10,7 @@ import AuthLoadingScreen from '../screens/authentication/AuthLoadingScreen';
 const AuthStack = createStackNavigator(
     {
         AuthLoading: AuthLoadingScreen,
-        Login: LoginScreen,
+        Login: { screen: LoginScreen, path: 'login' },
         Register: RegisterScreen
     },
     {

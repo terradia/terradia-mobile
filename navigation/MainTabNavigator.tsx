@@ -12,7 +12,8 @@ const GrowerStack = createStackNavigator(
     {
         Grower: GrowersScreen,
         GrowersProducts: {
-            screen: GrowersProductsScreen
+            screen: GrowersProductsScreen,
+            path: 'products'
         }
     },
     {
@@ -22,6 +23,7 @@ const GrowerStack = createStackNavigator(
 
 GrowerStack.navigationOptions = ({ navigation }) => ({
     tabBarLabel: i18n.t('growerScreen.growers'),
+    path: 'grower',
     tabBarOptions: {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc'
@@ -37,7 +39,7 @@ GrowerStack.navigationOptions = ({ navigation }) => ({
 
 const SearchStack = createStackNavigator(
     {
-        Product: SearchScreen
+        Search: { screen: SearchScreen, path: 'search' }
     },
     {
         headerMode: 'screen'

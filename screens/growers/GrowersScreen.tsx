@@ -1,14 +1,16 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { FlatList, Animated, View } from 'react-native';
+import { FlatList, Animated, View, AsyncStorage } from 'react-native';
 import GrowerCard from '../../components/cards/GrowerCard';
 import FilterGrowers from '../../components/growers/Filter';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import NavBar from '../../components/header/NavBar';
 import { withCollapsible } from 'react-navigation-collapsible';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigationParam } from 'react-navigation-hooks';
 import Cart from '../../components/cart';
-import { GrowersConfig } from '@interfaces/Growers.d';
+import { useQuery } from '@apollo/react-hooks';
+import getAllCompanies from '../../graphql/getAllCompanies.graphql';
+import { Company } from '@interfaces/Companies';
+import DeepLinking from '@components/routing/DeepLinking';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -18,14 +20,17 @@ declare interface GrowersScreen {
 }
 
 declare interface ItemProps {
-    item: GrowersConfig;
+    item: Company;
 }
 
 const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     navigation,
     collapsible
 }) => {
-    const growers = useNavigationParam('growers');
+    // const growers = useNavigationParam('growers');
+
+    const { data: growers } = useQuery(getAllCompanies);
+
     const { paddingHeight, animatedY, onScroll } = collapsible;
     return (
         <View style={{ flex: 1 }}>
@@ -42,6 +47,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
                 onScroll={onScroll}
             />
             <Cart />
+            <DeepLinking />
         </View>
     );
 };

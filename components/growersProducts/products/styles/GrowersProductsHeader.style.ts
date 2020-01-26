@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
         marginLeft: 35
     },
     iconsContainer: {
-        flexDirection: 'row'
     },
     shareIcon: {
         margin: 3,
-        marginRight: 5
+        marginRight: 8
     },
     infoIcon: {
-        margin: 3
+        margin: 3,
+        marginRight: 8
     },
     brightness: {
         flex: 1,

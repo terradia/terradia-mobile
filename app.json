@@ -9,6 +9,7 @@
       "android",
       "web"
     ],
+    "scheme": "terradia",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon-terradia.png",

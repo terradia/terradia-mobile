@@ -6,6 +6,7 @@ import { withCollapsible } from 'react-navigation-collapsible';
 import HorizontalList from '@components/search/lists/HorizontalList';
 import Cart from '@components/cart';
 import VerticalList from '@components/search/lists/VerticalList';
+import DeepLinking from '@components/routing/DeepLinking';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -60,6 +61,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                 ListHeaderComponent={_renderItem}
             />
             <Cart />
+            <DeepLinking />
         </View>
     );
 };

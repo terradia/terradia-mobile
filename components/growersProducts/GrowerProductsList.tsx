@@ -15,6 +15,7 @@ import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProducts.style';
 import Cart from '@components/cart';
 import { Company } from '@interfaces/Companies';
+import DeepLinking from '@components/routing/DeepLinking';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -146,6 +147,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
             />
             <View style={{ paddingBottom: 10, backgroundColor: '#5CC04A' }}>
                 <Cart />
+                <DeepLinking />
             </View>
         </View>
     );

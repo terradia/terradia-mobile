@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { useNavigationParam } from 'react-navigation-hooks';
+import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import COMPANY from '../../graphql/company.graphql';
 import getCompany from '../../graphql/getCompany.graphql';
@@ -24,6 +24,7 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     const [positionArray, setPositionArray] = useState([]);
     const growerId = useNavigationParam('grower');
     const [company, setCompany] = useState();
+    const { navigate } = useNavigation();
 
     const [loadCompany] = useLazyQuery<{
         getCompany: Company;
@@ -35,13 +36,17 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
         },
         onError: error => {
             console.log(error);
+            navigate('Grower');
         }
     });
     useQuery(COMPANY, {
         fetchPolicy: 'cache-only',
         variables: { id: growerId },
         onCompleted: data => {
-            if (!data.company) loadCompany();
+            if (!data || !data.company) {
+                console.log("Loading company");
+                loadCompany();
+            }
             else setCompany(data.company);
         }
     });

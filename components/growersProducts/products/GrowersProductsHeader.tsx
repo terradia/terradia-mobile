@@ -1,13 +1,15 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Share } from 'react-native';
 import styles from './styles/GrowersProductsHeader.style';
 import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import { Image } from 'react-native';
 import { Text } from 'react-native';
 import GrowersProductsCategories from './GrowersProductsCategories';
-import { GrowersConfig } from '@interfaces/Growers';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Sharing from 'expo-sharing';
+import { Company } from '@interfaces/Companies';
+import { Linking } from 'expo';
 
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
@@ -33,7 +35,7 @@ declare interface NavBarProductsHeaderProps {
     currentIndex: number;
     setBlockUpdateIndex: any;
     setCurrentIndex: any;
-    grower: GrowersConfig;
+    grower: Company;
 }
 
 export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
@@ -54,20 +56,38 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                 <View style={styles.statusBar} />
                 <View style={styles.navBar}>
                     <Text style={styles.navBarGrowerName}>{grower.name}</Text>
-                    <TouchableOpacity style={styles.iconsContainer}>
-                        <Feather
-                            style={styles.shareIcon}
-                            name="share"
-                            size={24}
-                            color="white"
-                        />
-                        <Ionicons
-                            style={styles.infoIcon}
-                            name="ios-information-circle-outline"
-                            size={24}
-                            color="white"
-                        />
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            onPress={async () => {
+                                const redirectUrl = Linking.makeUrl(
+                                    'products',
+                                    {
+                                        company: grower.id
+                                    }
+                                );
+                                const result = await Share.share({
+                                    message: redirectUrl
+                                });
+                                console.log(result);
+                            }}
+                            style={styles.iconsContainer}
+                        >
+                            <Feather
+                                style={styles.shareIcon}
+                                name="share"
+                                size={24}
+                                color="white"
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.iconsContainer}>
+                            <Ionicons
+                                style={styles.infoIcon}
+                                name="ios-information-circle-outline"
+                                size={24}
+                                color="white"
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </LinearGradient>
             <LinearGradient
