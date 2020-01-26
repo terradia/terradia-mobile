@@ -1,6 +1,6 @@
 
 query getActiveAddr {
-    getActiveAddress {
+    getActiveCustomerAddress {
         address
     }
 }

@@ -1,5 +1,5 @@
 mutation createAddr($address: String!, $information: String, $apartment: String!, $id: String) {
-    createOrUpdateAddress(
+    createOrUpdateCustomerAddress(
     address: $address information: $information apartment: $apartment, id: $id
     ) {
         address

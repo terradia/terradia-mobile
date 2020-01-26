@@ -1,5 +1,5 @@
 query getAddressesByUser {
-    getAllAddressesByUser {
+    getAllCustomerAddressesByUser {
         address
         id
     }
