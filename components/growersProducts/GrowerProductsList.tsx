@@ -47,8 +47,8 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
         list.current.scrollToLocation({
             itemIndex: 1,
             sectionIndex: sectionIndex,
-            viewOffset: -120,
-            viewPosition: -0.02
+            viewOffset: -HEADER_SIZE,
+            viewPosition: 0
         });
     };
 

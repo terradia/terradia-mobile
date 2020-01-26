@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
         <TouchableOpacity
-            style={{ top: 40, left: 10, height: 700, position: 'absolute' }}
+            style={{ top: 40, left: 10, height: 35, position: 'absolute' }}
             onPress={(): void => {
                 navigation.goBack();
             }}
