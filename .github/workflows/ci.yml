@@ -1,21 +1,21 @@
-name: Expo Publish
-on:
-  push:
-    branches:
-      - feat/ci
+name: Expo CI
+on: [pull_request]
 jobs:
-  publish:
-    name: Install and publish
-    runs-on: ubuntu-latest
+  ci:
+    name: Continuous Integration
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        node: [10, 12, 13]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: ${{ matrix.node }}
       - uses: expo/expo-github-action@v5
         with:
           expo-version: 3.x
-          expo-username: ${{ secrets.EXPO_USERNAME }}
-          expo-password: ${{ secrets.EXPO_PASSWORD }}
       - run: npm install
-      - run: expo publish
+      - run: npm test
+      - run: expo doctor
