@@ -41,12 +41,13 @@ const Preload: RefForwardingComponent<MyInputHandles, any> = forwardRef(
                     } else navigate(path);
                 } else navigate('Login');
             },
-            onError: async () => {
+            onError: async error => {
                 await AsyncStorage.removeItem('token');
                 navigate('Login');
             }
         });
         const [loadUser, { client }] = useLazyQuery(getUser, {
+            fetchPolicy: 'network-only',
             onCompleted: data => {
                 if (data && data.getUser) {
                     client.query({ query: getActiveAddress });

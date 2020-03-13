@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SearchScreen from '../screens/search/SearchScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
+import ProductScreen from '../screens/growers/ProductScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -14,6 +15,10 @@ const GrowerStack = createStackNavigator(
         GrowersProducts: {
             screen: GrowersProductsScreen,
             path: 'products'
+        },
+        Product: {
+            screen: ProductScreen,
+            path: 'product'
         }
     },
     {

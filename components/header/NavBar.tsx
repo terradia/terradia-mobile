@@ -28,7 +28,7 @@ const NavBar: FunctionComponent = () => {
                 }}
                 activeOpacity={0.7}
             >
-                {data && data.getActiveAddress ? (
+                {data && data.getActiveCustomerAddress ? (
                     <Text
                         ellipsizeMode="tail"
                         numberOfLines={1}
@@ -41,7 +41,7 @@ const NavBar: FunctionComponent = () => {
                             alignItems: 'center'
                         }}
                     >
-                        {data.getActiveAddress.address}
+                        {data.getActiveCustomerAddress.address}
                     </Text>
                 ) : null}
                 <Feather

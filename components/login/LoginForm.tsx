@@ -27,6 +27,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     const [password, setPassword] = useState('');
 
     const onCompletedHandler = (data): void => {
+        console.log('Completed');
         AsyncStorage.setItem('token', data.login.token).then();
         AsyncStorage.setItem('userId', data.login.userId).then();
         navigateHome();

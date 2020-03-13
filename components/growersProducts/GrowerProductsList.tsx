@@ -37,7 +37,6 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
     const list = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
-
     /**
      * Scroll to index
      * ViewsOffset => Header size
@@ -101,6 +100,10 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 }}
                 renderItem={({ item }): any => (
                     <TouchableOpacity
+                        onPress={(): void => {
+                            console.log('GOing');
+                            navigation.navigate('Product', {product: item.id});
+                        }}
                         activeOpacity={0.7}
                         style={{
                             height: LIST_ELEM_HEIGHT,

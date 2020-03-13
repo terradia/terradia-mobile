@@ -1,0 +1,21 @@
+query getProduct($id: ID!) {
+    getProduct(id: $id) {
+        id
+        name
+        description
+        averageMark
+        numberOfMarks
+        reviews {
+            title
+            id
+            description
+            customerMark
+            customer {
+                user {
+                    firstName
+                    lastName
+                }
+            }
+        }
+    }
+}

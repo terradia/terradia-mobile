@@ -29,7 +29,7 @@ export const renderItems: FunctionComponent<RenderListProductsProps> = ({
                             {product.name}
                         </Text>
                     </View>
-                    <View style={styles.spacer}>
+                    <View style={[styles.spacer, { marginRight: 10}]}>
                         <Text
                             style={[
                                 styles.textsColor,

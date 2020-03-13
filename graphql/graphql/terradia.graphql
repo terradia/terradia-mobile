@@ -14,21 +14,24 @@ type Category {
 }
 
 type Company {
+    address: String!
     averageMark: Float
     cover: String
     createdAt: Date
     description: String
+    distance: Float
     email: String
     id: ID!
     logo: String
     name: String!
     numberOfMarks: Int
     phone: String
+    position: GeographicPoint
     products: [Product]
     productsCategories: [CompanyProductsCategory]
     reviews: [CompanyReview]
     updatedAt: Date
-    users: [User]
+    users: [CompanyUser]
 }
 
 type CompanyProductsCategory {
@@ -47,6 +50,13 @@ type CompanyReview {
     title: String!
 }
 
+type CompanyUser {
+    company: Company
+    id: String!
+    roles: [Role]
+    user: User
+}
+
 type Customer {
     companyReviews: [CompanyReview]
     favoriteCompanies: [Company]
@@ -63,28 +73,38 @@ type CustomerAddress {
     information: String
 }
 
+type GeographicPoint {
+    coordinates: [Float]
+}
+
 type Mutation {
     _: Boolean
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
     addFavoriteCompany(companyId: String!): Customer
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
+    addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     createCategory(name: String!, parentCategoryId: String): Category!
-    createCompany(description: String, email: String, name: String!, phone: String): Company!
+    createCompany(address: String!, description: String, email: String, name: String!, phone: String): Company!
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String, customerMark: Int, description: String, title: String): CompanyReview
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
-    createProduct(description: String!, name: String!): Product!
+    createProduct(companyId: String!, description: String!, name: String!): Product!
+    createProductReview(customerMark: Int, description: String, productId: String, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
+    joinCompany(companyId: String!, userId: String!): Company!
+    leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
     register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
     removeProductFromCompanyCategory(productId: String!): Product
+    removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     setActiveCustomerAddress(id: String!): CustomerAddress
 }
 
 type Product {
+    averageMark: Float
     categories: [Category]
     company: Company
     companyProductsCategory: CompanyProductsCategory
@@ -93,8 +113,18 @@ type Product {
     id: ID!
     image: String
     name: String!
-    productReviews: [CompanyReview]
+    numberOfMarks: Int
+    reviews: [ProductReview]
     updatedAt: Date
+}
+
+type ProductReview {
+    customer: Customer
+    customerMark: Int!
+    description: String
+    id: String!
+    product: Product
+    title: String!
 }
 
 type Query {
@@ -107,7 +137,8 @@ type Query {
     getAllCustomers: [Customer]
     getAllProducts: [Product]!
     getCategoryByName(name: String!): Category
-    getCompany(id: ID!): Company
+    getCompaniesByDistance(lat: Float!, lon: Float!, page: Int, pageSize: Int): [Company]
+    getCompany(companyId: ID!): Company
     getCompanyByName(name: String!): Company
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
     getCustomer(userId: String!): Customer
@@ -116,6 +147,13 @@ type Query {
     getProductsByCompany(companyId: String): [Product]!
     getProductsByCompanyByCategory(companyId: String): [Category]!
     getUser: User
+}
+
+type Role {
+    id: String!
+    slugName: String
+    translationKey: String
+    userPermission: UserPermissions
 }
 
 type SigninAnswer {
@@ -134,7 +172,7 @@ type Subscription {
 }
 
 type User {
-    company: Company
+    companies: [CompanyUser]
     customer: Customer
     email: String!
     firstName: String!
@@ -143,6 +181,11 @@ type User {
     password: String!
     phone: String!
     validated: Boolean
+}
+
+type UserPermissions {
+    createCompany: Boolean
+    id: String!
 }
 
 enum CacheControlScope {

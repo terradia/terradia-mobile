@@ -23,7 +23,9 @@ const styles = StyleSheet.create({
         fontFamily: 'MontserratSemiBold'
     },
     productDescription: {
-        fontFamily: 'MontserratLight'
+        fontFamily: 'MontserratLight',
+        fontSize: 14,
+        maxHeight: 70
     },
     priceTag: {
         fontSize: 24

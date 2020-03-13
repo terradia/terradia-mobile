@@ -124,7 +124,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                     fields: 'address_component'
                 }}
                 predefinedPlaces={currentLocation.concat(
-                    data.getAllAddressesByUser
+                    data.getAllCustomerAddressesByUser
                 )}
                 renderLeftButton={(): ReactElement => (
                     <Feather

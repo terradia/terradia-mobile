@@ -1,7 +1,6 @@
 import { AsyncStorage, Image, View } from 'react-native';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef } from 'react';
 import Preload from './Preload';
-import { Linking } from 'expo';
 
 declare interface AuthLoadingScreen {
     navigation?: any;
