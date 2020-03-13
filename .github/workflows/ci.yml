@@ -1,0 +1,22 @@
+name: Expo CI
+on: [pull_request]
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        node: [ 12 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+      - run: echo There is no tests currently
+      #- run: npm install
+      #- run: npm test
+      #- run: expo doctor
