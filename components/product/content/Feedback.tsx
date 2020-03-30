@@ -1,9 +1,19 @@
-import React, { FunctionComponent } from 'react';
-import { FlatList, View, Text, StyleSheet } from 'react-native';
+import React, { FunctionComponent, ReactElement } from 'react';
+import {
+    FlatList,
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity
+} from 'react-native';
 import { Product } from '@interfaces/Companies';
 import Description from './Description';
 import { AirbnbRating } from 'react-native-ratings';
 import FeedbackItem from './FeedbackItem';
+import { useQuery } from '@apollo/react-hooks';
+import getProductReviews from '../../../graphql/getProductReviews.graphql';
+import { useNavigation } from 'react-navigation-hooks';
+import FeedBackLoader from './FeedBackLoader';
 
 declare interface FeedbackProps {
     product: Product;
@@ -30,41 +40,62 @@ const styles = StyleSheet.create({
     },
     nbVotes: {
         fontFamily: 'MontserratSemiBold',
-        color: '#4AA542',
+        color: '#7D7D7D',
         fontSize: 16
+    },
+    textSeeAll: {
+        alignSelf: 'flex-end',
+        color: '#4AA542',
+        fontFamily: 'MontserratBold'
     }
 });
 
 const Feedback: FunctionComponent<FeedbackProps> = ({ product }) => {
-    const _renderHeader = () => {
+    const { navigate } = useNavigation();
+    const { data: reviews } = useQuery(getProductReviews, {
+        variables: { id: product.id, limit: 10, offset: 0 }
+    });
+    const _renderHeader = (): ReactElement => {
         return (
             <View style={styles.container}>
                 <Description product={product} />
                 <View style={styles.feedbackContainer}>
                     <Text style={styles.feedbackText}>AVIS</Text>
-                    <View style={styles.starsContainer}>
-                        <AirbnbRating
-                            selectedColor={'#4AA542'}
-                            defaultRating={1}
-                            size={18}
-                            showRating={false}
-                            isDisabled={true}
-                        />
-                        <Text style={styles.nbVotes}>
-                            ({product.numberOfMarks})
-                        </Text>
+                    <View>
+                        <TouchableOpacity
+                            onPress={(): boolean =>
+                                navigate('Feedback', { product: product })
+                            }
+                        >
+                            <Text style={styles.textSeeAll}>Voir tout</Text>
+                        </TouchableOpacity>
+                        <View style={styles.starsContainer}>
+                            <AirbnbRating
+                                selectedColor={'#7D7D7D'}
+                                defaultRating={1}
+                                size={18}
+                                showRating={false}
+                                isDisabled={true}
+                            />
+                            <Text style={styles.nbVotes}>
+                                ({product.numberOfMarks})
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </View>
         );
     };
-    console.log(product.reviews);
+    if (!reviews) return <FeedBackLoader />;
     return (
         <FlatList
-            data={product.reviews}
+            data={reviews.getProductReviews.slice(0, 10)}
             ListHeaderComponent={_renderHeader}
-            renderItem={({ item }) => <FeedbackItem review={item} />}
+            renderItem={({ item }): ReactElement => (
+                <FeedbackItem review={item} />
+            )}
             keyExtractor={item => item.id}
+            initialNumToRender={2}
         />
     );
 };

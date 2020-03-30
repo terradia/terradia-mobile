@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text } from 'react-native';
-import { Reviews } from '@interfaces/Companies';
+import { Review } from '@interfaces/Companies';
 import { AirbnbRating } from 'react-native-ratings';
+
 declare interface FeedbackProps {
-    review: Reviews;
+    review: Review;
 }
 const FeedbackItem: FunctionComponent<FeedbackProps> = ({ review }) => {
     return (
@@ -34,13 +35,14 @@ const FeedbackItem: FunctionComponent<FeedbackProps> = ({ review }) => {
                         fontSize: 14
                     }}
                 >
-                    {review.customer.user.firstName +
+                    {review.customer.user.firstName.charAt(0).toUpperCase() +
+                        review.customer.user.firstName.slice(1) +
                         ' ' +
-                        review.customer.user.lastName[0] +
+                        review.customer.user.lastName[0].toUpperCase() +
                         '.'}
                 </Text>
             </View>
-            <View style={{alignSelf: 'flex-start'}}>
+            <View style={{ alignSelf: 'flex-start' }}>
                 <AirbnbRating
                     selectedColor={'#575757'}
                     defaultRating={1}

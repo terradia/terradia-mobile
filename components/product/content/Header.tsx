@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     container: {
-        height: 120,
+        height: 110,
         backgroundColor: '#F3F3F3',
         paddingLeft: 15,
         paddingRight: 15,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     priceText: {
         color: '#5CC04A',
         fontFamily: 'MontserratBold',
-        fontSize: 35,
+        fontSize: 30,
         alignSelf: 'flex-end'
     },
     unitPrice: {

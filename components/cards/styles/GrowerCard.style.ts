@@ -94,8 +94,10 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginTop: 20,
         color: 'white',
-        fontSize: 24,
-        fontFamily: 'MontserratSemiBold'
+        fontSize: 20,
+        fontFamily: 'MontserratSemiBold',
+        maxHeight: 40,
+        maxWidth: 200
     },
     discoverProducts: {
         marginLeft: 10,

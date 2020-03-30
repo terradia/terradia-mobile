@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SearchScreen from '../screens/search/SearchScreen';
 import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProductScreen from '../screens/growers/ProductScreen';
+import FeedbackScreen from '../screens/growers/Feedback';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -19,6 +20,10 @@ const GrowerStack = createStackNavigator(
         Product: {
             screen: ProductScreen,
             path: 'product'
+        },
+        Feedback: {
+            screen: FeedbackScreen,
+            path: 'feedback'
         }
     },
     {

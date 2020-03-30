@@ -144,6 +144,7 @@ type Query {
     getCustomer(userId: String!): Customer
     getCustomerFavoriteCompanies(userId: String): [Company]
     getProduct(id: ID!): Product!
+    getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!
     getProductsByCompanyByCategory(companyId: String): [Category]!
     getUser: User

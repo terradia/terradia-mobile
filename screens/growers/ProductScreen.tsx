@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import Header from '@components/product/header';
 import { useQuery } from '@apollo/react-hooks';
 import getProduct from '../../graphql/getProduct.graphql';
+import getProductReviews from '../../graphql/getProductReviews.graphql';
 import { useNavigationParam } from 'react-navigation-hooks';
 import Content from '@components/product/content';
 
@@ -11,16 +12,13 @@ const ProductScreen: FunctionComponent = () => {
     const { data: product, loading } = useQuery(getProduct, {
         variables: { id: productId }
     });
-    console.log(product);
-
+    const { data: reviews } = useQuery(getProductReviews, {
+        variables: { id: productId, limit: 10, offset: 0 }
+    });
     if (!product) {
-        return (
-            <View>
-                <Header title={null} />
-                <Text>Hello</Text>
-            </View>
-        );
+        return <Content product={null} />;
     }
+    // return <Content product={null} />;
     return <Content product={product.getProduct} />;
 };
 

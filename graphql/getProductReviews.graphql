@@ -1,0 +1,18 @@
+query getReviews($id: ID!, $limit: Int!, $offset: Int!) {
+    getProductReviews(
+        id: $id
+        limit: $limit
+        offset: $offset
+    ) {
+        title
+        id
+        description
+        customerMark
+        customer {
+            user {
+                firstName
+                lastName
+            }
+        }
+    }
+}
