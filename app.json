@@ -18,6 +18,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "hooks" : {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "terradia",
+            "project": "terradia-mobile",
+            "authToken": "4b7e05fa09e24845ace8db182f2ec226644bfa20805f4a5f8af952de7115083d",
+            "url": "your sentry url here"
+          }
+        }
+      ]
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },

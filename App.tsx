@@ -13,7 +13,7 @@ import { withClientState } from 'apollo-link-state';
 import { Linking } from 'expo';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
-
+import * as Sentry from 'sentry-expo';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
@@ -43,8 +43,15 @@ const stateLink = withClientState({
 });
 
 const httpLink = new HttpLink({
-    uri: 'https://7f40f574.ngrok.io' + '/graphql',
+    uri: ' https://6cafdb86.ngrok.io' + '/graphql',
     fetch: fetch
+});
+
+Sentry.init({
+    dsn: 'https://e295dd261bf5483aaa825202e1cd2a77@sentry.io/5185591',
+    release: 'Terradia@0.0.1',
+    enableInExpoDevelopment: false, // disabled by default. if false, all your dev/local errors will be ignored and only app releases will report errors to Sentry, Sentry.captureException() will be no-op
+    debug: true
 });
 
 const authLink = setContext(async (_, { headers }) => {
