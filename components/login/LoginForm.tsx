@@ -13,10 +13,11 @@ import styles from './styles/LoginForm.style';
 import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
 import LOGIN from '../../graphql/login.graphql';
+import ThirdPartyLogin from '@components/login/ThirdPartyLogin';
 
 declare interface LoginFormProps {
     navigateRegister?: any;
-    navigateHome?: any;
+    navigateHome?: () => void;
 }
 
 const LoginForm: FunctionComponent<LoginFormProps> = ({
@@ -33,14 +34,14 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
         navigateHome();
     };
 
-    const onErrorHandler = (): void => {
-        console.log('Error');
+    const onErrorHandler = (error): void => {
+        console.log(error);
         Alert.alert('Adresse email ou mot de passe invalide');
     };
 
     const [login, { loading: mutationLoading }] = useMutation(LOGIN, {
-        onError: () => {
-            onErrorHandler();
+        onError: error => {
+            onErrorHandler(error);
         },
         onCompleted: data => {
             onCompletedHandler(data);
@@ -128,12 +129,13 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     titleStyle={[{ color: '#5CC04A' }]}
                     onPress={register}
                 />
-                <ButtonEmpty
-                    title={i18n.t('loginScreen.loginFacebook')}
-                    style={[{ borderColor: 'blue' }]}
-                    titleStyle={[{ color: 'blue' }]}
-                    onPress={facebookLogin}
-                />
+                <ThirdPartyLogin navigateHome={navigateHome} />
+                {/*<ButtonEmpty*/}
+                {/*    title={i18n.t('loginScreen.loginFacebook')}*/}
+                {/*    style={[{ borderColor: 'blue' }]}*/}
+                {/*    titleStyle={[{ color: 'blue' }]}*/}
+                {/*    onPress={facebookLogin}*/}
+                {/*/>*/}
                 <ButtonEmpty
                     title={i18n.t('loginScreen.loginApple')}
                     style={[{ borderColor: 'black' }]}

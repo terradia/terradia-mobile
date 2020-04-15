@@ -1,0 +1,3 @@
+query doesAccountExistWithEmail($facebookToken: String!) {
+    doesFacebookAccountExistWithEmail(facebookToken: $facebookToken)
+}

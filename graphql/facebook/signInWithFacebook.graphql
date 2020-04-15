@@ -1,0 +1,6 @@
+mutation signInWithFacebook($facebookToken: String!, $exponentPushToken: String) {
+    signInWithFacebook(facebookToken: $facebookToken, exponentPushToken: $exponentPushToken) {
+        token
+        userId
+    }
+}

@@ -1,0 +1,7 @@
+mutation signUpWithFacebook($facebookToken: String!, $exponentPushToken: String, $defineUserAsCostumer: Boolean) {
+    signUpWithFacebook(facebookToken: $facebookToken, exponentPushToken: $exponentPushToken, defineUserAsCostumer: $defineUserAsCostumer) {
+        token
+        message
+        userId
+    }
+}

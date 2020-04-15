@@ -17,6 +17,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
     };
 
     const successLogin = (): void => {
+        console.log("Prelaod");
         preloadRef.current.preload();
     };
 

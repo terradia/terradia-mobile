@@ -56,6 +56,7 @@ const Preload: RefForwardingComponent<MyInputHandles, any> = forwardRef(
                 } else navigate('Login');
             },
             onError: async onerror => {
+                console.log(onerror);
                 await AsyncStorage.removeItem('token');
                 navigate('Login');
             }
