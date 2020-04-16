@@ -1,6 +1,7 @@
 {
   "name": "@components",
   "dependencies": {
-    "react-native-orientation-loading-overlay": "^0.1.6"
+    "react-native-orientation-loading-overlay": "^0.1.6",
+    "react-native-swipe-list-view": "^2.5.0"
   }
 }

@@ -1,22 +1,16 @@
-import React, {
-    FunctionComponent,
-    ReactElement,
-    useRef,
-    useState
-} from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/ProductList.style';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import getCart from '../../../graphql/cart/getCart.graphql';
 import ProductListItem from '@components/cart/content/ProductListItem';
-import Swipeable from 'react-native-swipeable';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
 import RemoveProductFromCart from '../../../graphql/cart/removeProductFromCart.graphql';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 const ProductList: FunctionComponent = () => {
     const [dataLoading, setLoading] = useState(false);
-    const ref = useRef(null);
     const { data, refetch } = useQuery(getCart, {
         notifyOnNetworkStatusChange: true,
         onCompleted: () => {
@@ -50,45 +44,11 @@ const ProductList: FunctionComponent = () => {
 
     const _renderItem = ({ item, index }): ReactElement => {
         return (
-            <Swipeable
-                ref={ref}
-                rightButtons={[
-                    <TouchableOpacity
-                        onPress={() => {
-                            console.log(ref.current.recenter());
-                            // ref.current._panResponder();
-                            // setLoading(true);
-                            // removeProductFromCart({
-                            //     variables: {
-                            //         cartProductId: item.id,
-                            //         quantity: item.quantity
-                            //     }
-                            // });
-                        }}
-                        style={{
-                            flex: 1,
-                            backgroundColor: 'red',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: 'white',
-                                fontFamily: 'MontserratMedium',
-                                marginLeft: 10
-                            }}
-                        >
-                            Delete
-                        </Text>
-                    </TouchableOpacity>
-                ]}
-            >
-                <ProductListItem
-                    item={item}
-                    addProductToCart={_addProduct}
-                    removeProductFromCart={_removeProduct}
-                />
-            </Swipeable>
+            <ProductListItem
+                item={item}
+                addProductToCart={_addProduct}
+                removeProductFromCart={_removeProduct}
+            />
         );
     };
 
@@ -100,11 +60,26 @@ const ProductList: FunctionComponent = () => {
                 textStyle={{}}
             />
             <Text style={styles.title}>Votre commande</Text>
-            <FlatList
+            <SwipeListView
+                useFlatList={true}
                 data={data.getCart.products}
-                extraData={[dataLoading]}
                 renderItem={_renderItem}
-                keyExtractor={(item, index): string => `message ${index}`}
+                renderHiddenItem={(rowData, rowMap) => (
+                    <View style={styles.rowBack}>
+                        <TouchableOpacity
+                            onPress={() => rowMap[rowData.item.key].closeRow()}
+                        >
+                            <Text>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                leftOpenValue={75}
+                rightOpenValue={-75}
+                onRowOpen={(rowKey, rowMap) => {
+                    setTimeout(() => {
+                        rowMap[rowKey].closeRow();
+                    }, 2000);
+                }}
             />
             <View style={styles.priceContainer}>
                 <Text style={styles.total}>Total</Text>
