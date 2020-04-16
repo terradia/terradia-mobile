@@ -60,8 +60,8 @@ const AppleStyleSwipeableRow: RefForwardingComponent<
             refSwipeableRow.current.close();
         };
         const pressHandler = () => {
-            close();
-            alert(text);
+            // close();
+            // alert(text);
         };
 
         return (
@@ -95,6 +95,7 @@ const AppleStyleSwipeableRow: RefForwardingComponent<
             friction={2}
             rightThreshold={40}
             renderRightActions={renderRightActions}
+            renderLeftActions={renderRightActions}
         >
             {children}
         </Swipeable>

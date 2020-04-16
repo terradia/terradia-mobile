@@ -6,6 +6,7 @@ import GrowersScreen from '../screens/growers/GrowersScreen';
 import ProductScreen from '../screens/growers/ProductScreen';
 import FeedbackScreen from '../screens/growers/Feedback';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import CartScreen from '../screens/growers/Cart';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 import i18n from '@i18n/i18n';
@@ -24,6 +25,10 @@ const GrowerStack = createStackNavigator(
         Feedback: {
             screen: FeedbackScreen,
             path: 'feedback'
+        },
+        Cart: {
+            screen: CartScreen,
+            path: 'cart'
         }
     },
     {

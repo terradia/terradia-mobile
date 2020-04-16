@@ -22,6 +22,7 @@ interface Product {
     id: string;
     numberOfMarks: number;
     description: string;
+    price: number;
 }
 
 interface Review {

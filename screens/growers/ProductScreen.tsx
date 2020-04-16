@@ -1,8 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { View, Text } from 'react-native';
-import Header from '@components/product/header';
 import { useQuery } from '@apollo/react-hooks';
-import getProduct from '../../graphql/getProduct.graphql';
+import getProduct from '../../graphql/product/getProduct.graphql';
 import getProductReviews from '../../graphql/getProductReviews.graphql';
 import { useNavigationParam } from 'react-navigation-hooks';
 import Content from '@components/product/content';

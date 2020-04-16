@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     itemGreen: {
         fontFamily: 'MontserratSemiBold',
         fontSize: 14,
-        color: '#8FDD3D'
+        color: '#8FDD3D',
+        marginRight: 10
     },
     bottomItemDivider: {
         height: 1,
@@ -47,7 +48,21 @@ const styles = StyleSheet.create({
         fontSize: 16,
         backgroundColor: 'transparent',
         padding: 10
-    }
+    },
+    counterContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 5
+    },
+    countText: {
+        width: 100,
+        textAlign: 'center',
+        fontFamily: 'MontserratLight',
+        color: '#5CC04A',
+        fontSize: 35
+    },
 });
 
 export default styles;

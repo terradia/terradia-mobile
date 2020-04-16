@@ -5,6 +5,7 @@ query getProduct($id: ID!) {
         description
         averageMark
         numberOfMarks
+        price
         reviews {
             title
             id

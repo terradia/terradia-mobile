@@ -1,0 +1,14 @@
+query getCart {
+    getCart{
+        products{
+            id
+            quantity
+            product {
+                id
+                name
+                price
+            }
+        }
+        totalPrice
+    }
+}

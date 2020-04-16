@@ -3,16 +3,18 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/Footer.style';
 import { Feather } from '@expo/vector-icons';
 import i18n from '@i18n/i18n';
+import { useQuery } from '@apollo/react-hooks';
+import getCart from '../../../graphql/cart/getCart.graphql';
+import { useNavigation } from 'react-navigation-hooks';
 
-declare interface FooterProps {
-    setModalOpen: any;
-}
 
-const Footer: FunctionComponent<FooterProps> = ({ setModalOpen }) => {
+const Footer: FunctionComponent = () => {
+    const { data } = useQuery(getCart);
+    const { navigate } = useNavigation();
     return (
         <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => setModalOpen(true)}
+            onPress={(): boolean => navigate('Cart')}
             style={styles.container}
         >
             <View style={{}}>
@@ -20,7 +22,10 @@ const Footer: FunctionComponent<FooterProps> = ({ setModalOpen }) => {
             </View>
             <View style={styles.rightContainer}>
                 <Text style={[styles.texts, styles.rightText]}>
-                    5 {i18n.t('cart.products', { count: 5 })}
+                    {data.getCart.products.length}{' '}
+                    {i18n.t('cart.products', {
+                        count: data.getCart.products.length
+                    })}
                 </Text>
                 <Feather name="arrow-right" size={24} color="white" />
             </View>

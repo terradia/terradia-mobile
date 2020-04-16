@@ -1,82 +1,116 @@
-import React, { FunctionComponent, ReactElement, useRef, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import AppleStyleSwipeableRow from './AppleStyleSwipealeRow';
+import React, {
+    FunctionComponent,
+    ReactElement,
+    useRef,
+    useState
+} from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles/ProductList.style';
-
-const DATA = [
-    {
-        name: 'barquette de fraise',
-        quantity: 1,
-        price: 18
-    },
-    {
-        name: 'concombre',
-        quantity: 3,
-        price: 6.45
-    },
-    {
-        name: 'concombre',
-        quantity: 3,
-        price: 6.45
-    },
-    {
-        name: 'concombre',
-        quantity: 3,
-        price: 6.45
-    }
-];
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import getCart from '../../../graphql/cart/getCart.graphql';
+import ProductListItem from '@components/cart/content/ProductListItem';
+import Swipeable from 'react-native-swipeable';
+import Spinner from 'react-native-loading-spinner-overlay';
+import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
+import RemoveProductFromCart from '../../../graphql/cart/removeProductFromCart.graphql';
 
 const ProductList: FunctionComponent = () => {
-    const [currentOpen, setCurrentOpen] = useState(-1);
-    const elRef = useRef([]);
-
-    const openNewSwiper = id => {
-        if (currentOpen !== -1) {
-            elRef.current[currentOpen].close();
+    const [dataLoading, setLoading] = useState(false);
+    const ref = useRef(null);
+    const { data, refetch } = useQuery(getCart, {
+        notifyOnNetworkStatusChange: true,
+        onCompleted: () => {
+            setLoading(false);
         }
-        setCurrentOpen(id);
+    });
+    const [addProductToCart] = useMutation(AddProductToCart, {
+        onError: () => {},
+        onCompleted: () => {
+            refetch();
+        }
+    });
+    const [removeProductFromCart] = useMutation(RemoveProductFromCart, {
+        onError: () => {},
+        onCompleted: () => {
+            refetch();
+        }
+    });
+    const _addProduct = params => {
+        setTimeout(() => {
+            addProductToCart(params);
+            setLoading(true);
+        }, 200);
     };
+    const _removeProduct = params => {
+        setTimeout(() => {
+            removeProductFromCart(params);
+            setLoading(true);
+        }, 200);
+    };
+
     const _renderItem = ({ item, index }): ReactElement => {
         return (
-            <AppleStyleSwipeableRow
-                id={index}
-                setCurrentOpen={openNewSwiper}
-                close={(): void => console.log('Close')}
-                ref={ins => (elRef.current[index] = ins)}
+            <Swipeable
+                ref={ref}
+                rightButtons={[
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log(ref.current.recenter());
+                            // ref.current._panResponder();
+                            // setLoading(true);
+                            // removeProductFromCart({
+                            //     variables: {
+                            //         cartProductId: item.id,
+                            //         quantity: item.quantity
+                            //     }
+                            // });
+                        }}
+                        style={{
+                            flex: 1,
+                            backgroundColor: 'red',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'white',
+                                fontFamily: 'MontserratMedium',
+                                marginLeft: 10
+                            }}
+                        >
+                            Delete
+                        </Text>
+                    </TouchableOpacity>
+                ]}
             >
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginBottom: 20,
-                        paddingTop: 10
-                    }}
-                >
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.itemGreen}>{item.quantity}</Text>
-                        <Text style={{ marginLeft: 10 }}>{item.name}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.itemGreen}>{item.price}</Text>
-                    </View>
-                </View>
-                <View style={styles.bottomItemDivider} />
-            </AppleStyleSwipeableRow>
+                <ProductListItem
+                    item={item}
+                    addProductToCart={_addProduct}
+                    removeProductFromCart={_removeProduct}
+                />
+            </Swipeable>
         );
     };
 
     return (
         <View style={styles.container}>
+            <Spinner
+                visible={dataLoading}
+                textContent={'Loading...'}
+                textStyle={{}}
+            />
             <Text style={styles.title}>Votre commande</Text>
             <FlatList
-                data={DATA}
-                extraData={[currentOpen, elRef]}
+                data={data.getCart.products}
+                extraData={[dataLoading]}
                 renderItem={_renderItem}
                 keyExtractor={(item, index): string => `message ${index}`}
             />
             <View style={styles.priceContainer}>
                 <Text style={styles.total}>Total</Text>
-                <Text style={styles.totalPrice}>36 $</Text>
+                <Text style={styles.totalPrice}>
+                    {data.getCart.totalPrice.toFixed(2)} $
+                </Text>
             </View>
         </View>
     );

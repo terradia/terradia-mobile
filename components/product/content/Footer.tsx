@@ -3,6 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import i18n from '@i18n/i18n';
 import { Product } from '@interfaces/Companies';
+import { useMutation } from '@apollo/react-hooks';
+import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
+import { useNavigation } from 'react-navigation-hooks';
+import getCart from '../../../graphql/cart/getCart.graphql';
 
 declare interface FooterProps {
     product: Product;
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         paddingLeft: 20,
-        paddingRight: 20,
+        paddingRight: 20
     },
     texts: {
         color: 'white',
@@ -49,9 +53,12 @@ const styles = StyleSheet.create({
     }
 });
 
-const Footer: FunctionComponent<FooterProps> = ({product}) => {
+const Footer: FunctionComponent<FooterProps> = ({ product }) => {
     const [count, setCount] = useState(1);
-
+    const [addProductToCart] = useMutation(AddProductToCart, {
+        refetchQueries: [{ query: getCart }]
+    });
+    const { goBack } = useNavigation();
     const _addCount = () => {
         setCount(count + 1);
     };
@@ -74,7 +81,12 @@ const Footer: FunctionComponent<FooterProps> = ({product}) => {
             </View>
             <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => console.log("Test")}
+                onPress={() => {
+                    addProductToCart({
+                        variables: { productId: product.id, quantity: count }
+                    });
+                    goBack();
+                }}
                 style={styles.bottomContainer}
             >
                 <View style={{}}>
@@ -82,7 +94,7 @@ const Footer: FunctionComponent<FooterProps> = ({product}) => {
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={[styles.texts, styles.rightText]}>
-                        8.78€
+                        {(product.price * count).toFixed(2)}€
                     </Text>
                 </View>
             </TouchableOpacity>

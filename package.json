@@ -33,6 +33,7 @@
     "expo": "^36.0.0",
     "expo-asset": "~8.0.0",
     "expo-constants": "~8.0.0",
+    "expo-facebook": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-gl": "~8.0.0",
     "expo-localization": "~8.0.0",
@@ -66,14 +67,14 @@
     "react-native-skeleton-placeholder": "https://github.com/damsltc57/react-native-skeleton-placeholder.git",
     "react-native-svg": "9.13.3",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-swipeable": "^0.6.0",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-collapsible": "^3.0.3",
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-hooks": "^1.1.0",
     "react-navigation-stack": "^2.0.15",
-    "react-navigation-tabs": "^2.7.0",
-    "expo-facebook": "~8.0.0"
+    "react-navigation-tabs": "^2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

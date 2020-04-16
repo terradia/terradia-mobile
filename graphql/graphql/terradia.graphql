@@ -6,6 +6,24 @@ schema {
     subscription: Subscription
 }
 
+type Cart {
+    company: Company!
+    createdAt: Date
+    customer: Customer!
+    expirationDate: Date
+    id: ID!
+    products: [CartProduct]
+    totalPrice: Float
+    updatedAt: Date
+}
+
+type CartProduct {
+    cart: Cart!
+    id: ID!
+    product: Product
+    quantity: Int!
+}
+
 type Category {
     id: String!
     name: String!
@@ -18,6 +36,7 @@ type Company {
     averageMark: Float
     cover: String
     createdAt: Date
+    customerCarts: [Cart]
     description: String
     distance: Float
     email: String
@@ -58,6 +77,7 @@ type CompanyUser {
 }
 
 type Customer {
+    basket: Cart
     companyReviews: [CompanyReview]
     favoriteCompanies: [Company]
     id: String!
@@ -81,6 +101,7 @@ type Mutation {
     _: Boolean
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
     addFavoriteCompany(companyId: String!): Customer
+    addProductToCart(productId: ID!, quantity: Int!): CartProduct
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     createCategory(name: String!, parentCategoryId: String): Category!
@@ -88,16 +109,17 @@ type Mutation {
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
-    createProduct(companyId: String!, description: String!, name: String!): Product!
+    createProduct(companyId: String!, companyProductsCategoryId: String, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
-    register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    register(defineUserAsCostumer: Boolean, email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
+    removeProductFromCart(cartProductId: ID, productId: ID, quantity: Int!): Int
     removeProductFromCompanyCategory(productId: String!): Product
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     setActiveCustomerAddress(id: String!): CustomerAddress
@@ -111,12 +133,16 @@ type Product {
     company: Company
     companyProductsCategory: CompanyProductsCategory
     createdAt: Date
+    customerBasketProducts: [CartProduct]
     description: String!
     id: ID!
     image: String
     name: String!
     numberOfMarks: Int
+    price: Float!
+    quantityForUnit: Float!
     reviews: [ProductReview]
+    unit: Unit!
     updatedAt: Date
 }
 
@@ -139,6 +165,8 @@ type Query {
     getAllCustomerAddressesByUser: [CustomerAddress]
     getAllCustomers: [Customer]
     getAllProducts: [Product]!
+    getAllUnits(referencesOnly: Boolean): [Unit]!
+    getCart: Cart
     getCategoryByName(name: String!): Category
     getCompanies: [Company]
     getCompaniesByDistance(lat: Float!, lon: Float!, page: Int, pageSize: Int): [Company]
@@ -152,6 +180,7 @@ type Query {
     getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!
     getProductsByCompanyByCategory(companyId: String): [Category]!
+    getUnit(id: ID, name: String, notation: String): Unit!
     getUser: User
 }
 
@@ -177,14 +206,22 @@ type Subscription {
     _: Boolean
 }
 
+type Unit {
+    id: ID!
+    multiplicationFactor: Float
+    name: String!
+    notation: String!
+    referenceUnit: Unit
+}
+
 type User {
     companies: [CompanyUser]
     customer: Customer
     email: String!
-    firstName: String
+    firstName: String!
     id: ID!
-    lastName: String
-    password: String
+    lastName: String!
+    password: String!
     phone: String!
     validated: Boolean
 }
