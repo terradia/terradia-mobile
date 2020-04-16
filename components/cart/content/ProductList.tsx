@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/ProductList.style';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -18,13 +18,17 @@ const ProductList: FunctionComponent = () => {
         }
     });
     const [addProductToCart] = useMutation(AddProductToCart, {
-        onError: () => {},
+        onError: () => {
+            setLoading(false);
+        },
         onCompleted: () => {
             refetch();
         }
     });
     const [removeProductFromCart] = useMutation(RemoveProductFromCart, {
-        onError: () => {},
+        onError: () => {
+            setLoading(false);
+        },
         onCompleted: () => {
             refetch();
         }
@@ -42,16 +46,50 @@ const ProductList: FunctionComponent = () => {
         }, 200);
     };
 
-    const _renderItem = ({ item, index }): ReactElement => {
+    const renderItem = data => (
+        <ProductListItem
+            item={data.item}
+            addProductToCart={_addProduct}
+            removeProductFromCart={_removeProduct}
+        />
+    );
+    const renderHiddenItem = ({ item }) => {
         return (
-            <ProductListItem
-                item={item}
-                addProductToCart={_addProduct}
-                removeProductFromCart={_removeProduct}
-            />
+            <TouchableOpacity
+                onPress={() => {
+                    setLoading(true);
+                    removeProductFromCart({
+                        variables: {
+                            cartProductId: item.id,
+                            quantity: item.quantity
+                        }
+                    });
+                }}
+                style={styles.rowBack}
+            >
+                <View style={[styles.backRightBtn, styles.backRightBtnRight]}>
+                    <Text style={styles.backTextWhite}>Delete</Text>
+                </View>
+            </TouchableOpacity>
         );
     };
+    if (!data || !data.getCart || !data.getCart.products)
+        return <Text>Loading</Text>;
+    if (data.getCart.products.length === 0) {
+        return (
+            <Text
+                style={{
+                    alignSelf: 'center',
+                    fontFamily: 'MontserratSemiBold',
+                    color: '#575757'
+                }}
+            >
+                Vous n'avez pas de produits dans votre panier
+            </Text>
+        );
+    }
 
+    console.log(data.getCart);
     return (
         <View style={styles.container}>
             <Spinner
@@ -61,25 +99,13 @@ const ProductList: FunctionComponent = () => {
             />
             <Text style={styles.title}>Votre commande</Text>
             <SwipeListView
+                disableRightSwipe
                 useFlatList={true}
                 data={data.getCart.products}
-                renderItem={_renderItem}
-                renderHiddenItem={(rowData, rowMap) => (
-                    <View style={styles.rowBack}>
-                        <TouchableOpacity
-                            onPress={() => rowMap[rowData.item.key].closeRow()}
-                        >
-                            <Text>Close</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                renderItem={renderItem}
+                renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
                 rightOpenValue={-75}
-                onRowOpen={(rowKey, rowMap) => {
-                    setTimeout(() => {
-                        rowMap[rowKey].closeRow();
-                    }, 2000);
-                }}
             />
             <View style={styles.priceContainer}>
                 <Text style={styles.total}>Total</Text>

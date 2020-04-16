@@ -5,7 +5,9 @@ import CartModalContent from '@components/cart/content';
 
 const Cart: FunctionComponent = () => {
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView
+            style={{ flex: 1, backgroundColor: 'rgb(242, 242, 242)' }}
+        >
             <HeaderCart />
             <ScrollView style={{ width: '100%', flex: 1 }}>
                 <CartModalContent />

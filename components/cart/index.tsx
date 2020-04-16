@@ -7,7 +7,8 @@ import getCart from '../../graphql/cart/getCart.graphql';
 const Cart: FunctionComponent<any> = () => {
     const { data } = useQuery(getCart);
 
-    if (!data || !data.getCart) return null;
+    if (!data || !data.getCart || data.getCart.products.length === 0)
+        return null;
     return (
         <View>
             <Footer />

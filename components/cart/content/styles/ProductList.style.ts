@@ -63,6 +63,34 @@ const styles = StyleSheet.create({
         color: '#5CC04A',
         fontSize: 35
     },
+    rowBack: {
+        alignItems: 'center',
+        backgroundColor: 'red',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15
+    },
+    backRightBtn: {
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        width: 75
+    },
+    backRightBtnRight: {
+        backgroundColor: 'red',
+        right: 0
+    },
+    backTextWhite: {
+        color: '#FFF'
+    },
+    rowFront: {
+        backgroundColor: 'rgb(242, 242, 242)',
+        justifyContent: 'center',
+        height: 50
+    }
 });
 
 export default styles;

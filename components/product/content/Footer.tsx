@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
 import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
 import { useNavigation } from 'react-navigation-hooks';
 import getCart from '../../../graphql/cart/getCart.graphql';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 declare interface FooterProps {
     product: Product;
@@ -55,8 +56,12 @@ const styles = StyleSheet.create({
 
 const Footer: FunctionComponent<FooterProps> = ({ product }) => {
     const [count, setCount] = useState(1);
-    const [addProductToCart] = useMutation(AddProductToCart, {
-        refetchQueries: [{ query: getCart }]
+    const [addProductToCart, {loading}] = useMutation(AddProductToCart, {
+        awaitRefetchQueries: true,
+        refetchQueries: [{ query: getCart }],
+        onCompleted: () => {
+            goBack();
+        }
     });
     const { goBack } = useNavigation();
     const _addCount = () => {
@@ -70,6 +75,11 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
 
     return (
         <View style={styles.topContainer}>
+            <Spinner
+                visible={loading}
+                textContent={'Loading...'}
+                textStyle={{}}
+            />
             <View style={styles.counterContainer}>
                 <TouchableOpacity onPress={() => _removeCount()}>
                     <AntDesign name="minuscircleo" size={40} color="#5CC04A" />
