@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from 'react-navigation-hooks';
 
 const styles = StyleSheet.create({
     container: {
@@ -16,6 +17,7 @@ const styles = StyleSheet.create({
 });
 
 const HeaderLeft: FunctionComponent<any> = () => {
+    const { navigate } = useNavigation();
     return (
         <View style={styles.container}>
             <Ionicons
@@ -24,12 +26,18 @@ const HeaderLeft: FunctionComponent<any> = () => {
                 size={28}
                 color="white"
             />
-            <Ionicons
-                style={{ margin: 3, marginLeft: 10 }}
-                name="ios-cog"
-                size={28}
-                color="white"
-            />
+            <TouchableOpacity
+                onPress={() => {
+                    navigate('Account');
+                }}
+            >
+                <Ionicons
+                    style={{ margin: 3, marginLeft: 10 }}
+                    name="ios-cog"
+                    size={28}
+                    color="white"
+                />
+            </TouchableOpacity>
         </View>
     );
 };

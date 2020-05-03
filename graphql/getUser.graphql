@@ -2,5 +2,8 @@ query getUser {
     getUser {
         id
         lastName
+        firstName
+        email
+        phone
     }
 }

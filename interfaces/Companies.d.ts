@@ -1,23 +1,25 @@
+import { CustomerData } from '@interfaces/User';
+
 export interface CompaniesData {
-    getAllCompanies: Company[];
+    getAllCompanies: CompanyData[];
 }
 
-interface Company {
+export interface CompanyData {
     name: string;
     id: string;
     averageMark: number;
     numberOfMarks: number;
     description: string;
-    productsCategories: ProductsCategory[];
+    productsCategories: ProductsCategoryData[];
 }
 
-interface ProductsCategory {
+interface ProductsCategoryData {
     name: string;
-    products: Product[];
+    products: ProductData[];
 }
 
-interface Product {
-    reviews: Review[];
+export interface ProductData {
+    reviews: ReviewData[];
     name: string;
     id: string;
     numberOfMarks: number;
@@ -25,10 +27,19 @@ interface Product {
     price: number;
 }
 
-interface Review {
+interface ReviewData {
     title: string;
     id: any;
     description: string;
     customerMark: number;
     customer: any;
+}
+
+export interface CompanyReviewData {
+    company: CompanyData;
+    customer: CustomerData;
+    customerMark: number;
+    description: string;
+    id: string;
+    title: string;
 }

@@ -24,7 +24,7 @@ const ProductListItem: FunctionComponent<ProductListItemProps> = ({
                 removeProductFromCart={removeProductFromCart}
             />
             <TouchableHighlight
-                onPress={() => setModalOpen(true)}
+                onPress={(): void => setModalOpen(true)}
                 style={styles.rowFront}
             >
                 <View style={{ backgroundColor: 'rgb(242, 242, 242)' }}>

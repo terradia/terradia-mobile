@@ -7,6 +7,7 @@ import ProductScreen from '../screens/growers/ProductScreen';
 import FeedbackScreen from '../screens/growers/Feedback';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import CartScreen from '../screens/growers/Cart';
+import AccountScreen from '../screens/profile/Account';
 import GrowersProductsScreen from '../screens/growers/GrowersProductsScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 import i18n from '@i18n/i18n';
@@ -78,7 +79,8 @@ SearchStack.navigationOptions = {
 
 const ProfileStack = createStackNavigator(
     {
-        Profile: ProfileScreen
+        Profile: ProfileScreen,
+        Account: AccountScreen
     },
     {
         headerMode: 'none'

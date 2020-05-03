@@ -44,6 +44,7 @@ type Company {
     logo: String
     name: String!
     numberOfMarks: Int
+    openingDays: [CompanyOpeningDay]
     phone: String
     position: GeographicPoint
     products: [Product]
@@ -51,6 +52,21 @@ type Company {
     reviews: [CompanyReview]
     updatedAt: Date
     users: [CompanyUser]
+}
+
+type CompanyOpeningDay {
+    company: Company!
+    daySlugName: String!
+    dayTranslationKey: String!
+    hours: [CompanyOpeningDayHours!]!
+    id: ID!
+}
+
+type CompanyOpeningDayHours {
+    day: CompanyOpeningDay!
+    endTime: Date!
+    id: ID!
+    startTime: Date!
 }
 
 type CompanyProductsCategory {
@@ -77,7 +93,7 @@ type CompanyUser {
 }
 
 type Customer {
-    basket: Cart
+    cart: Cart
     companyReviews: [CompanyReview]
     favoriteCompanies: [Company]
     id: String!
@@ -101,6 +117,7 @@ type Mutation {
     _: Boolean
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
     addFavoriteCompany(companyId: String!): Customer
+    addOpeningDay(companyId: String!, day: String!, hours: [ScheduleInput]): CompanyOpeningDay!
     addProductToCart(productId: ID!, quantity: Int!): CartProduct
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
@@ -113,18 +130,25 @@ type Mutation {
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
+    deleteProduct(productId: String!): Int
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
-    register(defineUserAsCostumer: Boolean, email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
+    removeOpeningDay(openingDayId: String!): CompanyOpeningDay!
+    removeOpeningHours(hourId: String!): CompanyOpeningDayHours!
     removeProductFromCart(cartProductId: ID, productId: ID, quantity: Int!): Int
     removeProductFromCompanyCategory(productId: String!): Product
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     setActiveCustomerAddress(id: String!): CustomerAddress
-    signInWithFacebook(exponentPushToken: String, facebookToken: String!): SigninAnswer!
-    signUpWithFacebook(defineUserAsCostumer: Boolean, exponentPushToken: String, facebookToken: String!): SignupAnswer!
+    updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
+    updateOpeningDay(hours: [ScheduleInput], openingDayId: String!): CompanyOpeningDay!
+    updateOpeningHours(hourId: String!, hours: ScheduleInput!): CompanyOpeningDayHours!
+    updateProduct(description: String, image: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
+    updateProductsPosition(productsPositions: [ProductPosition!]): Boolean
+    updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
 }
 
 type Product {
@@ -139,10 +163,11 @@ type Product {
     image: String
     name: String!
     numberOfMarks: Int
+    position: Int
     price: Float!
     quantityForUnit: Float!
     reviews: [ProductReview]
-    unit: Unit!
+    unit: Unit
     updatedAt: Date
 }
 
@@ -157,7 +182,6 @@ type ProductReview {
 
 type Query {
     _: Boolean
-    doesFacebookAccountExistWithEmail(facebookToken: String!): Boolean!
     getActiveCustomerAddress: CustomerAddress
     getAllCategories: [Category]!
     getAllCompanies(page: Int, pageSize: Int): [Company]
@@ -234,6 +258,18 @@ type UserPermissions {
 enum CacheControlScope {
     PRIVATE
     PUBLIC
+}
+
+input ProductPosition {
+    categoryId: ID
+    position: Int!
+    productId: ID!
+    type: String
+}
+
+input ScheduleInput {
+    endTime: Date!
+    startTime: Date!
 }
 
 

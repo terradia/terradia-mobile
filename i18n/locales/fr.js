@@ -46,5 +46,24 @@ export default {
             one: 'produit',
             other: 'produits'
         }
+    },
+    accountScreen: {
+        updateFirstName: 'Mettre à jour le prénom',
+        updateLastName: 'Mettre à jour le nom de famille',
+        updatePhoneNumber: 'Mettre à jour le numéro de téléphone',
+        updateEmail: "Mettre à jour l'adresse mail",
+        updatePassword: 'Mettre à jour le mot de passe',
+        firstName: 'Prénom',
+        lastName: 'Nom de famille',
+        phoneNumber: 'Numéro de téléphone',
+        email: 'Email',
+        password: 'Mot de passe',
+        verified: 'Vérifié',
+        notVerified: 'Pas vérifié',
+        confirmNewPassword: 'Confirmer le nouveau mot de passe',
+        passwordDoesntMatch: 'Les mots de passes ne correspondent pas',
+        fillInput: 'Merci de remplir le champ',
+        invalidInput: "L'entée n'est pas valide",
+        invalidPhoneNumber: 'Numéro de téléphone pas valide'
     }
 };

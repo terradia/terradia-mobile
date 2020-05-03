@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import Header from '@components/profile/header';
 import PremiumCard from '@components/profile/card/PremiumCard';
 import MenuCard from '@components/profile/card/MenuCards';

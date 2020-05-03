@@ -46,5 +46,24 @@ export default {
             one: 'product',
             other: 'products'
         }
+    },
+    accountScreen: {
+        updateFirstName: 'Update first name',
+        updateLastName: 'Update last name',
+        updatePhoneNumber: 'Update phone number',
+        updateEmail: 'Update email',
+        updatePassword: 'Update password',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        phoneNumber: 'Phone Number',
+        email: 'Email',
+        password: 'Password',
+        verified: 'Verified',
+        notVerified: 'Not verified',
+        confirmNewPassword: 'Confirm new password',
+        passwordDoesntMatch: "Passwords doesn't match",
+        fillInput: 'Please fill the input',
+        invalidInput: 'Invalid input',
+        invalidPhoneNumber: 'Invalid phone number'
     }
 };
