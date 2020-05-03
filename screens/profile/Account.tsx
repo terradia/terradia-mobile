@@ -7,7 +7,6 @@ import {
     TextInput
 } from 'react-native';
 import HeaderAccount from '@components/account/Header';
-import { Avatar } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import AccountModal from '@components/account/modal/AccountModal';
 import i18n from '@i18n/i18n';
@@ -72,7 +71,7 @@ const Account: FunctionComponent = () => {
             />
             <HeaderAccount />
             <View style={styles.imageContainer}>
-                <AccountImage />
+                <AccountImage me={me && me.getUser} />
             </View>
             <TouchableOpacity
                 style={styles.fieldContainer}

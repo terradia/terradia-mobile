@@ -1,10 +1,3 @@
 {
-  "name": "@components",
-  "dependencies": {
-    "expo-image-picker": "^8.1.0",
-    "react-native-modal-selector": "^2.0.1",
-    "react-native-orientation-loading-overlay": "^0.1.6",
-    "react-native-phone-input": "^0.2.4",
-    "react-native-swipe-list-view": "^2.5.0"
-  }
+  "name": "@components"
 }

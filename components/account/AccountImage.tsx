@@ -4,6 +4,14 @@ import ModalSelector from 'react-native-modal-selector';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import updateUserAvatar from '../../graphql/user/updateUserAvatar.graphql';
+import { useMutation } from '@apollo/react-hooks';
+import { ReactNativeFile } from 'apollo-upload-client';
+import { UserData } from '@interfaces/User';
+
+declare interface AccountImageProps {
+    me: UserData;
+}
 
 const DATA_SELECT = [
     {
@@ -16,16 +24,15 @@ const DATA_SELECT = [
     }
 ];
 
-const AccountImage: FunctionComponent = () => {
+const AccountImage: FunctionComponent<AccountImageProps> = ({ me }) => {
     const [hasCameraRoll, setHasCameraRoll] = useState(false);
-
+    const [UpdateUserAvatar] = useMutation(updateUserAvatar);
     const getPermissionAsync = async (): Promise<boolean> => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(
                 Permissions.CAMERA_ROLL
             );
             if (status !== 'granted') {
-                console.log('Not granted');
                 setHasCameraRoll(false);
                 return false;
             }
@@ -39,16 +46,23 @@ const AccountImage: FunctionComponent = () => {
     const _pickImage = async () => {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
                 aspect: [4, 3],
-                quality: 1
+                quality: 0.2
             });
-            // if (!result.cancelled) {
-            //     this.setState({ image: result.uri });
-            // }
+            if (!result.cancelled) {
+                const file = new ReactNativeFile({
+                    uri: result.uri,
+                    name: new Date().getTime() + me.id + '.jpg',
+                    type: 'image/jpeg'
+                });
 
-            console.log(result);
+                UpdateUserAvatar({
+                    variables: { avatar: file }
+                });
+                // this.setState({ image: result.uri });
+            }
         } catch (E) {
             console.log(E);
         }
@@ -88,7 +102,8 @@ const AccountImage: FunctionComponent = () => {
                     rounded
                     source={{
                         uri:
-                            'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg'
+                            'https://terradia-bucket-assets.s3.eu-west-3.amazonaws.com/' +
+                            me.avatar
                     }}
                 />
             </ModalSelector>

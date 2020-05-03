@@ -19,6 +19,7 @@ export interface UserData {
     lastName: string;
     phone: string;
     validated: boolean;
+    avatar: string;
 }
 
 export interface CustomerData {

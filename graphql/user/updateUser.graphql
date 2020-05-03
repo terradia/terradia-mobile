@@ -5,5 +5,7 @@ mutation updateUser($email: String, $firstName: String, $lastName: String, $phon
         lastName
         firstName
         phone
+        avatar
+        __typename
     }
 }

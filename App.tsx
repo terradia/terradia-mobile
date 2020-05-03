@@ -13,7 +13,7 @@ import { withClientState } from 'apollo-link-state';
 import { Linking } from 'expo';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
-
+import { createUploadLink } from 'apollo-upload-client';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
@@ -21,6 +21,7 @@ YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 setExpoStatusBarHeight(Constants.statusBarHeight);
 
 import AppNavigator from './navigation/AppNavigator';
+import { ApolloLink } from 'apollo-link';
 
 {
     /**
@@ -42,7 +43,12 @@ const stateLink = withClientState({
     }
 });
 
-const httpLink = new HttpLink({
+// const httpLink = new HttpLink({
+//     uri: 'https://5976fd95.ngrok.io' + '/graphql',
+//     fetch: fetch
+// });
+//
+const uploadLink = new createUploadLink({
     uri: 'https://5976fd95.ngrok.io' + '/graphql',
     fetch: fetch
 });
@@ -57,8 +63,16 @@ const authLink = setContext(async (_, { headers }) => {
     };
 });
 
+// const concat = [httpLink, authLink];
+
 const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: ApolloLink.from([
+        authLink,
+        new createUploadLink({
+            uri: 'https://5976fd95.ngrok.io' + '/graphql',
+            fetch: fetch
+        })
+    ]),
     cache: new InMemoryCache({
         cacheRedirects: {
             Query: {

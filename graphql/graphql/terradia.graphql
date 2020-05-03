@@ -34,14 +34,15 @@ type Category {
 type Company {
     address: String!
     averageMark: Float
-    cover: String
+    companyImages: [CompanyImages]
+    cover: CompanyImages
     createdAt: Date
     customerCarts: [Cart]
     description: String
     distance: Float
     email: String
     id: ID!
-    logo: String
+    logo: CompanyImages
     name: String!
     numberOfMarks: Int
     openingDays: [CompanyOpeningDay]
@@ -52,6 +53,13 @@ type Company {
     reviews: [CompanyReview]
     updatedAt: Date
     users: [CompanyUser]
+}
+
+type CompanyImages {
+    createdAt: Date
+    filename: String
+    id: ID!
+    updatedAt: Date
 }
 
 type CompanyOpeningDay {
@@ -122,11 +130,11 @@ type Mutation {
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     createCategory(name: String!, parentCategoryId: String): Category!
-    createCompany(address: String!, description: String, email: String, name: String!, phone: String): Company!
+    createCompany(address: String!, cover: Upload, description: String, email: String, logo: Upload, name: String!, phone: String): Company!
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
-    createProduct(companyId: String!, companyProductsCategoryId: String, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
+    createProduct(companyId: String!, companyProductsCategoryId: String, cover: Upload, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
@@ -149,6 +157,7 @@ type Mutation {
     updateProduct(description: String, image: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
     updateProductsPosition(productsPositions: [ProductPosition!]): Boolean
     updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
+    updateUserAvatar(avatar: Upload): User
 }
 
 type Product {
@@ -156,11 +165,12 @@ type Product {
     categories: [Category]
     company: Company
     companyProductsCategory: CompanyProductsCategory
+    cover: CompanyImages
     createdAt: Date
     customerBasketProducts: [CartProduct]
     description: String!
     id: ID!
-    image: String
+    images: [CompanyImages]
     name: String!
     numberOfMarks: Int
     position: Int
@@ -239,6 +249,7 @@ type Unit {
 }
 
 type User {
+    avatar: String
     companies: [CompanyUser]
     customer: Customer
     email: String!

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import SearchScreen from '../screens/search/SearchScreen';
@@ -87,18 +87,30 @@ const ProfileStack = createStackNavigator(
     }
 );
 
-ProfileStack.navigationOptions = {
-    tabBarLabel: 'Profil',
-    tabBarOptions: {
+ProfileStack.navigationOptions = ({ navigation }) => {
+    const tabBarLabel = 'Profil';
+    const tabBarOptions = {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc'
-    },
-    tabBarIcon: ({ focused }) => {
+    };
+    let tabBarVisible;
+    for (let i = 0; i < navigation.state.routes.length; i++) {
+        if (navigation.state.routes[i].routeName === 'Account') {
+            tabBarVisible = false;
+        }
+    }
+    const tabBarIcon = ({ focused }): ReactElement => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Profil/active.png')
             : require('../assets/images/TabBarNavigation/Profil/inactive.png');
         return <Image source={image} />;
-    }
+    };
+    return {
+        tabBarLabel,
+        tabBarIcon,
+        tabBarOptions,
+        tabBarVisible
+    };
 };
 
 const tabNavigator = createBottomTabNavigator(
