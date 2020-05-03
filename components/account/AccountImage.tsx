@@ -8,6 +8,7 @@ import updateUserAvatar from '../../graphql/user/updateUserAvatar.graphql';
 import { useMutation } from '@apollo/react-hooks';
 import { ReactNativeFile } from 'apollo-upload-client';
 import { UserData } from '@interfaces/User';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 declare interface AccountImageProps {
     me: UserData;
@@ -26,7 +27,7 @@ const DATA_SELECT = [
 
 const AccountImage: FunctionComponent<AccountImageProps> = ({ me }) => {
     const [hasCameraRoll, setHasCameraRoll] = useState(false);
-    const [UpdateUserAvatar] = useMutation(updateUserAvatar);
+    const [UpdateUserAvatar, { loading }] = useMutation(updateUserAvatar);
     const getPermissionAsync = async (): Promise<boolean> => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(
@@ -81,6 +82,7 @@ const AccountImage: FunctionComponent<AccountImageProps> = ({ me }) => {
     };
     return (
         <>
+            <Spinner visible={loading} textContent={'Loading...'} />
             <ModalSelector
                 overlayStyle={{
                     flex: 1,
@@ -100,6 +102,7 @@ const AccountImage: FunctionComponent<AccountImageProps> = ({ me }) => {
                     showAccessory
                     size={140}
                     rounded
+                    title={me.firstName[0] + me.lastName[0]}
                     source={{
                         uri:
                             'https://terradia-bucket-assets.s3.eu-west-3.amazonaws.com/' +

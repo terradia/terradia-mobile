@@ -69,7 +69,7 @@ const client = new ApolloClient({
     link: ApolloLink.from([
         authLink,
         new createUploadLink({
-            uri: 'https://5976fd95.ngrok.io' + '/graphql',
+            uri: 'https://8f9d03aa.ngrok.io' + '/graphql',
             fetch: fetch
         })
     ]),

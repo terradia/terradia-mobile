@@ -38,6 +38,7 @@ const HeaderLeft: FunctionComponent<any> = () => {
             <Avatar
                 size={40}
                 rounded
+                title={me.getUser.firstName[0] + me.getUser.lastName[0]}
                 source={{
                     uri:
                         'https://terradia-bucket-assets.s3.eu-west-3.amazonaws.com/' +
