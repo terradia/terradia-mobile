@@ -102,7 +102,9 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                     <TouchableOpacity
                         onPress={(): void => {
                             console.log('GOing');
-                            navigation.navigate('Product', {product: item.id});
+                            navigation.navigate('Product', {
+                                product: item.id
+                            });
                         }}
                         activeOpacity={0.7}
                         style={{
@@ -117,6 +119,20 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 renderScrollComponent={(): any => (
                     <ParallaxScrollView
                         onScroll={(event): any => handleScroll(event)}
+                        onScrollEndDrag={event => {
+                            if (event.nativeEvent.targetContentOffset.y < 170) {
+                                list.current.scrollToLocation({
+                                    itemIndex: 1,
+                                    sectionIndex: 0,
+                                    viewOffset:
+                                        event.nativeEvent.targetContentOffset
+                                            .y > 100
+                                            ? -HEADER_SIZE
+                                            : 0,
+                                    viewPosition: 0
+                                });
+                            }
+                        }}
                         style={{ flex: 1, width: '100%' }}
                         backgroundColor="white"
                         parallaxHeaderHeight={300}

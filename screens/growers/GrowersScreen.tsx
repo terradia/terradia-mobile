@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Cart from '../../components/cart';
 import { useQuery } from '@apollo/react-hooks';
 import getAllCompanies from '../../graphql/getAllCompanies.graphql';
-import { Company } from '@interfaces/Companies';
+import { CompanyData } from '@interfaces/Companies';
 import DeepLinking from '@components/routing/DeepLinking';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -20,7 +20,7 @@ declare interface GrowersScreen {
 }
 
 declare interface ItemProps {
-    item: Company;
+    item: CompanyData;
 }
 
 const GrowersScreen: FunctionComponent<GrowersScreen> = ({

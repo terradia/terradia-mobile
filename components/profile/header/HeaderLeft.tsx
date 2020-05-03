@@ -39,7 +39,9 @@ const HeaderLeft: FunctionComponent<any> = () => {
                 size={40}
                 rounded
                 source={{
-                    uri: me && me.getUser && me.getUser.avatar
+                    uri:
+                        'https://terradia-bucket-assets.s3.eu-west-3.amazonaws.com/' +
+                        me.getUser.avatar
                 }}
                 containerStyle={{ marginLeft: 10 }}
             />

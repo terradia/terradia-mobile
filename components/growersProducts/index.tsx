@@ -44,10 +44,9 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
         variables: { id: growerId },
         onCompleted: data => {
             if (!data || !data.company) {
-                console.log("Loading company");
+                console.log('Loading company');
                 loadCompany();
-            }
-            else setCompany(data.company);
+            } else setCompany(data.company);
         }
     });
 
