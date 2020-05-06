@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import {
+    NativeSyntheticEvent,
     StyleProp,
     StyleSheet,
     TextInput,
+    TextInputSubmitEditingEventData,
     TextStyle,
     View
 } from 'react-native';
@@ -13,6 +15,9 @@ export declare interface ButtonProps {
     onChangeText: any;
     value: any;
     style?: StyleProp<TextStyle>;
+    onSubmitEditing?: (
+        e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
+    ) => void;
 }
 
 const styles = StyleSheet.create({
@@ -40,7 +45,8 @@ const styles = StyleSheet.create({
 const Button: FunctionComponent<ButtonProps> = ({
     onChangeText,
     value,
-    style
+    style,
+    onSubmitEditing
 }) => {
     return (
         <View style={styles.searchSection}>
@@ -51,6 +57,7 @@ const Button: FunctionComponent<ButtonProps> = ({
                 value={value}
                 placeholder={i18n.t('searchScreen.search1')}
                 placeholderTextColor={'#575757'}
+                onSubmitEditing={onSubmitEditing}
             />
         </View>
     );

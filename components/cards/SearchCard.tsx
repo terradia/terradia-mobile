@@ -1,5 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import {
+    StyleProp,
+    Text,
+    TouchableOpacity,
+    View,
+    ViewStyle
+} from 'react-native';
 import ImageOpacity from '../images/ImageOpacity';
 import styles from './styles/SearchCard.style';
 
@@ -10,6 +16,7 @@ declare interface SearchCard {
     textLeftPosition: number;
     title: string;
     containerStyle: StyleProp<ViewStyle>;
+    searchCompanies: any;
 }
 
 const SearchCard: FunctionComponent<SearchCard> = ({
@@ -18,11 +25,18 @@ const SearchCard: FunctionComponent<SearchCard> = ({
     textBottomPositionPercentage,
     textLeftPosition,
     title,
-    containerStyle
+    containerStyle,
+    searchCompanies
 }) => {
     const BottomPosition = (textBottomPositionPercentage / width) * 100;
     return (
-        <View style={[styles.container, containerStyle, { width }]}>
+        <TouchableOpacity
+            onPress={() => {
+                searchCompanies(title);
+            }}
+            activeOpacity={0.7}
+            style={[styles.container, containerStyle, { width }]}
+        >
             <ImageOpacity
                 width={width}
                 height={height}
@@ -40,7 +54,7 @@ const SearchCard: FunctionComponent<SearchCard> = ({
             >
                 {title}
             </Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 

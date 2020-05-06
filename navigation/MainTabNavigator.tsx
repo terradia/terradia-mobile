@@ -55,27 +55,32 @@ GrowerStack.navigationOptions = ({ navigation }) => ({
 
 const SearchStack = createStackNavigator(
     {
-        Search: { screen: SearchScreen, path: 'search' }
+        Search: { screen: SearchScreen, path: 'search' },
+        GrowersProducts: {
+            screen: GrowersProductsScreen,
+            path: 'searchProducts'
+        }
     },
     {
-        headerMode: 'screen'
+        headerMode: 'none'
     }
 );
 
-SearchStack.navigationOptions = {
+SearchStack.navigationOptions = ({ navigation }) => ({
     tabBarLabel: i18n.t('searchScreen.search'),
     header: null,
     tabBarOptions: {
         activeTintColor: '#5CC04A',
         inactiveTintColor: '#ccc'
     },
+    tabBarVisible: navigation.state.index < 1,
     tabBarIcon: ({ focused }) => {
         const image = focused
             ? require('../assets/images/TabBarNavigation/Products/active.png')
             : require('../assets/images/TabBarNavigation/Products/inactive.png');
         return <Image source={image} />;
     }
-};
+});
 
 const ProfileStack = createStackNavigator(
     {

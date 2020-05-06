@@ -157,7 +157,7 @@ type Mutation {
     updateProduct(description: String, image: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
     updateProductsPosition(productsPositions: [ProductPosition!]): Boolean
     updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
-    updateUserAvatar(avatar: Upload): User
+    updateUserAvatar(avatar: Upload!): User
 }
 
 type Product {
@@ -216,6 +216,7 @@ type Query {
     getProductsByCompanyByCategory(companyId: String): [Category]!
     getUnit(id: ID, name: String, notation: String): Unit!
     getUser: User
+    searchCompanies(query: String!): [Company]
 }
 
 type Role {

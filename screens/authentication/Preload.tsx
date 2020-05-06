@@ -18,65 +18,69 @@ export interface MyInputHandles {
     preload(): void;
 }
 
-const Preload: RefForwardingComponent<MyInputHandles, any> = forwardRef(
-    ({ children }, ref) => {
-        const { navigate } = useNavigation();
-        const [path, setPath] = useState('');
-        const [urlQueryParams, setQueryParams] = useState(null);
+const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
+    children?: any;
+}> &
+    React.RefAttributes<any>> = forwardRef(({ children }, ref) => {
+    const { navigate } = useNavigation();
+    const [path, setPath] = useState('');
+    const [urlQueryParams, setQueryParams] = useState(null);
 
-        const [loadGrowers, { data: growers }] = useLazyQuery<{
-            getAllCompanies: CompaniesData;
-        }>(getAllCompanies, {
-            fetchPolicy: 'network-only',
-            onCompleted: data => {
-                if (data && data) {
-                    if (path === '') navigate('Grower', { growers: growers });
-                    else if (
-                        path === 'GrowersProducts' &&
-                        urlQueryParams.company
-                    ) {
-                        navigate('GrowersProducts', {
-                            grower: urlQueryParams.company
-                        });
-                    } else navigate(path);
-                } else navigate('Login');
-            },
-            onError: async error => {
-                await AsyncStorage.removeItem('token');
-                navigate('Login');
-            }
-        });
-        const [loadUser, { client }] = useLazyQuery(getUser, {
-            fetchPolicy: 'network-only',
-            onCompleted: data => {
-                if (data && data.getUser) {
-                    client.query({ query: getActiveAddress });
-                    client.query({ query: getAddressesByUser });
-                    loadGrowers();
-                } else navigate('Login');
-            },
-            onError: async onerror => {
-                console.log(onerror);
-                await AsyncStorage.removeItem('token');
-                navigate('Login');
-            }
-        });
-        const _loadData = () => {
-            Linking.getInitialURL().then(data => {
-                const { path, queryParams } = Linking.parse(data);
-                setQueryParams({ ...queryParams });
-                if (path) setPath(path.replace('--/', ''));
-                loadUser();
+    const _redirect = () => {
+        if (path === '') navigate('Grower');
+        else if (path === 'GrowersProducts' && urlQueryParams.company) {
+            navigate('GrowersProducts', {
+                grower: urlQueryParams.company
             });
-        };
-        useImperativeHandle(ref, () => ({
-            preload: (): void => {
-                _loadData();
-            }
-        }));
+        } else navigate(path);
+    };
 
-        return null;
-    }
-);
+    // const [loadGrowers, { data: growers }] = useLazyQuery<{
+    //     getAllCompanies: CompaniesData;
+    // }>(getAllCompanies, {
+    //     fetchPolicy: 'network-only',
+    //     onCompleted: data => {
+    //         if (data && data) {
+    //             _redirect();
+    //         } else navigate('Login');
+    //     },
+    //     onError: async error => {
+    //         await AsyncStorage.removeItem('token');
+    //         navigate('Login');
+    //     }
+    // });
+    const [loadUser, { client }] = useLazyQuery(getUser, {
+        fetchPolicy: 'network-only',
+        onCompleted: data => {
+            if (data && data.getUser) {
+                client.query({ query: getActiveAddress });
+                client.query({ query: getAddressesByUser });
+                client.query({ query: getAllCompanies });
+                _redirect();
+                // loadGrowers();
+            } else navigate('Login');
+        },
+        onError: async onerror => {
+            console.log(onerror);
+            await AsyncStorage.removeItem('token');
+            navigate('Login');
+        }
+    });
+    const _loadData = () => {
+        Linking.getInitialURL().then(data => {
+            const { path, queryParams } = Linking.parse(data);
+            setQueryParams({ ...queryParams });
+            if (path) setPath(path.replace('--/', ''));
+            loadUser();
+        });
+    };
+    useImperativeHandle(ref, () => ({
+        preload: (): void => {
+            _loadData();
+        }
+    }));
+
+    return null;
+});
 
 export default Preload;

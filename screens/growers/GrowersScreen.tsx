@@ -11,6 +11,8 @@ import { useQuery } from '@apollo/react-hooks';
 import getAllCompanies from '../../graphql/getAllCompanies.graphql';
 import { CompanyData } from '@interfaces/Companies';
 import DeepLinking from '@components/routing/DeepLinking';
+import ProductLoader from '@components/product/content/ProductLoader';
+import GrowersLoader from '@components/growers/GrowersLoader';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -27,11 +29,12 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     navigation,
     collapsible
 }) => {
-    // const growers = useNavigationParam('growers');
-
     const { data: growers } = useQuery(getAllCompanies);
 
     const { paddingHeight, animatedY, onScroll } = collapsible;
+    if (!growers || !growers.getAllCompanies) {
+        return <GrowersLoader />;
+    }
     return (
         <View style={{ flex: 1 }}>
             <AnimatedFlatList
