@@ -1,20 +1,18 @@
 import React, { FunctionComponent, ReactElement, useState } from 'react';
-import { Animated, FlatList, View, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { FlatList, View, Text } from 'react-native';
 import SearchInput from '@components/search/SearchInput';
-import { withCollapsible } from 'react-navigation-collapsible';
 import HorizontalList from '@components/search/lists/HorizontalList';
 import Cart from '@components/cart';
 import VerticalList from '@components/search/lists/VerticalList';
 import DeepLinking from '@components/routing/DeepLinking';
 import searchCompanies from '../../graphql/search/searchCompanies.graphql';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import GrowerCard from '@components/cards/GrowerCard';
 import { NavigationParams } from 'react-navigation';
 import { CompanyData } from '@interfaces/Companies';
 import Spinner from 'react-native-loading-spinner-overlay';
 import GrowersLoader from '@components/growers/GrowersLoader';
-
+import getAllCompanyTags from '../../graphql/tags/getAllCompanyTags.graphql';
 declare interface SearchScreenProps {
     collapsible: any;
     navigation?: NavigationParams;
@@ -47,7 +45,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
         searchCompanies
     );
     const [canDisplayCompanies, setDisplayCompanies] = useState(false);
-
+    const { data: tags } = useQuery(getAllCompanyTags);
     const _onCategoryClicked = category => {
         setValue(category);
         setDisplayCompanies(true);
@@ -119,7 +117,11 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                 </>
             ) : (
                 <VerticalList
-                    categories={DATA}
+                    categories={
+                        tags && tags.getAllCompanyTags
+                            ? tags.getAllCompanyTags
+                            : DATA
+                    }
                     title={'Toutes les catégories'}
                     ListHeaderComponent={_renderItem}
                     searchCompanies={_onCategoryClicked}

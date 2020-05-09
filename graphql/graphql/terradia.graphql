@@ -51,6 +51,7 @@ type Company {
     products: [Product]
     productsCategories: [CompanyProductsCategory]
     reviews: [CompanyReview]
+    tags: [CompanyTag]
     updatedAt: Date
     users: [CompanyUser]
 }
@@ -93,6 +94,13 @@ type CompanyReview {
     title: String!
 }
 
+type CompanyTag {
+    color: String!
+    id: String!
+    slugName: String!
+    translationKey: String!
+}
+
 type CompanyUser {
     company: Company
     id: String!
@@ -115,6 +123,7 @@ type CustomerAddress {
     customer: Customer
     id: String!
     information: String
+    location: GeographicPoint
 }
 
 type GeographicPoint {
@@ -124,25 +133,31 @@ type GeographicPoint {
 type Mutation {
     _: Boolean
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
+    addCompanyImages(companyId: ID!, images: [Upload]!): [CompanyImages]
     addFavoriteCompany(companyId: String!): Customer
     addOpeningDay(companyId: String!, day: String!, hours: [ScheduleInput]): CompanyOpeningDay!
     addProductToCart(productId: ID!, quantity: Int!): CartProduct
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
+    addTagToCompany(companyId: String!, companyTagId: String!): Company!
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     createCategory(name: String!, parentCategoryId: String): Category!
     createCompany(address: String!, cover: Upload, description: String, email: String, logo: Upload, name: String!, phone: String): Company!
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
+    createCompanyTag(color: String!, name: String!): CompanyTag!
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
     createProduct(companyId: String!, companyProductsCategoryId: String, cover: Upload, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
+    deleteCompanyTag(companyTagId: String!): CompanyTag!
     deleteProduct(productId: String!): Int
+    deleteTagFromCompany(companyId: String!, companyTagId: String!): Company!
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
     register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    removeCompanyImages(imagesId: [ID]!): [CompanyImages]
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
     removeOpeningDay(openingDayId: String!): CompanyOpeningDay!
@@ -196,6 +211,7 @@ type Query {
     getAllCategories: [Category]!
     getAllCompanies(page: Int, pageSize: Int): [Company]
     getAllCompanyProductsCategories(companyId: String!): [CompanyProductsCategory]
+    getAllCompanyTags: [CompanyTag]!
     getAllCustomerAddressesByUser: [CustomerAddress]
     getAllCustomers: [Customer]
     getAllProducts: [Product]!
@@ -204,10 +220,13 @@ type Query {
     getCategoryByName(name: String!): Category
     getCompanies: [Company]
     getCompaniesByDistance(lat: Float!, lon: Float!, page: Int, pageSize: Int): [Company]
+    getCompaniesByDistanceByCustomer(page: Int, pageSize: Int): [Company]
     getCompaniesByUser(userId: ID!): [CompanyUser]
     getCompany(companyId: ID!): Company
     getCompanyByName(name: String!): Company
+    getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImages]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
+    getCompanyTag(companyTagId: String, slugName: String): CompanyTag
     getCustomer(userId: String!): Customer
     getCustomerFavoriteCompanies(userId: String): [Company]
     getProduct(id: ID!): Product!

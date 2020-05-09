@@ -1,16 +1,15 @@
 import React, {
     forwardRef,
-    RefForwardingComponent,
     useImperativeHandle,
     useState
 } from 'react';
 import { AsyncStorage } from 'react-native';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { CompaniesData } from '@interfaces/Companies';
-import getAllCompanies from '../../graphql/getAllCompanies.graphql';
 import getUser from '../../graphql/getUser.graphql';
 import getActiveAddress from '../../graphql/getActiveAddress.graphql';
 import getAddressesByUser from '../../graphql/getAddressesByUser.graphql';
+import getCompaniesByDistanceByCustomer from '../../graphql/getCompaniesByDistanceByCustomer.graphql';
+
 import { useNavigation } from 'react-navigation-hooks';
 import { Linking } from 'expo';
 
@@ -55,7 +54,7 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
             if (data && data.getUser) {
                 client.query({ query: getActiveAddress });
                 client.query({ query: getAddressesByUser });
-                client.query({ query: getAllCompanies });
+                client.query({ query: getCompaniesByDistanceByCustomer });
                 _redirect();
                 // loadGrowers();
             } else navigate('Login');

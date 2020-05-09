@@ -45,7 +45,7 @@ const VerticalList: FunctionComponent<VerticalListProps> = ({
                         height={130}
                         textBottomPositionPercentage={30}
                         textLeftPosition={15}
-                        title={item}
+                        title={item.slugName}
                         containerStyle={{
                             marginTop: 10,
                             marginBottom: 10,

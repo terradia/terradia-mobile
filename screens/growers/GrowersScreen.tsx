@@ -8,7 +8,7 @@ import { withCollapsible } from 'react-navigation-collapsible';
 import { LinearGradient } from 'expo-linear-gradient';
 import Cart from '../../components/cart';
 import { useQuery } from '@apollo/react-hooks';
-import getAllCompanies from '../../graphql/getAllCompanies.graphql';
+import getCompaniesByDistanceByCustomer from '../../graphql/getCompaniesByDistanceByCustomer.graphql';
 import { CompanyData } from '@interfaces/Companies';
 import DeepLinking from '@components/routing/DeepLinking';
 import ProductLoader from '@components/product/content/ProductLoader';
@@ -29,17 +29,19 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     navigation,
     collapsible
 }) => {
-    const { data: growers } = useQuery(getAllCompanies);
+    const { data: growers } = useQuery(getCompaniesByDistanceByCustomer, {
+        fetchPolicy: 'cache-only'
+    });
 
     const { paddingHeight, animatedY, onScroll } = collapsible;
-    if (!growers || !growers.getAllCompanies) {
+    if (!growers || !growers.getCompaniesByDistanceByCustomer) {
         return <GrowersLoader />;
     }
     return (
         <View style={{ flex: 1 }}>
             <AnimatedFlatList
                 style={{ flex: 1 }}
-                data={growers.getAllCompanies}
+                data={growers.getCompaniesByDistanceByCustomer}
                 renderItem={({ item }: ItemProps): ReactElement => (
                     <GrowerCard navigation={navigation} grower={item} />
                 )}

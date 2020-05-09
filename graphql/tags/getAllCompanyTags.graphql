@@ -1,0 +1,6 @@
+query getAllCompanyTags {
+    getAllCompanyTags {
+        slugName
+        id
+    }
+}

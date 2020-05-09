@@ -2,5 +2,8 @@
 query getActiveAddr {
     getActiveCustomerAddress {
         address
+        location {
+            coordinates
+        }
     }
 }

@@ -90,9 +90,11 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                                     {i18n.t('tags.new')}
                                 </Text>
                             </View>
-                            <Text style={style.bottomInformationDistance}>
-                                ~900m
-                            </Text>
+                            {grower.distance && (
+                                <Text style={style.bottomInformationDistance}>
+                                    ~{grower.distance.toFixed(2) + ' km'}
+                                </Text>
+                            )}
                             <Text style={style.bottomInformationDistance}>
                                 €€
                             </Text>
