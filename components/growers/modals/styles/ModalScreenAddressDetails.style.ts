@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
         fontFamily: 'MontserratSemiBold'
     },
     mainAddressContainer: {
-        height: 32,
         borderBottomColor: '#ECECEC',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        marginRight: 20
     },
     mainAddressText: {
         color: '#8FDD3D',
@@ -39,7 +39,9 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         width: '100%',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginLeft: 10,
+        marginRight: 10
     },
     applyButtonContainer: {
         flex: 0.1,

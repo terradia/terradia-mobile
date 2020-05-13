@@ -3,17 +3,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        width: '100%'
     },
     container: {
-        width: '100%',
         flex: 0.9
     },
     listView: {
-        elevation: 1
+        elevation: 1,
+        flex: 1
     },
     textInputContainer: {
-        width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ECECEC',
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: 10,
+        marginRight: 10
     },
     textInput: {
         height: 45,

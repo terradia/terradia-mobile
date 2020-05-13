@@ -2,105 +2,118 @@ import React, { FunctionComponent, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import i18n from '@i18n/i18n';
-import { Product } from '@interfaces/Companies';
-import { useMutation } from '@apollo/react-hooks';
+import { ProductData } from '@interfaces/Companies';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
 import { useNavigation } from 'react-navigation-hooks';
 import getCart from '../../../graphql/cart/getCart.graphql';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { CartData } from '@interfaces/User';
+import TerradiaSimpleDialog from '@components/modals/dialogs/TerradiaSimpleDialog';
+import styles from './styles/Footer.style';
 
 declare interface FooterProps {
-    product: Product;
+    product: ProductData;
 }
-
-const styles = StyleSheet.create({
-    topContainer: {
-        marginTop: 10
-    },
-    counterContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 5,
-        marginBottom: 5
-    },
-    countText: {
-        width: 100,
-        textAlign: 'center',
-        fontFamily: 'MontserratLight',
-        color: '#5CC04A',
-        fontSize: 35
-    },
-    bottomContainer: {
-        height: 80,
-        backgroundColor: '#5CC04A',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    texts: {
-        color: 'white',
-        fontSize: 20
-    },
-    rightContainer: {
-        flexDirection: 'row'
-    },
-    rightText: {
-        marginRight: 5
-    }
-});
 
 const Footer: FunctionComponent<FooterProps> = ({ product }) => {
     const [count, setCount] = useState(1);
-    const [addProductToCart, {loading}] = useMutation(AddProductToCart, {
+    const [isDialogVisible, setDialogVisible] = useState(false);
+
+    const { goBack } = useNavigation();
+    const { data: cart } = useQuery<{ getCart: CartData }>(getCart);
+    const [addProductToCart, { loading }] = useMutation(AddProductToCart, {
         awaitRefetchQueries: true,
         refetchQueries: [{ query: getCart }],
         onCompleted: () => {
             goBack();
         }
     });
-    const { goBack } = useNavigation();
-    const _addCount = () => {
+    const _addCount = (): void => {
         setCount(count + 1);
     };
 
-    const _removeCount = () => {
+    const _removeCount = (): void => {
         if (count === 1) return;
         setCount(count - 1);
     };
 
+    const _updateCart = (): void => {
+        addProductToCart({
+            variables: { productId: product.id, quantity: count }
+        });
+    };
+
+    const onDialogYesPressed = (): void => {
+        _updateCart();
+    };
+
+    const onDialogNoPressed = (): void => {
+        return;
+    };
+
+    const _generateDialogMessage = (): string => {
+        if (!cart || !cart.getCart) return null;
+        const message =
+            i18n.t('productScreen.youHaveACart1') +
+            ' ( ' +
+            cart.getCart.company.name +
+            ' )' +
+            i18n.t('productScreen.youHaveACart2') +
+            ' ( ' +
+            product.company.name +
+            ' ) ' +
+            ' ?';
+        return message;
+    };
+
     return (
         <View style={styles.topContainer}>
+            <TerradiaSimpleDialog
+                title={i18n.t('productScreen.newCartTitle')}
+                message={_generateDialogMessage()}
+                positiveButtonTitle={i18n.t('productScreen.newCartTitle')}
+                negativeButtonTitle={i18n.t('productScreen.no')}
+                isDialogVisible={isDialogVisible}
+                setDialogVisible={setDialogVisible}
+                onDialogNoPressed={onDialogNoPressed}
+                onDialogYesPressed={onDialogYesPressed}
+            />
             <Spinner
                 visible={loading}
                 textContent={'Loading...'}
                 textStyle={{}}
             />
             <View style={styles.counterContainer}>
-                <TouchableOpacity onPress={() => _removeCount()}>
+                <TouchableOpacity onPress={(): void => _removeCount()}>
                     <AntDesign name="minuscircleo" size={40} color="#5CC04A" />
                 </TouchableOpacity>
                 <Text style={styles.countText}>{count}</Text>
-                <TouchableOpacity onPress={() => _addCount()}>
+                <TouchableOpacity onPress={(): void => _addCount()}>
                     <AntDesign name="pluscircleo" size={40} color="#5CC04A" />
                 </TouchableOpacity>
             </View>
             <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => {
-                    addProductToCart({
-                        variables: { productId: product.id, quantity: count }
-                    });
-                    goBack();
+                onPress={(): void => {
+                    console.log(product.company.id);
+                    console.log(cart.getCart.company);
+                    if (
+                        product.company.id !== cart.getCart.company.id &&
+                        cart.getCart.products.length > 0
+                    ) {
+                        setDialogVisible(true);
+                        return;
+                    } else {
+                        _updateCart();
+                    }
                 }}
                 style={styles.bottomContainer}
             >
                 <View style={{}}>
-                    <Text style={styles.texts}>{i18n.t('cart.viewCart')}</Text>
+                    <Text style={styles.texts}>
+                        {i18n.t('productScreen.addToCart')}
+                    </Text>
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={[styles.texts, styles.rightText]}>

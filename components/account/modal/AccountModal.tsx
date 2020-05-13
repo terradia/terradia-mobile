@@ -110,6 +110,7 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                     placement="left"
                     leftComponent={
                         <TouchableOpacity
+                            style={{padding: 3}}
                             onPress={() => setCurrentEditing(null)}
                         >
                             <Entypo name="cross" size={26} />

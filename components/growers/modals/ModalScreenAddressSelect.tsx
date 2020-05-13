@@ -46,7 +46,14 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 renderDescription={row => {
                     if (row.isPredefinedPlace) {
                         return (
-                            <View style={{ flexDirection: 'row' }}>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    flex: 1,
+                                    marginLeft: 8,
+                                    marginRight: 25
+                                }}
+                            >
                                 {row.currentLocation ? (
                                     <FontAwesome
                                         name="location-arrow"
@@ -63,7 +70,8 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                                 <Text
                                     style={{
                                         fontFamily: 'Montserrat',
-                                        fontSize: 20
+                                        color: '#202020',
+                                        fontSize: 16
                                     }}
                                 >
                                     {row.address}
@@ -86,12 +94,20 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 onPress={async data => {
                     if (data.currentLocation) {
                         const addr = await getLocationAsync();
-                        setCurrentAddress({ address: addr });
+                        setCurrentAddress({
+                            address: addr,
+                            apartment: '',
+                            information: ''
+                        });
                         setIsSearching(false);
                     } else {
                         setCurrentAddress({
                             address: data.address || data.description,
-                            id: data.isPredefinedPlace ? data.id : null
+                            id: data.isPredefinedPlace ? data.id : null,
+                            apartment: data.apartment ? data.apartment : '',
+                            information: data.information
+                                ? data.information
+                                : ''
                         });
                         setIsSearching(false);
                     }

@@ -41,13 +41,13 @@ type Company {
     description: String
     distance: Float
     email: String
+    geoPosition: GeographicPoint
     id: ID!
     logo: CompanyImages
     name: String!
     numberOfMarks: Int
     openingDays: [CompanyOpeningDay]
     phone: String
-    position: GeographicPoint
     products: [Product]
     productsCategories: [CompanyProductsCategory]
     reviews: [CompanyReview]

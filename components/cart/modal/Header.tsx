@@ -9,8 +9,11 @@ const HeaderCart: FunctionComponent = () => {
     const { goBack } = useNavigation();
     return (
         <View style={styles.header}>
-            <TouchableOpacity onPress={(): boolean => goBack()}>
-                <Feather name="x" size={24} />
+            <TouchableOpacity
+                style={{ padding: 3 }}
+                onPress={(): boolean => goBack()}
+            >
+                <Feather name="x" size={26} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{i18n.t('cart.viewCart')}</Text>
             <View />

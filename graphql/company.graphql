@@ -12,6 +12,7 @@ query IsUserLoggedIn($id: ID) {
                 name
                 id
                 description
+                prices
             }
         }
     }

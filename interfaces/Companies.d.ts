@@ -3,6 +3,9 @@ import { CustomerData } from '@interfaces/User';
 export interface CompaniesData {
     getAllCompanies: CompanyData[];
 }
+export interface GeographicPointData {
+    coordinates: number[];
+}
 
 export interface CompanyData {
     name: string;
@@ -11,6 +14,7 @@ export interface CompanyData {
     numberOfMarks: number;
     description: string;
     productsCategories: ProductsCategoryData[];
+    geoPosition: GeographicPointData;
 }
 
 interface ProductsCategoryData {
@@ -25,6 +29,7 @@ export interface ProductData {
     numberOfMarks: number;
     description: string;
     price: number;
+    company: CompanyData;
 }
 
 interface ReviewData {

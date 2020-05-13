@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Image, Text, View } from 'react-native';
 import styles from './styles/GrowersProductsListRender.style';
-import { Product } from '@interfaces/Companies';
+import { ProductData } from '@interfaces/Companies';
 
 export const renderHeaders: FunctionComponent<string> = (title: string) => {
     return (
@@ -14,7 +14,7 @@ export const renderHeaders: FunctionComponent<string> = (title: string) => {
 };
 
 declare interface RenderListProductsProps {
-    product: Product;
+    product: ProductData;
 }
 
 export const renderItems: FunctionComponent<RenderListProductsProps> = ({
@@ -43,7 +43,7 @@ export const renderItems: FunctionComponent<RenderListProductsProps> = ({
                         <View />
                         <View>
                             <Text style={[styles.priceTag, styles.textsColor]}>
-                                4.5€
+                                {product.price.toFixed(2)}€
                             </Text>
                         </View>
                     </View>

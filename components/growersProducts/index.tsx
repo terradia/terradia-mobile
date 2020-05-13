@@ -5,7 +5,7 @@ import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import COMPANY from '../../graphql/company.graphql';
 import getCompany from '../../graphql/getCompany.graphql';
-import { Company } from '@interfaces/Companies';
+import { CompanyData } from '@interfaces/Companies';
 import LoadingState from './Loading';
 import GrowerProductsList from './GrowerProductsList';
 
@@ -27,7 +27,7 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     const { navigate } = useNavigation();
 
     const [loadCompany] = useLazyQuery<{
-        getCompany: Company;
+        getCompany: CompanyData;
     }>(getCompany, {
         variables: { id: growerId },
         fetchPolicy: 'network-only',

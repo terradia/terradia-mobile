@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Product } from '@interfaces/Companies';
+import { ProductData } from '@interfaces/Companies';
 import { elevationShadowStyle } from '@constants/Layout';
 
 declare interface HeaderProps {
-    product: Product;
+    product: ProductData;
 }
 
 const styles = StyleSheet.create({
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
 });
 
 const Header: FunctionComponent<HeaderProps> = ({ product }) => {
+    console.log(product);
     return (
         <View style={styles.container}>
             <View style={styles.leftContainer}>
@@ -67,7 +68,9 @@ const Header: FunctionComponent<HeaderProps> = ({ product }) => {
                 <View style={styles.tag}>
                     <Text style={styles.tagText}>NOUVEAUTE</Text>
                 </View>
-                <Text style={styles.priceText}>4,69€</Text>
+                <Text style={styles.priceText}>
+                    {product.price.toFixed(2) + ' €'}
+                </Text>
                 <Text style={styles.unitPrice}>Prix unitaire</Text>
             </View>
             <View style={styles.rightContainer}>

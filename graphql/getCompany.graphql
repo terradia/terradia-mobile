@@ -1,5 +1,5 @@
 query getCompany($id: ID!) {
-    getCompany(id: $id) {
+    getCompany(companyId: $id) {
         id
         name
         averageMark
@@ -11,6 +11,7 @@ query getCompany($id: ID!) {
                 name
                 id
                 description
+                price
             }
         }
     }

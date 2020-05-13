@@ -1,6 +1,7 @@
 import {
     CompanyData,
     CompanyReviewData,
+    GeographicPointData,
     ProductData
 } from '@interfaces/Companies';
 
@@ -20,6 +21,15 @@ export interface UserData {
     phone: string;
     validated: boolean;
     avatar: string;
+}
+
+export interface CustomerAddressData {
+    id: string;
+    address: string;
+    apartment: string;
+    information: string;
+    customer: CustomerData;
+    location: GeographicPointData;
 }
 
 export interface CustomerData {

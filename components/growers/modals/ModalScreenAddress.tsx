@@ -41,7 +41,7 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity onPress={() => setIsSearching(true)}>
-                            <Feather name="arrow-left" size={24} />
+                            <Feather name="arrow-left" size={26} />
                         </TouchableOpacity>
                     )}
                     <Text style={styles.headerTitle}>

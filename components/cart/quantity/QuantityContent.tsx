@@ -30,7 +30,7 @@ const QuantityContent: FunctionComponent<QuantityContentProps> = ({
         setCount(item.quantity);
     }, [item]);
     const _removeCount = () => {
-        if (count === 1) return;
+        if (count === 0) return;
         setCount(count - 1);
     };
     const _updateQuantity = () => {
@@ -73,7 +73,9 @@ const QuantityContent: FunctionComponent<QuantityContentProps> = ({
                 style={styles.bottomContainer}
             >
                 <View style={{}}>
-                    <Text style={styles.texts}>{i18n.t('cart.viewCart')}</Text>
+                    <Text style={styles.texts}>
+                        {i18n.t('cart.updateProduct')}
+                    </Text>
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={[styles.texts, styles.rightText]}>

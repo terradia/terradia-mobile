@@ -13,6 +13,8 @@ import getAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
 declare interface ModalAddressProps {
     address: string;
     id: string;
+    apartment: string;
+    information: string;
 }
 
 declare interface ModalScreenAddressDetailsProps {
@@ -41,8 +43,8 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
         }
     );
 
-    const [apt, setApt] = useState('');
-    const [info, setInfo] = useState('');
+    const [apt, setApt] = useState(mainAddress.apartment);
+    const [info, setInfo] = useState(mainAddress.information);
     const [optionNumber, setOptionNumber] = useState(0);
     return (
         <View style={styles.mainContainer}>
@@ -57,7 +59,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                 </Text>
                 <View style={styles.containers}>
                     <View style={styles.mainAddressContainer}>
-                        <Text style={styles.mainAddressText} numberOfLines={1}>
+                        <Text style={styles.mainAddressText} numberOfLines={4}>
                             {mainAddress.address}
                         </Text>
                     </View>

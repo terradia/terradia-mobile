@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { View } from 'react-native';
 import Header from '../header';
-import { Product } from '@interfaces/Companies';
+import { ProductData } from '@interfaces/Companies';
 import ContentHeader from './Header';
 import Feedback from './Feedback';
 import Footer from './Footer';
 import ProductLoader from './ProductLoader';
 
 declare interface ContentProductProps {
-    product: Product;
+    product: ProductData;
 }
 
 const index: FunctionComponent<ContentProductProps> = ({ product }) => {

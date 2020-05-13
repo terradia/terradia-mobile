@@ -24,29 +24,35 @@ const styles = StyleSheet.create({
         color: '#575757'
     },
     deliveryInformationLabel: {
-        fontFamily: 'MontserratLight',
-        fontSize: 14,
-        position: 'absolute',
-        left: -30
+        fontFamily: 'MontserratSemiBold',
+        fontSize: 15,
+        marginTop: 10,
+        marginLeft: 5
     },
     informationContainer: {
+        flex: 1,
+        width: '100%',
         flexDirection: 'row',
-        marginTop: 30
+        marginTop: 30,
+        marginLeft: 10,
+        marginRight: 10
     },
     informationTextContainer: {
-        marginTop: 10
+        width: '70%',
+        justifyContent: 'space-evenly'
     },
     descriptionContainer: {
-        marginTop: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        marginRight: 50
     },
     textSpacer: {
-        marginTop: 14
+        marginTop: 5
     },
     informationTextStreet: {
         fontFamily: 'MontserratBold',
         fontSize: 14,
-        color: '#575757'
+        color: '#575757',
+        lineHeight: 20
     },
     informationTextAddr: {
         fontFamily: 'MontserratLight',
@@ -57,6 +63,11 @@ const styles = StyleSheet.create({
         fontFamily: 'MontserratSemiBold',
         fontSize: 14,
         color: '#8FDD3D'
+    },
+    mapStyle: {
+        width: 130,
+        height: 130,
+        borderRadius: 10
     }
 });
 

@@ -12,6 +12,7 @@ query getCompaniesByDistanceByCustomer {
                 name
                 id
                 description
+                price
             }
         }
         products {

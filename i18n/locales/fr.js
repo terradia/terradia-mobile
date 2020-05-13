@@ -45,7 +45,10 @@ export default {
         products: {
             one: 'produit',
             other: 'produits'
-        }
+        },
+        deliveryInformation: 'Informations de livraison',
+        updateProduct: 'Mettre à jour le produit'
+
     },
     accountScreen: {
         updateFirstName: 'Mettre à jour le prénom',
@@ -65,5 +68,14 @@ export default {
         fillInput: 'Merci de remplir le champ',
         invalidInput: "L'entée n'est pas valide",
         invalidPhoneNumber: 'Numéro de téléphone pas valide'
+    },
+    productScreen: {
+        addToCart: 'Ajouter au panier',
+        no: 'NON',
+        newCart: 'NOUVEAU PANIER',
+        newCartTitle: 'Nouveau panier ?',
+        youHaveACart1:
+            'Vous avez déja un panier en cours chez un autre producteur',
+        youHaveACart2: ', souhaitez vous le remplacer par le producteur actuel'
     }
 };

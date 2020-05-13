@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        paddingLeft: 20,
-        paddingRight: 20
+        borderTopRightRadius: 20
     },
     header: {
-        width: '100%',
+        width: '85%',
         height: 70,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 20,
+        marginRight: 20
     },
     headerTitle: {
         fontSize: 20,

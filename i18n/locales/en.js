@@ -45,7 +45,9 @@ export default {
         products: {
             one: 'product',
             other: 'products'
-        }
+        },
+        deliveryInformation: 'Delivery information',
+        updateProduct: 'Update product'
     },
     accountScreen: {
         updateFirstName: 'Update first name',
@@ -65,5 +67,14 @@ export default {
         fillInput: 'Please fill the input',
         invalidInput: 'Invalid input',
         invalidPhoneNumber: 'Invalid phone number'
+    },
+    productScreen: {
+        addToCart: 'Add to cart',
+        no: 'NO',
+        newCart: 'NEW CART',
+        newCartTitle: 'New cart ?',
+        youHaveACart1: 'You already have a cart from another producer',
+        youHaveACart2:
+            ', would you like to create a new cart  with the current producer'
     }
 };

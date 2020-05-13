@@ -2,5 +2,7 @@ query getAddressesByUser {
     getAllCustomerAddressesByUser {
         address
         id
+        apartment
+        information
     }
 }

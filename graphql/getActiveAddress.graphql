@@ -2,6 +2,8 @@
 query getActiveAddr {
     getActiveCustomerAddress {
         address
+        apartment
+        information
         location {
             coordinates
         }

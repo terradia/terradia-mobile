@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Product } from '@interfaces/Companies';
+import { ProductData } from '@interfaces/Companies';
 
 declare interface DescriptionProps {
-    product: Product;
+    product: ProductData;
 }
 
 const styles = StyleSheet.create({
