@@ -6,12 +6,14 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegisterScreen from '../screens/authentication/RegisterScreen';
 import AuthLoadingScreen from '../screens/authentication/AuthLoadingScreen';
+import LocationScreen from '../screens/location/LocationScreen';
 
 const AuthStack = createStackNavigator(
     {
         AuthLoading: AuthLoadingScreen,
         Login: { screen: LoginScreen, path: 'login' },
-        Register: RegisterScreen
+        Register: RegisterScreen,
+        Location: LocationScreen
     },
     {
         headerMode: 'none',

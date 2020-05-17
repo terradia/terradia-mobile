@@ -97,6 +97,10 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
                 activeOpacity={0.7}
                 onPress={(): void => {
                     console.log(product.company.id);
+                    if (!cart || !cart.getCart) {
+                        _updateCart();
+                        return;
+                    }
                     console.log(cart.getCart.company);
                     if (
                         product.company.id !== cart.getCart.company.id &&

@@ -11,6 +11,7 @@ mutation registerMutation(
         phone: $phone
         firstName: $firstName
         lastName: $lastName
+        defineUserAsCustomer: true
     ) {
         token
         message

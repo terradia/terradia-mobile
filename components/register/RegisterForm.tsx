@@ -7,7 +7,13 @@ import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
 import REGISTER from '../../graphql/register.graphql';
 
-const RegisterForm: FunctionComponent<any> = props => {
+declare interface RegisterFormProps {
+    navigateHome?: () => void;
+}
+
+const RegisterForm: FunctionComponent<RegisterFormProps> = ({
+    navigateHome
+}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -16,7 +22,9 @@ const RegisterForm: FunctionComponent<any> = props => {
 
     const onCompletedHandler = (data): any => {
         Alert.alert('Success');
-        AsyncStorage.setItem('token', data.register.token).then();
+        AsyncStorage.setItem('token', data.register.token).then(() => {
+            navigateHome();
+        });
     };
 
     const onErrorHandler = (data): any => {

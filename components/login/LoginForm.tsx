@@ -28,7 +28,6 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     const [password, setPassword] = useState('');
 
     const onCompletedHandler = (data): void => {
-        console.log('Completed');
         AsyncStorage.setItem('token', data.login.token).then();
         AsyncStorage.setItem('userId', data.login.userId).then();
         navigateHome();
@@ -136,12 +135,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                 {/*    titleStyle={[{ color: 'blue' }]}*/}
                 {/*    onPress={facebookLogin}*/}
                 {/*/>*/}
-                <ButtonEmpty
-                    title={i18n.t('loginScreen.loginApple')}
-                    style={[{ borderColor: 'black' }]}
-                    titleStyle={[{ color: 'black' }]}
-                    onPress={appleLogin}
-                />
+                {/*<ButtonEmpty*/}
+                {/*    title={i18n.t('loginScreen.loginApple')}*/}
+                {/*    style={[{ borderColor: 'black' }]}*/}
+                {/*    titleStyle={[{ color: 'black' }]}*/}
+                {/*    onPress={appleLogin}*/}
+                {/*/>*/}
             </View>
         </View>
     );

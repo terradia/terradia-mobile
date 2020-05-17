@@ -1,10 +1,15 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import styles from './styles/Login.style';
 import { LinearGradient } from 'expo-linear-gradient';
 import RegisterForm from '../../components/register/RegisterForm';
+import Preload from './Preload';
 
 const RegisterScreen: FunctionComponent<any> = props => {
+    const preloadRef = useRef(null);
+    const successLogin = (): void => {
+        preloadRef.current.preload();
+    };
     return (
         <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}>
             <LinearGradient
@@ -28,9 +33,10 @@ const RegisterScreen: FunctionComponent<any> = props => {
                     />
                 </View>
                 <View style={styles.container}>
-                    <RegisterForm />
+                    <RegisterForm navigateHome={successLogin} />
                 </View>
             </LinearGradient>
+            <Preload ref={preloadRef} />
         </KeyboardAvoidingView>
     );
 };

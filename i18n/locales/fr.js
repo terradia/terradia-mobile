@@ -68,7 +68,8 @@ export default {
         passwordDoesntMatch: 'Les mots de passes ne correspondent pas',
         fillInput: 'Merci de remplir le champ',
         invalidInput: "L'entée n'est pas valide",
-        invalidPhoneNumber: 'Numéro de téléphone pas valide'
+        invalidPhoneNumber: 'Numéro de téléphone pas valide',
+        signOut: 'Se déconnecter'
     },
     productScreen: {
         addToCart: 'Ajouter au panier',

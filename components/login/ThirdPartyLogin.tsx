@@ -113,7 +113,7 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
     }
 
     return (
-        <View>
+        <>
             <Spinner
                 visible={loading || signInLoading || signUpLoading}
                 textContent={'Loading...'}
@@ -124,7 +124,7 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
                 titleStyle={[{ color: 'blue' }]}
                 onPress={(): Promise<void> => logIn()}
             />
-        </View>
+        </>
     );
 };
 

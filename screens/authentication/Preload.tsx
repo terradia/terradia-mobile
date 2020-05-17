@@ -1,8 +1,4 @@
-import React, {
-    forwardRef,
-    useImperativeHandle,
-    useState
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { AsyncStorage } from 'react-native';
 import { useLazyQuery } from '@apollo/react-hooks';
 import getUser from '../../graphql/getUser.graphql';
@@ -12,6 +8,7 @@ import getCompaniesByDistanceByCustomer from '../../graphql/getCompaniesByDistan
 
 import { useNavigation } from 'react-navigation-hooks';
 import { Linking } from 'expo';
+import { CustomerAddressData } from '@interfaces/User';
 
 export interface MyInputHandles {
     preload(): void;
@@ -34,28 +31,29 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         } else navigate(path);
     };
 
-    // const [loadGrowers, { data: growers }] = useLazyQuery<{
-    //     getAllCompanies: CompaniesData;
-    // }>(getAllCompanies, {
-    //     fetchPolicy: 'network-only',
-    //     onCompleted: data => {
-    //         if (data && data) {
-    //             _redirect();
-    //         } else navigate('Login');
-    //     },
-    //     onError: async error => {
-    //         await AsyncStorage.removeItem('token');
-    //         navigate('Login');
-    //     }
-    // });
-    const [loadUser, { client }] = useLazyQuery(getUser, {
+    const [loadActiveAddress, { data: activeAddress, client }] = useLazyQuery<{
+        getActiveCustomerAddress: CustomerAddressData;
+    }>(getActiveAddress, {
         fetchPolicy: 'network-only',
         onCompleted: data => {
-            if (data && data.getUser) {
-                client.query({ query: getActiveAddress });
+            console.log(data);
+            if (data && data.getActiveCustomerAddress) {
                 client.query({ query: getAddressesByUser });
                 client.query({ query: getCompaniesByDistanceByCustomer });
                 _redirect();
+            } else navigate('Location');
+        },
+        onError: async error => {
+            console.log(error);
+            await AsyncStorage.removeItem('token');
+            navigate('Login');
+        }
+    });
+    const [loadUser] = useLazyQuery(getUser, {
+        fetchPolicy: 'network-only',
+        onCompleted: data => {
+            if (data && data.getUser) {
+                loadActiveAddress();
                 // loadGrowers();
             } else navigate('Login');
         },

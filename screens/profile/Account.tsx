@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
 import HeaderAccount from '@components/account/Header';
 import { Entypo } from '@expo/vector-icons';
@@ -14,53 +15,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { GetUserData } from '@interfaces/User';
 import getUser from '../../graphql/getUser.graphql';
 import AccountImage from '@components/account/AccountImage';
-
-const styles = StyleSheet.create({
-    imageContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 10
-    },
-    fieldContainer: {
-        marginLeft: 15,
-        marginRight: 15
-    },
-    subFieldContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 15,
-        marginTop: 10
-    },
-    fieldTitle: {
-        fontFamily: 'MontserratBold',
-        fontSize: 18,
-        color: '#575757'
-    },
-    subFieldText: {
-        fontFamily: 'Montserrat',
-        fontSize: 14,
-        color: '#575757'
-    },
-    verifiedText: {
-        fontFamily: 'Montserrat',
-        fontSize: 14,
-        color: '#4AA542'
-    },
-    nonVerifiedText: {
-        fontFamily: 'Montserrat',
-        fontSize: 14,
-        color: '#F6A300'
-    },
-    rightContent: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
-});
+import styles from './styles/Account.style';
+import { useNavigation } from 'react-navigation-hooks';
 
 const Account: FunctionComponent = () => {
     const [currentEditing, setCurrentEditing] = useState(null);
     const [initialValue, setInitialValue] = useState('');
+    const { navigate } = useNavigation();
     const { data: me } = useQuery<GetUserData>(getUser);
     return (
         <View>
@@ -69,7 +30,7 @@ const Account: FunctionComponent = () => {
                 setCurrentEditing={setCurrentEditing}
                 initialValue={initialValue}
             />
-            <HeaderAccount />
+            <HeaderAccount title={'Mon compte'} />
             <View style={styles.imageContainer}>
                 <AccountImage me={me && me.getUser} />
             </View>
@@ -168,6 +129,18 @@ const Account: FunctionComponent = () => {
                         <Entypo name="chevron-right" size={27} />
                     </View>
                 </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    AsyncStorage.removeItem('token').then(() => {
+                        navigate('Login');
+                    });
+                }}
+                style={styles.signOutContainer}
+            >
+                <Text style={styles.signOut}>
+                    {i18n.t('accountScreen.signOut')}
+                </Text>
             </TouchableOpacity>
         </View>
     );

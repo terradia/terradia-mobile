@@ -33,9 +33,10 @@ type Category {
 
 type Company {
     address: String!
+    archivedAt: Date
     averageMark: Float
-    companyImages: [CompanyImages]
-    cover: CompanyImages
+    companyImages: [CompanyImage]
+    cover: CompanyImage
     createdAt: Date
     customerCarts: [Cart]
     description: String
@@ -43,7 +44,7 @@ type Company {
     email: String
     geoPosition: GeographicPoint
     id: ID!
-    logo: CompanyImages
+    logo: CompanyImage
     name: String!
     numberOfMarks: Int
     openingDays: [CompanyOpeningDay]
@@ -56,10 +57,12 @@ type Company {
     users: [CompanyUser]
 }
 
-type CompanyImages {
+type CompanyImage {
     createdAt: Date
     filename: String
     id: ID!
+    name: String
+    products: [Product]
     updatedAt: Date
 }
 
@@ -117,7 +120,6 @@ type Customer {
 }
 
 type CustomerAddress {
-    active: Boolean!
     address: String!
     apartment: String
     customer: Customer
@@ -133,8 +135,10 @@ type GeographicPoint {
 type Mutation {
     _: Boolean
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
-    addCompanyImages(companyId: ID!, images: [Upload]!): [CompanyImages]
+    addCompanyImage(companyId: ID!, image: Upload!, name: String): CompanyImage
+    addCompanyImages(companyId: ID!, images: [Upload]!, names: [String]): [CompanyImage]
     addFavoriteCompany(companyId: String!): Customer
+    addImageToProduct(companyImageId: String!, isCover: Boolean, productId: String!): CompanyImage
     addOpeningDay(companyId: String!, day: String!, hours: [ScheduleInput]): CompanyOpeningDay!
     addProductToCart(productId: ID!, quantity: Int!): CartProduct
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
@@ -150,14 +154,17 @@ type Mutation {
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
+    deleteCompany(companyId: String!): Company!
     deleteCompanyTag(companyTagId: String!): CompanyTag!
+    deleteImageFromProduct(companyImageId: String!, productId: String!): CompanyImage
     deleteProduct(productId: String!): Int
     deleteTagFromCompany(companyId: String!, companyTagId: String!): Company!
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
-    register(email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
-    removeCompanyImages(imagesId: [ID]!): [CompanyImages]
+    register(defineUserAsCustomer: Boolean, email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    removeCompanyImage(imageId: ID!): CompanyImage
+    removeCompanyImages(imagesId: [ID]!): [CompanyImage]
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
     removeFavoriteCompany(companyId: String!): Customer
     removeOpeningDay(openingDayId: String!): CompanyOpeningDay!
@@ -166,13 +173,18 @@ type Mutation {
     removeProductFromCompanyCategory(productId: String!): Product
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     setActiveCustomerAddress(id: String!): CustomerAddress
+    signInWithFacebook(exponentPushToken: String, facebookToken: String!): SigninAnswer!
+    signUpWithFacebook(defineUserAsCostumer: Boolean, exponentPushToken: String, facebookToken: String!): SignupAnswer!
+    updateCompanyImageName(imageId: ID!, name: String!): CompanyImage
     updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
     updateOpeningDay(hours: [ScheduleInput], openingDayId: String!): CompanyOpeningDay!
     updateOpeningHours(hourId: String!, hours: ScheduleInput!): CompanyOpeningDayHours!
-    updateProduct(description: String, image: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
+    updateProduct(description: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
+    updateProductCover(companyImageId: String!, productId: String!): Product
     updateProductsPosition(productsPositions: [ProductPosition!]): Boolean
     updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
     updateUserAvatar(avatar: Upload!): User
+    uploadImageOfProduct(image: Upload!, isCover: Boolean, productId: String!): CompanyImage
 }
 
 type Product {
@@ -180,12 +192,12 @@ type Product {
     categories: [Category]
     company: Company
     companyProductsCategory: CompanyProductsCategory
-    cover: CompanyImages
+    cover: CompanyImage
     createdAt: Date
     customerBasketProducts: [CartProduct]
     description: String!
     id: ID!
-    images: [CompanyImages]
+    images: [CompanyImage]
     name: String!
     numberOfMarks: Int
     position: Int
@@ -207,6 +219,7 @@ type ProductReview {
 
 type Query {
     _: Boolean
+    doesFacebookAccountExistWithEmail(facebookToken: String!): Boolean!
     getActiveCustomerAddress: CustomerAddress
     getAllCategories: [Category]!
     getAllCompanies(page: Int, pageSize: Int): [Company]
@@ -216,6 +229,7 @@ type Query {
     getAllCustomers: [Customer]
     getAllProducts: [Product]!
     getAllUnits(referencesOnly: Boolean): [Unit]!
+    getAllUsers: [User]!
     getCart: Cart
     getCategoryByName(name: String!): Category
     getCompanies: [Company]
@@ -224,7 +238,7 @@ type Query {
     getCompaniesByUser(userId: ID!): [CompanyUser]
     getCompany(companyId: ID!): Company
     getCompanyByName(name: String!): Company
-    getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImages]
+    getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImage]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
     getCompanyTag(companyTagId: String, slugName: String): CompanyTag
     getCustomer(userId: String!): Customer
@@ -271,6 +285,7 @@ type Unit {
 type User {
     avatar: String
     companies: [CompanyUser]
+    createdAt: Date
     customer: Customer
     email: String!
     firstName: String!

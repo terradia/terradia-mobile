@@ -67,7 +67,8 @@ export default {
         passwordDoesntMatch: "Passwords doesn't match",
         fillInput: 'Please fill the input',
         invalidInput: 'Invalid input',
-        invalidPhoneNumber: 'Invalid phone number'
+        invalidPhoneNumber: 'Invalid phone number',
+        signOut: 'Sign out'
     },
     productScreen: {
         addToCart: 'Add to cart',
