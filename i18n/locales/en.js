@@ -38,7 +38,8 @@ export default {
         deliverToDoor: 'Deliver to door',
         pickUpOutside: 'Pick up outside',
         deliveryNotes: 'Delivery notes',
-        apt: 'Apt / Suite / Floor'
+        apt: 'Apt / Suite / Floor',
+        currentLocation: 'Current location'
     },
     cart: {
         viewCart: 'My cart',

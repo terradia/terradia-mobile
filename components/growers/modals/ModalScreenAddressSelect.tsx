@@ -9,10 +9,11 @@ import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';
 import styles from './styles/ModalScreenAddressSelect.style';
 import getAllAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
 import { useQuery } from '@apollo/react-hooks';
+import getActiveAddress from '../../../graphql/getActiveAddress.graphql';
 
 const currentLocation = [
     {
-        address: 'Current Location',
+        address: i18n.t('addressModal.currentLocation'),
         currentLocation: true,
         geometry: { location: { lat: 0, lng: 0 } }
     }
@@ -30,6 +31,9 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
     setDisplayModalAddress
 }) => {
     const { loading, data } = useQuery(getAllAddressesByUser, {
+        fetchPolicy: 'cache-first'
+    });
+    const { data: activeAddress } = useQuery(getActiveAddress, {
         fetchPolicy: 'cache-first'
     });
     if (loading || !data) return <View style={styles.mainContainer} />;
@@ -62,16 +66,35 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                                     />
                                 ) : (
                                     <Feather
-                                        name="clock"
+                                        name={
+                                            activeAddress
+                                                .getActiveCustomerAddress.id ===
+                                            row.id
+                                                ? 'check'
+                                                : 'clock'
+                                        }
                                         size={19}
-                                        style={{ paddingRight: 10 }}
+                                        style={{
+                                            paddingRight: 10,
+                                            color:
+                                                activeAddress
+                                                    .getActiveCustomerAddress
+                                                    .id === row.id
+                                                    ? '#8FDD3D'
+                                                    : 'black'
+                                        }}
                                     />
                                 )}
                                 <Text
                                     style={{
                                         fontFamily: 'Montserrat',
-                                        color: '#202020',
-                                        fontSize: 16
+                                        fontSize: 16,
+                                        color:
+                                            activeAddress
+                                                .getActiveCustomerAddress.id ===
+                                            row.id
+                                                ? '#8FDD3D'
+                                                : '#202020'
                                     }}
                                 >
                                     {row.address}

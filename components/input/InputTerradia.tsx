@@ -6,7 +6,8 @@ import {
     TextInput,
     TextInputSubmitEditingEventData,
     TextStyle,
-    View
+    View,
+    ViewStyle
 } from 'react-native';
 import i18n from '@i18n/i18n';
 import { Feather } from '@expo/vector-icons';
@@ -18,6 +19,7 @@ export declare interface ButtonProps {
     onSubmitEditing?: (
         e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
     ) => void;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 const styles = StyleSheet.create({
@@ -46,10 +48,11 @@ const Button: FunctionComponent<ButtonProps> = ({
     onChangeText,
     value,
     style,
-    onSubmitEditing
+    onSubmitEditing,
+    containerStyle
 }) => {
     return (
-        <View style={styles.searchSection}>
+        <View style={[styles.searchSection, containerStyle]}>
             <Feather name="search" size={19} style={styles.searchIcon} />
             <TextInput
                 style={[style, styles.input]}

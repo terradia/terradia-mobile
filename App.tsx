@@ -49,7 +49,7 @@ const stateLink = withClientState({
 // });
 //
 const uploadLink = new createUploadLink({
-    uri: 'https://5976fd95.ngrok.io' + '/graphql',
+    uri: 'https://c54ce41c.ngrok.io' + '/graphql',
     fetch: fetch
 });
 
@@ -69,7 +69,7 @@ const client = new ApolloClient({
     link: ApolloLink.from([
         authLink,
         new createUploadLink({
-            uri: 'https://fd94fe68.ngrok.io' + '/graphql',
+            uri: 'https://c54ce41c.ngrok.io' + '/graphql',
             fetch: fetch
         })
     ]),

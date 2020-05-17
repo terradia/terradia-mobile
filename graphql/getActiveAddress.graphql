@@ -4,6 +4,7 @@ query getActiveAddr {
         address
         apartment
         information
+        id
         location {
             coordinates
         }

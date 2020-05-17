@@ -14,6 +14,7 @@ declare interface VerticalListProps {
     title: string;
     ListHeaderComponent: any;
     searchCompanies: any;
+    onScroll: any;
 }
 
 const styles = StyleSheet.create({
@@ -30,14 +31,16 @@ const VerticalList: FunctionComponent<VerticalListProps> = ({
     categories,
     title,
     ListHeaderComponent,
-    searchCompanies
+    searchCompanies,
+    onScroll
 }) => {
     return (
         <View style={{ flex: 1 }}>
-            <Text style={styles.title}>{title}</Text>
+            {/*<Text style={styles.title}>{title}</Text>*/}
             <FlatList
                 style={{ flex: 1 }}
                 data={categories}
+                onScroll={onScroll}
                 renderItem={({ item }): ReactElement => (
                     <SearchCard
                         searchCompanies={searchCompanies}

@@ -37,10 +37,10 @@ const DATA = [
 ];
 
 const SearchScreen: FunctionComponent<SearchScreenProps> = ({
-    collapsible,
     navigation
 }) => {
     const [value, setValue] = useState('');
+    const [listY, setListY] = useState(0);
     const [SearchCompanies, { data: companies, loading }] = useLazyQuery(
         searchCompanies
     );
@@ -67,6 +67,10 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
         );
     };
 
+    const _onScroll = event => {
+        setListY(event.nativeEvent.contentOffset.y);
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <Spinner visible={loading} textContent={'Loading...'} />
@@ -75,6 +79,8 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                 value={value}
                 searchCompanies={SearchCompanies}
                 setDisplayCompanies={setDisplayCompanies}
+                listY={listY}
+                canDisplayCompanies={canDisplayCompanies}
             />
             {canDisplayCompanies ? (
                 <>
@@ -125,6 +131,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                     title={'Toutes les catégories'}
                     ListHeaderComponent={_renderItem}
                     searchCompanies={_onCategoryClicked}
+                    onScroll={_onScroll}
                 />
             )}
             <Cart />
@@ -136,7 +143,6 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
 // @ts-ignore
 SearchScreen.navigationOptions = {
     title: '',
-
     headerStyle: { height: 0, backgroundColor: 'transparent' }
 };
 

@@ -38,7 +38,8 @@ export default {
         deliverToDoor: "Livré à la porte (Précisez l'étage)",
         pickUpOutside: "Récupération à l'éxtérieur",
         deliveryNotes: 'Informations supplémentaires',
-        apt: 'Apt / Suite / Etage'
+        apt: 'Apt / Suite / Etage',
+        currentLocation: 'Position actuelle'
     },
     cart: {
         viewCart: 'Mon panier',
