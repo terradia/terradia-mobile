@@ -76,6 +76,7 @@
     "react-native-svg": "9.13.3",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-swipe-list-view": "^2.5.0",
+    "react-native-textinput-effects": "^0.6.1",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-collapsible": "^3.0.3",

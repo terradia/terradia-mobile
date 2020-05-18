@@ -14,6 +14,8 @@ import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
 import LOGIN from '../../graphql/login.graphql';
 import ThirdPartyLogin from '@components/login/ThirdPartyLogin';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Kohana } from "react-native-textinput-effects";
 
 declare interface LoginFormProps {
     navigateRegister?: any;
@@ -79,25 +81,33 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <View style={styles.containerView}>
-                    <Input
+                    <Kohana
+                        style={styles.inputContainer}
+                        label={i18n.t('registerScreen.addrEmail')}
                         keyboardType={'email-address'}
-                        placeholder={i18n.t('loginScreen.addrEmail')}
-                        onChangeText={(text): void => setEmail(text)}
-                        inputContainerStyle={[
-                            {
-                                width: '88%'
-                            }
-                        ]}
+                        onChangeText={(text: string): void => setEmail(text)}
+                        iconClass={MaterialIcons}
+                        iconName={'email'}
+                        iconColor={'#8FDD3D'}
+                        inputPadding={0}
+                        labelStyle={styles.inputLabelStyle}
+                        inputStyle={styles.inputStyle}
+                        labelContainerStyle={{ padding: 10 }}
+                        iconContainerStyle={{ padding: 10 }}
                     />
-                    <Input
+                    <Kohana
+                        style={styles.inputContainer}
+                        label={i18n.t('registerScreen.password')}
+                        onChangeText={(text: string): void => setPassword(text)}
+                        iconClass={FontAwesome}
+                        iconName={'lock'}
                         secureTextEntry={true}
-                        onChangeText={(text): void => setPassword(text)}
-                        placeholder={i18n.t('loginScreen.password')}
-                        inputContainerStyle={[
-                            {
-                                width: '88%'
-                            }
-                        ]}
+                        iconColor={'#8FDD3D'}
+                        inputPadding={0}
+                        labelStyle={styles.inputLabelStyle}
+                        inputStyle={styles.inputStyle}
+                        labelContainerStyle={{ padding: 10 }}
+                        iconContainerStyle={{ padding: 10 }}
                     />
                 </View>
                 <ButtonTerradia

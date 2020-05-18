@@ -39,5 +39,22 @@ export default StyleSheet.create({
         height: '80%',
         alignItems: 'center',
         backgroundColor: 'transparent'
+    },
+    inputContainer: {
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        alignItems: 'center',
+        borderColor: '#575757',
+        width: '85%',
+        marginTop: 10
+    },
+    inputLabelStyle: {
+        color: '#b3b3b3',
+        fontFamily: 'Montserrat'
+    },
+    inputStyle: {
+        color: '#575757',
+        fontFamily: 'Montserrat'
     }
 });
