@@ -36,7 +36,6 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
     }>(getActiveAddress, {
         fetchPolicy: 'network-only',
         onCompleted: data => {
-            console.log(data);
             if (data && data.getActiveCustomerAddress) {
                 client.query({ query: getAddressesByUser });
                 client.query({ query: getCompaniesByDistanceByCustomer });
@@ -46,7 +45,7 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         onError: async error => {
             console.log(error);
             await AsyncStorage.removeItem('token');
-            navigate('Login');
+            navigate('HomeAuth');
         }
     });
     const [loadUser] = useLazyQuery(getUser, {
@@ -54,13 +53,12 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         onCompleted: data => {
             if (data && data.getUser) {
                 loadActiveAddress();
-                // loadGrowers();
-            } else navigate('Login');
+            } else navigate('HomeAuth');
         },
         onError: async onerror => {
             console.log(onerror);
             await AsyncStorage.removeItem('token');
-            navigate('Login');
+            navigate('HomeAuth');
         }
     });
     const _loadData = () => {

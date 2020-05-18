@@ -5,22 +5,27 @@ export default StyleSheet.create({
         flex: 1
     },
     imageView: {
-        paddingTop: 80,
         alignSelf: 'center',
         width: '80%',
-        height: '20%',
+        height: 100,
         backgroundColor: 'transparent'
     },
     sloganView: {
-        padding: 0,
         alignSelf: 'center',
-        width: '80%',
-        height: '10%',
         backgroundColor: 'transparent'
     },
     container: {
         backgroundColor: 'transparent',
-        paddingTop: 60,
+        paddingTop: 20,
         paddingBottom: 0
+    },
+    subTitle: {
+        color: 'white',
+        fontFamily: 'MontserratSemiBold',
+        marginTop: 30,
+        fontSize: 18,
+        margin: 20,
+        textAlign: 'center',
+        lineHeight: 25
     }
 });

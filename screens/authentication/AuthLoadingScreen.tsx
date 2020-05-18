@@ -13,7 +13,7 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
 
     useEffect(() => {
         AsyncStorage.getItem('token').then(data => {
-            if (!data) return navigation.navigate('Login');
+            if (!data) return navigation.navigate('HomeAuth');
             preloadRef.current.preload();
         });
     }, []);

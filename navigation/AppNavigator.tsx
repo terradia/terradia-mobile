@@ -7,17 +7,21 @@ import LoginScreen from '../screens/authentication/LoginScreen';
 import RegisterScreen from '../screens/authentication/RegisterScreen';
 import AuthLoadingScreen from '../screens/authentication/AuthLoadingScreen';
 import LocationScreen from '../screens/location/LocationScreen';
+import HomeAuthScren from '../screens/authentication/HomeAuthScreen';
 
 const AuthStack = createStackNavigator(
     {
         AuthLoading: AuthLoadingScreen,
         Login: { screen: LoginScreen, path: 'login' },
         Register: RegisterScreen,
-        Location: LocationScreen
+        Location: LocationScreen,
+        HomeAuth: HomeAuthScren
     },
     {
         headerMode: 'none',
-        navigationOptions: {}
+        defaultNavigationOptions: {
+            gestureEnabled: false
+        }
     }
 );
 
