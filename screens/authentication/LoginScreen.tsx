@@ -46,8 +46,8 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                         style={{ marginLeft: 20 }}
                     >
                         <Feather
-                            name="arrow-left"
-                            size={26}
+                            name="chevron-left"
+                            size={28}
                             style={{ color: 'white' }}
                         />
                     </TouchableOpacity>
