@@ -27,7 +27,6 @@ const QuantityModal: FunctionComponent<QuantityModalProps> = ({
             onSwipeComplete={(): void => setModalOpen(false)}
             coverScreen={true}
             animationOutTiming={90}
-            onModalHide={(): void => console.log('Modal closed')}
         >
             <View style={styles.container}>
                 <QuantityContent

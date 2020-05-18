@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/ProductList.style';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -8,6 +8,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
 import RemoveProductFromCart from '../../../graphql/cart/removeProductFromCart.graphql';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import AddressInformation from '@components/cart/content/AddressInformations';
+import DeliveryDate from '@components/cart/content/DeliveryDate';
 
 const ProductList: FunctionComponent = () => {
     const [dataLoading, setLoading] = useState(false);
@@ -89,7 +91,6 @@ const ProductList: FunctionComponent = () => {
         );
     }
 
-    console.log(data.getCart);
     return (
         <View style={styles.container}>
             <Spinner
@@ -97,8 +98,17 @@ const ProductList: FunctionComponent = () => {
                 textContent={'Loading...'}
                 textStyle={{}}
             />
-            <Text style={styles.title}>Votre commande</Text>
+
             <SwipeListView
+                ListHeaderComponent={(): ReactElement => {
+                    return (
+                        <View>
+                            <AddressInformation cart={data.getCart} />
+                            <DeliveryDate />
+                            <Text style={styles.title}>Votre commande</Text>
+                        </View>
+                    );
+                }}
                 disableRightSwipe
                 useFlatList={true}
                 data={data.getCart.products}

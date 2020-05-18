@@ -68,7 +68,6 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                                 const result = await Share.share({
                                     message: redirectUrl
                                 });
-                                console.log(result);
                             }}
                             style={styles.iconsContainer}
                         >

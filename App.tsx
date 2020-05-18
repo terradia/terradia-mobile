@@ -1,7 +1,7 @@
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ApolloClient } from 'apollo-client';
@@ -43,11 +43,6 @@ const stateLink = withClientState({
     }
 });
 
-// const httpLink = new HttpLink({
-//     uri: 'https://5976fd95.ngrok.io' + '/graphql',
-//     fetch: fetch
-// });
-//
 const uploadLink = new CreateUploadLink({
     uri: 'https://c54ce41c.ngrok.io' + '/graphql',
     fetch: fetch
@@ -66,13 +61,7 @@ const authLink = setContext(async (_, { headers }) => {
 // const concat = [httpLink, authLink];
 
 const client = new ApolloClient({
-    link: ApolloLink.from([
-        authLink,
-        new CreateUploadLink({
-            uri: 'https://api.terradia.eu' + '/graphql',
-            fetch: fetch
-        })
-    ]),
+    link: ApolloLink.from([authLink, uploadLink]),
     cache: new InMemoryCache({
         cacheRedirects: {
             Query: {
@@ -104,9 +93,40 @@ client.onResetStore(stateLink.writeDefaults);
      */
 }
 
-export default function App(props) {
+async function loadResourcesAsync(): Promise<void> {
+    await Promise.all([
+        Asset.loadAsync([
+            require('./assets/images/robot-dev.png'),
+            require('./assets/images/robot-prod.png')
+        ]),
+        Font.loadAsync({
+            // This is the font that we are using for our tab bar
+            ...Ionicons.font,
+            // We include SpaceMono because we use it in HomeScreen.js. Feel free to
+            // remove this if you are not using it in your app
+            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+            Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
+            MontserratSemiBold: require('./assets/fonts/Montserrat-SemiBold.ttf'),
+            MontserratBold: require('./assets/fonts/Montserrat-Bold.ttf'),
+            MontserratMedium: require('./assets/fonts/Montserrat-Medium.ttf'),
+            MontserratLight: require('./assets/fonts/Montserrat-Light.ttf')
+        })
+    ]);
+    return;
+}
+
+function handleLoadingError(error): void {
+    // In this case, you might want to report the error to your error reporting
+    // service, for example Sentry
+    console.warn(error);
+}
+
+function handleFinishLoading(setLoadingComplete): void {
+    setLoadingComplete(true);
+}
+
+export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
-    const [prefix, setPrefix] = useState(null);
     const SimpleApp = AppNavigator;
     // Linking.getInitialURL().then((data) => {
     //     setPrefix(data);
@@ -135,36 +155,4 @@ export default function App(props) {
             </ApolloProvider>
         );
     }
-}
-
-async function loadResourcesAsync() {
-    await Promise.all([
-        Asset.loadAsync([
-            require('./assets/images/robot-dev.png'),
-            require('./assets/images/robot-prod.png')
-        ]),
-        Font.loadAsync({
-            // This is the font that we are using for our tab bar
-            ...Ionicons.font,
-            // We include SpaceMono because we use it in HomeScreen.js. Feel free to
-            // remove this if you are not using it in your app
-            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-            Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
-            MontserratSemiBold: require('./assets/fonts/Montserrat-SemiBold.ttf'),
-            MontserratBold: require('./assets/fonts/Montserrat-Bold.ttf'),
-            MontserratMedium: require('./assets/fonts/Montserrat-Medium.ttf'),
-            MontserratLight: require('./assets/fonts/Montserrat-Light.ttf')
-        })
-    ]);
-    return;
-}
-
-function handleLoadingError(error) {
-    // In this case, you might want to report the error to your error reporting
-    // service, for example Sentry
-    console.warn(error);
-}
-
-function handleFinishLoading(setLoadingComplete) {
-    setLoadingComplete(true);
 }

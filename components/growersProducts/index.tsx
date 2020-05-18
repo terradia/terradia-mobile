@@ -35,7 +35,7 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
             setCompany(data.getCompany);
         },
         onError: error => {
-            console.log(error);
+            console.warn(error);
             navigate('Grower');
         }
     });
@@ -44,7 +44,6 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
         variables: { id: growerId },
         onCompleted: data => {
             if (!data || !data.company) {
-                console.log('Loading company');
                 loadCompany();
             } else setCompany(data.company);
         }

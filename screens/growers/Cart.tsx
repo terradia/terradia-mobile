@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import HeaderCart from '@components/cart/modal/Header';
-import CartModalContent from '@components/cart/content';
+import ProductListItem from '@components/cart/content/ProductList';
 
 const Cart: FunctionComponent = () => {
     return (
@@ -9,9 +9,7 @@ const Cart: FunctionComponent = () => {
             style={{ flex: 1, backgroundColor: 'rgb(242, 242, 242)' }}
         >
             <HeaderCart />
-            <ScrollView style={{ width: '100%', flex: 1 }}>
-                <CartModalContent />
-            </ScrollView>
+            <ProductListItem />
         </SafeAreaView>
     );
 };

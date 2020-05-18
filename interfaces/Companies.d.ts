@@ -15,6 +15,8 @@ export interface CompanyData {
     description: string;
     productsCategories: ProductsCategoryData[];
     geoPosition: GeographicPointData;
+    distance: number;
+    products: ProductData[];
 }
 
 interface ProductsCategoryData {

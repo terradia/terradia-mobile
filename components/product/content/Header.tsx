@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
 });
 
 const Header: FunctionComponent<HeaderProps> = ({ product }) => {
-    console.log(product);
     return (
         <View style={styles.container}>
             <View style={styles.leftContainer}>

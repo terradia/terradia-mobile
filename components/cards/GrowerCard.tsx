@@ -1,23 +1,23 @@
 import React, { FunctionComponent } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { AirbnbRating, Avatar } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import style from './styles/GrowerCard.style';
 import { NavigationParams } from 'react-navigation';
 
-import { GrowersConfig } from '@interfaces/Growers.d';
+import { CompanyData } from '@interfaces/Companies';
 import i18n from '@i18n/i18n';
 
 declare interface GrowerCard {
     navigation?: NavigationParams;
-    grower?: GrowersConfig;
+    grower?: CompanyData;
 }
 
 const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
     return (
         <View style={style.mainContainer}>
             <TouchableOpacity
-                activeOpacity={0.7}
+                activeOpacity={Platform.OS === 'ios' ? 0.7 : 1}
                 style={[style.wrapper, style.shadow1]}
                 onPress={(): void =>
                     navigation.navigate('GrowersProducts', {

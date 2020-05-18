@@ -14,7 +14,7 @@ import {
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProducts.style';
 import Cart from '@components/cart';
-import { Company, ProductData } from '@interfaces/Companies';
+import { CompanyData, ProductData } from '@interfaces/Companies';
 import DeepLinking from '@components/routing/DeepLinking';
 
 const HEADER_SIZE = 170;
@@ -24,7 +24,7 @@ const LIST_ELEM_HEIGHT = 135;
 declare interface GrowersProductsListProps {
     navigation?: NavigationStackScreenProps;
     products: any;
-    company: Company;
+    company: CompanyData;
     positionArray: any;
 }
 
@@ -101,7 +101,6 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 renderItem={({ item }: { item: ProductData }): any => (
                     <TouchableOpacity
                         onPress={(): void => {
-                            console.log('GOing');
                             navigation.navigate('Product', {
                                 product: item.id
                             });

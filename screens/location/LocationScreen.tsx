@@ -113,7 +113,6 @@ const LocationScreen: FunctionComponent = () => {
                                 id: null
                             }
                         });
-                        console.log('send');
                     }
                 }}
                 getDefaultValue={() => ''}

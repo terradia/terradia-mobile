@@ -47,7 +47,7 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
                 );
             },
             onError: error => {
-                console.log(error);
+                console.warn(error);
             }
         }
     );
@@ -61,7 +61,7 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
                 );
             },
             onError: error => {
-                console.log(error);
+                console.warn(error);
             }
         }
     );

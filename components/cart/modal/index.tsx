@@ -22,10 +22,8 @@ const ModalCart: FunctionComponent<ModalProps> = ({
                 onSwipeComplete={(): void => setModalOpen(false)}
                 onModalHide={(): void => setModalOpen(false)}
             >
-                <HeaderCart setModalOpen={setModalOpen} />
-                <ScrollView style={{ width: '100%', flex: 1 }}>
-                    <CartModalContent />
-                </ScrollView>
+                <HeaderCart />
+                <CartModalContent />
             </Modal>
         </View>
     );

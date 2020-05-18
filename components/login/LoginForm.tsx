@@ -36,7 +36,6 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     };
 
     const onErrorHandler = (error): void => {
-        console.log(error);
         Alert.alert('Adresse email ou mot de passe invalide');
     };
 
@@ -116,8 +115,6 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}
                     onPress={(): void => {
-                        console.log(email);
-                        console.log(password);
                         login({
                             variables: { email: email, password: password }
                         }).then();

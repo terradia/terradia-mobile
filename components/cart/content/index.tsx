@@ -24,9 +24,7 @@ const CartModalContent: FunctionComponent = () => {
             </Text>
         );
     return (
-        <View>
-            <AddressInformation cart={data.getCart} />
-            <DeliveryDate />
+        <View style={{ flex: 1 }}>
             <ProductListItem />
         </View>
     );

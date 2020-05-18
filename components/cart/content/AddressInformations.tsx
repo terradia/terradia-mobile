@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/AddressInformations.style';
 import { CartData, CustomerAddressData } from '@interfaces/User';
-import MapView, { Circle, Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import i18n from '@i18n/i18n';
 import { useQuery } from '@apollo/react-hooks';
 import getActiveAddress from '../../../graphql/getActiveAddress.graphql';
@@ -12,13 +12,11 @@ declare interface CartContent {
     cart: CartData;
 }
 
-const CartContent: FunctionComponent<CartContent> = ({ cart }) => {
+const AddressInformation: FunctionComponent<CartContent> = ({ cart }) => {
     const [isModalAddressOpen, setDisplayModalAddress] = useState(false);
     const { data: activeAddress } = useQuery<{
         getActiveCustomerAddress: CustomerAddressData;
-    }>(getActiveAddress, {
-        fetchPolicy: 'cache-only'
-    });
+    }>(getActiveAddress);
 
     return (
         <View style={styles.container}>
@@ -28,7 +26,6 @@ const CartContent: FunctionComponent<CartContent> = ({ cart }) => {
             />
             <View style={styles.textsContainer}>
                 <Text style={styles.companyName}>{cart.company.name}</Text>
-                {/*÷<Text style={styles.companyLocation}>(Molhheim)</Text>*/}
             </View>
             <View style={{ position: 'relative' }}>
                 <Text style={styles.deliveryInformationLabel}>
@@ -105,4 +102,4 @@ const CartContent: FunctionComponent<CartContent> = ({ cart }) => {
     );
 };
 
-export default CartContent;
+export default AddressInformation;

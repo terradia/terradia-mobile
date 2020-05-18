@@ -43,7 +43,7 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
             } else navigate('Location');
         },
         onError: async error => {
-            console.log(error);
+            console.warn(error);
             await AsyncStorage.removeItem('token');
             navigate('HomeAuth');
         }
@@ -56,7 +56,7 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
             } else navigate('HomeAuth');
         },
         onError: async onerror => {
-            console.log(onerror);
+            console.warn(onerror);
             await AsyncStorage.removeItem('token');
             navigate('HomeAuth');
         }
