@@ -13,6 +13,8 @@ import { CompanyData } from '@interfaces/Companies';
 import Spinner from 'react-native-loading-spinner-overlay';
 import GrowersLoader from '@components/growers/GrowersLoader';
 import getAllCompanyTags from '../../graphql/tags/getAllCompanyTags.graphql';
+import EmptyBox from '../../assets/svg/shipping-and-delivery.svg';
+
 declare interface SearchScreenProps {
     collapsible: any;
     navigation?: NavigationParams;
@@ -36,9 +38,7 @@ const DATA = [
     'Maraicher'
 ];
 
-const SearchScreen: FunctionComponent<SearchScreenProps> = ({
-    navigation
-}) => {
+const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
     const [value, setValue] = useState('');
     const [listY, setListY] = useState(0);
     const [SearchCompanies, { data: companies, loading }] = useLazyQuery(
@@ -50,6 +50,23 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
         setValue(category);
         setDisplayCompanies(true);
         SearchCompanies({ variables: { query: category } });
+    };
+
+    const _renderEmptyList = () => {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <EmptyBox style={{ height: 100, width: 100 }} />
+                <Text style={{ fontFamily: 'Montserrat', marginTop: 20 }}>
+                    Nous n'avons pas trouvé de résulat
+                </Text>
+            </View>
+        );
     };
 
     const _renderItem = () => {
@@ -90,19 +107,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({
                             contentContainerStyle={{ flexGrow: 1 }}
                             data={companies.searchCompanies}
                             scrollEnabled={companies.searchCompanies.length > 0}
-                            ListEmptyComponent={
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'center'
-                                    }}
-                                >
-                                    <Text>
-                                        Nous n'avons pas trouvé de résulat
-                                    </Text>
-                                </View>
-                            }
+                            ListEmptyComponent={_renderEmptyList}
                             renderItem={({
                                 item
                             }: {

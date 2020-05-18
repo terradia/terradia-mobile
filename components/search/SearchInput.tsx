@@ -1,8 +1,15 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import InputTerradia from '../input/InputTerradia';
-import { Animated, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+    Animated,
+    Text,
+    TouchableOpacity,
+    SafeAreaView,
+    Platform
+} from 'react-native';
 import layout from '@constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
+import i18n from '@i18n/i18n';
 
 declare interface SearchInputProps {
     value: string;
@@ -61,7 +68,10 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
             style={{
                 height: scrollY.interpolate({
                     inputRange: [0, 150],
-                    outputRange: [150, 100],
+                    outputRange: [
+                        Platform.OS === 'ios' ? 150 : 120,
+                        Platform.OS === 'ios' ? 100 : 80
+                    ],
                     extrapolate: 'clamp'
                 })
             }}
@@ -117,11 +127,11 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                             style={{
                                 fontFamily: 'MontserratSemiBold',
                                 color: '#575757',
-                                marginLeft: 20,
+                                margin: 15,
                                 fontSize: 16
                             }}
                         >
-                            Cancel
+                            {i18n.t('searchScreen.cancel')}
                         </Text>
                     </TouchableOpacity>
                 </SafeAreaView>

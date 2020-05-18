@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     productDescription: {
         fontFamily: 'MontserratLight',
         fontSize: 14,
-        maxHeight: 70
+        maxHeight: 65
     },
     priceTag: {
         fontSize: 24

@@ -27,7 +27,9 @@ export default {
     },
     searchScreen: {
         search: 'Recherche',
-        search1: 'Rechercher'
+        search1: 'Rechercher',
+        cancel: 'Annuler',
+        noResultFound: "Nous n'avons pas trouvé de résultat"
     },
     addressModal: {
         deliveryAddress: 'Adresse de livraison',
@@ -49,7 +51,6 @@ export default {
         },
         deliveryInformation: 'Informations de livraison',
         updateProduct: 'Mettre à jour le produit'
-
     },
     accountScreen: {
         updateFirstName: 'Mettre à jour le prénom',
@@ -79,5 +80,9 @@ export default {
         youHaveACart1:
             'Vous avez déja un panier en cours chez un autre producteur',
         youHaveACart2: ', souhaitez vous le remplacer par le producteur actuel'
+    },
+    homeAuth: {
+        joinTerradia: 'Rejoindre Terradia',
+        alreadyHaveAnAccount: "j'ai deja un compte"
     }
 };

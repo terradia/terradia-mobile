@@ -24,7 +24,7 @@ const NavBar: FunctionComponent = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 200
+                    width: '100%'
                 }}
                 activeOpacity={0.7}
             >

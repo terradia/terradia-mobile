@@ -23,7 +23,7 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
     const growerId = useNavigationParam('grower');
-    const [company, setCompany] = useState();
+    const [company, setCompany] = useState(null);
     const { navigate } = useNavigation();
 
     const [loadCompany] = useLazyQuery<{

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     modalContainer: {
         alignItems: 'flex-start',
         margin: 0,
-        marginTop: 80,
+        marginTop: 40,
         width: '100%',
         flex: 1,
         backgroundColor: 'white',

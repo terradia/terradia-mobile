@@ -105,7 +105,15 @@ const ProductList: FunctionComponent = () => {
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
+                keyExtractor={(item, index): string => index.toString()}
                 rightOpenValue={-75}
+                closeOnRowBeginSwipe
+                closeOnScroll
+                closeOnRowPress
+                previewRowKey={'0'}
+                previewDuration={500}
+                previewOpenValue={-75}
+                stopRightSwipe={-100}
             />
             <View style={styles.priceContainer}>
                 <Text style={styles.total}>Total</Text>

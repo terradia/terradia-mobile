@@ -10,6 +10,7 @@ import {
 import TerradiaWhite from '../../assets/svg/terradia_white.svg';
 import ButtonTerradia from '@components/buttons/ButtonTerradia';
 import { useNavigation } from 'react-navigation-hooks';
+import i18n from '@i18n/i18n';
 
 const styles = StyleSheet.create({
     title: {
@@ -59,7 +60,7 @@ const HomeAuthScreen: FunctionComponent = () => {
                     </View>
                     <View style={[styles.containers, styles.bottomContainer]}>
                         <ButtonTerradia
-                            title={'Rejoindre Terradia'}
+                            title={i18n.t('homeAuth.joinTerradia')}
                             style={[{ borderColor: 'transparent', width: 300 }]}
                             titleStyle={[
                                 {
@@ -73,12 +74,12 @@ const HomeAuthScreen: FunctionComponent = () => {
                             }}
                         />
                         <TouchableOpacity
-                            onPress={() => {
+                            onPress={(): void => {
                                 navigate('Login');
                             }}
                         >
                             <Text style={styles.subTitle}>
-                                J'ai deja un compte
+                                {i18n.t('homeAuth.alreadyHaveAnAccount')}
                             </Text>
                         </TouchableOpacity>
                     </View>

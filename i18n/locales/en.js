@@ -27,7 +27,9 @@ export default {
     },
     searchScreen: {
         search: 'Search',
-        search1: 'Search'
+        search1: 'Search',
+        cancel: 'Cancel',
+        noResultFound: 'No result found'
     },
     addressModal: {
         deliveryAddress: 'Delivery address',
@@ -78,5 +80,9 @@ export default {
         youHaveACart1: 'You already have a cart from another producer',
         youHaveACart2:
             ', would you like to create a new cart  with the current producer'
+    },
+    homeAuth: {
+        joinTerradia: 'Join Terradia',
+        alreadyHaveAnAccount: 'Already have an account ?'
     }
 };

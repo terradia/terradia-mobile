@@ -3,7 +3,6 @@ import {
     StyleProp,
     Text,
     TouchableOpacity,
-    View,
     ViewStyle
 } from 'react-native';
 import ImageOpacity from '../images/ImageOpacity';
@@ -31,7 +30,7 @@ const SearchCard: FunctionComponent<SearchCard> = ({
     const BottomPosition = (textBottomPositionPercentage / width) * 100;
     return (
         <TouchableOpacity
-            onPress={() => {
+            onPress={(): void => {
                 searchCompanies(title);
             }}
             activeOpacity={0.7}

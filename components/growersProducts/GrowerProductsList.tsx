@@ -14,7 +14,7 @@ import {
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import styles from './styles/GrowerProducts.style';
 import Cart from '@components/cart';
-import { Company } from '@interfaces/Companies';
+import { Company, ProductData } from '@interfaces/Companies';
 import DeepLinking from '@components/routing/DeepLinking';
 
 const HEADER_SIZE = 170;
@@ -98,7 +98,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                         </View>
                     );
                 }}
-                renderItem={({ item }): any => (
+                renderItem={({ item }: { item: ProductData }): any => (
                     <TouchableOpacity
                         onPress={(): void => {
                             console.log('GOing');
@@ -119,14 +119,13 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 renderScrollComponent={(): any => (
                     <ParallaxScrollView
                         onScroll={(event): any => handleScroll(event)}
-                        onScrollEndDrag={event => {
-                            if (event.nativeEvent.targetContentOffset.y < 170) {
+                        onScrollEndDrag={(event): void => {
+                            if (event.nativeEvent.contentOffset.y < 170) {
                                 list.current.scrollToLocation({
                                     itemIndex: 1,
                                     sectionIndex: 0,
                                     viewOffset:
-                                        event.nativeEvent.targetContentOffset
-                                            .y > 100
+                                        event.nativeEvent.contentOffset.y > 100
                                             ? -HEADER_SIZE
                                             : 0,
                                     viewPosition: 0

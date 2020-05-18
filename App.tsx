@@ -13,7 +13,7 @@ import { withClientState } from 'apollo-link-state';
 import { Linking } from 'expo';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
-import { createUploadLink } from 'apollo-upload-client';
+import { createUploadLink as CreateUploadLink } from 'apollo-upload-client';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
@@ -48,7 +48,7 @@ const stateLink = withClientState({
 //     fetch: fetch
 // });
 //
-const uploadLink = new createUploadLink({
+const uploadLink = new CreateUploadLink({
     uri: 'https://c54ce41c.ngrok.io' + '/graphql',
     fetch: fetch
 });
@@ -68,8 +68,8 @@ const authLink = setContext(async (_, { headers }) => {
 const client = new ApolloClient({
     link: ApolloLink.from([
         authLink,
-        new createUploadLink({
-            uri: 'https://c54ce41c.ngrok.io' + '/graphql',
+        new CreateUploadLink({
+            uri: 'https://api.terradia.eu' + '/graphql',
             fetch: fetch
         })
     ]),
