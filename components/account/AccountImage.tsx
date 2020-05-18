@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { ReactNativeFile } from 'apollo-upload-client';
 import { UserData } from '@interfaces/User';
 import Spinner from 'react-native-loading-spinner-overlay';
+import i18n from '@i18n/i18n';
 
 declare interface AccountImageProps {
     me: UserData;
@@ -82,7 +83,11 @@ const AccountImage: FunctionComponent<AccountImageProps> = ({ me }) => {
     };
     return (
         <>
-            <Spinner visible={loading} textContent={'Loading...'} />
+            <Spinner
+                visible={loading}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+            />
             <ModalSelector
                 overlayStyle={{
                     flex: 1,

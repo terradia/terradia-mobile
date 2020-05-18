@@ -1,4 +1,5 @@
 export default {
+    loading: 'Chargement...',
     growerScreen: {
         growers: 'Growers'
     },
@@ -50,7 +51,10 @@ export default {
             other: 'products'
         },
         deliveryInformation: 'Delivery information',
-        updateProduct: 'Update product'
+        updateProduct: 'Update product',
+        addComment: 'Add comment',
+        yourOrder: 'Your order',
+        cartEmpty: 'Your cart is empty'
     },
     accountScreen: {
         updateFirstName: 'Update first name',

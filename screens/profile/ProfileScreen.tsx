@@ -12,7 +12,7 @@ const ProfileScreen: FunctionComponent<any> = () => {
      * we just wanted to give you a quick view of your config.
      */
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <Header />
             <View style={{ paddingLeft: 20, paddingRight: 20, flex: 1 }}>
                 <PremiumCard />

@@ -6,7 +6,6 @@ import { AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import { withClientState } from 'apollo-link-state';
@@ -44,7 +43,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: 'https://c54ce41c.ngrok.io' + '/graphql',
+    uri: 'https://api.terradia.eu' + '/graphql',
     fetch: fetch
 });
 

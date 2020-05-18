@@ -24,7 +24,8 @@ const NavBar: FunctionComponent = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '100%'
+                    paddingLeft: 20,
+                    paddingRight: 20
                 }}
                 activeOpacity={0.7}
             >
@@ -38,7 +39,8 @@ const NavBar: FunctionComponent = () => {
                             fontWeight: 'bold',
                             fontSize: 18,
                             fontFamily: 'MontserratSemiBold',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            maxWidth: 250
                         }}
                     >
                         {data.getActiveCustomerAddress.address}

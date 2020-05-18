@@ -81,8 +81,8 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
             />
             <Spinner
                 visible={loading}
-                textContent={'Loading...'}
-                textStyle={{}}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
             />
             <View style={styles.counterContainer}>
                 <TouchableOpacity onPress={(): void => _removeCount()}>

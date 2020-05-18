@@ -1,4 +1,5 @@
 export default {
+    loading: 'Chargement...',
     growerScreen: {
         growers: 'Producteurs'
     },
@@ -50,7 +51,10 @@ export default {
             other: 'produits'
         },
         deliveryInformation: 'Informations de livraison',
-        updateProduct: 'Mettre à jour le produit'
+        updateProduct: 'Mettre à jour le produit',
+        addComment: 'Ajouter un commentaire',
+        yourOrder: 'Votre commande',
+        cartEmpty: "Vous n'avez pas de produit dans votre panier"
     },
     accountScreen: {
         updateFirstName: 'Mettre à jour le prénom',

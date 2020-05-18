@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         paddingLeft: 20,
-        paddingRight: 20
+        paddingRight: 20,
+        flex: 1
     },
     title: {
         fontFamily: 'MontserratBold',
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
     priceContainer: {
         justifyContent: 'flex-end',
         flexDirection: 'row',
-        marginTop: 30
+        marginTop: 30,
+        marginBottom: 20
     },
     rightAction: {
         alignItems: 'center',

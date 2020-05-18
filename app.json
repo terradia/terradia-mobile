@@ -28,8 +28,13 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.terradia.terradiaClient",
-      "versionCode": 1
+      "package": "com.terradia.terradiaApp",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB03Rz3UtCw0LzkDUYNZnmkQvn0ZwjX8PU"
+        }
+      }
     },
     "packagerOpts": {
       "config": "metro.config.js",

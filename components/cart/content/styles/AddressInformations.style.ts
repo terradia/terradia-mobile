@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     companyName: {
         fontFamily: 'MontserratSemiBold',
         fontSize: 20,
-        color: '#575757'
+        color: '#575757',
+        textAlign: 'center'
     },
     companyLocation: {
         fontFamily: 'MontserratLight',

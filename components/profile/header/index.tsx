@@ -3,12 +3,12 @@ import { Header } from 'react-native-elements';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
 import { LinearGradient } from 'expo-linear-gradient';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 const HeaderProfile: FunctionComponent<any> = () => {
     return (
         <LinearGradient
-            style={{ height: 120 }}
+            style={{ height: Platform.OS === 'ios' ? 120 : 90 }}
             colors={['#8FDD3D', '#5CC04A']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
@@ -16,7 +16,10 @@ const HeaderProfile: FunctionComponent<any> = () => {
             <Header
                 placement="left"
                 backgroundColor={'transparent'}
-                containerStyle={{ height: 100, borderBottomWidth: 0 }}
+                containerStyle={{
+                    height: Platform.OS === 'ios' ? 100 : 70,
+                    borderBottomWidth: 0
+                }}
                 leftComponent={<HeaderLeft />}
                 rightComponent={<HeaderRight />}
             />

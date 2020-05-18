@@ -1,9 +1,4 @@
-import React, {
-    FunctionComponent,
-    ReactElement,
-    useRef,
-    useState
-} from 'react';
+import React, { FunctionComponent, ReactElement, useRef } from 'react';
 import { Text, View } from 'react-native';
 import { useMutation } from '@apollo/react-hooks';
 import styles from './styles/LocationScreen.style';
@@ -44,7 +39,11 @@ const LocationScreen: FunctionComponent = () => {
                 title={'Ajouter une adresse'}
                 back={(): boolean => navigate('HomeAuth')}
             />
-            <Spinner visible={loading} textContent={'Loading...'} />
+            <Spinner
+                visible={loading}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+            />
             <GooglePlacesAutocomplete
                 placeholder={i18n.t('searchScreen.search1')}
                 minLength={2} // minimum length of text to search

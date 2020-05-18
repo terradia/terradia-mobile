@@ -50,8 +50,8 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
         <View style={styles.mainContainer}>
             <Spinner
                 visible={loading}
-                textContent={'Loading...'}
-                textStyle={{}}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
             />
             <View style={{ flex: 0.9 }}>
                 <Text style={styles.titlesText}>

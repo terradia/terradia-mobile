@@ -14,6 +14,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import GrowersLoader from '@components/growers/GrowersLoader';
 import getAllCompanyTags from '../../graphql/tags/getAllCompanyTags.graphql';
 import EmptyBox from '../../assets/svg/shipping-and-delivery.svg';
+import i18n from '@i18n/i18n';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -90,7 +91,11 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Spinner visible={loading} textContent={'Loading...'} />
+            <Spinner
+                visible={loading}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+            />
             <SearchInput
                 setValue={setValue}
                 value={value}

@@ -116,7 +116,8 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
         <>
             <Spinner
                 visible={loading || signInLoading || signUpLoading}
-                textContent={'Loading...'}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
             />
             <ButtonEmpty
                 title={i18n.t('loginScreen.loginFacebook')}

@@ -60,7 +60,7 @@ const AddressInformation: FunctionComponent<CartContent> = ({ cart }) => {
                 </MapView>
                 <View style={styles.informationTextContainer}>
                     <TouchableOpacity
-                        onPress={() => {
+                        onPress={(): void => {
                             setDisplayModalAddress(true);
                         }}
                         activeOpacity={0.7}
@@ -93,7 +93,7 @@ const AddressInformation: FunctionComponent<CartContent> = ({ cart }) => {
                             {activeAddress.getActiveCustomerAddress.information
                                 ? activeAddress.getActiveCustomerAddress
                                       .information
-                                : 'Ajouter un commentaire'}
+                                : i18n.t('cart.addComment')}
                         </Text>
                     </TouchableOpacity>
                 </View>

@@ -10,6 +10,7 @@ import RemoveProductFromCart from '../../../graphql/cart/removeProductFromCart.g
 import { SwipeListView } from 'react-native-swipe-list-view';
 import AddressInformation from '@components/cart/content/AddressInformations';
 import DeliveryDate from '@components/cart/content/DeliveryDate';
+import i18n from '@i18n/i18n';
 
 const ProductList: FunctionComponent = () => {
     const [dataLoading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ const ProductList: FunctionComponent = () => {
                     color: '#575757'
                 }}
             >
-                Vous n'avez pas de produits dans votre panier
+                {i18n.t('cart.cartEmpty')}
             </Text>
         );
     }
@@ -95,17 +96,18 @@ const ProductList: FunctionComponent = () => {
         <View style={styles.container}>
             <Spinner
                 visible={dataLoading}
-                textContent={'Loading...'}
-                textStyle={{}}
+                textContent={i18n.t('loading')}
+                textStyle={{ fontFamily: 'MontserratSemiBold' }}
             />
-
             <SwipeListView
                 ListHeaderComponent={(): ReactElement => {
                     return (
                         <View>
                             <AddressInformation cart={data.getCart} />
                             <DeliveryDate />
-                            <Text style={styles.title}>Votre commande</Text>
+                            <Text style={styles.title}>
+                                {i18n.t('cart.yourOrder')}
+                            </Text>
                         </View>
                     );
                 }}
