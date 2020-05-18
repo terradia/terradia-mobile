@@ -21,7 +21,6 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
     const [phone, setPhone] = useState('');
 
     const onCompletedHandler = (data): any => {
-        Alert.alert('Success');
         AsyncStorage.setItem('token', data.register.token).then(() => {
             navigateHome();
         });

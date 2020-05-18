@@ -2,7 +2,6 @@ import React, { FunctionComponent, useRef } from 'react';
 import {
     View,
     Image,
-    KeyboardAvoidingView,
     Text,
     TouchableOpacity,
     SafeAreaView
@@ -13,25 +12,26 @@ import RegisterForm from '../../components/register/RegisterForm';
 import Preload from './Preload';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from 'react-navigation-hooks';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RegisterScreen: FunctionComponent<any> = props => {
     const preloadRef = useRef(null);
     const successLogin = (): void => {
         preloadRef.current.preload();
     };
-    const { navigate } = useNavigation();
+    const { goBack } = useNavigation();
 
     return (
-        <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}>
-            <LinearGradient
-                colors={['#8FDD3D', '#5CC04A']}
-                style={styles.gradient}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-            >
+        <LinearGradient
+            colors={['#8FDD3D', '#5CC04A']}
+            style={styles.gradient}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 0 }}
+        >
+            <KeyboardAwareScrollView>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): boolean => navigate('Login')}
+                        onPress={(): boolean => goBack()}
                         style={{ marginLeft: 20 }}
                     >
                         <Feather
@@ -61,9 +61,9 @@ const RegisterScreen: FunctionComponent<any> = props => {
                         <RegisterForm navigateHome={successLogin} />
                     </View>
                 </SafeAreaView>
-            </LinearGradient>
-            <Preload ref={preloadRef} />
-        </KeyboardAvoidingView>
+                <Preload ref={preloadRef} />
+            </KeyboardAwareScrollView>
+        </LinearGradient>
     );
 };
 

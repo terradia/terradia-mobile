@@ -58,8 +58,10 @@
     "react-native-elements": "^2.0.0",
     "react-native-gesture-handler": "~1.5.3",
     "react-native-google-places-autocomplete": "https://github.com/damsltc57/react-native-google-places-autocomplete.git",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-loader": "^1.2.1",
     "react-native-loading-spinner-overlay": "^1.0.1",
+    "react-native-maps": "0.26.1",
     "react-native-modal": "^11.5.3",
     "react-native-modal-selector": "^2.0.1",
     "react-native-orientation-loading-overlay": "^0.1.6",
@@ -80,8 +82,7 @@
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-hooks": "^1.1.0",
     "react-navigation-stack": "^2.0.15",
-    "react-navigation-tabs": "^2.7.0",
-    "react-native-maps": "0.26.1"
+    "react-navigation-tabs": "^2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

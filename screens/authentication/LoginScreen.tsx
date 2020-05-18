@@ -13,6 +13,7 @@ import styles from './styles/Login.style';
 import Preload from './Preload';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from 'react-navigation-hooks';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 declare interface LoginScreenProps {
     navigation?: any;
@@ -20,7 +21,7 @@ declare interface LoginScreenProps {
 
 const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
     const preloadRef = useRef(null);
-    const { navigate } = useNavigation();
+    const { goBack } = useNavigation();
 
     const navigateRegister = (): void => {
         const { navigate } = navigation;
@@ -32,16 +33,16 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
     };
 
     return (
-        <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}>
-            <LinearGradient
-                colors={['#8FDD3D', '#5CC04A']}
-                style={styles.gradient}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-            >
+        <LinearGradient
+            colors={['#8FDD3D', '#5CC04A']}
+            style={styles.gradient}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 0 }}
+        >
+            <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): boolean => navigate('HomeAuth')}
+                        onPress={(): boolean => goBack()}
                         style={{ marginLeft: 20 }}
                     >
                         <Feather
@@ -75,8 +76,8 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                     </View>
                     <Preload ref={preloadRef} />
                 </SafeAreaView>
-            </LinearGradient>
-        </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
+        </LinearGradient>
     );
 };
 

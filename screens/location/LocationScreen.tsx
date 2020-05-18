@@ -42,7 +42,7 @@ const LocationScreen: FunctionComponent = () => {
         <View style={styles.mainContainer}>
             <HeaderAccount
                 title={'Ajouter une adresse'}
-                back={(): boolean => navigate('Login')}
+                back={(): boolean => navigate('HomeAuth')}
             />
             <Spinner visible={loading} textContent={'Loading...'} />
             <GooglePlacesAutocomplete
