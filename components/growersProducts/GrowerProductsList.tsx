@@ -119,14 +119,12 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                     <ParallaxScrollView
                         onScroll={(event): any => handleScroll(event)}
                         onScrollEndDrag={(event): void => {
-                            if (event.nativeEvent.contentOffset.y < 170) {
+                            const y = event.nativeEvent.contentOffset.y;
+                            if (y < 170) {
                                 list.current.scrollToLocation({
                                     itemIndex: 1,
                                     sectionIndex: 0,
-                                    viewOffset:
-                                        event.nativeEvent.contentOffset.y > 100
-                                            ? -HEADER_SIZE
-                                            : 0,
+                                    viewOffset: y > 100 ? -HEADER_SIZE : 0,
                                     viewPosition: 0
                                 });
                             }

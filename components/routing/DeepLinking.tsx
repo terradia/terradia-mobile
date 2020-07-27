@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { View } from 'react-native';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 import { useNavigation } from 'react-navigation-hooks';
 
 const DeepLinking: FunctionComponent = () => {

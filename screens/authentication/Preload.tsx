@@ -7,7 +7,7 @@ import getAddressesByUser from '../../graphql/getAddressesByUser.graphql';
 import getCompaniesByDistanceByCustomer from '../../graphql/getCompaniesByDistanceByCustomer.graphql';
 
 import { useNavigation } from 'react-navigation-hooks';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 import { CustomerAddressData } from '@interfaces/User';
 
 export interface MyInputHandles {

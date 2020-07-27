@@ -8,8 +8,8 @@ import { Text } from 'react-native';
 import GrowersProductsCategories from './GrowersProductsCategories';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Sharing from 'expo-sharing';
-import { Company } from '@interfaces/Companies';
-import { Linking } from 'expo';
+import { CompanyData } from '@interfaces/Companies';
+import * as Linking from 'expo-linking';
 
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
@@ -35,7 +35,7 @@ declare interface NavBarProductsHeaderProps {
     currentIndex: number;
     setBlockUpdateIndex: any;
     setCurrentIndex: any;
-    grower: Company;
+    grower: CompanyData;
 }
 
 export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({

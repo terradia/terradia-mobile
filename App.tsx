@@ -9,7 +9,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import { withClientState } from 'apollo-link-state';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
 import Constants from 'expo-constants';
 import { createUploadLink as CreateUploadLink } from 'apollo-upload-client';
@@ -43,7 +43,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: 'https://bc2f9deb8b67.ngrok.io' + '/graphql',
+    uri: 'https://29698a4e4fdb.ngrok.io' + '/graphql',
     fetch: fetch
 });
 
