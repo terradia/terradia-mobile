@@ -25,7 +25,13 @@ export default StyleSheet.create({
     },
     forgotPasswordStyle: {
         paddingTop: 10,
-        color: 'red'
+        color: 'red',
+        alignSelf: 'flex-end',
+        marginRight: 40
+    },
+    forgotPasswordText: {
+        textDecorationLine: 'underline',
+        fontFamily: 'Montserrat'
     },
     textTouchable: {
         color: 'red'
@@ -56,5 +62,11 @@ export default StyleSheet.create({
     inputStyle: {
         color: '#575757',
         fontFamily: 'Montserrat'
+    },
+    errorText: {
+        alignSelf: 'flex-start',
+        marginLeft: 40,
+        fontFamily: 'MontserratMedium',
+        color: 'red'
     }
 });

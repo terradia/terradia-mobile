@@ -1,0 +1,6 @@
+mutation signInWithgeneratedCode($email: String!, $code: String!, $exponentPushToken: String) {
+    signInWithgeneratedCode(email: $email, code: $code, exponentPushToken: $exponentPushToken) {
+        token
+        userId
+    }
+}

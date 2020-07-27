@@ -43,7 +43,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: 'https://api.terradia.eu' + '/graphql',
+    uri: 'https://bc2f9deb8b67.ngrok.io' + '/graphql',
     fetch: fetch
 });
 

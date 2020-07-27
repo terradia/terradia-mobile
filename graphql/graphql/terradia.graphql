@@ -41,17 +41,18 @@ type Company {
     customerCarts: [Cart]
     description: String
     distance: Float
-    email: String
+    email: String!
     geoPosition: GeographicPoint
     id: ID!
     logo: CompanyImage
     name: String!
     numberOfMarks: Int
     openingDays: [CompanyOpeningDay]
-    phone: String
+    phone: String!
     products: [Product]
     productsCategories: [CompanyProductsCategory]
     reviews: [CompanyReview]
+    siren: String!
     tags: [CompanyTag]
     updatedAt: Date
     users: [CompanyUser]
@@ -145,12 +146,12 @@ type Mutation {
     addTagToCompany(companyId: String!, companyTagId: String!): Company!
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     createCategory(name: String!, parentCategoryId: String): Category!
-    createCompany(address: String!, cover: Upload, description: String, email: String, logo: Upload, name: String!, phone: String): Company!
+    createCompany(address: String!, description: String, email: String!, name: String!, phone: String!, siren: String!): Company!
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
     createCompanyTag(color: String!, name: String!): CompanyTag!
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
-    createProduct(companyId: String!, companyProductsCategoryId: String, cover: Upload, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
+    createProduct(companyId: String!, companyProductsCategoryId: String, coverId: String, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     defineUserAsCustomer(userId: String!): Customer
     deleteCategory(id: String!): Category!
@@ -159,6 +160,7 @@ type Mutation {
     deleteImageFromProduct(companyImageId: String!, productId: String!): CompanyImage
     deleteProduct(productId: String!): Int
     deleteTagFromCompany(companyId: String!, companyTagId: String!): Company!
+    generateCodePasswordForgot(email: String!): Boolean
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
@@ -174,12 +176,14 @@ type Mutation {
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     setActiveCustomerAddress(id: String!): CustomerAddress
     signInWithFacebook(exponentPushToken: String, facebookToken: String!): SigninAnswer!
+    signInWithgeneratedCode(code: String!, email: String!, exponentPushToken: String): SigninAnswer!
     signUpWithFacebook(defineUserAsCostumer: Boolean, exponentPushToken: String, facebookToken: String!): SignupAnswer!
+    updateCompany(companyId: ID!, newValues: CompanyUpdateInput): Company!
     updateCompanyImageName(imageId: ID!, name: String!): CompanyImage
     updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
     updateOpeningDay(hours: [ScheduleInput], openingDayId: String!): CompanyOpeningDay!
     updateOpeningHours(hourId: String!, hours: ScheduleInput!): CompanyOpeningDayHours!
-    updateProduct(description: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
+    updateProduct(coverId: String, description: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
     updateProductCover(companyImageId: String!, productId: String!): Product
     updateProductsPosition(productsPositions: [ProductPosition!]): Boolean
     updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
@@ -228,6 +232,7 @@ type Query {
     getAllCustomerAddressesByUser: [CustomerAddress]
     getAllCustomers: [Customer]
     getAllProducts: [Product]!
+    getAllRoles: [Role]!
     getAllUnits(referencesOnly: Boolean): [Unit]!
     getAllUsers: [User]!
     getCart: Cart
@@ -240,6 +245,7 @@ type Query {
     getCompanyByName(name: String!): Company
     getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImage]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
+    getCompanyReviews(id: ID!, limit: Int!, offset: Int!): [CompanyReview]
     getCompanyTag(companyTagId: String, slugName: String): CompanyTag
     getCustomer(userId: String!): Customer
     getCustomerFavoriteCompanies(userId: String): [Company]
@@ -304,6 +310,17 @@ type UserPermissions {
 enum CacheControlScope {
     PRIVATE
     PUBLIC
+}
+
+input CompanyUpdateInput {
+    address: String
+    coverId: String
+    description: String
+    email: String
+    logoId: String
+    name: String
+    phone: String
+    siren: String
 }
 
 input ProductPosition {

@@ -16,7 +16,10 @@ export default {
         forgot: 'Forgot your password?',
         register: 'Register now',
         loginFacebook: 'Login with facebook',
-        loginApple: 'Login with Apple'
+        loginApple: 'Login with Apple',
+        invalidLogin: 'Invalid email address or password',
+        fillEmail: 'Please enter your email',
+        fillPassword: 'Please enter your password'
     },
     registerScreen: {
         addrEmail: 'Email address',
@@ -88,5 +91,15 @@ export default {
     homeAuth: {
         joinTerradia: 'Join Terradia',
         alreadyHaveAnAccount: 'Already have an account ?'
+    },
+    AccountRecoveryScreen: {
+        alreadyHaveTheCode: 'I already have the code',
+        sendCode: 'Send code',
+        resentCode: 'Resend code',
+        fillInputEmail: 'Please fill your email',
+        updateEmail: 'Update email',
+        accountRecovery: 'Account recovery',
+        invalidEmail: 'Invalid email',
+        InvalidCodeOrEmail: 'Invalid Code or email'
     }
 };

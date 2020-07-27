@@ -16,7 +16,10 @@ export default {
         forgot: 'Mot de passe oublié ?',
         register: "S'enregister",
         loginFacebook: 'Connexion avec facebook',
-        loginApple: 'Connexion avec Apple'
+        loginApple: 'Connexion avec Apple',
+        invalidLogin: 'Adresse email ou mot de passe invalide',
+        fillEmail: "Merci de renseigner l'email",
+        fillPassword: 'Merci de renseigner le mot de passe'
     },
     registerScreen: {
         addrEmail: 'Adresse email',
@@ -88,5 +91,15 @@ export default {
     homeAuth: {
         joinTerradia: 'Rejoindre Terradia',
         alreadyHaveAnAccount: "j'ai deja un compte"
+    },
+    AccountRecoveryScreen: {
+        alreadyHaveTheCode: "J'ai deja le code",
+        sendCode: 'Envoyer le code',
+        resentCode: 'Renvoyer le code',
+        fillInputEmail: 'Merci de renseigner le champ email',
+        updateEmail: "Changer l'adresse email",
+        accountRecovery: 'Récupère ton compte',
+        invalidEmail: 'Email invalide',
+        InvalidCodeOrEmail: 'Mauvais code ou mot de passe'
     }
 };

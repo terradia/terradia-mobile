@@ -1,21 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    AsyncStorage,
-    Alert
-} from 'react-native';
+import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 import ButtonTerradia from '../buttons/ButtonTerradia';
 import ButtonEmpty from '../buttons/Button';
-import { Input } from 'react-native-elements';
 import styles from './styles/LoginForm.style';
 import { useMutation } from '@apollo/react-hooks';
 import i18n from '@i18n/i18n';
 import LOGIN from '../../graphql/login.graphql';
 import ThirdPartyLogin from '@components/login/ThirdPartyLogin';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import { Kohana } from "react-native-textinput-effects";
+import { Kohana } from 'react-native-textinput-effects';
+import { useNavigation } from 'react-navigation-hooks';
 
 declare interface LoginFormProps {
     navigateRegister?: any;
@@ -26,9 +20,10 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     navigateHome,
     navigateRegister
 }) => {
+    const { navigate } = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [error, setError] = useState('');
     const onCompletedHandler = (data): void => {
         AsyncStorage.setItem('token', data.login.token).then();
         AsyncStorage.setItem('userId', data.login.userId).then();
@@ -36,7 +31,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     };
 
     const onErrorHandler = (error): void => {
-        Alert.alert('Adresse email ou mot de passe invalide');
+        setError(i18n.t('loginScreen.invalidLogin'));
     };
 
     const [login, { loading: mutationLoading }] = useMutation(LOGIN, {
@@ -52,7 +47,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
     Renvoyer vers la page de mot de passe oublié
      */
     const forgotPassword = (): void => {
-        console.log('Lost password');
+        navigate('AccountRecovery');
     };
 
     /*
@@ -109,23 +104,35 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                         iconContainerStyle={{ padding: 10 }}
                     />
                 </View>
+                <Text style={styles.errorText}>{error}</Text>
                 <ButtonTerradia
                     title={i18n.t('loginScreen.login')}
                     style={[{ borderColor: '#FFFFFF' }]}
                     titleStyle={[{ color: '#FFFFFF' }]}
                     loading={mutationLoading}
                     onPress={(): void => {
+                        if (email.length === 0) {
+                            setError(i18n.t('loginScreen.fillEmail'));
+                            return;
+                        }
+                        if (password.length === 0) {
+                            setError(i18n.t('loginScreen.fillPassword'));
+                            return;
+                        }
                         login({
                             variables: { email: email, password: password }
                         }).then();
                     }}
                 />
             </View>
+
             <TouchableOpacity
                 onPress={forgotPassword}
                 style={styles.forgotPasswordStyle}
             >
-                <Text>{i18n.t('loginScreen.forgot')}</Text>
+                <Text style={styles.forgotPasswordText}>
+                    {i18n.t('loginScreen.forgot')}
+                </Text>
             </TouchableOpacity>
 
             <View style={styles.registerView}>
