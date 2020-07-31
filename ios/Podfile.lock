@@ -1,5 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - BVLinearGradient (2.5.6):
+    - React
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
   - DoubleConversion (1.1.6)
@@ -51,13 +53,12 @@ PODS:
   - EXSharing (8.2.1):
     - UMCore
     - UMFileSystemInterface
-  - EXSplashScreen (0.4.0):
-    - React
+  - EXSplashScreen (0.3.1):
     - UMCore
   - EXSQLite (8.2.1):
     - UMCore
     - UMFileSystemInterface
-  - EXUpdates (0.2.12):
+  - EXUpdates (0.2.13):
     - React
     - UMCore
   - EXWebBrowser (8.3.1):
@@ -397,6 +398,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXErrorRecovery (from `../node_modules/expo-error-recovery/ios`)
@@ -502,6 +504,8 @@ SPEC REPOS:
     - YogaKit
 
 EXTERNAL SOURCES:
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXConstants:
@@ -633,6 +637,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
@@ -651,9 +656,9 @@ SPEC CHECKSUMS:
   EXLocation: c50022a5a829bad7a621d42eaecc60e171d8efa7
   EXPermissions: b6d7134b7215c33420318c2bbb5d362c20ac9726
   EXSharing: 73d1a9ce831c37c2d296c29440c23680d91793c3
-  EXSplashScreen: 2290058b9a3760ea3906ac552baff24d5d33b725
+  EXSplashScreen: 820fada8feff48f1d7504ee842240572b825a88f
   EXSQLite: b001ba35deb3001bd6e4b256581a558ae745ef2f
-  EXUpdates: 4380bf17a6391fab639a32e31ed27fb956c4505f
+  EXUpdates: fe31ed287e46d5f408412818c68c2f7b8b6e3f28
   EXWebBrowser: ab98b2b9b370f823d954e82b31c1f53dc1928c27
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e

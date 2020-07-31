@@ -9,6 +9,7 @@ import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistan
 import { useNavigation } from "react-navigation-hooks";
 import * as Linking from "expo-linking";
 import { CustomerAddressData } from "@interfaces/User";
+import * as SplashScreen from 'expo-splash-screen';
 
 export interface MyInputHandles {
     preload(): void;
@@ -61,14 +62,16 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
             navigate("HomeAuth");
         }
     });
-    const _loadData = () => {
+    const _loadData = async () => {
         console.log("HAHA");
-        // loadUser();
         Linking.getInitialURL().then(data => {
-            console.log(data);
-            const { path, queryParams } = Linking.parse(data);
-            setQueryParams({ ...queryParams });
-            if (path) setPath(path.replace("--/", ""));
+            if (data) {
+                console.log(data);
+                const { path, queryParams } = Linking.parse(data);
+                setQueryParams({ ...queryParams });
+                if (path) setPath(path.replace("--/", ""));
+            }
+
             loadUser();
         });
     };

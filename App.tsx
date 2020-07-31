@@ -128,6 +128,10 @@ function handleFinishLoading(setLoadingComplete): void {
 export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
     const SimpleApp = AppNavigator;
+
+    loadResourcesAsync().then(() => {
+        setLoadingComplete(true);
+    });
     // Linking.getInitialURL().then((data) => {
     //     setPrefix(data);
     // });
@@ -141,13 +145,7 @@ export default function App(props): ReactElement {
     const prefixPath = Linking.makeUrl("/");
 
     if (!isLoadingComplete && !props.skipLoadingScreen) {
-        return (
-            <AppLoading
-                startAsync={loadResourcesAsync}
-                onError={handleLoadingError}
-                onFinish={() => handleFinishLoading(setLoadingComplete)}
-            />
-        );
+        return null;
     } else {
         return (
             <ApolloProvider client={client}>
