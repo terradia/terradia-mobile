@@ -1,26 +1,26 @@
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
-import * as Font from 'expo-font';
-import React, { ReactElement, useState } from 'react';
-import { AsyncStorage } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { setContext } from 'apollo-link-context';
-import { ApolloProvider } from 'react-apollo';
-import { withClientState } from 'apollo-link-state';
-import * as Linking from 'expo-linking';
-import { setExpoStatusBarHeight } from 'react-navigation-collapsible';
-import Constants from 'expo-constants';
-import { createUploadLink as CreateUploadLink } from 'apollo-upload-client';
-import { YellowBox } from 'react-native';
+import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
+import * as Font from "expo-font";
+import React, { ReactElement, useState } from "react";
+import { AsyncStorage } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { setContext } from "apollo-link-context";
+import { ApolloProvider } from "react-apollo";
+import { withClientState } from "apollo-link-state";
+import * as Linking from "expo-linking";
+import { setExpoStatusBarHeight } from "react-navigation-collapsible";
+import Constants from "expo-constants";
+import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
+import { YellowBox } from "react-native";
 
-YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 
 setExpoStatusBarHeight(Constants.statusBarHeight);
 
-import AppNavigator from './navigation/AppNavigator';
-import { ApolloLink } from 'apollo-link';
+import AppNavigator from "./navigation/AppNavigator";
+import { ApolloLink } from "apollo-link";
 
 {
     /**
@@ -35,24 +35,25 @@ const stateLink = withClientState({
     cache,
     defaults: {
         testing: {
-            __typename: 'testing',
-            name: '',
+            __typename: "testing",
+            name: "",
             age: 0
         }
     }
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: 'https://29698a4e4fdb.ngrok.io' + '/graphql',
+    uri: "https://204b88ced55c.ngrok.io" + "/graphql",
     fetch: fetch
 });
+console.log("Hello lol");
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
     return {
         headers: {
             ...headers,
-            authorization: token ? token : ''
+            authorization: token ? token : ""
         }
     };
 });
@@ -66,7 +67,7 @@ const client = new ApolloClient({
             Query: {
                 company: (_, { id }, { getCacheKey }) => {
                     return getCacheKey({
-                        __typename: 'Company',
+                        __typename: "Company",
                         id: id
                     });
                 }
@@ -95,20 +96,20 @@ client.onResetStore(stateLink.writeDefaults);
 async function loadResourcesAsync(): Promise<void> {
     await Promise.all([
         Asset.loadAsync([
-            require('./assets/images/robot-dev.png'),
-            require('./assets/images/robot-prod.png')
+            require("./assets/images/robot-dev.png"),
+            require("./assets/images/robot-prod.png")
         ]),
         Font.loadAsync({
             // This is the font that we are using for our tab bar
             ...Ionicons.font,
             // We include SpaceMono because we use it in HomeScreen.js. Feel free to
             // remove this if you are not using it in your app
-            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-            Montserrat: require('./assets/fonts/Montserrat-Regular.ttf'),
-            MontserratSemiBold: require('./assets/fonts/Montserrat-SemiBold.ttf'),
-            MontserratBold: require('./assets/fonts/Montserrat-Bold.ttf'),
-            MontserratMedium: require('./assets/fonts/Montserrat-Medium.ttf'),
-            MontserratLight: require('./assets/fonts/Montserrat-Light.ttf')
+            "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+            Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
+            MontserratSemiBold: require("./assets/fonts/Montserrat-SemiBold.ttf"),
+            MontserratBold: require("./assets/fonts/Montserrat-Bold.ttf"),
+            MontserratMedium: require("./assets/fonts/Montserrat-Medium.ttf"),
+            MontserratLight: require("./assets/fonts/Montserrat-Light.ttf")
         })
     ]);
     return;
@@ -137,7 +138,7 @@ export default function App(props): ReactElement {
     // }
     // Linking.addEventListener('url', _handleLink);
     // Linking.addEventListener('url', callback);
-    const prefixPath = Linking.makeUrl('/');
+    const prefixPath = Linking.makeUrl("/");
 
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return (

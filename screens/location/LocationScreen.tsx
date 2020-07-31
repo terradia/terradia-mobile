@@ -1,22 +1,22 @@
-import React, { FunctionComponent, ReactElement, useRef } from 'react';
-import { Text, View } from 'react-native';
-import { useMutation } from '@apollo/react-hooks';
-import styles from './styles/LocationScreen.style';
-import { Feather, FontAwesome } from '@expo/vector-icons';
-import getLocationAsync from '@components/growers/modals/CurrentPositionResolver';
-import * as Localization from 'expo-localization';
-import i18n from '@i18n/i18n';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';
-import CreateAddress from '../../graphql/createAddress.graphql';
-import Preload from '../authentication/Preload';
-import Spinner from 'react-native-loading-spinner-overlay';
-import HeaderAccount from '@components/account/Header';
-import { useNavigation } from 'react-navigation-hooks';
+import React, { FunctionComponent, ReactElement, useRef } from "react";
+import { Text, View } from "react-native";
+import { useMutation } from "@apollo/react-hooks";
+import styles from "./styles/LocationScreen.style";
+import { Feather, FontAwesome } from "@expo/vector-icons";
+import getLocationAsync from "@components/growers/modals/CurrentPositionResolver";
+import * as Localization from "expo-localization";
+import i18n from "@i18n/i18n";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAP_API_KEY } from "react-native-dotenv";
+import CreateAddress from "../../graphql/createAddress.graphql";
+import Preload from "../authentication/Preload";
+import Spinner from "react-native-loading-spinner-overlay";
+import HeaderAccount from "@components/account/Header";
+import { useNavigation } from "react-navigation-hooks";
 
 const currentLocation = [
     {
-        address: i18n.t('addressModal.currentLocation'),
+        address: i18n.t("addressModal.currentLocation"),
         currentLocation: true,
         geometry: { location: { lat: 0, lng: 0 } }
     }
@@ -36,20 +36,20 @@ const LocationScreen: FunctionComponent = () => {
     return (
         <View style={styles.mainContainer}>
             <HeaderAccount
-                title={'Ajouter une adresse'}
-                back={(): boolean => navigate('HomeAuth')}
+                title={"Ajouter une adresse"}
+                back={(): boolean => navigate("HomeAuth")}
             />
             <Spinner
                 visible={loading}
-                textContent={i18n.t('loading')}
-                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+                textContent={i18n.t("loading")}
+                textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <GooglePlacesAutocomplete
-                placeholder={i18n.t('searchScreen.search1')}
+                placeholder={i18n.t("searchScreen.search1")}
                 minLength={2} // minimum length of text to search
                 autoFocus={false}
-                returnKeyType={'default'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+                returnKeyType={"default"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+                keyboardAppearance={"light"} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
                 listViewDisplayed={true} // true/false/undefined
                 fetchDetails={false}
                 renderDescription={row => {
@@ -57,7 +57,7 @@ const LocationScreen: FunctionComponent = () => {
                         return (
                             <View
                                 style={{
-                                    flexDirection: 'row',
+                                    flexDirection: "row",
                                     flex: 1,
                                     marginLeft: 8,
                                     marginRight: 25
@@ -70,9 +70,9 @@ const LocationScreen: FunctionComponent = () => {
                                 />
                                 <Text
                                     style={{
-                                        fontFamily: 'Montserrat',
+                                        fontFamily: "Montserrat",
                                         fontSize: 16,
-                                        color: '#202020'
+                                        color: "#202020"
                                     }}
                                 >
                                     {row.address}
@@ -83,7 +83,7 @@ const LocationScreen: FunctionComponent = () => {
                         return (
                             <Text
                                 style={{
-                                    fontFamily: 'Montserrat',
+                                    fontFamily: "Montserrat",
                                     fontSize: 18
                                 }}
                             >
@@ -98,8 +98,8 @@ const LocationScreen: FunctionComponent = () => {
                         createAddress({
                             variables: {
                                 address: addr,
-                                information: '',
-                                apartment: '',
+                                information: "",
+                                apartment: "",
                                 id: null
                             }
                         });
@@ -107,18 +107,18 @@ const LocationScreen: FunctionComponent = () => {
                         createAddress({
                             variables: {
                                 address: data.description,
-                                information: '',
-                                apartment: '',
+                                information: "",
+                                apartment: "",
                                 id: null
                             }
                         });
                     }
                 }}
-                getDefaultValue={() => ''}
-                currentLocationLabel={'address'}
+                getDefaultValue={() => ""}
+                currentLocationLabel={"address"}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
-                    types: 'address',
+                    types: "address",
                     language: Localization.locale, // language of the results
                     key: GOOGLE_MAP_API_KEY
                 }}
@@ -139,7 +139,7 @@ const LocationScreen: FunctionComponent = () => {
                 GooglePlacesSearchQuery={{}}
                 GooglePlacesDetailsQuery={{
                     // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                    fields: 'address_component'
+                    fields: "address_component"
                 }}
                 predefinedPlaces={currentLocation}
                 renderLeftButton={(): ReactElement => (

@@ -1,7 +1,7 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement } from "react";
 
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-import GrowerProducts from '@components/growersProducts';
+import { NavigationStackScreenProps } from "react-navigation-stack";
+import GrowerProducts from "@components/growersProducts";
 
 declare interface GrowersProductsScreen {
     navigation?: NavigationStackScreenProps;
@@ -15,7 +15,7 @@ const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
 
 // @ts-ignore
 GrowerProductsScreen.navigationOptions = {
-    headerMode: 'none',
+    headerMode: "none",
     header: (): ReactElement => null,
     tabBarVisible: false
 };

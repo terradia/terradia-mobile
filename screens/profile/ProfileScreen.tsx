@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
-import Header from '@components/profile/header';
-import PremiumCard from '@components/profile/card/PremiumCard';
-import MenuCard from '@components/profile/card/MenuCards';
-import Cart from '@components/cart';
-import DeepLinking from '@components/routing/DeepLinking';
+import React, { FunctionComponent } from "react";
+import { View } from "react-native";
+import Header from "@components/profile/header";
+import PremiumCard from "@components/profile/card/PremiumCard";
+import MenuCard from "@components/profile/card/MenuCards";
+import Cart from "@components/cart";
+import DeepLinking from "@components/routing/DeepLinking";
 
 const ProfileScreen: FunctionComponent<any> = () => {
     /**

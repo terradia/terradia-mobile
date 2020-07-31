@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent, useRef } from "react";
 import {
     View,
     Image,
@@ -6,14 +6,14 @@ import {
     Text,
     SafeAreaView,
     TouchableOpacity
-} from 'react-native';
-import LoginForm from '../../components/login/LoginForm';
-import { LinearGradient } from 'expo-linear-gradient';
-import styles from './styles/Login.style';
-import Preload from './Preload';
-import { Feather } from '@expo/vector-icons';
-import { useNavigation } from 'react-navigation-hooks';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "react-native";
+import LoginForm from "../../components/login/LoginForm";
+import { LinearGradient } from "expo-linear-gradient";
+import styles from "./styles/Login.style";
+import Preload from "./Preload";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "react-navigation-hooks";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 declare interface LoginScreenProps {
     navigation?: any;
@@ -25,7 +25,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
 
     const navigateRegister = (): void => {
         const { navigate } = navigation;
-        navigate('Register');
+        navigate("Register");
     };
 
     const successLogin = (): void => {
@@ -34,7 +34,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
 
     return (
         <LinearGradient
-            colors={['#8FDD3D', '#5CC04A']}
+            colors={["#8FDD3D", "#5CC04A"]}
             style={styles.gradient}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
@@ -48,7 +48,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                         <Feather
                             name="chevron-left"
                             size={28}
-                            style={{ color: 'white' }}
+                            style={{ color: "white" }}
                         />
                     </TouchableOpacity>
                     <View style={styles.imageView}>
@@ -58,7 +58,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                                 height: undefined,
                                 width: undefined
                             }}
-                            source={require('../../assets/images/terradia.png')}
+                            source={require("../../assets/images/terradia.png")}
                             resizeMode="contain"
                         />
                     </View>

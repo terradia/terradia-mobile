@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import i18n from '@i18n/i18n';
-import InputLightTerradia from '../../input/InputLightTerradia';
-import styles from './styles/ModalScreenAddressDetails.style';
-import { useMutation } from '@apollo/react-hooks';
-import CreateAddress from '../../../graphql/createAddress.graphql';
-import getActiveAddress from '../../../graphql/getActiveAddress.graphql';
-import Spinner from 'react-native-loading-spinner-overlay';
-import getAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
+import React, { FunctionComponent, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import i18n from "@i18n/i18n";
+import InputLightTerradia from "../../input/InputLightTerradia";
+import styles from "./styles/ModalScreenAddressDetails.style";
+import { useMutation } from "@apollo/react-hooks";
+import CreateAddress from "../../../graphql/createAddress.graphql";
+import getActiveAddress from "../../../graphql/getActiveAddress.graphql";
+import Spinner from "react-native-loading-spinner-overlay";
+import getAddressesByUser from "../../../graphql/getAddressesByUser.graphql";
 
 declare interface ModalAddressProps {
     address: string;
@@ -32,11 +32,11 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
             onCompleted: () => {
                 client.query({
                     query: getAddressesByUser,
-                    fetchPolicy: 'network-only'
+                    fetchPolicy: "network-only"
                 });
                 client.query({
                     query: getActiveAddress,
-                    fetchPolicy: 'network-only'
+                    fetchPolicy: "network-only"
                 });
                 setDisplayModalAddress(false);
             }
@@ -50,12 +50,12 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
         <View style={styles.mainContainer}>
             <Spinner
                 visible={loading}
-                textContent={i18n.t('loading')}
-                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+                textContent={i18n.t("loading")}
+                textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <View style={{ flex: 0.9 }}>
                 <Text style={styles.titlesText}>
-                    {i18n.t('addressModal.deliveryAddress')}
+                    {i18n.t("addressModal.deliveryAddress")}
                 </Text>
                 <View style={styles.containers}>
                     <View style={styles.mainAddressContainer}>
@@ -67,17 +67,17 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                         onChangeText={value => setApt(value)}
                         value={apt}
                         style={styles.inputs}
-                        placeholder={i18n.t('addressModal.apt')}
+                        placeholder={i18n.t("addressModal.apt")}
                     />
                     <InputLightTerradia
                         onChangeText={value => setInfo(value)}
                         value={info}
                         style={styles.inputs}
-                        placeholder={i18n.t('addressModal.deliveryNotes')}
+                        placeholder={i18n.t("addressModal.deliveryNotes")}
                     />
                 </View>
                 <Text style={styles.titlesText}>
-                    {i18n.t('addressModal.deliveryOptions')}
+                    {i18n.t("addressModal.deliveryOptions")}
                 </Text>
                 <View style={styles.containers}>
                     <TouchableOpacity
@@ -95,7 +95,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                             size={19}
                             style={{
                                 color:
-                                    optionNumber === 0 ? '#8FDD3D' : '#202020'
+                                    optionNumber === 0 ? "#8FDD3D" : "#202020"
                             }}
                         />
                         <Text
@@ -104,12 +104,12 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                                 {
                                     color:
                                         optionNumber === 0
-                                            ? '#8FDD3D'
-                                            : '#202020'
+                                            ? "#8FDD3D"
+                                            : "#202020"
                                 }
                             ]}
                         >
-                            {i18n.t('addressModal.deliverToDoor')}
+                            {i18n.t("addressModal.deliverToDoor")}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -122,7 +122,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                             size={19}
                             style={{
                                 color:
-                                    optionNumber === 1 ? '#8FDD3D' : '#202020'
+                                    optionNumber === 1 ? "#8FDD3D" : "#202020"
                             }}
                         />
                         <Text
@@ -131,12 +131,12 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                                 {
                                     color:
                                         optionNumber === 1
-                                            ? '#8FDD3D'
-                                            : '#202020'
+                                            ? "#8FDD3D"
+                                            : "#202020"
                                 }
                             ]}
                         >
-                            {i18n.t('addressModal.pickUpOutside')}
+                            {i18n.t("addressModal.pickUpOutside")}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -155,7 +155,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                 style={styles.applyButtonContainer}
             >
                 <Text style={styles.confirmButton}>
-                    {i18n.t('addressModal.confirm')}
+                    {i18n.t("addressModal.confirm")}
                 </Text>
             </TouchableOpacity>
         </View>

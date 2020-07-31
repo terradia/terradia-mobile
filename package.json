@@ -1,12 +1,10 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "rm -rf ./node_modules/.cache/babel-loader && expo start",
-    "clear": "rm -rf ./node_modules/.cache/babel-loader && expo start -c",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "react-native start",
+    "clear": "rm -rf ./node_modules/.cache/babel-loader && react-native start --reset-cache",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "web": "expo start --web",
-    "eject": "expo eject",
     "test": "jest --watchAll",
     "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
     "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./"
@@ -16,6 +14,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
+    "@bam.tech/react-native-graphql-transformer": "^0.1.5",
     "@expo/samples": "~3.0.3",
     "@expo/vector-icons": "^10.0.0",
     "@react-native-community/masked-view": "0.1.10",
@@ -44,6 +43,9 @@
     "expo-permissions": "~9.0.1",
     "expo-pixi": "^1.2.0",
     "expo-sharing": "~8.2.1",
+    "expo-splash-screen": "~0.4.0",
+    "expo-status-bar": "^1.0.0",
+    "expo-updates": "^0.2.13",
     "expo-web-browser": "~8.3.1",
     "faker": "^4.1.0",
     "graphql": "^14.2.1",
@@ -51,10 +53,10 @@
     "graphql-config": "^3.0.0-alpha.17",
     "i18n-js": "^3.5.1",
     "isomorphic-fetch": "^2.2.1",
-    "react": "16.11.0",
+    "react": "~16.11.0",
     "react-apollo": "3.0.0",
     "react-dom": "16.11.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native": "~0.62.2",
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-dotenv": "^0.2.0",
     "react-native-elements": "^2.0.0",
@@ -79,6 +81,7 @@
     "react-native-svg-transformer": "^0.14.3",
     "react-native-swipe-list-view": "^2.5.0",
     "react-native-textinput-effects": "^0.6.1",
+    "react-native-unimodules": "~0.10.1",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-collapsible": "^3.0.3",
@@ -89,6 +92,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "babel-jest": "~25.2.6",
+    "jest": "~25.2.6",
+    "react-test-renderer": "~16.11.0",
     "@types/react": "~16.9.41",
     "@types/react-native": "~0.62.13",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
@@ -110,5 +116,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "private": true
+  "private": true,
+  "name": "terradia-mobile",
+  "version": "1.0.0"
 }

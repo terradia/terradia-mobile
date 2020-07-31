@@ -1,12 +1,12 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import getProduct from '../../graphql/product/getProduct.graphql';
-import getProductReviews from '../../graphql/getProductReviews.graphql';
-import { useNavigationParam } from 'react-navigation-hooks';
-import Content from '@components/product/content';
+import React, { FunctionComponent, ReactElement } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import getProduct from "../../graphql/product/getProduct.graphql";
+import getProductReviews from "../../graphql/getProductReviews.graphql";
+import { useNavigationParam } from "react-navigation-hooks";
+import Content from "@components/product/content";
 
 const ProductScreen: FunctionComponent = () => {
-    const productId = useNavigationParam('product');
+    const productId = useNavigationParam("product");
     const { data: product, loading } = useQuery(getProduct, {
         variables: { id: productId }
     });
@@ -22,7 +22,7 @@ const ProductScreen: FunctionComponent = () => {
 
 // @ts-ignore
 ProductScreen.navigationOptions = {
-    headerMode: 'none',
+    headerMode: "none",
     header: (): ReactElement => null,
     tabBarVisible: false
 };
