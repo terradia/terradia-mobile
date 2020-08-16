@@ -14,6 +14,7 @@ import { setExpoStatusBarHeight } from "react-navigation-collapsible";
 import Constants from "expo-constants";
 import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
 import { YellowBox } from "react-native";
+import { PaymentsStripe as Stripe } from "expo-payments-stripe";
 
 YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 
@@ -43,7 +44,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: "https://204b88ced55c.ngrok.io" + "/graphql",
+    uri: "https://08bb1c02df3f.ngrok.io" + "/graphql",
     fetch: fetch
 });
 console.log("Hello lol");
@@ -58,6 +59,12 @@ const authLink = setContext(async (_, { headers }) => {
     };
 });
 
+Stripe.setOptionsAsync({
+    publishableKey:
+        "pk_test_51H6a9LHJwleKpfuCDWJkWOs8YiRE5Qcn0lCLcWUsvomazFg3G5fyxKguE1C1DXC0aimZLq3yVv12s6FTez0tIny700u3s3nIMI", // Your key
+    androidPayMode: "test", // [optional] used to set wallet environment (AndroidPay)
+    merchantId: "your_merchant_id" // [optional] used for payments with ApplePay
+});
 // const concat = [httpLink, authLink];
 
 const client = new ApolloClient({

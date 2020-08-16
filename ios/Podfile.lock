@@ -47,6 +47,9 @@ PODS:
     - UMCore
     - UMPermissionsInterface
     - UMTaskManagerInterface
+  - EXPaymentsStripe (8.2.3):
+    - Stripe (~> 14.0.1)
+    - UMCore
   - EXPermissions (9.0.1):
     - UMCore
     - UMPermissionsInterface
@@ -376,6 +379,7 @@ PODS:
     - React
   - RNSVG (12.1.0):
     - React
+  - Stripe (14.0.1)
   - UMAppLoader (1.2.0)
   - UMBarCodeScannerInterface (5.2.1)
   - UMCameraInterface (5.2.1)
@@ -413,6 +417,7 @@ DEPENDENCIES:
   - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
+  - EXPaymentsStripe (from `../node_modules/expo-payments-stripe/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSharing (from `../node_modules/expo-sharing/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -501,6 +506,7 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - OpenSSL-Universal
+    - Stripe
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -534,6 +540,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-localization/ios"
   EXLocation:
     :path: "../node_modules/expo-location/ios"
+  EXPaymentsStripe:
+    :path: "../node_modules/expo-payments-stripe/ios"
   EXPermissions:
     :path: "../node_modules/expo-permissions/ios"
   EXSharing:
@@ -654,6 +662,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: d25940ede1e798882f57715cff9edb4075d95e2d
   EXLocalization: 2c66021723ee3d91b7ce2627cc27979ddd648fe7
   EXLocation: c50022a5a829bad7a621d42eaecc60e171d8efa7
+  EXPaymentsStripe: 6c6fb7fd3757920676d6d16d75fd2f584179b73f
   EXPermissions: b6d7134b7215c33420318c2bbb5d362c20ac9726
   EXSharing: 73d1a9ce831c37c2d296c29440c23680d91793c3
   EXSplashScreen: 820fada8feff48f1d7504ee842240572b825a88f
@@ -700,6 +709,7 @@ SPEC CHECKSUMS:
   RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
+  Stripe: 4305b646743612854819fb5d5cf67aaeb93577c0
   UMAppLoader: 98b77b58fac12abab963f79f762ceef008c50505
   UMBarCodeScannerInterface: e1299aafa3bede8ba674e84199e9f319a0195cad
   UMCameraInterface: 68da359d6fe7423d7b114b96ea0df268a84da39f

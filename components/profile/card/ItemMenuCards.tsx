@@ -1,9 +1,11 @@
-import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { FunctionComponent } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "react-navigation-hooks";
 
 declare interface ItemMenuCardsProps {
     title: string;
     icon: any;
+    routeName: string;
 }
 
 function elevationShadowStyle(elevation, color) {
@@ -17,10 +19,10 @@ function elevationShadowStyle(elevation, color) {
 }
 
 const styles = StyleSheet.create({
-    shadow: elevationShadowStyle(5, 'black'),
+    shadow: elevationShadowStyle(5, "black"),
     text: {
         fontSize: 18,
-        fontFamily: 'MontserratSemiBold',
+        fontFamily: "MontserratSemiBold",
         flex: 1,
         marginTop: 20
     },
@@ -28,11 +30,11 @@ const styles = StyleSheet.create({
         flex: 1.2
     },
     container: {
-        backgroundColor: 'white',
-        width: '45%',
+        backgroundColor: "white",
+        width: "45%",
         height: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         borderRadius: 10,
         padding: 10
     }
@@ -40,12 +42,15 @@ const styles = StyleSheet.create({
 
 const ItemMenuCard: FunctionComponent<ItemMenuCardsProps> = ({
     title,
-    icon
+    icon,
+    routeName
 }) => {
+    const { navigate } = useNavigation();
     return (
         <TouchableOpacity
             activeOpacity={0.7}
             style={[styles.shadow, styles.container]}
+            onPress={(): boolean => navigate(routeName)}
         >
             <View style={styles.icon}>{icon}</View>
             <Text style={styles.text}>{title}</Text>

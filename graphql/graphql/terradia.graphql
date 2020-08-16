@@ -6,6 +6,14 @@ schema {
     subscription: Subscription
 }
 
+type Card {
+    brand: String!
+    exp_month: Int!
+    exp_year: Int!
+    id: String!
+    last4: String!
+}
+
 type Cart {
     company: Company!
     createdAt: Date
@@ -153,7 +161,9 @@ type Mutation {
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
     createProduct(companyId: String!, companyProductsCategoryId: String, coverId: String, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
+    createStripeCustomer: Boolean!
     defineUserAsCustomer(userId: String!): Customer
+    deleteCard(cardId: String!): Boolean
     deleteCategory(id: String!): Category!
     deleteCompany(companyId: String!): Company!
     deleteCompanyTag(companyTagId: String!): CompanyTag!
@@ -174,6 +184,7 @@ type Mutation {
     removeProductFromCart(cartProductId: ID, productId: ID, quantity: Int!): Int
     removeProductFromCompanyCategory(productId: String!): Product
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
+    saveCard(cardId: String!): Card!
     setActiveCustomerAddress(id: String!): CustomerAddress
     signInWithFacebook(exponentPushToken: String, facebookToken: String!): SigninAnswer!
     signInWithgeneratedCode(code: String!, email: String!, exponentPushToken: String): SigninAnswer!
@@ -255,6 +266,7 @@ type Query {
     getProductsByCompanyByCategory(companyId: String): [Category]!
     getUnit(id: ID, name: String, notation: String): Unit!
     getUser: User
+    listCustomerCards: [Card]
     searchCompanies(query: String!): [Company]
 }
 

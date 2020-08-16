@@ -44,7 +44,6 @@ const Button: FunctionComponent<ButtonProps> = ({
     linearGradientProps,
     loading
 }) => {
-    console.log(linearGradientProps);
     if (linearGradientProps) {
         return (
             <View style={[{ width: "80%", paddingTop: 5, paddingBottom: 5 }]}>

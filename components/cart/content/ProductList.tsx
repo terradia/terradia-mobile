@@ -59,7 +59,7 @@ const ProductList: FunctionComponent = () => {
     const renderHiddenItem = ({ item }) => {
         return (
             <TouchableOpacity
-                onPress={() => {
+                onPress={(): void => {
                     setLoading(true);
                     removeProductFromCart({
                         variables: {
