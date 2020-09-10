@@ -17,11 +17,21 @@ export interface CompanyData {
     geoPosition: GeographicPointData;
     distance: number;
     products: ProductData[];
+    logo: LogoData;
+    cover: LogoData;
+}
+
+interface LogoData {
+    filename: string;
 }
 
 interface ProductsCategoryData {
     name: string;
     products: ProductData[];
+}
+
+interface ProductImageData {
+    companyImage: LogoData;
 }
 
 export interface ProductData {
@@ -32,6 +42,7 @@ export interface ProductData {
     description: string;
     price: number;
     company: CompanyData;
+    cover: ProductImageData;
 }
 
 interface ReviewData {

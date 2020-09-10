@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from "react";
 
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import COMPANY from '../../graphql/company.graphql';
-import getCompany from '../../graphql/getCompany.graphql';
-import { CompanyData } from '@interfaces/Companies';
-import LoadingState from './Loading';
-import GrowerProductsList from './GrowerProductsList';
+import { NavigationStackScreenProps } from "react-navigation-stack";
+import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useLazyQuery, useQuery } from "@apollo/react-hooks";
+import COMPANY from "../../graphql/company.graphql";
+import getCompany from "../../graphql/getCompany.graphql";
+import { CompanyData } from "@interfaces/Companies";
+import LoadingState from "./Loading";
+import GrowerProductsList from "./GrowerProductsList";
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -22,7 +22,7 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
 }) => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
-    const growerId = useNavigationParam('grower');
+    const growerId = useNavigationParam("grower");
     const [company, setCompany] = useState(null);
     const { navigate } = useNavigation();
 
@@ -30,17 +30,17 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
         getCompany: CompanyData;
     }>(getCompany, {
         variables: { id: growerId },
-        fetchPolicy: 'network-only',
+        fetchPolicy: "network-only",
         onCompleted: data => {
             setCompany(data.getCompany);
         },
         onError: error => {
             console.warn(error);
-            navigate('Grower');
+            navigate("Grower");
         }
     });
     useQuery(COMPANY, {
-        fetchPolicy: 'cache-only',
+        fetchPolicy: "cache-only",
         variables: { id: growerId },
         onCompleted: data => {
             if (!data || !data.company) {
@@ -55,14 +55,14 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
         const obj = company.productsCategories.map(function(obj) {
             Object.defineProperty(
                 obj,
-                'title',
-                Object.getOwnPropertyDescriptor(obj, 'name')
+                "title",
+                Object.getOwnPropertyDescriptor(obj, "name")
             );
 
             Object.defineProperty(
                 obj,
-                'data',
-                Object.getOwnPropertyDescriptor(obj, 'products')
+                "data",
+                Object.getOwnPropertyDescriptor(obj, "products")
             );
             return obj;
         });
