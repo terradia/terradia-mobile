@@ -1,5 +1,1 @@
-mutation createCard($cardId: String!) {
-    saveCard(cardId: $cardId) {
-        id
-    }
-}
+c

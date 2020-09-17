@@ -1,14 +1,17 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactElement } from 'react';
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import HeaderAccount from "@components/account/Header";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/CardsListSelector.style";
 import { useNavigation } from "react-navigation-hooks";
 import Visa from "../../assets/svg/visa.svg";
 import { GetCardsReq } from "@interfaces/Wallet";
+import getStripeCustomerDefaultSource from "../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
+import updateCustomerDefaultSource from "../../graphql/wallet/updateCustomerDefaultSOurce.graphql";
+import Cart from './Cart';
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
@@ -25,6 +28,10 @@ const Icons = {
 const CardsListSelector: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const { data: cards } = useQuery<GetCardsReq>(ListCustomerCards);
+    const { data: defaultSource, refetch } = useQuery(
+        getStripeCustomerDefaultSource
+    );
+    const [updateCustomerSource] = useMutation(updateCustomerDefaultSource);
     const _formatExpiry = (month, year): string => {
         const newMonth = month.length === 1 ? "0" + month : month;
         const newYear = year.substr(2, 4);
@@ -44,17 +51,13 @@ const CardsListSelector: FunctionComponent = () => {
                         <TouchableOpacity
                             style={styles.subFieldContainer}
                             key={val.id}
-                            onPress={(): boolean =>
-                                navigate("CardDisplay", {
-                                    number: val.last4,
-                                    expiry: _formatExpiry(
-                                        val.exp_month.toString(),
-                                        val.exp_year.toString()
-                                    ),
-                                    brand: val.brand,
-                                    cardId: val.id
-                                })
-                            }
+                            onPress={() => {
+                                updateCustomerSource({
+                                    variables: { cardId: val.id }
+                                }).then(() => {
+                                    refetch();
+                                });
+                            }}
                         >
                             <View style={styles.cardInfoContainer}>
                                 <Image
@@ -65,7 +68,16 @@ const CardsListSelector: FunctionComponent = () => {
                                     {val.last4}
                                 </Text>
                             </View>
-                            <Entypo name="chevron-right" size={27} />
+                            {defaultSource &&
+                                defaultSource.getStripeCustomerDefaultSource &&
+                                defaultSource.getStripeCustomerDefaultSource
+                                    .id === val.id && (
+                                    <AntDesign
+                                        name="check"
+                                        size={24}
+                                        color="green"
+                                    />
+                                )}
                         </TouchableOpacity>
                     ))}
                 <TouchableOpacity
@@ -80,6 +92,12 @@ const CardsListSelector: FunctionComponent = () => {
             </View>
         </View>
     );
+};
+
+CardsListSelector.navigationOptions = {
+    headerMode: "none",
+    header: (): ReactElement => null,
+    tabBarVisible: false
 };
 
 export default CardsListSelector;

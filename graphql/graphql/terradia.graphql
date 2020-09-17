@@ -90,6 +90,10 @@ type CompanyOpeningDayHours {
     startTime: Date!
 }
 
+type CompanyProductImage {
+    companyImage: CompanyImage!
+}
+
 type CompanyProductsCategory {
     company: Company!
     id: ID!
@@ -208,7 +212,7 @@ type Product {
     categories: [Category]
     company: Company
     companyProductsCategory: CompanyProductsCategory
-    cover: CompanyImage
+    cover: CompanyProductImage
     createdAt: Date
     customerBasketProducts: [CartProduct]
     description: String!

@@ -31,14 +31,19 @@ const styles = StyleSheet.create({
     totalPrice: {
         fontFamily: "MontserratBold",
         fontSize: 16,
-        color: "#8FDD3D",
+        color: "white",
         marginLeft: 10
     },
     priceContainer: {
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
+        alignItems: "center",
         flexDirection: "row",
-        marginTop: 30,
-        marginBottom: 20
+        marginBottom: 20,
+        backgroundColor: "#8FDD3D",
+        height: 40,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 10
     },
     rightAction: {
         alignItems: "center",
@@ -111,6 +116,14 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginTop: 10
     },
+    priceTotalContainer: {
+        flexDirection: "row"
+    },
+    orderButton: {
+        color: "white",
+        fontFamily: "MontserratBold",
+        fontSize: 14
+    }
 });
 
 export default styles;

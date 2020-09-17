@@ -135,12 +135,15 @@ const ProductList: FunctionComponent = () => {
                 previewOpenValue={-75}
                 stopRightSwipe={-100}
             />
-            <View style={styles.priceContainer}>
-                <Text style={styles.total}>Total</Text>
-                <Text style={styles.totalPrice}>
-                    {data.getCart.totalPrice.toFixed(2)} $
-                </Text>
-            </View>
+            <TouchableOpacity style={styles.priceContainer}>
+                <Text style={styles.orderButton}>Commander</Text>
+                <View style={styles.priceTotalContainer}>
+                    <Text style={styles.total}>Total</Text>
+                    <Text style={styles.totalPrice}>
+                        {data.getCart.totalPrice.toFixed(2)} $
+                    </Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };
