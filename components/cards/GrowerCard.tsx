@@ -63,7 +63,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                         size={100}
                         rounded
                         source={{
-                            uri: grower.logo ? "https://media.terradia.eu/" + grower.logo.filename : "https://media.terradia.eu/e54c3df65d050d30b1bd7dda18bd3a36.jpg"                        }}
+                            uri: grower.logo ? "https://media.terradia.eu/" + grower.logo.filename : "https://media.terradia.eu/004db8bed04bd7fcb8e717611f794ad0.png"                        }}
                         containerStyle={[style.shadow1, style.growerImage]}
                     />
                     <Text style={style.growerName}>{grower.name}</Text>

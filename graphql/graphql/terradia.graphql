@@ -90,10 +90,6 @@ type CompanyOpeningDayHours {
     startTime: Date!
 }
 
-type CompanyProductImage {
-    companyImage: CompanyImage!
-}
-
 type CompanyProductsCategory {
     company: Company!
     id: ID!
@@ -196,6 +192,7 @@ type Mutation {
     updateCompany(companyId: ID!, newValues: CompanyUpdateInput): Company!
     updateCompanyImageName(imageId: ID!, name: String!): CompanyImage
     updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
+    updateCustomerDefaultSource(cardId: String!): Boolean
     updateOpeningDay(hours: [ScheduleInput], openingDayId: String!): CompanyOpeningDay!
     updateOpeningHours(hourId: String!, hours: ScheduleInput!): CompanyOpeningDayHours!
     updateProduct(coverId: String, description: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
@@ -211,7 +208,7 @@ type Product {
     categories: [Category]
     company: Company
     companyProductsCategory: CompanyProductsCategory
-    cover: CompanyProductImage
+    cover: CompanyImage
     createdAt: Date
     customerBasketProducts: [CartProduct]
     description: String!
@@ -268,6 +265,8 @@ type Query {
     getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!
     getProductsByCompanyByCategory(companyId: String): [Category]!
+    getStripeCustomer: StripeCustomer
+    getStripeCustomerDefaultSource: Card
     getUnit(id: ID, name: String, notation: String): Unit!
     getUser: User
     listCustomerCards: [Card]
@@ -291,6 +290,11 @@ type SignupAnswer {
     message: String!
     token: String!
     userId: String!
+}
+
+type StripeCustomer {
+    default_source: String!
+    id: String!
 }
 
 type Subscription {

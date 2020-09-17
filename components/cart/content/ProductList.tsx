@@ -1,16 +1,17 @@
-import React, { FunctionComponent, ReactElement, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './styles/ProductList.style';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import getCart from '../../../graphql/cart/getCart.graphql';
-import ProductListItem from '@components/cart/content/ProductListItem';
-import Spinner from 'react-native-loading-spinner-overlay';
-import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
-import RemoveProductFromCart from '../../../graphql/cart/removeProductFromCart.graphql';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import AddressInformation from '@components/cart/content/AddressInformations';
-import DeliveryDate from '@components/cart/content/DeliveryDate';
-import i18n from '@i18n/i18n';
+import React, { FunctionComponent, ReactElement, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import styles from "./styles/ProductList.style";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import getCart from "../../../graphql/cart/getCart.graphql";
+import ProductListItem from "@components/cart/content/ProductListItem";
+import Spinner from "react-native-loading-spinner-overlay";
+import AddProductToCart from "../../../graphql/cart/addProductToCart.graphql";
+import RemoveProductFromCart from "../../../graphql/cart/removeProductFromCart.graphql";
+import { SwipeListView } from "react-native-swipe-list-view";
+import AddressInformation from "@components/cart/content/AddressInformations";
+import DeliveryDate from "@components/cart/content/DeliveryDate";
+import i18n from "@i18n/i18n";
+import PaymentMethod from "@components/cart/content/PaymentMethod";
 
 const ProductList: FunctionComponent = () => {
     const [dataLoading, setLoading] = useState(false);
@@ -82,12 +83,12 @@ const ProductList: FunctionComponent = () => {
         return (
             <Text
                 style={{
-                    alignSelf: 'center',
-                    fontFamily: 'MontserratSemiBold',
-                    color: '#575757'
+                    alignSelf: "center",
+                    fontFamily: "MontserratSemiBold",
+                    color: "#575757"
                 }}
             >
-                {i18n.t('cart.cartEmpty')}
+                {i18n.t("cart.cartEmpty")}
             </Text>
         );
     }
@@ -96,8 +97,8 @@ const ProductList: FunctionComponent = () => {
         <View style={styles.container}>
             <Spinner
                 visible={dataLoading}
-                textContent={i18n.t('loading')}
-                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+                textContent={i18n.t("loading")}
+                textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <SwipeListView
                 ListHeaderComponent={(): ReactElement => {
@@ -106,8 +107,15 @@ const ProductList: FunctionComponent = () => {
                             <AddressInformation cart={data.getCart} />
                             <DeliveryDate />
                             <Text style={styles.title}>
-                                {i18n.t('cart.yourOrder')}
+                                {i18n.t("cart.yourOrder")}
                             </Text>
+                        </View>
+                    );
+                }}
+                ListFooterComponent={(): ReactElement => {
+                    return (
+                        <View style={styles.bottomList}>
+                            <PaymentMethod />
                         </View>
                     );
                 }}
@@ -122,7 +130,7 @@ const ProductList: FunctionComponent = () => {
                 closeOnRowBeginSwipe
                 closeOnScroll
                 closeOnRowPress
-                previewRowKey={'0'}
+                previewRowKey={"0"}
                 previewDuration={500}
                 previewOpenValue={-75}
                 stopRightSwipe={-100}

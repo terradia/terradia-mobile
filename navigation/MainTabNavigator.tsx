@@ -12,6 +12,7 @@ import WalletScreen from "../screens/profile/Wallet";
 import CardEditorScreen from "../screens/profile/CardEditor";
 import CardDisplayScreen from "../screens/profile/CardDisplay";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
+import CardListSelectorScreen from "../screens/growers/CardsListSelector";
 import { createStackNavigator } from "react-navigation-stack";
 import i18n from "@i18n/i18n";
 
@@ -33,6 +34,10 @@ const GrowerStack = createStackNavigator(
         Cart: {
             screen: CartScreen,
             path: "cart"
+        },
+        CardsListSelector: {
+            screen: CardListSelectorScreen,
+            path: "CardsList"
         }
     },
     {

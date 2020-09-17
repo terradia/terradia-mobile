@@ -57,7 +57,8 @@ export default {
         updateProduct: "Mettre à jour le produit",
         addComment: "Ajouter un commentaire",
         yourOrder: "Votre commande",
-        cartEmpty: "Vous n'avez pas de produit dans votre panier"
+        cartEmpty: "Vous n'avez pas de produit dans votre panier",
+        paymentMethod: "Moyen de paiment"
     },
     accountScreen: {
         updateFirstName: "Mettre à jour le prénom",
