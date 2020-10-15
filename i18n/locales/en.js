@@ -58,7 +58,9 @@ export default {
         addComment: "Add comment",
         yourOrder: "Your order",
         cartEmpty: "Your cart is empty",
-        paymentMethod: "Payment method"
+        paymentMethod: "Payment method",
+        total: "Total",
+        orderNow: "Order now"
     },
     accountScreen: {
         updateFirstName: "Update first name",
@@ -102,5 +104,10 @@ export default {
         accountRecovery: "Account recovery",
         invalidEmail: "Invalid email",
         InvalidCodeOrEmail: "Invalid Code or email"
+    },
+    profileScreen: {
+        myCart: "My cart",
+        myOrders: "My orders",
+        myWallet: "My wallet"
     }
 };

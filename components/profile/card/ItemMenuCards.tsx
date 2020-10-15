@@ -21,7 +21,7 @@ function elevationShadowStyle(elevation, color) {
 const styles = StyleSheet.create({
     shadow: elevationShadowStyle(5, "black"),
     text: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: "MontserratSemiBold",
         flex: 1,
         marginTop: 20
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: "white",
-        width: "45%",
+        width: "48%",
         height: 100,
         alignItems: "center",
         justifyContent: "center",

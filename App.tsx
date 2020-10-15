@@ -44,10 +44,9 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: "https://28639c73a8a6.ngrok.io" + "/graphql",
+    uri: "http://localhost:8000" + "/graphql",
     fetch: fetch
 });
-console.log("Hello lol");
 
 const authLink = setContext(async (_, { headers }) => {
     const token = await AsyncStorage.getItem("token");
@@ -132,10 +131,12 @@ function handleFinishLoading(setLoadingComplete): void {
     setLoadingComplete(true);
 }
 
+// import { YellowBox } from "react-native";
+
 export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
     const SimpleApp = AppNavigator;
-
+    // YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
     loadResourcesAsync().then(() => {
         setLoadingComplete(true);
     });

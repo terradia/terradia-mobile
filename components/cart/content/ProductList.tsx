@@ -136,11 +136,13 @@ const ProductList: FunctionComponent = () => {
                 stopRightSwipe={-100}
             />
             <TouchableOpacity style={styles.priceContainer}>
-                <Text style={styles.orderButton}>Commander</Text>
+                <Text style={styles.orderButton}>
+                    {i18n.t("cart.orderNow")}
+                </Text>
                 <View style={styles.priceTotalContainer}>
-                    <Text style={styles.total}>Total</Text>
+                    <Text style={styles.total}>{i18n.t("cart.total")}</Text>
                     <Text style={styles.totalPrice}>
-                        {data.getCart.totalPrice.toFixed(2)} $
+                        {data.getCart.totalPrice.toFixed(2)} €
                     </Text>
                 </View>
             </TouchableOpacity>

@@ -27,7 +27,10 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
             >
                 <Image
                     source={{
-                        uri: grower.cover ? "https://media.terradia.eu/" + grower.cover.filename : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
+                        uri: grower.cover
+                            ? "https://media.terradia.eu/" +
+                              grower.cover.filename
+                            : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                     }}
                     style={style.backgroundImage}
                 />
@@ -63,8 +66,13 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                         size={100}
                         rounded
                         source={{
-                            uri: grower.logo ? "https://media.terradia.eu/" + grower.logo.filename : "https://media.terradia.eu/004db8bed04bd7fcb8e717611f794ad0.png"                        }}
+                            uri: grower.logo
+                                ? "https://media.terradia.eu/" +
+                                  grower.logo.filename
+                                : "https://media.terradia.eu/004db8bed04bd7fcb8e717611f794ad0.png"
+                        }}
                         containerStyle={[style.shadow1, style.growerImage]}
+                        imageProps={{ resizeMode: "contain" }}
                     />
                     <Text style={style.growerName}>{grower.name}</Text>
                 </View>
@@ -89,7 +97,8 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                             </View>
                             {grower.distance && (
                                 <Text style={style.bottomInformationDistance}>
-                                    ~{grower.distance.toFixed(2) + " km"}
+                                    {(grower.distance / 1000).toFixed(2) +
+                                        " km"}
                                 </Text>
                             )}
                             <Text style={style.bottomInformationDistance}>

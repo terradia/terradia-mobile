@@ -5,6 +5,7 @@ import Star from "../../../assets/images/star.svg";
 import Cart from "../../../assets/images/cart.svg";
 import Receipt from "../../../assets/images/receipt.svg";
 import Wallet from "../../../assets/images/wallet.svg";
+import i18n from "@i18n/i18n";
 
 const styles = StyleSheet.create({
     menuContainers: {
@@ -20,14 +21,14 @@ const MenuCard: FunctionComponent = () => {
         <View style={{ marginTop: 21 }}>
             <View style={styles.menuContainers}>
                 <ItemMenuCards
-                    title={"Mon panier"}
+                    title={i18n.t("profileScreen.myCart")}
                     icon={<Cart />}
-                    routeName={""}
+                    routeName={"Cart"}
                 />
                 <ItemMenuCards
-                    title={"Mes recus"}
+                    title={i18n.t("profileScreen.myOrders")}
                     icon={<Receipt />}
-                    routeName={""}
+                    routeName={"Orders"}
                 />
             </View>
             <View style={styles.menuContainers}>
@@ -37,7 +38,7 @@ const MenuCard: FunctionComponent = () => {
                     routeName={""}
                 />
                 <ItemMenuCards
-                    title={"Porte feuille"}
+                    title={i18n.t("profileScreen.myWallet")}
                     icon={<Wallet />}
                     routeName={"Wallet"}
                 />

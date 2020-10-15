@@ -58,7 +58,9 @@ export default {
         addComment: "Ajouter un commentaire",
         yourOrder: "Votre commande",
         cartEmpty: "Vous n'avez pas de produit dans votre panier",
-        paymentMethod: "Moyen de paiment"
+        paymentMethod: "Moyen de paiement",
+        total: "Total",
+        orderNow: "Commander"
     },
     accountScreen: {
         updateFirstName: "Mettre à jour le prénom",
@@ -109,5 +111,10 @@ export default {
         cardNumber: "Numéro de carte",
         expiry: "Éxpiration",
         addCard: "Ajouter la carte"
+    },
+    profileScreen: {
+        myCart: "Mon panier",
+        myOrders: "Mes commandes",
+        myWallet: "Mon porte feuille"
     }
 };
