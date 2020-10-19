@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from "react";
-import { Dimensions, View, StyleSheet } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
+import React, { FunctionComponent, ReactElement } from "react";
+import { Dimensions, View, StyleSheet, Text } from "react-native";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import styles from "./styles/Orders.style";
+import UpcomingList from "@components/orders/upcoming/UpcomingList";
 
 import HeaderAccount from "@components/account/Header";
 const FirstRoute = () => (
@@ -21,15 +23,35 @@ const Orders: FunctionComponent = () => {
     ]);
 
     const renderScene = SceneMap({
-        first: FirstRoute,
+        first: UpcomingList,
         second: SecondRoute
     });
-
+    const renderTabBar = props => (
+        <TabBar
+            {...props}
+            indicatorStyle={{ backgroundColor: "#5CC04A" }}
+            style={{
+                backgroundColor: "transparent"
+            }}
+            renderLabel={({ route, focused }): ReactElement => {
+                return focused ? (
+                    <View style={{ flexDirection: "column" }}>
+                        <Text style={styles.textRouteFocused}>
+                            {route.title}
+                        </Text>
+                    </View>
+                ) : (
+                    <Text style={styles.textNotFocused}>{route.title}</Text>
+                );
+            }}
+        />
+    );
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <HeaderAccount title={"Mes commandes"} />
             <TabView
                 navigationState={{ index, routes }}
+                renderTabBar={renderTabBar}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={initialLayout}
@@ -37,9 +59,4 @@ const Orders: FunctionComponent = () => {
         </View>
     );
 };
-const styles = StyleSheet.create({
-    scene: {
-        flex: 1
-    }
-});
 export default Orders;
