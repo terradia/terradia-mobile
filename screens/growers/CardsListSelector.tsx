@@ -1,20 +1,20 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import HeaderAccount from "@components/account/Header";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/CardsListSelector.style";
 import { useNavigation } from "react-navigation-hooks";
-import Visa from "../../assets/svg/visa.svg";
 import { GetCardsReq } from "@interfaces/Wallet";
 import getStripeCustomerDefaultSource from "../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 import updateCustomerDefaultSource from "../../graphql/wallet/updateCustomerDefaultSOurce.graphql";
-import Cart from './Cart';
+import Spinner from "react-native-loading-spinner-overlay";
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
+    // eslint-disable-next-line @typescript-eslint/camelcase
     cvc_amex: require("../../assets/icons/stp_card_cvc_amex.png"),
     "american-express": require("../../assets/icons/stp_card_amex.png"),
     "diners-club": require("../../assets/icons/stp_card_diners.png"),
@@ -28,18 +28,28 @@ const Icons = {
 const CardsListSelector: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const { data: cards } = useQuery<GetCardsReq>(ListCustomerCards);
-    const { data: defaultSource, refetch } = useQuery(
-        getStripeCustomerDefaultSource
+    const { data: defaultSource, refetch, networkStatus } = useQuery(
+        getStripeCustomerDefaultSource,
+        {
+            notifyOnNetworkStatusChange: true
+        }
     );
-    const [updateCustomerSource] = useMutation(updateCustomerDefaultSource);
+    const [updateCustomerSource, { loading: isUpdating }] = useMutation(
+        updateCustomerDefaultSource
+    );
     const _formatExpiry = (month, year): string => {
         const newMonth = month.length === 1 ? "0" + month : month;
         const newYear = year.substr(2, 4);
         return newMonth + "/" + newYear;
     };
     return (
-        <View>
-            <HeaderAccount title={"Mon porte feuille"} />
+        <>
+            <Spinner
+                visible={isUpdating || networkStatus === 4}
+                textContent={i18n.t("loading")}
+                textStyle={{ fontFamily: "MontserratSemiBold" }}
+            />
+            <HeaderAccount title={"Mon porte feuille"} backButton={true} />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>
@@ -90,10 +100,12 @@ const CardsListSelector: FunctionComponent = () => {
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </>
     );
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 CardsListSelector.navigationOptions = {
     headerMode: "none",
     header: (): ReactElement => null,

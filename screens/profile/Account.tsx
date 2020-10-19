@@ -30,7 +30,7 @@ const Account: FunctionComponent = () => {
                 setCurrentEditing={setCurrentEditing}
                 initialValue={initialValue}
             />
-            <HeaderAccount title={"Mon compte"} />
+            <HeaderAccount title={"Mon compte"} backButton={true} />
             <View style={styles.imageContainer}>
                 <AccountImage me={me && me.getUser} />
             </View>

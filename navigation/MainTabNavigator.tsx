@@ -13,7 +13,7 @@ import CardEditorScreen from "../screens/profile/CardEditor";
 import CardDisplayScreen from "../screens/profile/CardDisplay";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
 import CardListSelectorScreen from "../screens/growers/CardsListSelector";
-import OrdersScreen from '../screens/orders/Orders';
+import OrdersScreen from "../screens/orders/Orders";
 import { createStackNavigator } from "react-navigation-stack";
 import i18n from "@i18n/i18n";
 
@@ -85,9 +85,9 @@ SearchStack.navigationOptions = ({ navigation }) => ({
     tabBarVisible: navigation.state.index < 1,
     tabBarIcon: ({ focused }) => {
         const image = focused
-            ? require("../assets/images/TabBarNavigation/Products/active.png")
-            : require("../assets/images/TabBarNavigation/Products/inactive.png");
-        return <Image source={image} />;
+            ? require("../assets/images/TabBarNavigation/search/active.png")
+            : require("../assets/images/TabBarNavigation/search/inactive.png");
+        return <Image source={image} style={{ height: 25, width: 25 }} />;
     }
 });
 
@@ -121,7 +121,7 @@ ProfileStack.navigationOptions = ({ navigation }) => {
         const image = focused
             ? require("../assets/images/TabBarNavigation/Profil/active.png")
             : require("../assets/images/TabBarNavigation/Profil/inactive.png");
-        return <Image source={image} />;
+        return <Image source={image} style={{ width: 25, height: 34 }} />;
     };
     return {
         tabBarLabel,
@@ -131,10 +131,55 @@ ProfileStack.navigationOptions = ({ navigation }) => {
     };
 };
 
+const OrdersStack = createStackNavigator(
+    {
+        Orders: OrdersScreen,
+        GrowersProducts: {
+            screen: GrowersProductsScreen
+        },
+        Product: {
+            screen: ProductScreen
+        },
+        Feedback: {
+            screen: FeedbackScreen
+        },
+        Cart: {
+            screen: CartScreen
+        },
+        CardsListSelector: {
+            screen: CardListSelectorScreen
+        }
+    },
+    {
+        headerMode: "none"
+    }
+);
+
+OrdersStack.navigationOptions = ({ navigation }) => {
+    const tabBarLabel = "Commandes";
+    const tabBarOptions = {
+        activeTintColor: "#5CC04A",
+        inactiveTintColor: "#ccc"
+    };
+
+    const tabBarIcon = ({ focused }): ReactElement => {
+        const image = focused
+            ? require("../assets/images/TabBarNavigation/Products/active.png")
+            : require("../assets/images/TabBarNavigation/Products/inactive.png");
+        return <Image source={image} />;
+    };
+    return {
+        tabBarLabel,
+        tabBarIcon,
+        tabBarOptions
+    };
+};
+
 const tabNavigator = createBottomTabNavigator(
     {
         GrowerStack,
         SearchStack,
+        OrdersStack,
         ProfileStack
     },
     {}

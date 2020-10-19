@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         fontFamily: "MontserratBold",
         fontSize: 16,
         color: "#575757",
-        marginBottom: 30
+        marginBottom: 10
     },
     itemGreen: {
         fontFamily: "MontserratSemiBold",
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
         height: 50
     },
     bottomList: {
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 50
     },
     cardInfoContainer: {
         flexDirection: "row",

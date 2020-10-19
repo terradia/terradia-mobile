@@ -26,7 +26,7 @@ const PaymentMethod: FunctionComponent = () => {
             <Text style={styles.title}>{i18n.t("cart.paymentMethod")}</Text>
             {defaultSource && defaultSource.getStripeCustomerDefaultSource && (
                 <TouchableOpacity
-                    style={styles.subFieldContainer}
+                    style={[styles.subFieldContainer, { marginBottom: 40 }]}
                     onPress={() => {
                         navigate("CardsListSelector");
                     }}

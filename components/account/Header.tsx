@@ -6,23 +6,33 @@ import { useNavigation } from "react-navigation-hooks";
 
 declare interface HeaderAccountProps {
     title: string;
+    backButton: boolean;
     back?: () => void;
 }
 
 const HeaderAccount: FunctionComponent<HeaderAccountProps> = ({
     title,
-    back
+    back,
+    backButton
 }) => {
     const { goBack } = useNavigation();
     return (
         <Header
             placement="left"
             leftComponent={
-                <TouchableOpacity
-                    onPress={(): void | boolean => (back ? back() : goBack())}
-                >
-                    <Feather name="arrow-left" size={24} color={"#202020"} />
-                </TouchableOpacity>
+                backButton === true ? (
+                    <TouchableOpacity
+                        onPress={(): void | boolean =>
+                            back ? back() : goBack()
+                        }
+                    >
+                        <Feather
+                            name="arrow-left"
+                            size={24}
+                            color={"#202020"}
+                        />
+                    </TouchableOpacity>
+                ) : null
             }
             centerComponent={{
                 text: title,

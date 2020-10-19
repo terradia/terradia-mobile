@@ -7,12 +7,12 @@ import { useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./style/CardsListSelector.style";
 import { useNavigation } from "react-navigation-hooks";
-import Visa from "../../assets/svg/visa.svg";
 import { GetCardsReq } from "@interfaces/Wallet";
 import getStripeCustomerDefaultSource from "../../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
+    // eslint-disable-next-line @typescript-eslint/camelcase
     cvc_amex: require("../../assets/icons/stp_card_cvc_amex.png"),
     "american-express": require("../../assets/icons/stp_card_amex.png"),
     "diners-club": require("../../assets/icons/stp_card_diners.png"),
@@ -35,7 +35,7 @@ const CardsListSelector: FunctionComponent = () => {
     console.log(defaultSource);
     return (
         <View>
-            <HeaderAccount title={"Mon porte feuille"} />
+            <HeaderAccount title={"Mon porte feuille"} backButton={false} />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>
@@ -69,7 +69,6 @@ const CardsListSelector: FunctionComponent = () => {
                                     )}
                         </TouchableOpacity>
                     ))}
-
             </View>
         </View>
     );

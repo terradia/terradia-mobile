@@ -145,7 +145,6 @@ declare interface RenderImageProps {
 export const renderImageBackground: FunctionComponent<RenderImageProps> = ({
     grower
 }) => {
-    console.log(grower);
     return (
         <View>
             <Image
