@@ -1,5 +1,11 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Image,
+    ActivityIndicator
+} from "react-native";
 import HeaderAccount from "@components/account/Header";
 import { AntDesign } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
@@ -27,7 +33,9 @@ const Icons = {
 
 const CardsListSelector: FunctionComponent = () => {
     const { navigate } = useNavigation();
-    const { data: cards } = useQuery<GetCardsReq>(ListCustomerCards);
+    const { data: cards, loading: loadingCards } = useQuery<GetCardsReq>(
+        ListCustomerCards
+    );
     const { data: defaultSource, refetch, networkStatus } = useQuery(
         getStripeCustomerDefaultSource,
         {
@@ -55,6 +63,9 @@ const CardsListSelector: FunctionComponent = () => {
                 <Text style={styles.fieldTitle}>
                     {i18n.t("walletScreen.paymentMethods")}
                 </Text>
+                {loadingCards && (
+                    <ActivityIndicator color={"#5CC04A"} size={"large"} />
+                )}
                 {cards &&
                     cards.listCustomerCards.length > 0 &&
                     cards.listCustomerCards.map(val => (

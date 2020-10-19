@@ -41,7 +41,7 @@ const CardEditor: FunctionComponent = () => {
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
 
-            <HeaderAccount title={"Ma carte"} />
+            <HeaderAccount title={"Ma carte"} backButton={true} />
             <View style={{ alignItems: "center" }}>
                 <CreditCardDisplay
                     number={number}

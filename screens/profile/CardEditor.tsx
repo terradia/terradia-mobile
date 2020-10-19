@@ -64,7 +64,10 @@ const CardEditor: FunctionComponent = () => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <HeaderAccount title={"Editer/ajouter une carte"} />
+            <HeaderAccount
+                title={"Editer/ajouter une carte"}
+                backButton={true}
+            />
             <CreditCardInput
                 onChange={_onChange}
                 allowScroll={true}
