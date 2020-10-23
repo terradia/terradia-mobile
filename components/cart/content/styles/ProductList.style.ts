@@ -128,6 +128,10 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: "MontserratBold",
         fontSize: 16
+    },
+    modalContainer: {
+        justifyContent: "flex-end",
+        margin: 0
     }
 });
 

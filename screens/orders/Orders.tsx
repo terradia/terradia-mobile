@@ -48,7 +48,7 @@ const Orders: FunctionComponent = () => {
     );
     return (
         <View style={{ flex: 1 }}>
-            <HeaderAccount title={"Mes commandes"} />
+            <HeaderAccount title={"Mes commandes"} backButton={false} />
             <TabView
                 navigationState={{ index, routes }}
                 renderTabBar={renderTabBar}

@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { View } from 'react-native';
-import Modal from 'react-native-modal';
-import QuantityContent from '@components/cart/quantity/QuantityContent';
-import styles from './styles/QuantityModal.style';
+import React, { FunctionComponent } from "react";
+import { View } from "react-native";
+import Modal from "react-native-modal";
+import QuantityContent from "@components/cart/quantity/QuantityContent";
+import styles from "./styles/QuantityModal.style";
 
 declare interface QuantityModalProps {
     isModalOpen: boolean;
@@ -23,7 +23,7 @@ const QuantityModal: FunctionComponent<QuantityModalProps> = ({
         <Modal
             isVisible={isModalOpen}
             style={styles.modalContainer}
-            swipeDirection={['down']}
+            swipeDirection={["down"]}
             onSwipeComplete={(): void => setModalOpen(false)}
             coverScreen={true}
             animationOutTiming={90}

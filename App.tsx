@@ -44,7 +44,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: "https://62c9ba843b5e.ngrok.io" + "/graphql",
+    uri: "https://02a4ccdbe876.ngrok.io" + "/graphql",
     fetch: fetch
 });
 

@@ -134,6 +134,7 @@ ProfileStack.navigationOptions = ({ navigation }) => {
 const OrdersStack = createStackNavigator(
     {
         Orders: OrdersScreen,
+        Grower: GrowersScreen,
         GrowersProducts: {
             screen: GrowersProductsScreen
         },
