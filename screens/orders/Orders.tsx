@@ -3,15 +3,9 @@ import { Dimensions, View, StyleSheet, Text } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import styles from "./styles/Orders.style";
 import UpcomingList from "@components/orders/upcoming/UpcomingList";
+import PastList from "@components/orders/past/PastList";
 
 import HeaderAccount from "@components/account/Header";
-const FirstRoute = () => (
-    <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
-);
-
-const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
-);
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -19,12 +13,12 @@ const Orders: FunctionComponent = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: "first", title: "En cours" },
-        { key: "second", title: "Historique" }
+        { key: "second", title: "Passées" }
     ]);
 
     const renderScene = SceneMap({
         first: UpcomingList,
-        second: SecondRoute
+        second: PastList
     });
     const renderTabBar = props => (
         <TabBar

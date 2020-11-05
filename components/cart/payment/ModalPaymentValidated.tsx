@@ -1,49 +1,39 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { View, Text } from "react-native";
 import styles from "./style/ModalPaymentValidated";
 import LottieView from "lottie-react-native";
 import { useNavigation } from "react-navigation-hooks";
+import i18n from "@i18n/i18n";
 
 declare interface ModalPaymentValidatedProps {
     setIsValidated: (boolean) => void;
 }
 
-const ModalPaymentValidated: FunctionComponent<ModalPaymentValidatedProps> = ({setIsValidated}) => {
+const ModalPaymentValidated: FunctionComponent<ModalPaymentValidatedProps> = ({
+    setIsValidated
+}) => {
     const lottieRef = useRef(null);
     const { navigate } = useNavigation();
+
     useEffect(() => {
         lottieRef.current.play();
     }, []);
+
     return (
-        <View
-            style={{
-                backgroundColor: "#F3F3F3",
-                height: 350,
-                justifyContent: "space-between",
-                borderRadius: 10,
-                paddingTop: 5
-            }}
-        >
+        <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.titleText}>
-                    Votre commande a été acceptée
+                    {i18n.t("cart.orderAccepted")}
                 </Text>
                 <LottieView
                     ref={lottieRef}
                     loop={false}
-                    onAnimationFinish={(): boolean => {
-                        console.log("Animations términée");
+                    onAnimationFinish={(): void => {
                         setIsValidated(false);
                         navigate("Orders");
                     }}
-                    style={{
-                        width: 200,
-                        height: 200,
-                        backgroundColor: "transparent"
-                    }}
+                    style={styles.lottieAnimation}
                     source={require("../../../assets/json/33028-input-validation-correct.json")}
-                    // OR find more Lottie files @ https://lottiefiles.com/featured
-                    // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
                 />
             </View>
         </View>

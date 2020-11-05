@@ -1,32 +1,28 @@
 import React, { FunctionComponent } from "react";
-import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
-import style from "./styles/UpcomingCard.style";
+import style from "./styles/PastCard.style";
 import { NavigationParams } from "react-navigation";
-import UpcomingCardContent from "./UpcomingCardContent";
+import PastCardContent from "./PastCardContent";
 
-import { CompanyData } from "@interfaces/Companies";
 import i18n from "@i18n/i18n";
 import { useNavigation } from "react-navigation-hooks";
-import { OrderData } from "@interfaces/Orders";
+import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 
 declare interface GrowerCard {
     navigation?: NavigationParams;
-    order?: OrderData;
+    order?: OrderHistoryData;
 }
 
-const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
+const PastCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
     const { navigate } = useNavigation();
     return (
         <View style={style.mainContainer}>
             <View style={[style.wrapper, style.shadow1]}>
                 <Image
                     source={{
-                        uri: order.company.cover
-                            ? "https://media.terradia.eu/" +
-                              order.company.cover.filename
-                            : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
+                        uri:
+                            "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                     }}
                     style={style.backgroundImage}
                 />
@@ -36,9 +32,9 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                         size={100}
                         rounded
                         source={{
-                            uri: order.company.logo
+                            uri: order.companyLogo
                                 ? "https://media.terradia.eu/" +
-                                  order.company.logo.filename
+                                  order.companyLogo
                                 : "https://media.terradia.eu/004db8bed04bd7fcb8e717611f794ad0.png"
                         }}
                         containerStyle={[style.shadow1, style.growerImage]}
@@ -52,13 +48,13 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                         }}
                     >
                         <Text style={style.growerName}>
-                            {order.company.name}
+                            {order.companyName}
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.4}
                             onPress={(): boolean =>
                                 navigate("GrowersProducts", {
-                                    grower: order.company.id
+                                    grower: order.companyId
                                 })
                             }
                         >
@@ -69,11 +65,11 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                     </View>
                 </View>
                 <View style={style.bottomView}>
-                    <UpcomingCardContent order={order} />
+                    <PastCardContent order={order} />
                 </View>
             </View>
         </View>
     );
 };
 
-export default UpcomingCardHeader;
+export default PastCardHeader;

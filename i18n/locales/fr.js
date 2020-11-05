@@ -60,7 +60,8 @@ export default {
         cartEmpty: "Vous n'avez pas de produit dans votre panier",
         paymentMethod: "Moyen de paiement",
         total: "Total",
-        orderNow: "Commander"
+        orderNow: "Commander",
+        orderAccepted: "Votre commande a été accéptée"
     },
     accountScreen: {
         updateFirstName: "Mettre à jour le prénom",
@@ -116,5 +117,19 @@ export default {
         myCart: "Mon panier",
         myOrders: "Mes commandes",
         myWallet: "Mon porte feuille"
+    },
+    orders: {
+        order: "Commande",
+        pending: "En cours d'acceptation",
+        orderAccepted: "Commande accéptée",
+        scheduleWaiting: "Horaires disponibles une fois la commande acceptée",
+        productsNumbers: "Nombre de produits",
+        total: "Total : ",
+        viewOrder: "Voir la commande",
+        clickHereToOpen: "Cliquer ici pour afficher le producteur",
+        orderFinished: "Order finished",
+        receivedOn: "Réception le :",
+        rateOrder: "Noter la commande",
+        viewReceipt: "Voir le reçu"
     }
 };

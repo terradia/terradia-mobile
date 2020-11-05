@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, ReactElement, useState } from "react";
 import {
     FlatList,
     View,
@@ -6,24 +6,30 @@ import {
     TouchableOpacity,
     RefreshControl
 } from "react-native";
-import UpcomingCardHeader from "./UpcomingCardHeader";
+import PastCardHeader from "./PastCardHeader";
 import { useNavigation } from "react-navigation-hooks";
 import { useQuery } from "@apollo/react-hooks";
-import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
-import { OrderData } from "@interfaces/Orders";
+import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
+import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 
-interface GetMyOrdersData {
-    getMyOrders: [OrderData];
+interface GetMyOrdersHistoriesData {
+    getMyOrderHistories: [OrderHistoryData];
 }
 
-const UpcomingList: FunctionComponent = () => {
+const PastList: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [refreshing, setRefreshing] = useState(false);
-    const { data: orders, refetch } = useQuery<GetMyOrdersData>(getMyOrders);
+    const { data: orders, refetch } = useQuery<GetMyOrdersHistoriesData>(
+        getMyOrderHistories
+    );
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={orders && orders.getMyOrders && orders.getMyOrders}
+                data={
+                    orders &&
+                    orders.getMyOrderHistories &&
+                    orders.getMyOrderHistories
+                }
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
                 refreshControl={
@@ -34,8 +40,10 @@ const UpcomingList: FunctionComponent = () => {
                         }}
                     />
                 }
-                renderItem={({ item }) => <UpcomingCardHeader order={item} />}
-                ListEmptyComponent={() => (
+                renderItem={({ item }): ReactElement => (
+                    <PastCardHeader order={item} />
+                )}
+                ListEmptyComponent={(): ReactElement => (
                     <View
                         style={{
                             flex: 1,
@@ -66,4 +74,4 @@ const UpcomingList: FunctionComponent = () => {
     );
 };
 
-export default UpcomingList;
+export default PastList;

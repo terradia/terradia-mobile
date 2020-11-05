@@ -60,7 +60,8 @@ export default {
         cartEmpty: "Your cart is empty",
         paymentMethod: "Payment method",
         total: "Total",
-        orderNow: "Order now"
+        orderNow: "Order now",
+        orderAccepted: "Your order has been accepted"
     },
     accountScreen: {
         updateFirstName: "Update first name",
@@ -109,5 +110,19 @@ export default {
         myCart: "My cart",
         myOrders: "My orders",
         myWallet: "My wallet"
+    },
+    orders: {
+        order: "Order",
+        pending: "Order pending",
+        orderAccepted: "Order accepted",
+        scheduleWaiting: "Schedules available once the order has been accepted",
+        productsNumbers: "Number of products",
+        total: "Total : ",
+        viewOrder: "View order",
+        clickHereToOpen: "Click here to view the producer",
+        orderFinished: "Order finished",
+        receivedOn: "Received on",
+        rateOrder: "Rate order",
+        viewReceipt: "View receipt"
     }
 };

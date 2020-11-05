@@ -1,4 +1,4 @@
-import { CustomerData } from '@interfaces/User';
+import { CustomerData } from "@interfaces/User";
 
 export interface CompaniesData {
     getAllCompanies: CompanyData[];
@@ -60,4 +60,12 @@ export interface CompanyReviewData {
     description: string;
     id: string;
     title: string;
+}
+
+export interface UnitData {
+    id: string;
+    name: string;
+    notation: string;
+    referenceUnit: UnitData;
+    multiplicationFactor: number;
 }

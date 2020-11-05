@@ -1,51 +1,65 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import styles from "./styles/UpcomingCardContent.style";
-import { OrderData } from "@interfaces/Orders";
+import styles from "./styles/PastCardContent.style";
+import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import Moment from "moment";
 
 declare interface UpcomingCardContentData {
-    order?: OrderData;
+    order?: OrderHistoryData;
 }
 
-const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
+const PastCardContent: FunctionComponent<UpcomingCardContentData> = ({
     order
 }) => {
     return (
         <View>
             <View style={styles.orderContainer}>
                 <Text style={styles.orderText}>{i18n.t("orders.order")} </Text>
-                <Text style={styles.orderNumber}>{"#" + order.code.toUpperCase()}</Text>
+                <Text style={styles.orderNumber}>{"#" + order.code}</Text>
             </View>
             <View style={styles.statusContainer}>
-                <View style={styles.statusLine}>
-                    <FontAwesome5
-                        name="hourglass-start"
-                        size={20}
-                        color="#5CC04A"
-                    />
-                    <Text style={styles.statusText}>
-                        {order.status === "PENDING"
-                            ? i18n.t("orders.pending")
-                            : i18n.t("orders.orderAccepted")}
-                    </Text>
-                </View>
-                <View style={styles.statusLine}>
-                    <FontAwesome5
-                        name="calendar-alt"
-                        size={20}
-                        color="#5CC04A"
-                    />
-                    <Text style={styles.statusText}>
-                        {i18n.t("orders.scheduleWaiting")}
-                    </Text>
+                <View style={styles.orderStatusContainer}>
+                    <View>
+                        <View style={styles.statusLine}>
+                            <FontAwesome5
+                                name="check"
+                                size={20}
+                                color="#5CC04A"
+                            />
+                            <Text style={styles.statusText}>
+                                {i18n.t("orders.orderFinished")}
+                            </Text>
+                        </View>
+                        <View style={styles.statusLine}>
+                            <FontAwesome5
+                                name="calendar-alt"
+                                size={20}
+                                color="#5CC04A"
+                            />
+                            <View>
+                                <Text style={styles.statusText}>
+                                    {i18n.t("orders.receivedOn")}
+                                </Text>
+                                <Text style={styles.statusText}>
+                                    {Moment(order.createdAt).format(
+                                        "DD MMM YYYY"
+                                    )}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.rateOrderContainer}>
+                        <Text style={styles.rateOrderText}>
+                            {i18n.t("orders.rateOrder")}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.dividerDate}>
                     <View style={styles.divider} />
                     <Text style={styles.dateText}>
-                        {Moment(order.createdAt).format("DD MMM YYYY")}
+                        {Moment(order.orderCreationDate).format("DD MMM YYYY")}
                     </Text>
                 </View>
                 <View style={styles.totalPriceProductsContainer}>
@@ -74,7 +88,7 @@ const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
                 </View>
                 <TouchableOpacity style={styles.buttonContainer}>
                     <Text style={styles.seeOrder}>
-                        {i18n.t("orders.viewOrder")}
+                        {i18n.t("orders.viewReceipt")}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -82,4 +96,4 @@ const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
     );
 };
 
-export default UpcomingCardContent;
+export default PastCardContent;

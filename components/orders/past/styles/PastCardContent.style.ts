@@ -100,6 +100,25 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
+    },
+    orderStatusContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    rateOrderContainer: {
+        width: 140,
+        height: 50,
+        backgroundColor: "#E4E2E2",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    rateOrderText: {
+        fontFamily: "MontserratMedium",
+        textAlign: "center",
+        color: "#8B8B8B",
+        fontSize: 14
     }
 });
 

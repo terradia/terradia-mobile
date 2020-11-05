@@ -3,26 +3,27 @@ import { Text, TouchableOpacity, View } from "react-native";
 import styles from "@components/cart/content/styles/ProductList.style";
 import i18n from "@i18n/i18n";
 import { CartData } from "@interfaces/User";
-import { useMutation, useQuery } from "@apollo/react-hooks";
-import getStripeCustomerDefaultSource from "../../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
+import { useMutation } from "@apollo/react-hooks";
 import createACharge from "../../../graphql/cart/createACharge.graphql";
 import Spinner from "react-native-loading-spinner-overlay";
 import Modal from "react-native-modal";
 import ModalPaymentValidated from "./ModalPaymentValidated";
+import getCart from "../../../graphql/cart/getCart.graphql";
 
 declare interface CartPaymentData {
     cart: CartData;
 }
 
 const CartPayment: FunctionComponent<CartPaymentData> = ({ cart }) => {
-    const { data: defaultSource } = useQuery(getStripeCustomerDefaultSource);
-    const [CreateACharge, { loading }] = useMutation(createACharge);
+    const [CreateACharge, { loading, client }] = useMutation(createACharge);
     const [isValidated, setIsValidated] = useState(false);
+
     const createPaymentSource = async () => {
         CreateACharge()
             .then(() => {
-                setIsValidated(true);
-                console.log("Order is in preparation");
+                client
+                    .query({ query: getCart, fetchPolicy: "network-only" })
+                    .then(() => setIsValidated(true));
             })
             .catch(e => console.log(e));
     };

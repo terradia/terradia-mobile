@@ -13,7 +13,6 @@ import { useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/Wallet.style";
 import { useNavigation } from "react-navigation-hooks";
-import Visa from "../../assets/svg/visa.svg";
 import { GetCardsReq } from "@interfaces/Wallet";
 
 const Icons = {
@@ -40,7 +39,10 @@ const Account: FunctionComponent = () => {
     };
     return (
         <View>
-            <HeaderAccount title={"Mon porte feuille"} />
+            <HeaderAccount
+                title={i18n.t("profileScreen.myWallet")}
+                backButton
+            />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>
@@ -80,7 +82,7 @@ const Account: FunctionComponent = () => {
                         </TouchableOpacity>
                     ))}
                 <TouchableOpacity
-                    onPress={() => {
+                    onPress={(): void => {
                         navigate("CardEditor");
                     }}
                 >

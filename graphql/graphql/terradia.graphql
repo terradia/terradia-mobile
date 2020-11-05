@@ -20,6 +20,7 @@ type Cart {
     customer: Customer!
     expirationDate: Date
     id: ID!
+    numberProducts: Int!
     products: [CartProduct]
     totalPrice: Float
     updatedAt: Date
@@ -174,11 +175,13 @@ type CompanyProductsCategory {
 
 type CompanyReview {
     company: Company
+    createdAt: Date
     customer: Customer
     customerMark: Int!
     description: String
     id: String!
     title: String!
+    updatedAt: Date
 }
 
 type CompanyTag {
@@ -209,7 +212,9 @@ type Customer {
     companyReviews: [CompanyReview]
     favoriteCompanies: [Company]
     id: String!
-    user: User!
+    orders: [Order]
+    ordersHistory: [OrderHistory]
+    user: User
 }
 
 type CustomerAddress {
@@ -262,6 +267,7 @@ type LegalUnits {
 type Mutation {
     _: Boolean
     acceptInvitation(invitationId: String!): CompanyUserInvitation
+    acceptOrder(id: ID!): Order
     addCategoryToProduct(categoryName: String!, productId: String!): Product!
     addCompanyImage(companyId: ID!, image: Upload!, name: String): CompanyImage
     addCompanyImages(companyId: ID!, images: [Upload]!, names: [String]): [CompanyImage]
@@ -274,6 +280,7 @@ type Mutation {
     addTagToCompany(companyId: String!, companyTagId: String!): Company!
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     cancelInvitation(id: String!): Boolean
+    cancelOrder(id: ID!): OrderHistory
     createACharge: Boolean
     createCategory(name: String!, parentCategoryId: String): Category!
     createCompany(address: String!, description: String, email: String!, name: String!, phone: String!, siren: String!): Company!
@@ -285,6 +292,7 @@ type Mutation {
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     createStripeCustomer: Boolean!
     declineInvitation(invitationId: String!): CompanyUserInvitation
+    declineOrder(id: ID!, reason: String): OrderHistory
     defineUserAsCustomer(userId: String!): Customer
     deleteCard(cardId: String!): Boolean
     deleteCategory(id: String!): Category!
@@ -293,12 +301,14 @@ type Mutation {
     deleteImageFromProduct(companyImageId: String!, productId: String!): CompanyImage
     deleteProduct(productId: String!): Int
     deleteTagFromCompany(companyId: String!, companyTagId: String!): Company!
+    deleteUser(password: String): User!
     generateCodePasswordForgot(email: String!): Boolean
     inviteNewMember(companyId: String!, invitationEmail: String!): CompanyUserInvitation
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
     login(email: String!, password: String!): SigninAnswer!
     passwordValidation(password: String!): Boolean
+    receiveOrder(id: ID!): OrderHistory
     register(defineUserAsCustomer: Boolean, email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
     removeCompanyImage(imageId: ID!): CompanyImage
     removeCompanyImages(imagesId: [ID]!): [CompanyImage]
@@ -331,6 +341,58 @@ type Mutation {
     updateUser(email: String, firstName: String, lastName: String, password: String, phone: String): User!
     updateUserAvatar(avatar: Upload!): User
     uploadImageOfProduct(image: Upload!, isCover: Boolean, productId: String!): CompanyImage
+    validateCart: Order
+}
+
+type Order {
+    code: String!
+    company: Company!
+    createdAt: Date!
+    customer: Customer!
+    decliningReason: String
+    id: String!
+    numberProducts: Int!
+    price: Float!
+    products: [OrderProduct]
+    status: OrderStatus!
+    updatedAt: Date!
+}
+
+type OrderHistory {
+    code: String!
+    companyAddress: String
+    companyId: String
+    companyLogo: String
+    companyName: String
+    createdAt: Date!
+    customerId: String
+    decliningReason: String
+    id: ID!
+    numberProducts: Int!
+    orderCreationDate: Date!
+    price: Float!
+    products: [OrderProductHistory]
+    status: OrderHistoryStatus
+    updatedAt: Date!
+}
+
+type OrderProduct {
+    id: String!
+    order: Order!
+    price: Float!
+    product: Product!
+    quantity: Int!
+}
+
+type OrderProductHistory {
+    id: ID!
+    name: String
+    orderHistory: OrderHistory
+    price: Float!
+    productId: String
+    quantity: Int
+    quantityForUnit: Int
+    unit: Unit!
 }
 
 type Product {
@@ -355,12 +417,14 @@ type Product {
 }
 
 type ProductReview {
+    createdAt: Date
     customer: Customer
     customerMark: Int!
     description: String
     id: String!
     product: Product
     title: String!
+    updatedAt: Date
 }
 
 type Query {
@@ -389,12 +453,18 @@ type Query {
     getCompany(companyId: ID!): Company
     getCompanyByName(name: String!): Company
     getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImage]
+    getCompanyOrderHistories(companyId: ID!, fromDate: Date, limit: Int = 10, offset: Int = 0, status: String, toDate: Date): [OrderHistory]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
     getCompanyReviews(id: ID!, limit: Int!, offset: Int!): [CompanyReview]
     getCompanyTag(companyTagId: String, slugName: String): CompanyTag
+    getCurrentOrders(companyId: ID!, limit: Int = 10, offset: Int = 0, status: String): [Order]
     getCustomer(userId: String!): Customer
     getCustomerFavoriteCompanies(userId: String): [Company]
     getMyCompaniesInvitations(status: CompanyUserInvitationStatusRequest): [CompanyUserInvitation!]
+    getMyOrderHistories(status: String): [OrderHistory]
+    getMyOrders(status: String): [Order]
+    getOrder(id: ID!): Order
+    getOrderHistory(id: ID!): OrderHistory
     getProduct(id: ID!): Product!
     getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!
@@ -445,6 +515,7 @@ type Unit {
 }
 
 type User {
+    archivedAt: Date
     avatar: String
     companies: [CompanyUser]
     createdAt: Date
@@ -478,6 +549,20 @@ enum CompanyUserInvitationStatus {
 enum CompanyUserInvitationStatusRequest {
     ACCEPTED
     ALL
+    CANCELED
+    DECLINED
+    PENDING
+}
+
+enum OrderHistoryStatus {
+    CANCELED
+    DECLINED
+    FINISHED
+}
+
+enum OrderStatus {
+    ACCEPTED
+    AVAILABLE
     CANCELED
     DECLINED
     PENDING

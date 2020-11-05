@@ -1,3 +1,6 @@
-mutation createACharge {
-    createACharge
+mutation validateCart {
+    validateCart {
+        id
+        decliningReason
+    }
 }
