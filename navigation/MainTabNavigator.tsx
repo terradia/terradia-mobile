@@ -167,6 +167,7 @@ OrdersStack.navigationOptions = ({ navigation }) => {
         activeTintColor: "#5CC04A",
         inactiveTintColor: "#ccc"
     };
+    const tabBarVisible = navigation.state.index < 1;
 
     const tabBarIcon = ({ focused }): ReactElement => {
         const image = focused
@@ -177,7 +178,8 @@ OrdersStack.navigationOptions = ({ navigation }) => {
     return {
         tabBarLabel,
         tabBarIcon,
-        tabBarOptions
+        tabBarOptions,
+        tabBarVisible
     };
 };
 
