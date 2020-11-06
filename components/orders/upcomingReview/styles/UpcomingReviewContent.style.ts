@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     container: {
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 70,
         flex: 1
     },
     divider: {

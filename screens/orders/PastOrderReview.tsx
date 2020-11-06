@@ -1,8 +1,16 @@
 import React, { FunctionComponent } from "react";
-import { View } from "react-native";
+import { useNavigationParam } from "react-navigation-hooks";
+import PastReviewHeader from "@components/orders/pastReview/PastReviewHeader";
+import UpcomingReviewContent from "@components/orders/upcomingReview/UpcomingReviewContent";
 
 const PastOrderReview: FunctionComponent = () => {
-    return <View />;
+    const order = useNavigationParam("order");
+    return (
+        <>
+            <PastReviewHeader order={order} />
+            <UpcomingReviewContent order={order} />
+        </>
+    );
 };
 
 export default PastOrderReview;

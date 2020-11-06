@@ -130,6 +130,7 @@ export default {
         myOrder: "My order",
         serviceFees: "Service fees",
         smallOrderFee: "Small order fee",
-        paidWith: "Payée avec :"
+        paidWith: "Payée avec :",
+        myReceipt: "My receipt"
     }
 };

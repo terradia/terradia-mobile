@@ -1,7 +1,13 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+    Dimensions,
+    FlatList,
+    Image,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import styles from "./styles/UpcomingReviewContent.style";
-import { FontAwesome5 } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
 import { OrderData } from "@interfaces/Orders";
 import UpcomingReviewListItem from "@components/orders/upcomingReview/UpcomingReviewListItem";
@@ -10,6 +16,10 @@ import { useQuery } from "@apollo/react-hooks";
 import getPaymentIntentsCard from "../../../graphql/orders/getPaymentIntentsCard.graphql";
 import { CardData } from "@interfaces/Wallet";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import UpcomingReviewContentHeader from "./UpcomingReviewContentHeader";
+import RNSwipeVerify from "react-native-swipe-verify";
+const { width } = Dimensions.get("window");
+import { FontAwesome } from "@expo/vector-icons";
 
 interface UpcomingReviewContentData {
     order: OrderData;
@@ -29,34 +39,6 @@ const Icons = {
     jcb: require("../../../assets/icons/stp_card_jcb.png"),
     placeholder: require("../../../assets/icons/stp_card_unknown.png"),
     visa: require("../../../assets/icons/stp_card_visa.png")
-};
-
-const UpcomingReviewContentHeader: FunctionComponent<UpcomingReviewContentData> = ({
-    order
-}) => {
-    return (
-        <>
-            <View style={styles.statusLine}>
-                <FontAwesome5
-                    name="hourglass-start"
-                    size={20}
-                    color="#5CC04A"
-                />
-                <Text style={styles.statusText}>
-                    {order.status === "PENDING"
-                        ? i18n.t("orders.pending")
-                        : i18n.t("orders.orderAccepted")}
-                </Text>
-            </View>
-            <View style={styles.statusLine}>
-                <FontAwesome5 name="calendar-alt" size={20} color="#5CC04A" />
-                <Text style={styles.statusText}>
-                    {i18n.t("orders.scheduleWaiting")}
-                </Text>
-            </View>
-            <View style={styles.divider} />
-        </>
-    );
 };
 
 const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> = ({
@@ -135,7 +117,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
         <View style={styles.container}>
             <FlatList
                 data={order.products}
-                style={{ height: "100%", flex: 1 }}
+                style={{ height: "100%", paddingTop: 70, zIndex: 0 }}
                 ListHeaderComponent={(): ReactElement => (
                     <UpcomingReviewContentHeader order={order} />
                 )}
@@ -146,6 +128,34 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     <UpcomingReviewListItem orderProduct={item} />
                 )}
             />
+            <View style={{ position: "absolute", bottom: 30, width: "100%" }}>
+                <RNSwipeVerify
+                    width={width - 50}
+                    buttonSize={70}
+                    buttonColor="#2962FF"
+                    borderColor="#2962FF"
+                    backgroundColor="#ECECEC"
+                    textColor="#37474F"
+                    borderRadius={30}
+                    okButton={{ visible: true, duration: 400 }}
+                    onVerified={() => {
+                        console.log("On verified");
+                    }}
+                    icon={
+                        <FontAwesome
+                            name="angle-right"
+                            size={40}
+                            color="white"
+                        />
+                    }
+                >
+                    <Text>
+                        {order.status === "PENDING"
+                            ? "UNLOCKED"
+                            : "Attente d'acception"}
+                    </Text>
+                </RNSwipeVerify>
+            </View>
         </View>
     );
 };

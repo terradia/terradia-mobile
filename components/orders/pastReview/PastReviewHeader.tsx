@@ -1,20 +1,14 @@
 import React, { FunctionComponent } from "react";
-import {
-    Image,
-    SafeAreaView,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
-import style from "./styles/UpcomingReviewHeader.style";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import style from "./styles/PastReviewHeader.style";
 import { Avatar } from "react-native-elements";
-import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useNavigation } from "react-navigation-hooks";
 import i18n from "@i18n/i18n";
 import { Feather } from "@expo/vector-icons";
-import { OrderData } from "@interfaces/Orders";
+import { OrderHistoryData } from "@interfaces/Orders";
 
 declare interface UpcomingReviewHeaderData {
-    order: OrderData;
+    order: OrderHistoryData;
 }
 
 const UpcomingReviewHeader: FunctionComponent<UpcomingReviewHeaderData> = ({
@@ -25,10 +19,8 @@ const UpcomingReviewHeader: FunctionComponent<UpcomingReviewHeaderData> = ({
         <View style={{ zIndex: 10 }}>
             <Image
                 source={{
-                    uri: order.company.cover
-                        ? "https://media.terradia.eu/" +
-                          order.company.cover.filename
-                        : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
+                    uri:
+                        "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                 }}
                 style={style.backgroundImage}
             />
@@ -45,16 +37,15 @@ const UpcomingReviewHeader: FunctionComponent<UpcomingReviewHeaderData> = ({
                         <Feather name="arrow-left" size={28} color={"white"} />
                     </TouchableOpacity>
                     <Text style={style.growerName}>
-                        {i18n.t("orders.myOrder") + " #" + order.code}
+                        {i18n.t("orders.myReceipt") + " #" + order.code}
                     </Text>
                 </View>
                 <Avatar
                     size={110}
                     rounded
                     source={{
-                        uri: order.company.logo
-                            ? "https://media.terradia.eu/" +
-                              order.company.logo.filename
+                        uri: order.companyLogo
+                            ? "https://media.terradia.eu/" + order.companyLogo
                             : "https://media.terradia.eu/004db8bed04bd7fcb8e717611f794ad0.png"
                     }}
                     containerStyle={[style.shadow1, style.growerImage]}
