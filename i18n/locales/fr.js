@@ -130,6 +130,9 @@ export default {
         orderFinished: "Order finished",
         receivedOn: "Réception le :",
         rateOrder: "Noter la commande",
-        viewReceipt: "Voir le reçu"
+        viewReceipt: "Voir le reçu",
+        discoverProducers: "Découvrir les producteurs",
+        youHaveNoOrder: "Vous n’avez aucune commande en cours",
+        youHaveNoOrderHistory: "Vous n'avez pas encore passé de commande"
     }
 };

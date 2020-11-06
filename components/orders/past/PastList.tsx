@@ -11,6 +11,10 @@ import { useNavigation } from "react-navigation-hooks";
 import { useQuery } from "@apollo/react-hooks";
 import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
+import styles from "@components/orders/upcoming/styles/UpcomingList.style";
+import Cart from "../../../assets/svg/cart.svg";
+import i18n from "@i18n/i18n";
+import GrowersLoader from "@components/growers/GrowersLoader";
 
 interface GetMyOrdersHistoriesData {
     getMyOrderHistories: [OrderHistoryData];
@@ -22,14 +26,15 @@ const PastList: FunctionComponent = () => {
     const { data: orders, refetch } = useQuery<GetMyOrdersHistoriesData>(
         getMyOrderHistories
     );
+
+    if (!orders) {
+        return <GrowersLoader />;
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={
-                    orders &&
-                    orders.getMyOrderHistories &&
-                    orders.getMyOrderHistories
-                }
+                data={orders && orders.getMyOrderHistories}
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
                 refreshControl={
@@ -44,27 +49,17 @@ const PastList: FunctionComponent = () => {
                     <PastCardHeader order={item} />
                 )}
                 ListEmptyComponent={(): ReactElement => (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}
-                    >
-                        <Text style={{ fontFamily: "Montserrat" }}>
-                            Vous n'avez pas de commande en scours
+                    <View style={[styles.emptyContainer, styles.shadow1]}>
+                        <Cart />
+                        <Text style={styles.youHaveNoOrderText}>
+                            {i18n.t("orders.youHaveNoOrderHistory")}
                         </Text>
                         <TouchableOpacity
+                            style={styles.discoverProducersContainer}
                             onPress={(): boolean => navigate("Grower")}
                         >
-                            <Text
-                                style={{
-                                    fontFamily: "Montserrat",
-                                    marginTop: 20,
-                                    textDecorationLine: "underline"
-                                }}
-                            >
-                                Pourquoi ne pas commander ?
+                            <Text style={styles.discoverProducersText}>
+                                {i18n.t("orders.discoverProducers")}
                             </Text>
                         </TouchableOpacity>
                     </View>

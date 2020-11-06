@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, ReactElement, useState } from "react";
 import {
     FlatList,
     View,
@@ -11,6 +11,10 @@ import { useNavigation } from "react-navigation-hooks";
 import { useQuery } from "@apollo/react-hooks";
 import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
 import { OrderData } from "@interfaces/Orders";
+import Cart from "../../../assets/svg/cart.svg";
+import styles from "./styles/UpcomingList.style";
+import i18n from "@i18n/i18n";
+import GrowersLoader from "@components/growers/GrowersLoader";
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];
@@ -20,12 +24,16 @@ const UpcomingList: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [refreshing, setRefreshing] = useState(false);
     const { data: orders, refetch } = useQuery<GetMyOrdersData>(getMyOrders);
+
+    if (!orders) {
+        return <GrowersLoader />;
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={orders && orders.getMyOrders && orders.getMyOrders}
+                data={orders && orders.getMyOrders}
                 style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1 }}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -34,29 +42,21 @@ const UpcomingList: FunctionComponent = () => {
                         }}
                     />
                 }
-                renderItem={({ item }) => <UpcomingCardHeader order={item} />}
-                ListEmptyComponent={() => (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}
-                    >
-                        <Text style={{ fontFamily: "Montserrat" }}>
-                            Vous n'avez pas de commande en scours
+                renderItem={({ item }): ReactElement => (
+                    <UpcomingCardHeader order={item} />
+                )}
+                ListEmptyComponent={(): ReactElement => (
+                    <View style={[styles.emptyContainer, styles.shadow1]}>
+                        <Cart />
+                        <Text style={styles.youHaveNoOrderText}>
+                            {i18n.t("orders.youHaveNoOrder")}
                         </Text>
                         <TouchableOpacity
+                            style={styles.discoverProducersContainer}
                             onPress={(): boolean => navigate("Grower")}
                         >
-                            <Text
-                                style={{
-                                    fontFamily: "Montserrat",
-                                    marginTop: 20,
-                                    textDecorationLine: "underline"
-                                }}
-                            >
-                                Pourquoi ne pas commander ?
+                            <Text style={styles.discoverProducersText}>
+                                {i18n.t("orders.discoverProducers")}
                             </Text>
                         </TouchableOpacity>
                     </View>

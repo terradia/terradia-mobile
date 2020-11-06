@@ -123,6 +123,9 @@ export default {
         orderFinished: "Order finished",
         receivedOn: "Received on",
         rateOrder: "Rate order",
-        viewReceipt: "View receipt"
+        viewReceipt: "View receipt",
+        discoverProducers: "Discover producers",
+        youHaveNoOrder: "You have no orders in progress",
+        youHaveNoOrderHistory: "You have not yet ordered"
     }
 };
