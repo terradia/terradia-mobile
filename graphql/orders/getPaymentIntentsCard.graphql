@@ -1,0 +1,7 @@
+query getPaymentIntentsCard($paymentId: String!) {
+    getPaymentIntentsCard(paymentId: $paymentId) {
+        id
+        brand
+        last4
+    }
+}

@@ -17,6 +17,7 @@ export interface OrderHistoryData {
     decliningReason: string;
     status: string;
     orderCreationDate: string;
+    stripePaymentIntent: string;
 }
 
 export interface OrderProductHistoryData {
@@ -43,6 +44,7 @@ export interface OrderData {
     numberProducts: number;
     status: string;
     decliningReason: string;
+    stripePaymentIntent: string;
 }
 
 export interface OrderProductData {

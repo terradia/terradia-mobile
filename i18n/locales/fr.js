@@ -133,6 +133,10 @@ export default {
         viewReceipt: "Voir le reçu",
         discoverProducers: "Découvrir les producteurs",
         youHaveNoOrder: "Vous n’avez aucune commande en cours",
-        youHaveNoOrderHistory: "Vous n'avez pas encore passé de commande"
+        youHaveNoOrderHistory: "Vous n'avez pas encore passé de commande",
+        myOrder: "Ma commande",
+        serviceFees: "Service fees",
+        smallOrderFee: "Frais de petite commande",
+        paidWith: "Paid with :"
     }
 };

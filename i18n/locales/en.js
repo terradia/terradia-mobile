@@ -126,6 +126,10 @@ export default {
         viewReceipt: "View receipt",
         discoverProducers: "Discover producers",
         youHaveNoOrder: "You have no orders in progress",
-        youHaveNoOrderHistory: "You have not yet ordered"
+        youHaveNoOrderHistory: "You have not yet ordered",
+        myOrder: "My order",
+        serviceFees: "Service fees",
+        smallOrderFee: "Small order fee",
+        paidWith: "Payée avec :"
     }
 };

@@ -16,5 +16,6 @@ query getMyOrderHistories {
             quantity
         }
         numberProducts
+        stripePaymentIntent
     }
 }

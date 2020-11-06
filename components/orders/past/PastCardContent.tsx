@@ -5,6 +5,7 @@ import styles from "./styles/PastCardContent.style";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import Moment from "moment";
+import { useNavigation } from "react-navigation-hooks";
 
 declare interface UpcomingCardContentData {
     order?: OrderHistoryData;
@@ -13,6 +14,7 @@ declare interface UpcomingCardContentData {
 const PastCardContent: FunctionComponent<UpcomingCardContentData> = ({
     order
 }) => {
+    const { navigate } = useNavigation();
     return (
         <View>
             <View style={styles.orderContainer}>
@@ -86,7 +88,12 @@ const PastCardContent: FunctionComponent<UpcomingCardContentData> = ({
                         </Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity
+                    onPress={(): boolean =>
+                        navigate("PastOrderReview", { order })
+                    }
+                    style={styles.buttonContainer}
+                >
                     <Text style={styles.seeOrder}>
                         {i18n.t("orders.viewReceipt")}
                     </Text>

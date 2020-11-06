@@ -14,6 +14,9 @@ import CardDisplayScreen from "../screens/profile/CardDisplay";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
 import CardListSelectorScreen from "../screens/growers/CardsListSelector";
 import OrdersScreen from "../screens/orders/Orders";
+import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
+import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
+
 import { createStackNavigator } from "react-navigation-stack";
 import i18n from "@i18n/i18n";
 
@@ -134,6 +137,8 @@ ProfileStack.navigationOptions = ({ navigation }) => {
 const OrdersStack = createStackNavigator(
     {
         Orders: OrdersScreen,
+        PastOrderReview: PastOrderReviewScreen,
+        UpcomingOrderReview: UpcomingOrderReviewScreen,
         Grower: GrowersScreen,
         GrowersProducts: {
             screen: GrowersProductsScreen

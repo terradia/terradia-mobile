@@ -355,6 +355,7 @@ type Order {
     price: Float!
     products: [OrderProduct]
     status: OrderStatus!
+    stripePaymentIntent: String
     updatedAt: Date!
 }
 
@@ -373,6 +374,7 @@ type OrderHistory {
     price: Float!
     products: [OrderProductHistory]
     status: OrderHistoryStatus
+    stripePaymentIntent: String
     updatedAt: Date!
 }
 
@@ -393,6 +395,11 @@ type OrderProductHistory {
     quantity: Int
     quantityForUnit: Int
     unit: Unit!
+}
+
+type PaymentIntent {
+    id: String!
+    payment_method: Card
 }
 
 type Product {
@@ -465,6 +472,8 @@ type Query {
     getMyOrders(status: String): [Order]
     getOrder(id: ID!): Order
     getOrderHistory(id: ID!): OrderHistory
+    getPaymentIntents(paymentId: String!): PaymentIntent
+    getPaymentIntentsCard(paymentId: String!): Card
     getProduct(id: ID!): Product!
     getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!

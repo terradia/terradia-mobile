@@ -5,6 +5,7 @@ import styles from "./styles/UpcomingCardContent.style";
 import { OrderData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import Moment from "moment";
+import { useNavigation } from "react-navigation-hooks";
 
 declare interface UpcomingCardContentData {
     order?: OrderData;
@@ -13,11 +14,14 @@ declare interface UpcomingCardContentData {
 const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
     order
 }) => {
+    const { navigate } = useNavigation();
     return (
         <View>
             <View style={styles.orderContainer}>
                 <Text style={styles.orderText}>{i18n.t("orders.order")} </Text>
-                <Text style={styles.orderNumber}>{"#" + order.code.toUpperCase()}</Text>
+                <Text style={styles.orderNumber}>
+                    {"#" + order.code.toUpperCase()}
+                </Text>
             </View>
             <View style={styles.statusContainer}>
                 <View style={styles.statusLine}>
@@ -72,7 +76,12 @@ const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
                         </Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity
+                    onPress={(): boolean =>
+                        navigate("UpcomingOrderReview", { order })
+                    }
+                    style={styles.buttonContainer}
+                >
                     <Text style={styles.seeOrder}>
                         {i18n.t("orders.viewOrder")}
                     </Text>

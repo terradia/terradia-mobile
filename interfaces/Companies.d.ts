@@ -43,6 +43,16 @@ export interface ProductData {
     price: number;
     company: CompanyData;
     cover: ProductImageData;
+    quantityForUnit: number;
+    unit: UnitData;
+}
+
+interface UnitData {
+    id: string;
+    name: string;
+    notation: string;
+    referenceUnit: UnitData;
+    multiplicationFactor: number;
 }
 
 interface ReviewData {
