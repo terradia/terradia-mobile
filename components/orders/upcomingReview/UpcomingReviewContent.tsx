@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React, { FunctionComponent, ReactElement, useState } from "react";
 import {
     Dimensions,
     FlatList,
@@ -114,6 +114,13 @@ const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> 
 const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
     order
 }) => {
+    const [isDone, setIsDone] = useState(false);
+    const simulateRequest = () => {
+        setTimeout(() => {
+            setIsDone(true);
+        }, 4000);
+    };
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -134,7 +141,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     height={60}
                     width={width - 50}
                     borderRadius={30}
-                    onSwipeEnd={(): void => console.log("Swap ended")}
+                    onSwipeEnd={(): void => simulateRequest()}
                     icon={
                         <FontAwesome
                             name="angle-right"
@@ -161,6 +168,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     swiperColor={"#5CC04A"}
                     backgroundColor={"white"}
                     borderWidth={2}
+                    isRequestDone={isDone}
                 />
             </View>
         </View>

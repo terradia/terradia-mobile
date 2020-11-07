@@ -1,5 +1,12 @@
-import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import React, {
+    FunctionComponent,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 import { Animated, View, StyleSheet, PanResponder } from "react-native";
+import LottieView from "lottie-react-native";
 
 interface SwiperData {
     width: number;
@@ -14,6 +21,7 @@ interface SwiperData {
     swiperColor: string;
     backgroundColor: string;
     borderWidth: number;
+    isRequestDone: boolean;
 }
 
 const Swiper: FunctionComponent<SwiperData> = ({
@@ -28,10 +36,67 @@ const Swiper: FunctionComponent<SwiperData> = ({
     disabledColor,
     swiperColor,
     backgroundColor,
-    borderWidth
+    borderWidth,
+    isRequestDone
 }) => {
     const pan = useRef(new Animated.ValueXY()).current;
     const [isMoving, setIsMoving] = useState(true);
+    const widthAnim = useRef(new Animated.Value(width)).current;
+    const lottieRef = useRef(null);
+    const fadeIn = useRef(new Animated.Value(1)).current;
+    const loaderFadeIn = useRef(new Animated.Value(0)).current;
+    const checkFadeIn = useRef(new Animated.Value(0)).current;
+    const textFadeIn = useRef(new Animated.Value(1)).current;
+
+    const updateWidth = (): void => {
+        Animated.timing(pan, {
+            toValue: { x: 0, y: 0 },
+            duration: 1000,
+            useNativeDriver: false
+        }).start();
+
+        Animated.timing(widthAnim, {
+            toValue: height,
+            duration: 1000,
+            useNativeDriver: false
+        }).start();
+        Animated.timing(fadeIn, {
+            toValue: 0,
+            duration: 1000,
+            useNativeDriver: false
+        }).start();
+        Animated.timing(textFadeIn, {
+            toValue: 0,
+            duration: 400,
+            useNativeDriver: false
+        }).start();
+        setTimeout(() => {
+            Animated.timing(loaderFadeIn, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+        }, 1000);
+    };
+
+    useEffect(() => {
+        if (!isRequestDone) return;
+        Animated.sequence([
+            Animated.timing(loaderFadeIn, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: false
+            }),
+            Animated.timing(checkFadeIn, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: false
+            })
+        ]).start();
+        setTimeout(() => {
+            lottieRef.current.play();
+        }, 500);
+    }, [isRequestDone]);
 
     const panResponder = useMemo(
         () =>
@@ -50,17 +115,13 @@ const Swiper: FunctionComponent<SwiperData> = ({
                     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                     // @ts-ignore
                     listener: (event, gestureState) => {
-                        if (!isMoving) {
+                        if (gestureState.dx > width - height || !isMoving) {
+                            setIsMoving(false);
                             pan.setValue({ x: width - height, y: 0 });
                             return;
                         }
                         if (gestureState.dx < 0) {
                             pan.setValue({ x: 0, y: 0 });
-                        }
-                        if (gestureState.dx > width - height) {
-                            onSwipeEnd();
-                            setIsMoving(false);
-                            pan.setValue({ x: width - height, y: 0 });
                         }
                     }
                 }),
@@ -68,20 +129,22 @@ const Swiper: FunctionComponent<SwiperData> = ({
                     if (isMoving) {
                         Animated.spring(pan, {
                             toValue: { x: 0, y: 0 },
-                            useNativeDriver: true
+                            useNativeDriver: false
                         }).start();
                         pan.flattenOffset();
                     } else {
-                        pan.setValue({ x: width - height, y: 0 });
+                        onSwipeEnd();
+                        updateWidth();
+                        return;
                     }
                 }
             }),
-        [isMoving]
+        [widthAnim, isMoving, lottieRef]
     );
     return (
-        <View
+        <Animated.View
             style={{
-                width: width,
+                width: widthAnim,
                 height: height,
                 borderWidth,
                 borderColor: enabled ? borderColor : disabledColor,
@@ -96,15 +159,63 @@ const Swiper: FunctionComponent<SwiperData> = ({
                     flex: 1,
                     height: "100%",
                     justifyContent: "center",
-                    paddingLeft: height
+                    paddingLeft: height,
+                    opacity: textFadeIn
                 }}
             >
                 {text}
             </Animated.View>
+            {!isMoving && (
+                <Animated.View
+                    style={{
+                        width: height,
+                        height: height,
+                        position: "absolute",
+                        flex: 1,
+                        zIndex: 2,
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}
+                >
+                    <Animated.View
+                        style={{ opacity: checkFadeIn, position: "absolute" }}
+                    >
+                        <LottieView
+                            style={{
+                                width: height - 5,
+                                height: height - 5,
+                                top: -1,
+                                left: -1
+                            }}
+                            ref={lottieRef}
+                            autoPlay={false}
+                            resizeMode="cover"
+                            loop={false}
+                            source={require("../../assets/json/lf30_editor_8kzopal0.json")}
+                        />
+                    </Animated.View>
+                    <Animated.View
+                        style={{ opacity: loaderFadeIn, position: "absolute" }}
+                    >
+                        <LottieView
+                            style={{
+                                width: height,
+                                height: height,
+                                top: -0.6,
+                                left: -0.6
+                            }}
+                            autoPlay={true}
+                            loop={true}
+                            source={require("../../assets/json/loader.json")}
+                        />
+                    </Animated.View>
+                </Animated.View>
+            )}
             <Animated.View
                 style={{
                     height: 20,
-                    transform: [{ translateX: pan.x }]
+                    transform: [{ translateX: pan.x }],
+                    zIndex: 1
                 }}
                 {...panResponder.panHandlers}
             >
@@ -122,10 +233,12 @@ const Swiper: FunctionComponent<SwiperData> = ({
                         }
                     ]}
                 >
-                    {icon}
+                    <Animated.View style={{ opacity: fadeIn }}>
+                        {icon}
+                    </Animated.View>
                 </View>
             </Animated.View>
-        </View>
+        </Animated.View>
     );
 };
 
