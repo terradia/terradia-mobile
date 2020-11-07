@@ -74,6 +74,16 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10,
         alignSelf: "flex-end"
+    },
+    swiperTextDisable: {
+        fontFamily: "MontserratMedium",
+        fontSize: 20,
+        color: "#C2C2C2"
+    },
+    swiperTextEnable: {
+        fontFamily: "MontserratMedium",
+        fontSize: 18,
+        color: "#5CC04A"
     }
 });
 

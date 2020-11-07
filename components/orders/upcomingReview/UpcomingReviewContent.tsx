@@ -130,33 +130,38 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                 )}
             />
             <View style={{ position: "absolute", bottom: 30, width: "100%" }}>
-                <Swiper height={70} width={width - 50} borderRadius={30} />
-                {/*<RNSwipeVerify*/}
-                {/*    width={width - 50}*/}
-                {/*    buttonSize={70}*/}
-                {/*    buttonColor="#2962FF"*/}
-                {/*    borderColor="#2962FF"*/}
-                {/*    backgroundColor="#ECECEC"*/}
-                {/*    textColor="#37474F"*/}
-                {/*    borderRadius={30}*/}
-                {/*    okButton={{ visible: true, duration: 400 }}*/}
-                {/*    onVerified={() => {*/}
-                {/*        console.log("On verified");*/}
-                {/*    }}*/}
-                {/*    icon={*/}
-                {/*        <FontAwesome*/}
-                {/*            name="angle-right"*/}
-                {/*            size={40}*/}
-                {/*            color="white"*/}
-                {/*        />*/}
-                {/*    }*/}
-                {/*>*/}
-                {/*    <Text>*/}
-                {/*        {order.status === "PENDING"*/}
-                {/*            ? "UNLOCKED"*/}
-                {/*            : "Attente d'acception"}*/}
-                {/*    </Text>*/}
-                {/*</RNSwipeVerify>*/}
+                <Swiper
+                    height={60}
+                    width={width - 50}
+                    borderRadius={30}
+                    onSwipeEnd={(): void => console.log("Swap ended")}
+                    icon={
+                        <FontAwesome
+                            name="angle-right"
+                            size={40}
+                            color="white"
+                        />
+                    }
+                    text={
+                        <Text
+                            style={
+                                order.status === "PENDING"
+                                    ? styles.swiperTextDisable
+                                    : styles.swiperTextEnable
+                            }
+                        >
+                            {order.status === "PENDING"
+                                ? "Attente d'acceptation"
+                                : "Glisser pour accépter"}
+                        </Text>
+                    }
+                    enabled={order.status !== "PENDING"}
+                    borderColor={"#5CC04A"}
+                    disabledColor={"#C2C2C2"}
+                    swiperColor={"#5CC04A"}
+                    backgroundColor={"white"}
+                    borderWidth={2}
+                />
             </View>
         </View>
     );
