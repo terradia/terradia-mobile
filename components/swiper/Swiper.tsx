@@ -22,6 +22,7 @@ interface SwiperData {
     backgroundColor: string;
     borderWidth: number;
     isRequestDone: boolean;
+    onAnimationDone: () => void;
 }
 
 const Swiper: FunctionComponent<SwiperData> = ({
@@ -37,7 +38,8 @@ const Swiper: FunctionComponent<SwiperData> = ({
     swiperColor,
     backgroundColor,
     borderWidth,
-    isRequestDone
+    isRequestDone,
+    onAnimationDone
 }) => {
     const pan = useRef(new Animated.ValueXY()).current;
     const [isMoving, setIsMoving] = useState(true);
@@ -189,6 +191,7 @@ const Swiper: FunctionComponent<SwiperData> = ({
                             }}
                             ref={lottieRef}
                             autoPlay={false}
+                            onAnimationFinish={onAnimationDone}
                             resizeMode="cover"
                             loop={false}
                             source={require("../../assets/json/lf30_editor_8kzopal0.json")}

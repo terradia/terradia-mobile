@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import i18n from '@i18n/i18n';
-import { ProductData } from '@interfaces/Companies';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import AddProductToCart from '../../../graphql/cart/addProductToCart.graphql';
-import { useNavigation } from 'react-navigation-hooks';
-import getCart from '../../../graphql/cart/getCart.graphql';
-import Spinner from 'react-native-loading-spinner-overlay';
-import { CartData } from '@interfaces/User';
-import TerradiaSimpleDialog from '@components/modals/dialogs/TerradiaSimpleDialog';
-import styles from './styles/Footer.style';
+import React, { FunctionComponent, useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import i18n from "@i18n/i18n";
+import { ProductData } from "@interfaces/Companies";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import AddProductToCart from "../../../graphql/cart/addProductToCart.graphql";
+import { useNavigation } from "react-navigation-hooks";
+import getCart from "../../../graphql/cart/getCart.graphql";
+import Spinner from "react-native-loading-spinner-overlay";
+import { CartData } from "@interfaces/User";
+import TerradiaSimpleDialog from "@components/modals/dialogs/TerradiaSimpleDialog";
+import styles from "./styles/Footer.style";
 
 declare interface FooterProps {
     product: ProductData;
@@ -55,25 +55,25 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
     const _generateDialogMessage = (): string => {
         if (!cart || !cart.getCart) return null;
         const message =
-            i18n.t('productScreen.youHaveACart1') +
-            ' ( ' +
+            i18n.t("productScreen.youHaveACart1") +
+            " ( " +
             cart.getCart.company.name +
-            ' )' +
-            i18n.t('productScreen.youHaveACart2') +
-            ' ( ' +
+            " )" +
+            i18n.t("productScreen.youHaveACart2") +
+            " ( " +
             product.company.name +
-            ' ) ' +
-            ' ?';
+            " ) " +
+            " ?";
         return message;
     };
 
     return (
         <View style={styles.topContainer}>
             <TerradiaSimpleDialog
-                title={i18n.t('productScreen.newCartTitle')}
+                title={i18n.t("productScreen.newCartTitle")}
                 message={_generateDialogMessage()}
-                positiveButtonTitle={i18n.t('productScreen.newCartTitle')}
-                negativeButtonTitle={i18n.t('productScreen.no')}
+                positiveButtonTitle={i18n.t("productScreen.newCartTitle")}
+                negativeButtonTitle={i18n.t("productScreen.no")}
                 isDialogVisible={isDialogVisible}
                 setDialogVisible={setDialogVisible}
                 onDialogNoPressed={onDialogNoPressed}
@@ -81,8 +81,8 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
             />
             <Spinner
                 visible={loading}
-                textContent={i18n.t('loading')}
-                textStyle={{ fontFamily: 'MontserratSemiBold' }}
+                textContent={i18n.t("loading")}
+                textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <View style={styles.counterContainer}>
                 <TouchableOpacity onPress={(): void => _removeCount()}>
@@ -114,7 +114,7 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
             >
                 <View style={{}}>
                     <Text style={styles.texts}>
-                        {i18n.t('productScreen.addToCart')}
+                        {i18n.t("productScreen.addToCart")}
                     </Text>
                 </View>
                 <View style={styles.rightContainer}>

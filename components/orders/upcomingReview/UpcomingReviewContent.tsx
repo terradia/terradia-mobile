@@ -9,18 +9,19 @@ import {
 } from "react-native";
 import styles from "./styles/UpcomingReviewContent.style";
 import i18n from "@i18n/i18n";
-import { OrderData } from "@interfaces/Orders";
+import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 import UpcomingReviewListItem from "@components/orders/upcomingReview/UpcomingReviewListItem";
 import { Feather } from "@expo/vector-icons";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import getPaymentIntentsCard from "../../../graphql/orders/getPaymentIntentsCard.graphql";
 import { CardData } from "@interfaces/Wallet";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import UpcomingReviewContentHeader from "./UpcomingReviewContentHeader";
-import RNSwipeVerify from "react-native-swipe-verify";
 const { width } = Dimensions.get("window");
 import { FontAwesome } from "@expo/vector-icons";
 import Swiper from "@components/swiper/Swiper";
+import receiveOrder from "../../../graphql/orders/receiveOrder.graphql";
+import TerradiaSimpleDialog from '@components/modals/dialogs/TerradiaSimpleDialog';
 
 interface UpcomingReviewContentData {
     order: OrderData;
@@ -28,6 +29,10 @@ interface UpcomingReviewContentData {
 
 interface GetPaymentIntentsCard {
     getPaymentIntentsCard: CardData;
+}
+
+interface ReceiveOrderData {
+    receiveOrder: OrderHistoryData;
 }
 
 const Icons = {
@@ -114,15 +119,46 @@ const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> 
 const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
     order
 }) => {
-    const [isDone, setIsDone] = useState(false);
-    const simulateRequest = () => {
+    const [isRequestDone, setRequestDone] = useState(false);
+    const [isDialogVisible, setDialogVisible] = useState(false);
+
+    const [ReceiveOrder, { loading, data: orderReceived }] = useMutation<
+        ReceiveOrderData
+    >(receiveOrder);
+    const simulateRequest = (): void => {
         setTimeout(() => {
-            setIsDone(true);
-        }, 4000);
+            ReceiveOrder({ variables: { id: order.id } }).then(() => {
+                setRequestDone(true);
+                console.log("Request done");
+            });
+        }, 1000);
+    };
+
+    const onDialogYesPressed = (): void => {
+        simulateRequest();
+    };
+
+    const onDialogNoPressed = (): void => {
+        return;
+    };
+
+    const _generateDialogMessage = (): string => {
+        const message = "Voullez vous valider cette commande";
+        return message;
     };
 
     return (
         <View style={styles.container}>
+            <TerradiaSimpleDialog
+                title={i18n.t("productScreen.newCartTitle")}
+                message={_generateDialogMessage()}
+                positiveButtonTitle={i18n.t("productScreen.newCartTitle")}
+                negativeButtonTitle={i18n.t("productScreen.no")}
+                isDialogVisible={isDialogVisible}
+                setDialogVisible={setDialogVisible}
+                onDialogNoPressed={onDialogNoPressed}
+                onDialogYesPressed={onDialogYesPressed}
+            />
             <FlatList
                 data={order.products}
                 style={{ height: "100%", paddingTop: 70, zIndex: 0 }}
@@ -141,7 +177,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     height={60}
                     width={width - 50}
                     borderRadius={30}
-                    onSwipeEnd={(): void => simulateRequest()}
+                    onSwipeEnd={(): void => setDialogVisible(true)}
                     icon={
                         <FontAwesome
                             name="angle-right"
@@ -168,7 +204,8 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     swiperColor={"#5CC04A"}
                     backgroundColor={"white"}
                     borderWidth={2}
-                    isRequestDone={isDone}
+                    onAnimationDone={(): void => console.log("Animation done")}
+                    isRequestDone={isRequestDone}
                 />
             </View>
         </View>

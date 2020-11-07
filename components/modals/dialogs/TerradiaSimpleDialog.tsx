@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react';
-import { ConfirmDialog } from 'react-native-simple-dialogs';
+import React, { FunctionComponent, useState } from "react";
+import { ConfirmDialog } from "react-native-simple-dialogs";
 
 declare interface TerradiaSimpleDialog {
     title: string;
@@ -27,22 +27,23 @@ const TerradiaSimpleDialog: FunctionComponent<TerradiaSimpleDialog> = ({
             visible={isDialogVisible}
             title={title}
             message={message}
+            animationType={"fade"}
             onTouchOutside={(): void => {
                 setDialogVisible(false);
             }}
             messageStyle={{
-                fontFamily: 'Montserrat',
-                color: '#575757',
+                fontFamily: "Montserrat",
+                color: "#575757",
                 fontSize: 15
             }}
-            titleStyle={{ color: '#5CC04A', fontFamily: 'MontserratSemiBold' }}
+            titleStyle={{ color: "#5CC04A", fontFamily: "MontserratSemiBold" }}
             positiveButton={{
                 title: positiveButtonTitle,
                 onPress: (): void => {
                     setDialogVisible(false);
                     onDialogYesPressed();
                 },
-                titleStyle: { color: '#5CC04A' }
+                titleStyle: { color: "#5CC04A" }
             }}
             negativeButton={{
                 title: negativeButtonTitle,
@@ -50,7 +51,7 @@ const TerradiaSimpleDialog: FunctionComponent<TerradiaSimpleDialog> = ({
                     setDialogVisible(false);
                     onDialogNoPressed();
                 },
-                titleStyle: { color: '#575757' }
+                titleStyle: { color: "#575757" }
             }}
         />
     );
