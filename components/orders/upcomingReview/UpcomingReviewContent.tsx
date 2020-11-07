@@ -20,6 +20,7 @@ import UpcomingReviewContentHeader from "./UpcomingReviewContentHeader";
 import RNSwipeVerify from "react-native-swipe-verify";
 const { width } = Dimensions.get("window");
 import { FontAwesome } from "@expo/vector-icons";
+import Swiper from "@components/swiper/Swiper";
 
 interface UpcomingReviewContentData {
     order: OrderData;
@@ -129,32 +130,33 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                 )}
             />
             <View style={{ position: "absolute", bottom: 30, width: "100%" }}>
-                <RNSwipeVerify
-                    width={width - 50}
-                    buttonSize={70}
-                    buttonColor="#2962FF"
-                    borderColor="#2962FF"
-                    backgroundColor="#ECECEC"
-                    textColor="#37474F"
-                    borderRadius={30}
-                    okButton={{ visible: true, duration: 400 }}
-                    onVerified={() => {
-                        console.log("On verified");
-                    }}
-                    icon={
-                        <FontAwesome
-                            name="angle-right"
-                            size={40}
-                            color="white"
-                        />
-                    }
-                >
-                    <Text>
-                        {order.status === "PENDING"
-                            ? "UNLOCKED"
-                            : "Attente d'acception"}
-                    </Text>
-                </RNSwipeVerify>
+                <Swiper height={70} width={width - 50} borderRadius={30} />
+                {/*<RNSwipeVerify*/}
+                {/*    width={width - 50}*/}
+                {/*    buttonSize={70}*/}
+                {/*    buttonColor="#2962FF"*/}
+                {/*    borderColor="#2962FF"*/}
+                {/*    backgroundColor="#ECECEC"*/}
+                {/*    textColor="#37474F"*/}
+                {/*    borderRadius={30}*/}
+                {/*    okButton={{ visible: true, duration: 400 }}*/}
+                {/*    onVerified={() => {*/}
+                {/*        console.log("On verified");*/}
+                {/*    }}*/}
+                {/*    icon={*/}
+                {/*        <FontAwesome*/}
+                {/*            name="angle-right"*/}
+                {/*            size={40}*/}
+                {/*            color="white"*/}
+                {/*        />*/}
+                {/*    }*/}
+                {/*>*/}
+                {/*    <Text>*/}
+                {/*        {order.status === "PENDING"*/}
+                {/*            ? "UNLOCKED"*/}
+                {/*            : "Attente d'acception"}*/}
+                {/*    </Text>*/}
+                {/*</RNSwipeVerify>*/}
             </View>
         </View>
     );
