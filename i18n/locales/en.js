@@ -131,6 +131,13 @@ export default {
         serviceFees: "Service fees",
         smallOrderFee: "Small order fee",
         paidWith: "Payée avec :",
-        myReceipt: "My receipt"
+        myReceipt: "My receipt",
+        validateCommand: "Confirm pick up ?",
+        validateOrderPickUp:
+            "Do you want to validate the pickup of this order? This operation must be carried out by the producer.",
+        orderCompleted: "Order completed & received"
+    },
+    common: {
+        yes: "Yes"
     }
 };

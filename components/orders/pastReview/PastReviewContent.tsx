@@ -1,46 +1,22 @@
-import React, {
-    FunctionComponent,
-    ReactElement,
-    useRef,
-    useState
-} from "react";
-import {
-    Dimensions,
-    FlatList,
-    Image,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
-import styles from "./styles/UpcomingReviewContent.style";
+import React, { FunctionComponent, ReactElement } from "react";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import styles from "./styles/PastReviewContent.style";
 import i18n from "@i18n/i18n";
-import { OrderData, OrderHistoryData } from "@interfaces/Orders";
-import UpcomingReviewListItem from "@components/orders/upcomingReview/UpcomingReviewListItem";
+import { OrderHistoryData } from "@interfaces/Orders";
+import PastReviewListItem from "./PastReviewListItem";
 import { Feather } from "@expo/vector-icons";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import getPaymentIntentsCard from "../../../graphql/orders/getPaymentIntentsCard.graphql";
 import { CardData } from "@interfaces/Wallet";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import UpcomingReviewContentHeader from "./UpcomingReviewContentHeader";
-const { width } = Dimensions.get("window");
-import { FontAwesome } from "@expo/vector-icons";
-import Swiper from "@components/swiper/Swiper";
-import receiveOrder from "../../../graphql/orders/receiveOrder.graphql";
-import TerradiaSimpleDialog from "@components/modals/dialogs/TerradiaSimpleDialog";
-import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
-import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
-import { useNavigation } from "react-navigation-hooks";
+import PastReviewContentHeader from "./PastReviewContentHeader";
 
 interface UpcomingReviewContentData {
-    order: OrderData;
+    order: OrderHistoryData;
 }
 
 interface GetPaymentIntentsCard {
     getPaymentIntentsCard: CardData;
-}
-
-interface ReceiveOrderData {
-    receiveOrder: OrderHistoryData;
 }
 
 const Icons = {
@@ -55,7 +31,7 @@ const Icons = {
     visa: require("../../../assets/icons/stp_card_visa.png")
 };
 
-const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> = ({
+const PastReviewContentFooter: FunctionComponent<UpcomingReviewContentData> = ({
     order
 }) => {
     const { data: card } = useQuery<GetPaymentIntentsCard>(
@@ -127,95 +103,21 @@ const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> 
 const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
     order
 }) => {
-    const [isRequestDone, setRequestDone] = useState(false);
-    const [isDialogVisible, setDialogVisible] = useState(false);
-    const swiperRef = useRef(null);
-    const { goBack } = useNavigation();
-    const [ReceiveOrder, { client }] = useMutation<ReceiveOrderData>(
-        receiveOrder
-    );
-    const simulateRequest = (): void => {
-        ReceiveOrder({ variables: { id: order.id } }).then(() => {
-            client.query({ query: getMyOrders, fetchPolicy: "network-only" });
-            client.query({
-                query: getMyOrderHistories,
-                fetchPolicy: "network-only"
-            });
-            setRequestDone(true);
-        });
-    };
-
-    const onDialogYesPressed = (): void => {
-        simulateRequest();
-    };
-
-    const onDialogNoPressed = (): void => {
-        swiperRef.current.resetSwiper();
-        return;
-    };
-
     return (
         <View style={styles.container}>
-            <TerradiaSimpleDialog
-                title={i18n.t("orders.validateCommand")}
-                message={i18n.t("orders.validateOrderPickUp")}
-                positiveButtonTitle={i18n.t("common.yes")}
-                negativeButtonTitle={i18n.t("productScreen.no")}
-                isDialogVisible={isDialogVisible}
-                setDialogVisible={setDialogVisible}
-                onDialogNoPressed={onDialogNoPressed}
-                onDialogYesPressed={onDialogYesPressed}
-            />
             <FlatList
                 data={order.products}
                 style={{ height: "100%", paddingTop: 70, zIndex: 0 }}
                 ListHeaderComponent={(): ReactElement => (
-                    <UpcomingReviewContentHeader order={order} />
+                    <PastReviewContentHeader order={order} />
                 )}
                 ListFooterComponent={(): ReactElement => (
-                    <UpcomingReviewContentFooter order={order} />
+                    <PastReviewContentFooter order={order} />
                 )}
                 renderItem={({ item }): ReactElement => (
-                    <UpcomingReviewListItem orderProduct={item} />
+                    <PastReviewListItem orderProduct={item} />
                 )}
             />
-            <View style={{ position: "absolute", bottom: 30, width: "100%" }}>
-                <Swiper
-                    ref={swiperRef}
-                    height={60}
-                    width={width - 50}
-                    borderRadius={30}
-                    onSwipeEnd={(): void => setDialogVisible(true)}
-                    icon={
-                        <FontAwesome
-                            name="angle-right"
-                            size={40}
-                            color="white"
-                        />
-                    }
-                    text={
-                        <Text
-                            style={
-                                order.status === "PENDING"
-                                    ? styles.swiperTextDisable
-                                    : styles.swiperTextEnable
-                            }
-                        >
-                            {order.status === "PENDING"
-                                ? "Attente d'acceptation"
-                                : "Glisser pour accépter"}
-                        </Text>
-                    }
-                    enabled={order.status !== "PENDING"}
-                    borderColor={"#5CC04A"}
-                    disabledColor={"#C2C2C2"}
-                    swiperColor={"#5CC04A"}
-                    backgroundColor={"white"}
-                    borderWidth={2}
-                    onAnimationDone={(): boolean => goBack()}
-                    isRequestDone={isRequestDone}
-                />
-            </View>
         </View>
     );
 };

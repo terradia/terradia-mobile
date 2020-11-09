@@ -138,6 +138,14 @@ export default {
         serviceFees: "Service fees",
         smallOrderFee: "Frais de petite commande",
         paidWith: "Paid with :",
-        myReceipt: "Mon reçu"
+        myReceipt: "Mon reçu",
+        validateCommand: "Valider le retrait ?",
+        validateOrderPickUp:
+            "Voullez-vous valider le retrait de cette commande ? Cette opération doit être effectuée par le producteur",
+        orderCompleted: "Order completed & received"
+
+    },
+    common: {
+        yes: "Oui"
     }
 };
