@@ -1,0 +1,4 @@
+mutation updateCustomerSource($cardId: String!) {
+    updateCustomerDefaultSource(cardId: $cardId)
+}
+

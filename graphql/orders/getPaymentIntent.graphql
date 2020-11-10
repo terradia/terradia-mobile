@@ -1,0 +1,10 @@
+query getPaymentIntent($paymentId: String!) {
+    getPaymentIntents(paymentId: $paymentId) {
+         id
+        payment_method {
+            id
+            brand
+            exp_year
+        }
+    }
+}

@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Modal from 'react-native-modal';
-import { colors, Header } from 'react-native-elements';
-import { Entypo } from '@expo/vector-icons';
-import { Input } from 'react-native-elements';
-import ButtonTerradia from '@components/buttons/ButtonTerradia';
-import i18n from '@i18n/i18n';
-import updateUser from '../../../graphql/user/updateUser.graphql';
-import { useMutation } from '@apollo/react-hooks';
-import PhoneInput from 'react-native-phone-input';
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import Modal from "react-native-modal";
+import { colors, Header } from "react-native-elements";
+import { Entypo } from "@expo/vector-icons";
+import { Input } from "react-native-elements";
+import ButtonTerradia from "@components/buttons/ButtonTerradia";
+import i18n from "@i18n/i18n";
+import updateUser from "../../../graphql/user/updateUser.graphql";
+import { useMutation } from "@apollo/react-hooks";
+import PhoneInput from "react-native-phone-input";
 
 declare interface AccountModalProps {
     currentEditing: string;
@@ -18,8 +18,8 @@ declare interface AccountModalProps {
 
 const styles = StyleSheet.create({
     labelInput: {
-        fontFamily: 'MontserratSemiBold',
-        color: '#575757'
+        fontFamily: "MontserratSemiBold",
+        color: "#575757"
     },
     contentContainer: {
         marginTop: 20,
@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: "white"
     },
     phoneInputUnderLine: {
         height: 1,
-        backgroundColor: 'rgb(136, 145, 155)',
+        backgroundColor: "rgb(136, 145, 155)",
         marginLeft: 40,
         marginTop: 10
     },
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     },
     buttonUpdateContainer: {
         marginTop: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
 
@@ -53,28 +53,28 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
     setCurrentEditing,
     initialValue
 }) => {
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState("");
     const [UpdateUser, { loading }] = useMutation(updateUser, {
         onCompleted: () => {
             setCurrentEditing(null);
-            setErrorMessage('');
+            setErrorMessage("");
         },
         onError: () => {
-            setErrorMessage(i18n.t('accountScreen.invalidInput'));
+            setErrorMessage(i18n.t("accountScreen.invalidInput"));
         }
     });
-    const [value, setValue] = useState('');
-    const [checkPassword, setCheckPassword] = useState('');
+    const [value, setValue] = useState("");
+    const [checkPassword, setCheckPassword] = useState("");
     useEffect(() => {
         setValue(initialValue);
     }, [initialValue]);
     const phoneRef = useRef(null);
 
     const _update = (): void => {
-        if (currentEditing === 'phoneNumber') {
+        if (currentEditing === "phoneNumber") {
             const phone = phoneRef.current.getValue();
             if (!phoneRef.current.isValidNumber()) {
-                setErrorMessage(i18n.t('accountScreen.invalidPhoneNumber'));
+                setErrorMessage(i18n.t("accountScreen.invalidPhoneNumber"));
                 return;
             }
             UpdateUser({
@@ -83,16 +83,16 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                 }
             });
         } else {
-            if (currentEditing === 'password') {
+            if (currentEditing === "password") {
                 if (value !== checkPassword) {
                     setErrorMessage(
-                        i18n.t('accountScreen.passwordDoesntMatch')
+                        i18n.t("accountScreen.passwordDoesntMatch")
                     );
                     return;
                 }
             }
             if (value.length === 0) {
-                setErrorMessage(i18n.t('accountScreen.fillInput'));
+                setErrorMessage(i18n.t("accountScreen.fillInput"));
                 return;
             }
             UpdateUser({
@@ -110,16 +110,19 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                     placement="left"
                     leftComponent={
                         <TouchableOpacity
-                            style={{padding: 3}}
-                            onPress={() => setCurrentEditing(null)}
+                            style={{ padding: 3 }}
+                            onPress={() => {
+                                setErrorMessage("");
+                                setCurrentEditing(null);
+                            }}
                         >
                             <Entypo name="cross" size={26} />
                         </TouchableOpacity>
                     }
-                    backgroundColor={'transparent'}
+                    backgroundColor={"transparent"}
                 />
                 <View style={styles.contentContainer}>
-                    {currentEditing === 'phoneNumber' ? (
+                    {currentEditing === "phoneNumber" ? (
                         <View style={{}}>
                             <Text
                                 style={[
@@ -127,11 +130,11 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                                     { marginBottom: 10 }
                                 ]}
                             >
-                                {i18n.t('accountScreen.phoneNumber')}
+                                {i18n.t("accountScreen.phoneNumber")}
                             </Text>
                             <PhoneInput
                                 ref={phoneRef}
-                                initialCountry={'fr'}
+                                initialCountry={"fr"}
                                 autoFormat={true}
                                 value={initialValue}
                             />
@@ -144,20 +147,20 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                                 style={{}}
                                 value={value}
                                 label={i18n.t(
-                                    'accountScreen.' + currentEditing
+                                    "accountScreen." + currentEditing
                                 )}
                                 labelStyle={styles.labelInput}
                                 onChangeText={value => setValue(value)}
                                 errorMessage={errorMessage}
                                 autoCorrect={false}
-                                secureTextEntry={currentEditing === 'password'}
+                                secureTextEntry={currentEditing === "password"}
                             />
-                            {currentEditing === 'password' && (
+                            {currentEditing === "password" && (
                                 <Input
                                     containerStyle={{ marginTop: 20 }}
                                     value={checkPassword}
                                     label={i18n.t(
-                                        'accountScreen.confirmNewPassword'
+                                        "accountScreen.confirmNewPassword"
                                     )}
                                     labelStyle={styles.labelInput}
                                     onChangeText={value =>
@@ -174,16 +177,16 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                             title={
                                 currentEditing !== null
                                     ? i18n.t(
-                                          'accountScreen.update' +
+                                          "accountScreen.update" +
                                               currentEditing
                                                   .charAt(0)
                                                   .toUpperCase() +
                                               currentEditing.slice(1)
                                       )
-                                    : ''
+                                    : ""
                             }
-                            style={[{ borderColor: '#FFFFFF' }]}
-                            titleStyle={[{ color: '#FFFFFF' }]}
+                            style={[{ borderColor: "#FFFFFF" }]}
+                            titleStyle={[{ color: "#FFFFFF" }]}
                             loading={loading}
                             onPress={(): void => {
                                 _update();

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
 import {
     ImageBackground,
     SafeAreaView,
@@ -6,36 +6,36 @@ import {
     StyleSheet,
     View,
     TouchableOpacity
-} from 'react-native';
-import TerradiaWhite from '../../assets/svg/terradia_white.svg';
-import ButtonTerradia from '@components/buttons/ButtonTerradia';
-import { useNavigation } from 'react-navigation-hooks';
-import i18n from '@i18n/i18n';
+} from "react-native";
+import TerradiaWhite from "../../assets/svg/terradia_white.svg";
+import ButtonTerradia from "@components/buttons/ButtonTerradia";
+import { useNavigation } from "react-navigation-hooks";
+import i18n from "@i18n/i18n";
 
 const styles = StyleSheet.create({
     title: {
         marginTop: 20
     },
     safeArea: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        justifyContent: "space-between",
+        alignItems: "center",
         flex: 1
     },
     subTitle: {
-        color: 'white',
-        fontFamily: 'MontserratSemiBold',
+        color: "white",
+        fontFamily: "MontserratSemiBold",
         marginTop: 30,
         fontSize: 18,
         margin: 20,
-        textAlign: 'center',
+        textAlign: "center",
         lineHeight: 25
     },
     brightness: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, .4)'
+        backgroundColor: "rgba(0, 0, 0, .4)"
     },
     containers: {
-        alignItems: 'center'
+        alignItems: "center"
     },
     bottomContainer: {
         marginBottom: 20
@@ -46,7 +46,7 @@ const HomeAuthScreen: FunctionComponent = () => {
     const { navigate } = useNavigation();
     return (
         <ImageBackground
-            source={require('../../assets/images/background.jpg')}
+            source={require("../../assets/images/background.jpg")}
             style={{ flex: 1 }}
         >
             <View style={styles.brightness}>
@@ -60,26 +60,26 @@ const HomeAuthScreen: FunctionComponent = () => {
                     </View>
                     <View style={[styles.containers, styles.bottomContainer]}>
                         <ButtonTerradia
-                            title={i18n.t('homeAuth.joinTerradia')}
-                            style={[{ borderColor: 'transparent', width: 300 }]}
+                            title={i18n.t("homeAuth.joinTerradia")}
+                            style={[{ borderColor: "transparent", width: 300 }]}
                             titleStyle={[
                                 {
-                                    color: '#FFFFFF',
-                                    fontFamily: 'MontserratSemiBold'
+                                    color: "#FFFFFF",
+                                    fontFamily: "MontserratSemiBold"
                                 }
                             ]}
                             loading={false}
                             onPress={(): void => {
-                                navigate('Register');
+                                navigate("Register");
                             }}
                         />
                         <TouchableOpacity
                             onPress={(): void => {
-                                navigate('Login');
+                                navigate("Login");
                             }}
                         >
                             <Text style={styles.subTitle}>
-                                {i18n.t('homeAuth.alreadyHaveAnAccount')}
+                                {i18n.t("homeAuth.alreadyHaveAnAccount")}
                             </Text>
                         </TouchableOpacity>
                     </View>

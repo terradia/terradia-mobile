@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Avatar, AirbnbRating } from 'react-native-elements';
-import { FontAwesome } from '@expo/vector-icons';
-import styles from './styles/GrowersProductsForegroundHeader.style';
-import { GrowersConfig } from '@interfaces/Growers';
+import React, { FunctionComponent } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Avatar, AirbnbRating } from "react-native-elements";
+import { FontAwesome } from "@expo/vector-icons";
+import styles from "./styles/GrowersProductsForegroundHeader.style";
+import { CompanyData } from "@interfaces/Companies";
 
 declare interface GrowersProductsForegroundHeaderProps {
-    grower?: GrowersConfig;
+    grower?: CompanyData;
 }
 
 const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegroundHeaderProps> = ({
@@ -20,8 +20,10 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                         size={80}
                         rounded
                         source={{
-                            uri:
-                                'https://labo-typo.fr/wp-content/uploads/2015/08/labo-typo-laure-saigne-au-brasseur-strasbourg-logo-1468x1525.jpg'
+                            uri: grower.logo
+                                ? "https://media.terradia.eu/" +
+                                  grower.logo.filename
+                                : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                         }}
                         containerStyle={[styles.shadow1, styles.growerImage]}
                     />
@@ -30,9 +32,9 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                             <View style={styles.tag}>
                                 <Text
                                     style={{
-                                        fontFamily: 'MontserratSemiBold',
-                                        color: 'white',
-                                        fontWeight: '500'
+                                        fontFamily: "MontserratSemiBold",
+                                        color: "white",
+                                        fontWeight: "500"
                                     }}
                                 >
                                     NOUVEAUTE
@@ -49,12 +51,12 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                selectedColor={'#4AA542'}
+                                selectedColor={"#4AA542"}
                             />
                             <Text style={styles.textNumberRates}>
                                 {grower.numberOfMarks > 99
-                                    ? '(99+)'
-                                    : '(' + grower.numberOfMarks + ')'}
+                                    ? "(99+)"
+                                    : "(" + grower.numberOfMarks + ")"}
                             </Text>
                         </View>
                     </View>

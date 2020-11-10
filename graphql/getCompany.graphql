@@ -5,6 +5,12 @@ query getCompany($id: ID!) {
         averageMark
         numberOfMarks
         description
+        cover {
+            filename
+        }
+        logo {
+            filename
+        }
         productsCategories {
             name
             products {
@@ -12,6 +18,11 @@ query getCompany($id: ID!) {
                 id
                 description
                 price
+                cover {
+                    companyImage {
+                        filename
+                    }
+                }
             }
         }
     }

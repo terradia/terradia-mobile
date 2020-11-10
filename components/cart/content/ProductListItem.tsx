@@ -26,6 +26,7 @@ const ProductListItem: FunctionComponent<ProductListItemProps> = ({
             <TouchableHighlight
                 onPress={(): void => setModalOpen(true)}
                 style={styles.rowFront}
+                activeOpacity={0.9}
             >
                 <View style={{ backgroundColor: 'rgb(242, 242, 242)' }}>
                     <View

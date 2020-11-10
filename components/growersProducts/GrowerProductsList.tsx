@@ -1,21 +1,21 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
-import { TouchableOpacity, SectionList, View } from 'react-native';
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import GrowersProductsForegroundHeader from '@components/growersProducts/products/GrowersProductsForegroundHeader';
+import React, { FunctionComponent, useRef, useState } from "react";
+import { TouchableOpacity, SectionList, View } from "react-native";
+import ParallaxScrollView from "react-native-parallax-scroll-view";
+import GrowersProductsForegroundHeader from "@components/growersProducts/products/GrowersProductsForegroundHeader";
 import {
     renderFixedHeader,
     renderImageBackground,
     renderNavBar
-} from '@components/growersProducts/products/GrowersProductsHeader';
+} from "@components/growersProducts/products/GrowersProductsHeader";
 import {
     renderHeaders,
     renderItems
-} from '@components/growersProducts/products/GrowersProductsListRender';
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-import styles from './styles/GrowerProducts.style';
-import Cart from '@components/cart';
-import { CompanyData, ProductData } from '@interfaces/Companies';
-import DeepLinking from '@components/routing/DeepLinking';
+} from "@components/growersProducts/products/GrowersProductsListRender";
+import { NavigationStackScreenProps } from "react-navigation-stack";
+import styles from "./styles/GrowerProducts.style";
+import Cart from "@components/cart";
+import { CompanyData, ProductData } from "@interfaces/Companies";
+import DeepLinking from "@components/routing/DeepLinking";
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -101,14 +101,14 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 renderItem={({ item }: { item: ProductData }): any => (
                     <TouchableOpacity
                         onPress={(): void => {
-                            navigation.navigate('Product', {
+                            navigation.navigate("Product", {
                                 product: item.id
                             });
                         }}
                         activeOpacity={0.7}
                         style={{
                             height: LIST_ELEM_HEIGHT,
-                            borderColor: '#ccc',
+                            borderColor: "#ccc",
                             borderTopWidth: 0.5
                         }}
                     >
@@ -129,14 +129,16 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                                 });
                             }
                         }}
-                        style={{ flex: 1, width: '100%' }}
+                        style={{ flex: 1, width: "100%" }}
                         backgroundColor="white"
                         parallaxHeaderHeight={300}
                         stickyHeaderHeight={133}
                         renderFixedHeader={(): any =>
                             renderFixedHeader({ navigation })
                         }
-                        renderBackground={renderImageBackground}
+                        renderBackground={(): any =>
+                            renderImageBackground({ grower: company })
+                        }
                         renderStickyHeader={(): any =>
                             renderNavBar({
                                 data: products,
@@ -160,7 +162,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                     />
                 )}
             />
-            <View style={{ paddingBottom: 10, backgroundColor: '#5CC04A' }}>
+            <View style={{ paddingBottom: 10, backgroundColor: "#5CC04A" }}>
                 <Cart />
                 <DeepLinking />
             </View>

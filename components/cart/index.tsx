@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
-import { View } from 'react-native';
-import Footer from './screens/Footer';
-import { useQuery } from '@apollo/react-hooks';
-import getCart from '../../graphql/cart/getCart.graphql';
+import React, { FunctionComponent, useState } from "react";
+import { View } from "react-native";
+import Footer from "./screens/Footer";
+import { useQuery } from "@apollo/react-hooks";
+import getCart from "../../graphql/cart/getCart.graphql";
 
 const Cart: FunctionComponent<any> = () => {
     const { data } = useQuery(getCart);

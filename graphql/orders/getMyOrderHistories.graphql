@@ -1,0 +1,26 @@
+query getMyOrderHistories {
+    getMyOrderHistories {
+        id
+        code
+        status
+        price
+        createdAt
+        companyLogo
+        companyName
+        decliningReason
+        orderCreationDate
+        products {
+            id
+            price
+            name
+            quantity
+            unit {
+                id
+                notation
+            }
+            quantityForUnit
+        }
+        numberProducts
+        stripePaymentIntent
+    }
+}

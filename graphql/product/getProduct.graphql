@@ -6,6 +6,11 @@ query getProduct($id: ID!) {
         averageMark
         numberOfMarks
         price
+        cover {
+            companyImage {
+                filename
+            }
+        }
         company {
             id
             name

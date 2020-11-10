@@ -1,20 +1,20 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { TouchableOpacity, Share } from 'react-native';
-import styles from './styles/GrowersProductsHeader.style';
-import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
-import { View } from 'react-native';
-import { Image } from 'react-native';
-import { Text } from 'react-native';
-import GrowersProductsCategories from './GrowersProductsCategories';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Sharing from 'expo-sharing';
-import { CompanyData } from '@interfaces/Companies';
-import * as Linking from 'expo-linking';
+import React, { FunctionComponent, ReactElement } from "react";
+import { TouchableOpacity, Share } from "react-native";
+import styles from "./styles/GrowersProductsHeader.style";
+import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
+import { Image } from "react-native";
+import { Text } from "react-native";
+import GrowersProductsCategories from "./GrowersProductsCategories";
+import { LinearGradient } from "expo-linear-gradient";
+import * as Sharing from "expo-sharing";
+import { CompanyData } from "@interfaces/Companies";
+import * as Linking from "expo-linking";
 
 export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
     return (
         <TouchableOpacity
-            style={{ top: 40, left: 10, height: 35, position: 'absolute' }}
+            style={{ top: 40, left: 10, height: 35, position: "absolute" }}
             onPress={(): void => {
                 navigation.goBack();
             }}
@@ -49,18 +49,18 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
     return (
         <View style={styles.navContainer}>
             <LinearGradient
-                colors={['#8FDD3D', '#5CC04A']}
+                colors={["#8FDD3D", "#5CC04A"]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
                 <View style={styles.statusBar} />
                 <View style={styles.navBar}>
                     <Text style={styles.navBarGrowerName}>{grower.name}</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity
                             onPress={async () => {
                                 const redirectUrl = Linking.makeUrl(
-                                    'products',
+                                    "products",
                                     {
                                         company: grower.id
                                     }
@@ -90,7 +90,7 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                 </View>
             </LinearGradient>
             <LinearGradient
-                colors={['#8FDD3D', '#5CC04A']}
+                colors={["#8FDD3D", "#5CC04A"]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
@@ -107,7 +107,7 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                                     styles.tabContainer,
                                     {
                                         borderBottomWidth: isActive ? 1.5 : 0,
-                                        borderBottomColor: '#8FDD3D'
+                                        borderBottomColor: "#8FDD3D"
                                     }
                                 ]}
                             >
@@ -116,9 +116,9 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                                         styles.tabText,
                                         {
                                             color: isActive
-                                                ? '#8FDD3D'
-                                                : '#BBBBBB',
-                                            fontFamily: 'MontserratBold'
+                                                ? "#8FDD3D"
+                                                : "#BBBBBB",
+                                            fontFamily: "MontserratBold"
                                         }
                                     ]}
                                 >
@@ -138,14 +138,25 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
     );
 };
 
-export const renderImageBackground: FunctionComponent<null> = () => {
+declare interface RenderImageProps {
+    grower: CompanyData;
+}
+
+export const renderImageBackground: FunctionComponent<RenderImageProps> = ({
+    grower
+}) => {
     return (
         <View>
             <Image
                 source={{
-                    uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`,
+                    uri: grower.cover
+                        ? "https://media.terradia.eu/" + grower.cover.filename
+                        : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg",
                     height: 250
                 }}
+                // source={{
+                //     uri: `https://avis-vin.lefigaro.fr/var/img/154/38484-650x330-istock-877043770.jpg`,
+                // }}
             />
             <View style={styles.brightness} />
         </View>

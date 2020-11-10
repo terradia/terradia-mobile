@@ -1,4 +1,4 @@
-import { CustomerData } from '@interfaces/User';
+import { CustomerData } from "@interfaces/User";
 
 export interface CompaniesData {
     getAllCompanies: CompanyData[];
@@ -17,11 +17,21 @@ export interface CompanyData {
     geoPosition: GeographicPointData;
     distance: number;
     products: ProductData[];
+    logo: LogoData;
+    cover: LogoData;
+}
+
+interface LogoData {
+    filename: string;
 }
 
 interface ProductsCategoryData {
     name: string;
     products: ProductData[];
+}
+
+interface ProductImageData {
+    companyImage: LogoData;
 }
 
 export interface ProductData {
@@ -32,6 +42,17 @@ export interface ProductData {
     description: string;
     price: number;
     company: CompanyData;
+    cover: ProductImageData;
+    quantityForUnit: number;
+    unit: UnitData;
+}
+
+interface UnitData {
+    id: string;
+    name: string;
+    notation: string;
+    referenceUnit: UnitData;
+    multiplicationFactor: number;
 }
 
 interface ReviewData {
@@ -49,4 +70,12 @@ export interface CompanyReviewData {
     description: string;
     id: string;
     title: string;
+}
+
+export interface UnitData {
+    id: string;
+    name: string;
+    notation: string;
+    referenceUnit: UnitData;
+    multiplicationFactor: number;
 }

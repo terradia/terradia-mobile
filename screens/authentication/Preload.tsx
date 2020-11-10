@@ -1,14 +1,15 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import { AsyncStorage } from 'react-native';
-import { useLazyQuery } from '@apollo/react-hooks';
-import getUser from '../../graphql/getUser.graphql';
-import getActiveAddress from '../../graphql/getActiveAddress.graphql';
-import getAddressesByUser from '../../graphql/getAddressesByUser.graphql';
-import getCompaniesByDistanceByCustomer from '../../graphql/getCompaniesByDistanceByCustomer.graphql';
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { AsyncStorage } from "react-native";
+import { useLazyQuery } from "@apollo/react-hooks";
+import getUser from "./../../graphql/getUser.graphql";
+import getActiveAddress from "../../graphql/getActiveAddress.graphql";
+import getAddressesByUser from "../../graphql/getAddressesByUser.graphql";
+import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistanceByCustomer.graphql";
 
-import { useNavigation } from 'react-navigation-hooks';
-import * as Linking from 'expo-linking';
-import { CustomerAddressData } from '@interfaces/User';
+import { useNavigation } from "react-navigation-hooks";
+import * as Linking from "expo-linking";
+import { CustomerAddressData } from "@interfaces/User";
+import * as SplashScreen from 'expo-splash-screen';
 
 export interface MyInputHandles {
     preload(): void;
@@ -19,13 +20,13 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
 }> &
     React.RefAttributes<any>> = forwardRef(({ children }, ref) => {
     const { navigate } = useNavigation();
-    const [path, setPath] = useState('');
+    const [path, setPath] = useState("");
     const [urlQueryParams, setQueryParams] = useState(null);
 
     const _redirect = () => {
-        if (path === '') navigate('Grower');
-        else if (path === 'GrowersProducts' && urlQueryParams.company) {
-            navigate('GrowersProducts', {
+        if (path === "") navigate("Grower");
+        else if (path === "GrowersProducts" && urlQueryParams.company) {
+            navigate("GrowersProducts", {
                 grower: urlQueryParams.company
             });
         } else navigate(path);
@@ -34,38 +35,43 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
     const [loadActiveAddress, { data: activeAddress, client }] = useLazyQuery<{
         getActiveCustomerAddress: CustomerAddressData;
     }>(getActiveAddress, {
-        fetchPolicy: 'network-only',
+        fetchPolicy: "network-only",
         onCompleted: data => {
             if (data && data.getActiveCustomerAddress) {
                 client.query({ query: getAddressesByUser });
                 client.query({ query: getCompaniesByDistanceByCustomer });
                 _redirect();
-            } else navigate('Location');
+            } else navigate("Location");
         },
         onError: async error => {
             console.warn(error);
-            await AsyncStorage.removeItem('token');
-            navigate('HomeAuth');
+            await AsyncStorage.removeItem("token");
+            navigate("HomeAuth");
         }
     });
     const [loadUser] = useLazyQuery(getUser, {
-        fetchPolicy: 'network-only',
+        fetchPolicy: "network-only",
         onCompleted: data => {
             if (data && data.getUser) {
                 loadActiveAddress();
-            } else navigate('HomeAuth');
+            } else navigate("HomeAuth");
         },
         onError: async onerror => {
             console.warn(onerror);
-            await AsyncStorage.removeItem('token');
-            navigate('HomeAuth');
+            await AsyncStorage.removeItem("token");
+            navigate("HomeAuth");
         }
     });
-    const _loadData = () => {
+    const _loadData = async () => {
+        console.log("HAHA");
         Linking.getInitialURL().then(data => {
-            const { path, queryParams } = Linking.parse(data);
-            setQueryParams({ ...queryParams });
-            if (path) setPath(path.replace('--/', ''));
+            if (data) {
+                console.log(data);
+                const { path, queryParams } = Linking.parse(data);
+                setQueryParams({ ...queryParams });
+                if (path) setPath(path.replace("--/", ""));
+            }
+
             loadUser();
         });
     };

@@ -6,6 +6,15 @@ query getCompaniesByDistanceByCustomer {
         numberOfMarks
         description
         distance
+        cover {
+            filename
+        }
+        logo {
+            filename
+        }
+        companyImages {
+            filename
+        }
         productsCategories {
             name
             products {
@@ -20,6 +29,9 @@ query getCompaniesByDistanceByCustomer {
             id
             description
             price
+            images {
+                filename
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ import {
     CompanyReviewData,
     GeographicPointData,
     ProductData
-} from '@interfaces/Companies';
+} from "@interfaces/Companies";
 
 export interface GetUserData {
     getUser: UserData;

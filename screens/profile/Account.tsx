@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from "react";
 import {
     View,
     StyleSheet,
@@ -6,21 +6,21 @@ import {
     TouchableOpacity,
     TextInput,
     AsyncStorage
-} from 'react-native';
-import HeaderAccount from '@components/account/Header';
-import { Entypo } from '@expo/vector-icons';
-import AccountModal from '@components/account/modal/AccountModal';
-import i18n from '@i18n/i18n';
-import { useQuery } from '@apollo/react-hooks';
-import { GetUserData } from '@interfaces/User';
-import getUser from '../../graphql/getUser.graphql';
-import AccountImage from '@components/account/AccountImage';
-import styles from './styles/Account.style';
-import { useNavigation } from 'react-navigation-hooks';
+} from "react-native";
+import HeaderAccount from "@components/account/Header";
+import { Entypo } from "@expo/vector-icons";
+import AccountModal from "@components/account/modal/AccountModal";
+import i18n from "@i18n/i18n";
+import { useQuery } from "@apollo/react-hooks";
+import { GetUserData } from "@interfaces/User";
+import getUser from "../../graphql/getUser.graphql";
+import AccountImage from "@components/account/AccountImage";
+import styles from "./styles/Account.style";
+import { useNavigation } from "react-navigation-hooks";
 
 const Account: FunctionComponent = () => {
     const [currentEditing, setCurrentEditing] = useState(null);
-    const [initialValue, setInitialValue] = useState('');
+    const [initialValue, setInitialValue] = useState("");
     const { navigate } = useNavigation();
     const { data: me } = useQuery<GetUserData>(getUser);
     return (
@@ -30,7 +30,7 @@ const Account: FunctionComponent = () => {
                 setCurrentEditing={setCurrentEditing}
                 initialValue={initialValue}
             />
-            <HeaderAccount title={'Mon compte'} />
+            <HeaderAccount title={"Mon compte"} backButton={true} />
             <View style={styles.imageContainer}>
                 <AccountImage me={me && me.getUser} />
             </View>
@@ -38,11 +38,11 @@ const Account: FunctionComponent = () => {
                 style={styles.fieldContainer}
                 onPress={() => {
                     setInitialValue(me.getUser.firstName);
-                    setCurrentEditing('firstName');
+                    setCurrentEditing("firstName");
                 }}
             >
                 <Text style={styles.fieldTitle}>
-                    {i18n.t('accountScreen.firstName')}
+                    {i18n.t("accountScreen.firstName")}
                 </Text>
                 <View style={styles.subFieldContainer}>
                     <Text style={styles.subFieldText}>
@@ -55,11 +55,11 @@ const Account: FunctionComponent = () => {
                 style={styles.fieldContainer}
                 onPress={() => {
                     setInitialValue(me.getUser.lastName);
-                    setCurrentEditing('lastName');
+                    setCurrentEditing("lastName");
                 }}
             >
                 <Text style={styles.fieldTitle}>
-                    {i18n.t('accountScreen.lastName')}
+                    {i18n.t("accountScreen.lastName")}
                 </Text>
                 <View style={styles.subFieldContainer}>
                     <Text style={styles.subFieldText}>
@@ -72,17 +72,17 @@ const Account: FunctionComponent = () => {
                 style={styles.fieldContainer}
                 onPress={() => {
                     setInitialValue(me.getUser.phone);
-                    setCurrentEditing('phoneNumber');
+                    setCurrentEditing("phoneNumber");
                 }}
             >
                 <Text style={styles.fieldTitle}>
-                    {i18n.t('accountScreen.phoneNumber')}
+                    {i18n.t("accountScreen.phoneNumber")}
                 </Text>
                 <View style={styles.subFieldContainer}>
                     <Text style={styles.subFieldText}>{me.getUser.phone}</Text>
                     <View style={styles.rightContent}>
                         <Text style={styles.verifiedText}>
-                            {i18n.t('accountScreen.verified')}
+                            {i18n.t("accountScreen.verified")}
                         </Text>
                         <Entypo name="chevron-right" size={27} />
                     </View>
@@ -92,17 +92,17 @@ const Account: FunctionComponent = () => {
                 style={styles.fieldContainer}
                 onPress={() => {
                     setInitialValue(me.getUser.email);
-                    setCurrentEditing('email');
+                    setCurrentEditing("email");
                 }}
             >
                 <Text style={styles.fieldTitle}>
-                    {i18n.t('accountScreen.email')}
+                    {i18n.t("accountScreen.email")}
                 </Text>
                 <View style={styles.subFieldContainer}>
                     <Text style={styles.subFieldText}>{me.getUser.email}</Text>
                     <View style={styles.rightContent}>
                         <Text style={styles.nonVerifiedText}>
-                            {i18n.t('accountScreen.notVerified')}
+                            {i18n.t("accountScreen.notVerified")}
                         </Text>
                         <Entypo name="chevron-right" size={27} />
                     </View>
@@ -111,8 +111,8 @@ const Account: FunctionComponent = () => {
             <TouchableOpacity
                 style={styles.fieldContainer}
                 onPress={() => {
-                    setInitialValue('');
-                    setCurrentEditing('password');
+                    setInitialValue("");
+                    setCurrentEditing("password");
                 }}
             >
                 <Text style={styles.fieldTitle}>Mot de passe</Text>
@@ -132,14 +132,14 @@ const Account: FunctionComponent = () => {
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    AsyncStorage.removeItem('token').then(() => {
-                        navigate('Login');
+                    AsyncStorage.removeItem("token").then(() => {
+                        navigate("Login");
                     });
                 }}
                 style={styles.signOutContainer}
             >
                 <Text style={styles.signOut}>
-                    {i18n.t('accountScreen.signOut')}
+                    {i18n.t("accountScreen.signOut")}
                 </Text>
             </TouchableOpacity>
         </View>

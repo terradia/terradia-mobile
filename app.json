@@ -24,7 +24,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.terradia.terradiaApp"
     },
     "android": {
       "package": "com.terradia.terradiaApp",
@@ -42,8 +43,10 @@
         "jsx",
         "ts",
         "tsx",
-        "svg"
+        "svg",
+        "graphql"
       ]
-    }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }

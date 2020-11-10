@@ -1,8 +1,9 @@
-import React, { Component, FunctionComponent } from 'react';
-import { View } from 'react-native';
-import { Button as ElementButton } from 'react-native-elements';
+import React, { Component, FunctionComponent } from "react";
+import { View } from "react-native";
+import { Button as ElementButton } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
 
-import styles from './styles/ButtonEmpty.style';
+import styles from "./styles/ButtonEmpty.style";
 
 //
 // class ButtonEmpty extends Component {
@@ -43,21 +44,37 @@ const Button: FunctionComponent<ButtonProps> = ({
     linearGradientProps,
     loading
 }) => {
-    return (
-        <View style={[{ width: '80%', paddingTop: 5, paddingBottom: 5 }]}>
+    if (linearGradientProps) {
+        return (
+            <View style={[{ width: "80%", paddingTop: 5, paddingBottom: 5 }]}>
+                <ElementButton
+                    ViewComponent={LinearGradient}
+                    buttonStyle={[styles.basic, style]}
+                    title={title}
+                    titleStyle={titleStyle}
+                    onPress={onPress}
+                    type={"outline"}
+                    disabled={disabled}
+                    loading={loading}
+                    linearGradientProps={linearGradientProps}
+                    /*titleStyle={[{fontFamily: }]}*/
+                />
+            </View>
+        );
+    } else {
+        return (
             <ElementButton
                 buttonStyle={[styles.basic, style]}
                 title={title}
                 titleStyle={titleStyle}
                 onPress={onPress}
-                type={'outline'}
+                type={"outline"}
                 disabled={disabled}
                 loading={loading}
-                linearGradientProps={linearGradientProps}
                 /*titleStyle={[{fontFamily: }]}*/
             />
-        </View>
-    );
+        );
+    }
 };
 
 export default Button;

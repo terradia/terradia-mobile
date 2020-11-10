@@ -1,0 +1,21 @@
+mutation receiveOrder($id: ID!) {
+    receiveOrder(id: $id) {
+        id
+        code
+        status
+        price
+        createdAt
+        companyLogo
+        companyName
+        decliningReason
+        orderCreationDate
+        products {
+            id
+            price
+            name
+            quantity
+        }
+        numberProducts
+        stripePaymentIntent
+    }
+}
