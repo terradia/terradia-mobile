@@ -57,6 +57,7 @@ type Company {
     logo: CompanyImage
     name: String!
     numberOfMarks: Int
+    numberProducts: Int
     officialName: String
     openingDays: [CompanyOpeningDay]
     phone: String!
@@ -160,6 +161,16 @@ type CompanyOpeningDayHours {
     endTime: Date!
     id: ID!
     startTime: Date!
+}
+
+type CompanyProductAdvise {
+    company: Company
+    content: String
+    createdAt: Date
+    id: ID!
+    product: Product
+    title: String
+    updatedAt: Date
 }
 
 type CompanyProductImage {
@@ -284,6 +295,7 @@ type Mutation {
     createACharge: Boolean
     createCategory(name: String!, parentCategoryId: String): Category!
     createCompany(address: String!, description: String, email: String!, name: String!, phone: String!, siren: String!): Company!
+    createCompanyProductAdvise(companyId: ID!, content: String!, productId: ID!, title: String!): CompanyProductAdvise
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
     createCompanyTag(color: String!, name: String!): CompanyTag!
@@ -297,6 +309,7 @@ type Mutation {
     deleteCard(cardId: String!): Boolean
     deleteCategory(id: String!): Category!
     deleteCompany(companyId: String!): Company!
+    deleteCompanyProductAdvise(id: ID!): CompanyProductAdvise
     deleteCompanyTag(companyTagId: String!): CompanyTag!
     deleteImageFromProduct(companyImageId: String!, productId: String!): CompanyImage
     deleteProduct(productId: String!): Int
@@ -329,6 +342,7 @@ type Mutation {
     signUpWithFacebook(defineUserAsCostumer: Boolean, exponentPushToken: String, facebookToken: String!): SignupAnswer!
     updateCompany(companyId: ID!, newValues: CompanyUpdateInput): Company!
     updateCompanyImageName(imageId: ID!, name: String!): CompanyImage
+    updateCompanyProductAdvise(content: String, id: ID!, title: String): CompanyProductAdvise
     updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
     updateCustomerDefaultSource(cardId: String!): Boolean
     updateDeliveryDay(DeliveryDayId: String!, hours: [ScheduleInput]): CompanyDeliveryDay!
@@ -403,6 +417,7 @@ type PaymentIntent {
 }
 
 type Product {
+    advises: [CompanyProductAdvise]
     averageMark: Float
     categories: [Category]
     company: Company
@@ -414,6 +429,7 @@ type Product {
     id: ID!
     images: [CompanyImage]
     name: String!
+    numberAdvises: Int
     numberOfMarks: Int
     position: Int
     price: Float!
@@ -461,6 +477,8 @@ type Query {
     getCompanyByName(name: String!): Company
     getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImage]
     getCompanyOrderHistories(companyId: ID!, fromDate: Date, limit: Int = 10, offset: Int = 0, status: String, toDate: Date): [OrderHistory]
+    getCompanyProductAdvises(companyId: ID, limit: Int, offset: Int, productId: ID): [CompanyProductAdvise]
+    getCompanyProductsCategories(companyId: String!): [CompanyProductsCategory]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
     getCompanyReviews(id: ID!, limit: Int!, offset: Int!): [CompanyReview]
     getCompanyTag(companyTagId: String, slugName: String): CompanyTag
@@ -475,6 +493,7 @@ type Query {
     getPaymentIntents(paymentId: String!): PaymentIntent
     getPaymentIntentsCard(paymentId: String!): Card
     getProduct(id: ID!): Product!
+    getProductAdvise(id: ID!): CompanyProductAdvise
     getProductReviews(id: ID!, limit: Int!, offset: Int!): [ProductReview]
     getProductsByCompany(companyId: String): [Product]!
     getProductsByCompanyByCategory(companyId: String): [Category]!

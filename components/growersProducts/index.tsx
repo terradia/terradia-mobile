@@ -5,9 +5,10 @@ import { useNavigation, useNavigationParam } from "react-navigation-hooks";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import COMPANY from "../../graphql/company.graphql";
 import getCompany from "../../graphql/getCompany.graphql";
-import { CompanyData } from "@interfaces/Companies";
+import { CompanyData, ProductsCategoryData } from "@interfaces/Companies";
 import LoadingState from "./Loading";
 import GrowerProductsList from "./GrowerProductsList";
+import getCompanyProductsCategories from "../../graphql/product/getCompanyProductsCategories.graphql";
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -15,6 +16,10 @@ const LIST_ELEM_HEIGHT = 135;
 
 declare interface GrowersProductsScreen {
     navigation?: NavigationStackScreenProps;
+}
+
+interface GetCompanyProductsCategoriesData {
+    getCompanyProductsCategories: [ProductsCategoryData];
 }
 
 const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
@@ -25,6 +30,12 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     const growerId = useNavigationParam("grower");
     const [company, setCompany] = useState(null);
     const { navigate } = useNavigation();
+
+    const { data: categoriesProducts } = useQuery<
+        GetCompanyProductsCategoriesData
+    >(getCompanyProductsCategories, {
+        variables: { companyId: growerId }
+    });
 
     const [loadCompany] = useLazyQuery<{
         getCompany: CompanyData;
@@ -52,20 +63,22 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     const [products, setProducts] = useState([]);
 
     const getArrayGoodName = (): any => {
-        const obj = company.productsCategories.map(function(obj) {
-            Object.defineProperty(
-                obj,
-                "title",
-                Object.getOwnPropertyDescriptor(obj, "name")
-            );
+        const obj = categoriesProducts.getCompanyProductsCategories.map(
+            function(obj) {
+                Object.defineProperty(
+                    obj,
+                    "title",
+                    Object.getOwnPropertyDescriptor(obj, "name")
+                );
 
-            Object.defineProperty(
-                obj,
-                "data",
-                Object.getOwnPropertyDescriptor(obj, "products")
-            );
-            return obj;
-        });
+                Object.defineProperty(
+                    obj,
+                    "data",
+                    Object.getOwnPropertyDescriptor(obj, "products")
+                );
+                return obj;
+            }
+        );
         setProducts(obj);
         return obj;
     };
@@ -88,11 +101,11 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
     };
 
     useEffect(() => {
-        if (!company) return;
+        if (!categoriesProducts) return;
         const obj = getArrayGoodName();
         fillArrayPositions(obj);
         setDisplay(true);
-    }, [company]);
+    }, [categoriesProducts]);
 
     if (display && company) {
         return (

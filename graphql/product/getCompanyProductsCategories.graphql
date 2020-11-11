@@ -1,0 +1,12 @@
+query getCompanyProductsCategories($companyId: String!) {
+    getCompanyProductsCategories(companyId: $companyId) {
+        name
+        id
+        products {
+            name
+            id
+            description
+            price
+        }
+    }
+}

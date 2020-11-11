@@ -21,17 +21,20 @@ declare interface GrowersScreen {
     collapsible: any;
 }
 
-declare interface ItemProps {
-    item: CompanyData;
+declare interface GetCompaniesByDistanceByCustomerData {
+    getCompaniesByDistanceByCustomer: [CompanyData];
 }
 
 const GrowersScreen: FunctionComponent<GrowersScreen> = ({
     navigation,
     collapsible
 }) => {
-    const { data: growers } = useQuery(getCompaniesByDistanceByCustomer, {
-        fetchPolicy: "cache-only"
-    });
+    const { data: growers } = useQuery<GetCompaniesByDistanceByCustomerData>(
+        getCompaniesByDistanceByCustomer,
+        {
+            fetchPolicy: "cache-only"
+        }
+    );
 
     const { paddingHeight, animatedY, onScroll } = collapsible;
     if (!growers || !growers.getCompaniesByDistanceByCustomer) {
@@ -42,7 +45,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
             <AnimatedFlatList
                 style={{ flex: 1 }}
                 data={growers.getCompaniesByDistanceByCustomer}
-                renderItem={({ item }: ItemProps): ReactElement => (
+                renderItem={({ item }): ReactElement => (
                     <GrowerCard navigation={navigation} grower={item} />
                 )}
                 keyExtractor={(item, index): string => String(index)}

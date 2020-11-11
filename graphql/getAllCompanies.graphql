@@ -4,6 +4,7 @@ query allCompanies {
         name
         averageMark
         numberOfMarks
+        numberProducts
         description
         productsCategories {
             name

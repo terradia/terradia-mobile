@@ -19,13 +19,14 @@ export interface CompanyData {
     products: ProductData[];
     logo: LogoData;
     cover: LogoData;
+    numberProducts: number;
 }
 
 interface LogoData {
     filename: string;
 }
 
-interface ProductsCategoryData {
+export interface ProductsCategoryData {
     name: string;
     products: ProductData[];
 }

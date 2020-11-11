@@ -79,9 +79,9 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                 <View style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
-                            {grower.products.length > 9
+                            {grower.numberProducts > 9
                                 ? "(9+)"
-                                : grower.products.length}{" "}
+                                : grower.numberProducts}{" "}
                             {i18n.t("growersCard.productsToDiscover")}
                         </Text>
                         <View style={style.bottomInformation}>
