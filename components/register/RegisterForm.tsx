@@ -1,12 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
-import styles from '../login/styles/LoginForm.style';
-import { View, Alert, AsyncStorage } from 'react-native';
-import ButtonTerradia from '../buttons/ButtonTerradia';
-import { useMutation } from '@apollo/react-hooks';
-import i18n from '@i18n/i18n';
-import REGISTER from '../../graphql/register.graphql';
-import { Kohana } from 'react-native-textinput-effects';
-import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import React, { FunctionComponent, useState } from "react";
+import styles from "../login/styles/LoginForm.style";
+import { View, Alert } from "react-native";
+import ButtonTerradia from "../buttons/ButtonTerradia";
+import { useMutation } from "@apollo/react-hooks";
+import i18n from "@i18n/i18n";
+import REGISTER from "../../graphql/register.graphql";
+import { Kohana } from "react-native-textinput-effects";
+import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 declare interface RegisterFormProps {
     navigateHome?: () => void;
@@ -15,14 +16,14 @@ declare interface RegisterFormProps {
 const RegisterForm: FunctionComponent<RegisterFormProps> = ({
     navigateHome
 }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
 
     const onCompletedHandler = (data): any => {
-        AsyncStorage.setItem('token', data.register.token).then(() => {
+        AsyncStorage.setItem("token", data.register.token).then(() => {
             navigateHome();
         });
     };
@@ -46,12 +47,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                 <View style={styles.containerView}>
                     <Kohana
                         style={styles.inputContainer}
-                        label={i18n.t('registerScreen.addrEmail')}
-                        keyboardType={'email-address'}
+                        label={i18n.t("registerScreen.addrEmail")}
+                        keyboardType={"email-address"}
                         onChangeText={(text: string): void => setEmail(text)}
                         iconClass={MaterialIcons}
-                        iconName={'email'}
-                        iconColor={'#8FDD3D'}
+                        iconName={"email"}
+                        iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
                         inputStyle={styles.inputStyle}
@@ -60,12 +61,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     />
                     <Kohana
                         style={styles.inputContainer}
-                        keyboardType={'phone-pad'}
-                        label={i18n.t('registerScreen.phone')}
+                        keyboardType={"phone-pad"}
+                        label={i18n.t("registerScreen.phone")}
                         onChangeText={(text: string): void => setPhone(text)}
                         iconClass={MaterialIcons}
-                        iconName={'phone'}
-                        iconColor={'#8FDD3D'}
+                        iconName={"phone"}
+                        iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
                         inputStyle={styles.inputStyle}
@@ -74,11 +75,11 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     />
                     <Kohana
                         style={styles.inputContainer}
-                        label={i18n.t('registerScreen.lastName')}
+                        label={i18n.t("registerScreen.lastName")}
                         onChangeText={(text: string): void => setLastName(text)}
                         iconClass={FontAwesome}
-                        iconName={'user'}
-                        iconColor={'#8FDD3D'}
+                        iconName={"user"}
+                        iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
                         inputStyle={styles.inputStyle}
@@ -87,13 +88,13 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     />
                     <Kohana
                         style={styles.inputContainer}
-                        label={i18n.t('registerScreen.firstName')}
+                        label={i18n.t("registerScreen.firstName")}
                         onChangeText={(text: string): void =>
                             setFirstName(text)
                         }
                         iconClass={FontAwesome}
-                        iconName={'user'}
-                        iconColor={'#8FDD3D'}
+                        iconName={"user"}
+                        iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
                         inputStyle={styles.inputStyle}
@@ -102,12 +103,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     />
                     <Kohana
                         style={styles.inputContainer}
-                        label={i18n.t('registerScreen.password')}
+                        label={i18n.t("registerScreen.password")}
                         onChangeText={(text: string): void => setPassword(text)}
                         iconClass={FontAwesome}
-                        iconName={'lock'}
+                        iconName={"lock"}
                         secureTextEntry={true}
-                        iconColor={'#8FDD3D'}
+                        iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
                         inputStyle={styles.inputStyle}
@@ -116,9 +117,9 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     />
                 </View>
                 <ButtonTerradia
-                    title={i18n.t('registerScreen.register')}
-                    style={[{ borderColor: '#FFFFFF' }]}
-                    titleStyle={[{ color: '#FFFFFF' }]}
+                    title={i18n.t("registerScreen.register")}
+                    style={[{ borderColor: "#FFFFFF" }]}
+                    titleStyle={[{ color: "#FFFFFF" }]}
                     loading={mutationLoading}
                     onPress={(): void => {
                         register({

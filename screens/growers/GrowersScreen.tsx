@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import { FlatList, Animated, View, AsyncStorage } from "react-native";
+import { FlatList, Animated, View } from "react-native";
 import GrowerCard from "../../components/cards/GrowerCard";
 import FilterGrowers from "../../components/growers/Filter";
 import { NavigationStackScreenProps } from "react-navigation-stack";

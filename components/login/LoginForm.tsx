@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import ButtonTerradia from "../buttons/ButtonTerradia";
 import ButtonEmpty from "../buttons/Button";
 import styles from "./styles/LoginForm.style";
@@ -10,6 +10,7 @@ import ThirdPartyLogin from "@components/login/ThirdPartyLogin";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Kohana } from "react-native-textinput-effects";
 import { useNavigation } from "react-navigation-hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 declare interface LoginFormProps {
     navigateRegister?: any;

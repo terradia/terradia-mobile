@@ -1,5 +1,4 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AsyncStorage } from "react-native";
 import { useLazyQuery } from "@apollo/react-hooks";
 import getUser from "./../../graphql/getUser.graphql";
 import getActiveAddress from "../../graphql/getActiveAddress.graphql";
@@ -9,7 +8,7 @@ import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistan
 import { useNavigation } from "react-navigation-hooks";
 import * as Linking from "expo-linking";
 import { CustomerAddressData } from "@interfaces/User";
-import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface MyInputHandles {
     preload(): void;

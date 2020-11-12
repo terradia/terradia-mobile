@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from "react";
-import { View, AsyncStorage } from "react-native";
 import * as Facebook from "expo-facebook";
 import DoesAccountExistWithEmail from "../../graphql/facebook/doesAccountExistWithEmail.graphql";
 import SignUpWithFacebook from "../../graphql/facebook/signUpWithFacebook.graphql";
@@ -10,6 +9,7 @@ import * as Permissions from "expo-permissions";
 import Spinner from "react-native-loading-spinner-overlay";
 import i18n from "@i18n/i18n";
 import ButtonEmpty from "@components/buttons/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 declare interface ThirdPartyLoginProps {
     navigateHome?: () => void;
