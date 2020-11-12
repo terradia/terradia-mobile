@@ -15,23 +15,5 @@ query getCompaniesByDistanceByCustomer {
         companyImages {
             filename
         }
-        productsCategories {
-            name
-            products {
-                name
-                id
-                description
-                price
-            }
-        }
-        products {
-            name
-            id
-            description
-            price
-            images {
-                filename
-            }
-        }
     }
 }

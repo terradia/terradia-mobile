@@ -1,6 +1,7 @@
-import { AsyncStorage, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import Preload from "./Preload";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 declare interface AuthLoadingScreen {
     navigation?: any;
@@ -12,9 +13,13 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
     const preloadRef = useRef(null);
 
     useEffect(() => {
-        console.log("In use effect");
-        AsyncStorage.getItem("token").then(data => {
-            if (!data) return navigation.navigate("HomeAuth");
+        AsyncStorage.getItem("token").then(async data => {
+            if (!data) {
+                const value = await AsyncStorage.getItem("@first_connection");
+                return navigation.navigate("HomeAuth", {
+                    firstConnection: value
+                });
+            }
             preloadRef.current.preload();
         });
     }, []);

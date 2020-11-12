@@ -1,8 +1,6 @@
-import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import React, { ReactElement, useState } from "react";
-import { AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -15,6 +13,7 @@ import Constants from "expo-constants";
 import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
 import { YellowBox } from "react-native";
 import { PaymentsStripe as Stripe } from "expo-payments-stripe";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 

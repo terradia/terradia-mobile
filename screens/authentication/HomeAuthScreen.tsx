@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
     ImageBackground,
     SafeAreaView,
@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import TerradiaWhite from "../../assets/svg/terradia_white.svg";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation, useNavigationParam } from "react-navigation-hooks";
 import i18n from "@i18n/i18n";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import IntroSlider from "./intro/IntroSlider";
 
 const styles = StyleSheet.create({
     title: {
@@ -43,7 +45,19 @@ const styles = StyleSheet.create({
 });
 
 const HomeAuthScreen: FunctionComponent = () => {
+    const firstConnection = useNavigationParam("firstConnection");
+    const [showSlider, setShowSlider] = useState(!firstConnection);
+
+    const _onSliderDone = async (): Promise<void> => {
+        await AsyncStorage.setItem("@first_connection", "true");
+        setShowSlider(false);
+    };
+
     const { navigate } = useNavigation();
+
+    if (showSlider) {
+        return <IntroSlider onSliderDone={_onSliderDone} />;
+    }
     return (
         <ImageBackground
             source={require("../../assets/images/background.jpg")}
