@@ -43,7 +43,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: "https://975348856c74.ngrok.io" + "/graphql",
+    uri: "https://api.terradia.eu/graphql",
     fetch: fetch
 });
 
@@ -100,11 +100,7 @@ client.onResetStore(stateLink.writeDefaults);
 
 async function loadResourcesAsync(): Promise<void> {
     await Promise.all([
-        Asset.loadAsync([
-            require("./assets/images/robot-dev.png"),
-            require("./assets/images/robot-prod.png"),
-            require("./assets/images/icon-terradia.png")
-        ]),
+        Asset.loadAsync([require("./assets/images/icon-terradia.png")]),
         Font.loadAsync({
             // This is the font that we are using for our tab bar
             ...Ionicons.font,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     View,
     TouchableOpacity,
@@ -9,9 +9,9 @@ import {
     SectionListData,
     RegisteredStyle,
     ViewStyle
-} from 'react-native';
-import { ReactElement } from 'react';
-const WindowWidth = Dimensions.get('window').width;
+} from "react-native";
+import { ReactElement } from "react";
+const WindowWidth = Dimensions.get("window").width;
 
 interface IProps {
     sections: SectionListData<any>[];
@@ -117,11 +117,11 @@ export default class TabBar extends React.PureComponent<IProps, any> {
                     ref={this.scrollView}
                     showsHorizontalScrollIndicator={false}
                     horizontal
-                    contentContainerStyle={{ flexDirection: 'row' }}
+                    contentContainerStyle={{ flexDirection: "row" }}
                 >
                     <View
                         onLayout={this.onTabContainerLayout}
-                        style={[{ flexDirection: 'row' }]}
+                        style={[{ flexDirection: "row" }]}
                     >
                         {sections.map(this.renderTab)}
                     </View>
