@@ -1,16 +1,14 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import { SafeAreaView } from "react-native";
 import HeaderCart from "@components/cart/modal/Header";
 import ProductListItem from "@components/cart/content/ProductList";
+import { ThemedSafeAreaView } from "@components/theme/Theme";
 
 const Cart: FunctionComponent = () => {
     return (
-        <SafeAreaView
-            style={{ flex: 1, backgroundColor: "rgb(242, 242, 242)" }}
-        >
+        <ThemedSafeAreaView style={{ flex: 1 }}>
             <HeaderCart />
             <ProductListItem />
-        </SafeAreaView>
+        </ThemedSafeAreaView>
     );
 };
 

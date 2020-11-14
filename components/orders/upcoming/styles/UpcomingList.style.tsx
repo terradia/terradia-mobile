@@ -8,7 +8,6 @@ export default StyleSheet.create({
         alignItems: "center",
         height: "auto",
         margin: 20,
-        backgroundColor: "white",
         borderRadius: 10,
         paddingTop: 20,
         paddingBottom: 20

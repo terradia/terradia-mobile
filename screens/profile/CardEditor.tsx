@@ -4,7 +4,7 @@ import {
     CreditCardInput,
     LiteCreditCardInput
 } from "react-native-input-credit-card";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
 import { PaymentsStripe as Stripe } from "expo-payments-stripe";
@@ -64,7 +64,7 @@ const CardEditor: FunctionComponent = () => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <HeaderAccount
+            <MainHeader
                 title={"Editer/ajouter une carte"}
                 backButton={true}
             />

@@ -7,6 +7,7 @@ import { NavigationParams } from "react-navigation";
 
 import { CompanyData } from "@interfaces/Companies";
 import i18n from "@i18n/i18n";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
 
 declare interface GrowerCard {
     navigation?: NavigationParams;
@@ -15,7 +16,7 @@ declare interface GrowerCard {
 
 const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
     return (
-        <View style={style.mainContainer}>
+        <ThemedContainer style={style.mainContainer}>
             <TouchableOpacity
                 activeOpacity={Platform.OS === "ios" ? 0.7 : 1}
                 style={[style.wrapper, style.shadow1]}
@@ -63,7 +64,6 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                 </View>
                 <View style={style.growerImageContainer}>
                     <Avatar
-                        size={100}
                         rounded
                         source={{
                             uri: grower.logo
@@ -76,7 +76,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                     />
                     <Text style={style.growerName}>{grower.name}</Text>
                 </View>
-                <View style={style.bottomView}>
+                <ThemedBox style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
                             {grower.numberProducts > 9
@@ -106,9 +106,9 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
                             </Text>
                         </View>
                     </View>
-                </View>
+                </ThemedBox>
             </TouchableOpacity>
-        </View>
+        </ThemedContainer>
     );
 };
 

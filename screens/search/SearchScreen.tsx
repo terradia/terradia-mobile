@@ -11,7 +11,7 @@ import GrowerCard from "@components/cards/GrowerCard";
 import { NavigationParams } from "react-navigation";
 import { CompanyData } from "@interfaces/Companies";
 import Spinner from "react-native-loading-spinner-overlay";
-import GrowersLoader from "@components/growers/GrowersLoader";
+import CardListLoader from "@components/growers/CardListLoader";
 import getAllCompanyTags from "../../graphql/tags/getAllCompanyTags.graphql";
 import i18n from "@i18n/i18n";
 
@@ -126,7 +126,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
                             }
                         />
                     ) : (
-                        <GrowersLoader />
+                        <CardListLoader />
                     )}
                 </>
             ) : (

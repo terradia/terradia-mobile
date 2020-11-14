@@ -12,7 +12,7 @@ import CardEditorScreen from "../screens/profile/CardEditor";
 import CardDisplayScreen from "../screens/profile/CardDisplay";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
 import CardListSelectorScreen from "../screens/growers/CardsListSelector";
-import OrdersScreen from "../screens/orders/Orders";
+import OrdersScreen from "../screens/orders/OrdersScreen";
 import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
 import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
 

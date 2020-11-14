@@ -1,18 +1,18 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import { FlatList, Animated, View } from "react-native";
 import GrowerCard from "../../components/cards/GrowerCard";
-import FilterGrowers from "../../components/growers/Filter";
 import { NavigationStackScreenProps } from "react-navigation-stack";
 import NavBar from "../../components/header/NavBar";
-import { withCollapsible } from "react-navigation-collapsible";
 import { LinearGradient } from "expo-linear-gradient";
 import Cart from "../../components/cart";
 import { useQuery } from "@apollo/react-hooks";
 import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistanceByCustomer.graphql";
 import { CompanyData } from "@interfaces/Companies";
 import DeepLinking from "@components/routing/DeepLinking";
-import ProductLoader from "@components/product/content/ProductLoader";
-import GrowersLoader from "@components/growers/GrowersLoader";
+import CardListLoader from "@components/growers/CardListLoader";
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
+import HeaderFooter from "@components/header/HeaderFooter";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -25,10 +25,7 @@ declare interface GetCompaniesByDistanceByCustomerData {
     getCompaniesByDistanceByCustomer: [CompanyData];
 }
 
-const GrowersScreen: FunctionComponent<GrowersScreen> = ({
-    navigation,
-    collapsible
-}) => {
+const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
     const { data: growers } = useQuery<GetCompaniesByDistanceByCustomerData>(
         getCompaniesByDistanceByCustomer,
         {
@@ -36,12 +33,13 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
         }
     );
 
-    const { paddingHeight, animatedY, onScroll } = collapsible;
+    // const { paddingHeight, animatedY, onScroll } = collapsible;
     if (!growers || !growers.getCompaniesByDistanceByCustomer) {
-        return <GrowersLoader />;
+        return <CardListLoader />;
     }
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1 }}>
+            <HeaderFooter />
             <AnimatedFlatList
                 style={{ flex: 1 }}
                 data={growers.getCompaniesByDistanceByCustomer}
@@ -49,24 +47,16 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({
                     <GrowerCard navigation={navigation} grower={item} />
                 )}
                 keyExtractor={(item, index): string => String(index)}
-                contentContainerStyle={{ paddingTop: paddingHeight }}
-                scrollIndicatorInsets={{ top: paddingHeight }}
-                _mustAddThis={animatedY}
-                onScroll={onScroll}
+                contentContainerStyle={{ paddingTop: calcWidth(0) }}
+                scrollIndicatorInsets={{ top: calcWidth(0) }}
             />
             <Cart />
             <DeepLinking />
-        </View>
+        </ThemedContainer>
     );
 };
 
-const collapsibleParams = {
-    collapsibleComponent: FilterGrowers,
-    collapsibleBackgroundStyle: {
-        height: 48,
-        backgroundColor: "white"
-    }
-};
+const collapsibleParams = {};
 
 // @ts-ignore
 GrowersScreen.navigationOptions = {
@@ -82,4 +72,5 @@ GrowersScreen.navigationOptions = {
     headerStyle: { height: 80, backgroundColor: "transparent" }
 };
 
-export default withCollapsible(GrowersScreen, collapsibleParams);
+// export default withCollapsible(GrowersScreen, collapsibleParams);
+export default GrowersScreen;

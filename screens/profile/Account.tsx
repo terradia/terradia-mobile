@@ -7,7 +7,7 @@ import {
     TextInput,
     AsyncStorage
 } from "react-native";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import { Entypo } from "@expo/vector-icons";
 import AccountModal from "@components/account/modal/AccountModal";
 import i18n from "@i18n/i18n";
@@ -30,7 +30,7 @@ const Account: FunctionComponent = () => {
                 setCurrentEditing={setCurrentEditing}
                 initialValue={initialValue}
             />
-            <HeaderAccount title={"Mon compte"} backButton={true} />
+            <MainHeader title={"Mon compte"} backButton={true} />
             <View style={styles.imageContainer}>
                 <AccountImage me={me && me.getUser} />
             </View>

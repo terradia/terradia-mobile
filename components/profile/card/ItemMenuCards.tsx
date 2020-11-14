@@ -1,11 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "react-navigation-hooks";
+import { ThemedBox, withTheme } from "@components/theme/Theme";
 
 declare interface ItemMenuCardsProps {
     title: string;
     icon: any;
     routeName: string;
+    theme: any;
 }
 
 function elevationShadowStyle(elevation, color) {
@@ -30,7 +32,6 @@ const styles = StyleSheet.create({
         flex: 1.2
     },
     container: {
-        backgroundColor: "white",
         width: "48%",
         height: 100,
         alignItems: "center",
@@ -43,19 +44,35 @@ const styles = StyleSheet.create({
 const ItemMenuCard: FunctionComponent<ItemMenuCardsProps> = ({
     title,
     icon,
+    theme,
     routeName
 }) => {
     const { navigate } = useNavigation();
     return (
         <TouchableOpacity
             activeOpacity={0.7}
-            style={[styles.shadow, styles.container]}
+            style={[
+                styles.shadow,
+                styles.container,
+                {
+                    backgroundColor: theme.palette.card.backgroundColor
+                }
+            ]}
             onPress={(): boolean => navigate(routeName)}
         >
             <View style={styles.icon}>{icon}</View>
-            <Text style={styles.text}>{title}</Text>
+            <Text
+                style={[
+                    styles.text,
+                    {
+                        color: theme.palette.fontColor
+                    }
+                ]}
+            >
+                {title}
+            </Text>
         </TouchableOpacity>
     );
 };
 
-export default ItemMenuCard;
+export default withTheme(ItemMenuCard);
