@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 function elevationShadowStyle(elevation) {
     return {
@@ -13,15 +14,15 @@ function elevationShadowStyle(elevation) {
 export default StyleSheet.create({
     shadow1: elevationShadowStyle(5),
     mainContainer: {
-        height: 140 + 20 + 10,
-        marginBottom: 5,
-        marginTop: 5
+        height: 150 + calcWidth(4),
+        marginBottom: calcWidth(2),
+        marginTop: calcWidth(2)
     },
     absoluteView: {
         position: "absolute",
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
+        marginTop: calcWidth(2),
+        marginLeft: calcWidth(4),
+        marginRight: calcWidth(4),
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center"
@@ -38,23 +39,24 @@ export default StyleSheet.create({
     },
     textNumberRates: {
         color: "white",
-        fontSize: 16,
-        fontFamily: "Montserrat"
+        fontSize: 18,
+        fontFamily: "Montserrat",
+        marginLeft: calcWidth(1)
     },
     rating: {
         backgroundColor: "transparent"
     },
     wrapper: {
-        marginLeft: 15,
-        marginRight: 15,
+        marginLeft: calcWidth(4),
+        marginRight: calcWidth(4),
         flex: 1,
         position: "relative",
-        height: 140
+        height: 150
     },
     brightness: {
         flex: 1,
         width: "100%",
-        height: 140,
+        height: 150,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgba(0, 0, 0, .3)",
@@ -63,13 +65,12 @@ export default StyleSheet.create({
     },
     bottomView: {
         borderRadius: 10,
-        backgroundColor: "white",
         height: 70,
-        top: 140 - 60 + 20,
+        bottom: 0,
         left: 0,
         width: "100%",
         position: "absolute",
-        paddingLeft: 100 + 20
+        paddingLeft: calcWidth(30)
     },
     bottomElements: {
         flex: 1,
@@ -78,38 +79,41 @@ export default StyleSheet.create({
     },
     backgroundImage: {
         borderRadius: 10,
-        height: 140
+        height: 150
     },
     growerImage: {
-        marginLeft: 20,
+        marginLeft: calcWidth(4),
+        width: calcWidth(27),
+        height: calcWidth(27),
+        borderRadius: calcWidth(15),
+        padding: calcWidth(3),
         backgroundColor: "white"
     },
     growerImageContainer: {
         position: "absolute",
-        top: 50,
+        bottom: calcWidth(3),
         zIndex: 10,
-        width: "100%",
         flexDirection: "row"
     },
     growerName: {
-        marginLeft: 10,
-        marginTop: 20,
+        marginLeft: calcWidth(2),
+        marginTop: calcWidth(4),
         color: "white",
         fontSize: 20,
         fontFamily: "MontserratSemiBold",
         maxHeight: 40,
-        maxWidth: 200
+        maxWidth: calcWidth(54)
     },
     discoverProducts: {
-        marginLeft: 10,
+        marginLeft: calcWidth(4),
         color: "#A1A1A1",
         fontWeight: "500",
         fontSize: 15,
         fontFamily: "Montserrat"
     },
     tag: {
-        padding: 3,
-        borderRadius: 10,
+        padding: calcWidth(1),
+        borderRadius: calcWidth(3),
         backgroundColor: "#FFE732",
         fontFamily: "MontserratSemiBold"
     },

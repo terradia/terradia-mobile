@@ -4,7 +4,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    RefreshControl
+    RefreshControl,
+    ViewProps
 } from "react-native";
 import PastCardHeader from "./PastCardHeader";
 import { useNavigation } from "react-navigation-hooks";
@@ -14,11 +15,38 @@ import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 import styles from "@components/orders/upcoming/styles/UpcomingList.style";
 import Cart from "../../../assets/svg/cart.svg";
 import i18n from "@i18n/i18n";
-import GrowersLoader from "@components/growers/GrowersLoader";
+import CardListLoader from "@components/growers/CardListLoader";
+import { ThemedBox } from "@components/theme/Theme";
 
 interface GetMyOrdersHistoriesData {
     getMyOrderHistories: [OrderHistoryData];
 }
+
+interface EmptyElementProps {
+    navigate: (route: string) => boolean;
+    title: string;
+    callToAction: string;
+}
+
+export const EmptyListElement: FunctionComponent<EmptyElementProps> = ({
+    navigate,
+    title,
+    callToAction,
+    ...props
+}) => {
+    return (
+        <ThemedBox style={[styles.emptyContainer, styles.shadow1]}>
+            <Cart />
+            <Text style={styles.youHaveNoOrderText}>{title}</Text>
+            <TouchableOpacity
+                style={styles.discoverProducersContainer}
+                onPress={(): boolean => navigate("Grower")}
+            >
+                <Text style={styles.discoverProducersText}>{callToAction}</Text>
+            </TouchableOpacity>
+        </ThemedBox>
+    );
+};
 
 const PastList: FunctionComponent = () => {
     const { navigate } = useNavigation();
@@ -28,7 +56,7 @@ const PastList: FunctionComponent = () => {
     );
 
     if (!orders) {
-        return <GrowersLoader />;
+        return <CardListLoader />;
     }
 
     return (
@@ -49,20 +77,11 @@ const PastList: FunctionComponent = () => {
                     <PastCardHeader order={item} />
                 )}
                 ListEmptyComponent={(): ReactElement => (
-                    <View style={[styles.emptyContainer, styles.shadow1]}>
-                        <Cart />
-                        <Text style={styles.youHaveNoOrderText}>
-                            {i18n.t("orders.youHaveNoOrderHistory")}
-                        </Text>
-                        <TouchableOpacity
-                            style={styles.discoverProducersContainer}
-                            onPress={(): boolean => navigate("Grower")}
-                        >
-                            <Text style={styles.discoverProducersText}>
-                                {i18n.t("orders.discoverProducers")}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <EmptyListElement
+                        title={i18n.t("orders.youHaveNoOrderHistory")}
+                        callToAction={i18n.t("orders.discoverProducers")}
+                        navigate={navigate}
+                    />
                 )}
             />
         </View>

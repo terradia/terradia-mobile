@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { Image } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from "../screens/search/SearchScreen";
 import GrowersScreen from "../screens/growers/GrowersScreen";
@@ -13,10 +12,19 @@ import CardEditorScreen from "../screens/profile/CardEditor";
 import CardDisplayScreen from "../screens/profile/CardDisplay";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
 import CardListSelectorScreen from "../screens/growers/CardsListSelector";
-import OrdersScreen from "../screens/orders/Orders";
+import OrdersScreen from "../screens/orders/OrdersScreen";
 import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
 import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
 import PaymentPickerScreen from "../screens/cart/PaymentPicker";
+
+import GrowerActive from "../assets/images/TabBarNavigation/Producteurs/active.svg";
+import GrowerInactive from "../assets/images/TabBarNavigation/Producteurs/inactive.svg";
+import SearchActive from "../assets/images/TabBarNavigation/Search/active.svg";
+import SearchInactive from "../assets/images/TabBarNavigation/Search/inactive.svg";
+import OrderActive from "../assets/images/TabBarNavigation/Products/active.svg";
+import OrderInactive from "../assets/images/TabBarNavigation/Products/inactive.svg";
+import ProfileActive from "../assets/images/TabBarNavigation/Profil/active.svg";
+import ProfileInactive from "../assets/images/TabBarNavigation/Profil/inactive.svg";
 
 import { createStackNavigator } from "react-navigation-stack";
 import i18n from "@i18n/i18n";
@@ -62,10 +70,11 @@ GrowerStack.navigationOptions = ({ navigation }) => ({
     },
     tabBarVisible: navigation.state.index < 1,
     tabBarIcon: ({ focused }) => {
-        const image = focused
-            ? require("../assets/images/TabBarNavigation/Producteurs/active.png")
-            : require("../assets/images/TabBarNavigation/Producteurs/inactive.png");
-        return <Image source={image} />;
+        return focused ? (
+            <GrowerActive width={25} height={25} />
+        ) : (
+            <GrowerInactive width={25} height={25} />
+        );
     }
 });
 
@@ -91,10 +100,11 @@ SearchStack.navigationOptions = ({ navigation }) => ({
     },
     tabBarVisible: navigation.state.index < 1,
     tabBarIcon: ({ focused }) => {
-        const image = focused
-            ? require("../assets/images/TabBarNavigation/search/active.png")
-            : require("../assets/images/TabBarNavigation/search/inactive.png");
-        return <Image source={image} style={{ height: 25, width: 25 }} />;
+        return focused ? (
+            <SearchActive width={25} height={25} />
+        ) : (
+            <SearchInactive width={25} height={25} />
+        );
     }
 });
 
@@ -125,10 +135,11 @@ ProfileStack.navigationOptions = ({ navigation }) => {
         }
     }
     const tabBarIcon = ({ focused }): ReactElement => {
-        const image = focused
-            ? require("../assets/images/TabBarNavigation/Profil/active.png")
-            : require("../assets/images/TabBarNavigation/Profil/inactive.png");
-        return <Image source={image} style={{ width: 25, height: 34 }} />;
+        return focused ? (
+            <ProfileActive width={25} height={25} />
+        ) : (
+            <ProfileInactive width={25} height={25} />
+        );
     };
     return {
         tabBarLabel,
@@ -174,10 +185,11 @@ OrdersStack.navigationOptions = ({ navigation }) => {
     const tabBarVisible = navigation.state.index < 1;
 
     const tabBarIcon = ({ focused }): ReactElement => {
-        const image = focused
-            ? require("../assets/images/TabBarNavigation/Products/active.png")
-            : require("../assets/images/TabBarNavigation/Products/inactive.png");
-        return <Image source={image} />;
+        return focused ? (
+            <OrderActive width={25} height={25} />
+        ) : (
+            <OrderInactive width={25} height={25} />
+        );
     };
     return {
         tabBarLabel,

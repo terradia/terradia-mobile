@@ -11,7 +11,7 @@ import * as Linking from "expo-linking";
 import { setExpoStatusBarHeight } from "react-navigation-collapsible";
 import Constants from "expo-constants";
 import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
-import { YellowBox } from "react-native";
+import { View, YellowBox } from "react-native";
 import { PaymentsStripe as Stripe } from "expo-payments-stripe";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,6 +21,7 @@ setExpoStatusBarHeight(Constants.statusBarHeight);
 
 import AppNavigator from "./navigation/AppNavigator";
 import { ApolloLink } from "apollo-link";
+import { ThemeConstants, ThemeContext } from "@components/theme/Theme";
 
 {
     /**
@@ -43,7 +44,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    uri: "https://cc5208f611a7.ngrok.io" + "/graphql",
+    uri: "https://api.terradia.eu/graphql",
     fetch: fetch
 });
 
@@ -100,11 +101,7 @@ client.onResetStore(stateLink.writeDefaults);
 
 async function loadResourcesAsync(): Promise<void> {
     await Promise.all([
-        Asset.loadAsync([
-            require("./assets/images/robot-dev.png"),
-            require("./assets/images/robot-prod.png"),
-            require("./assets/images/icon-terradia.png")
-        ]),
+        Asset.loadAsync([require("./assets/images/icon-terradia.png")]),
         Font.loadAsync({
             // This is the font that we are using for our tab bar
             ...Ionicons.font,
@@ -131,8 +128,6 @@ function handleFinishLoading(setLoadingComplete): void {
     setLoadingComplete(true);
 }
 
-// import { YellowBox } from "react-native";
-
 export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
     const SimpleApp = AppNavigator;
@@ -152,12 +147,25 @@ export default function App(props): ReactElement {
     // Linking.addEventListener('url', callback);
     const prefixPath = Linking.makeUrl("/");
 
+    const [theme, setTheme] = React.useState<"light" | "dark">("dark");
+
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
+
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return null;
     } else {
         return (
             <ApolloProvider client={client}>
-                <SimpleApp uriPrefix={prefixPath} />
+                <ThemeContext.Provider
+                    value={{
+                        theme: { type: theme, palette: ThemeConstants[theme] },
+                        toggleTheme
+                    }}
+                >
+                    <SimpleApp theme={theme} uriPrefix={prefixPath} />
+                </ThemeContext.Provider>
             </ApolloProvider>
         );
     }

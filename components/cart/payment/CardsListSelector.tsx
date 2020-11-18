@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import { Entypo } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
 import { useQuery } from "@apollo/react-hooks";
@@ -35,7 +35,7 @@ const CardsListSelector: FunctionComponent = () => {
     console.log(defaultSource);
     return (
         <View>
-            <HeaderAccount title={"Mon porte feuille"} backButton={false} />
+            <MainHeader title={"Mon porte feuille"} backButton={false} />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>

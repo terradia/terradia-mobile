@@ -11,7 +11,7 @@ import { GOOGLE_MAP_API_KEY } from "react-native-dotenv";
 import CreateAddress from "../../graphql/createAddress.graphql";
 import Preload from "../authentication/Preload";
 import Spinner from "react-native-loading-spinner-overlay";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import { useNavigation } from "react-navigation-hooks";
 
 const currentLocation = [
@@ -35,7 +35,7 @@ const LocationScreen: FunctionComponent = () => {
     });
     return (
         <View style={styles.mainContainer}>
-            <HeaderAccount
+            <MainHeader
                 title={"Ajouter une adresse"}
                 back={(): boolean => navigate("HomeAuth")}
             />

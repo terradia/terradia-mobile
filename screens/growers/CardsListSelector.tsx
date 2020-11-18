@@ -6,7 +6,7 @@ import {
     Image,
     ActivityIndicator
 } from "react-native";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import { AntDesign } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -57,7 +57,7 @@ const CardsListSelector: FunctionComponent = () => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <HeaderAccount title={"Mon porte feuille"} backButton={true} />
+            <MainHeader title={"Mon porte feuille"} backButton={true} />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>

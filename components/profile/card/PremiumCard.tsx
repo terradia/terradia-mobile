@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Winner from '../../../assets/images/winner.svg';
+import React, { FunctionComponent } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Winner from "../../../assets/images/winner.svg";
+import { ThemedBox } from "@components/theme/Theme";
 
 function elevationShadowStyle(elevation, color) {
     return {
@@ -15,56 +16,58 @@ function elevationShadowStyle(elevation, color) {
 const styles = StyleSheet.create({
     container: {
         height: 80,
-        backgroundColor: '#8FDD3D',
-        flexDirection: 'row',
+        backgroundColor: "#8FDD3D",
+        flexDirection: "row",
         paddingLeft: 10,
         borderRadius: 10
     },
     textsContainer: {
-        justifyContent: 'center'
+        justifyContent: "center"
     },
     firstText: {
         fontSize: 12,
-        color: 'white',
-        fontFamily: 'Montserrat'
+        color: "white",
+        fontFamily: "Montserrat"
     },
     secondText: {
         fontSize: 18,
-        color: 'white',
-        fontFamily: 'Montserrat'
+        color: "white",
+        fontFamily: "Montserrat"
     },
     image: {
-        position: 'absolute',
+        position: "absolute",
         top: -20,
         left: 5,
-        width: '200%'
+        width: "200%"
     },
     shadow: {
         elevation: 7,
-        shadowColor: 'rgba(143, 221, 61, 0.8)',
+        shadowColor: "rgba(143, 221, 61, 0.8)",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 7
     },
-    shadowImage: elevationShadowStyle(7, 'black')
+    shadowImage: elevationShadowStyle(7, "black")
 });
 
 const PremiumCard: FunctionComponent<any> = () => {
     return (
-        <TouchableOpacity
-            activeOpacity={0.7}
-            style={[styles.container, styles.shadow]}
-        >
-            <View style={styles.textsContainer}>
-                <Text style={styles.firstText}>
-                    Tu veux qu'on te livre gratuitement ?
-                </Text>
-                <Text style={styles.secondText}>Passe membre premium</Text>
-            </View>
-            <View style={{ position: 'relative' }}>
-                <Winner style={[styles.image, styles.shadowImage]} />
-            </View>
-        </TouchableOpacity>
+        <ThemedBox>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={[styles.container, styles.shadow]}
+            >
+                <View style={styles.textsContainer}>
+                    <Text style={styles.firstText}>
+                        Tu veux qu'on te livre gratuitement ?
+                    </Text>
+                    <Text style={styles.secondText}>Passe membre premium</Text>
+                </View>
+                <View style={{ position: "relative" }}>
+                    <Winner style={[styles.image, styles.shadowImage]} />
+                </View>
+            </TouchableOpacity>
+        </ThemedBox>
     );
 };
 

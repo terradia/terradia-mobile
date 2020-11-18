@@ -14,7 +14,9 @@ import { OrderData } from "@interfaces/Orders";
 import Cart from "../../../assets/svg/cart.svg";
 import styles from "./styles/UpcomingList.style";
 import i18n from "@i18n/i18n";
-import GrowersLoader from "@components/growers/GrowersLoader";
+import CardListLoader from "@components/growers/CardListLoader";
+import { ThemedBox } from "@components/theme/Theme";
+import { EmptyListElement } from "@components/orders/past/PastList";
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];
@@ -26,7 +28,7 @@ const UpcomingList: FunctionComponent = () => {
     const { data: orders, refetch } = useQuery<GetMyOrdersData>(getMyOrders);
 
     if (!orders) {
-        return <GrowersLoader />;
+        return <CardListLoader />;
     }
 
     return (
@@ -46,20 +48,11 @@ const UpcomingList: FunctionComponent = () => {
                     <UpcomingCardHeader order={item} />
                 )}
                 ListEmptyComponent={(): ReactElement => (
-                    <View style={[styles.emptyContainer, styles.shadow1]}>
-                        <Cart />
-                        <Text style={styles.youHaveNoOrderText}>
-                            {i18n.t("orders.youHaveNoOrder")}
-                        </Text>
-                        <TouchableOpacity
-                            style={styles.discoverProducersContainer}
-                            onPress={(): boolean => navigate("Grower")}
-                        >
-                            <Text style={styles.discoverProducersText}>
-                                {i18n.t("orders.discoverProducers")}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <EmptyListElement
+                        title={i18n.t("orders.youHaveNoOrder")}
+                        callToAction={i18n.t("orders.discoverProducers")}
+                        navigate={navigate}
+                    />
                 )}
             />
         </View>

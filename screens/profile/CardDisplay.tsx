@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import HeaderAccount from "@components/account/Header";
+import MainHeader from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -41,7 +41,7 @@ const CardEditor: FunctionComponent = () => {
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
 
-            <HeaderAccount title={"Ma carte"} backButton={true} />
+            <MainHeader title={"Ma carte"} backButton={true} />
             <View style={{ alignItems: "center" }}>
                 <CreditCardDisplay
                     number={number}

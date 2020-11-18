@@ -1,14 +1,15 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import ModalScreenAddress from '../growers/modals/ModalScreenAddress';
-import getActiveAddress from '../../graphql/getActiveAddress.graphql';
-import { useQuery } from '@apollo/react-hooks';
+import React, { FunctionComponent, useState } from "react";
+import { Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import ModalScreenAddress from "../growers/modals/ModalScreenAddress";
+import getActiveAddress from "../../graphql/getActiveAddress.graphql";
+import { useQuery } from "@apollo/react-hooks";
+import HeaderFooter from "@components/header/HeaderFooter";
 
 const NavBar: FunctionComponent = () => {
     const [isModalAddressOpen, setDisplayModalAddress] = useState(false);
     const { data } = useQuery(getActiveAddress, {
-        fetchPolicy: 'cache-first'
+        fetchPolicy: "cache-first"
     });
     return (
         <SafeAreaView>
@@ -21,9 +22,9 @@ const NavBar: FunctionComponent = () => {
                     setDisplayModalAddress(!isModalAddressOpen)
                 }
                 style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
                     paddingLeft: 20,
                     paddingRight: 20
                 }}
@@ -34,12 +35,12 @@ const NavBar: FunctionComponent = () => {
                         ellipsizeMode="tail"
                         numberOfLines={1}
                         style={{
-                            color: 'white',
-                            backgroundColor: 'transparent',
-                            fontWeight: 'bold',
+                            color: "white",
+                            backgroundColor: "transparent",
+                            fontWeight: "bold",
                             fontSize: 18,
-                            fontFamily: 'MontserratSemiBold',
-                            alignItems: 'center',
+                            fontFamily: "MontserratSemiBold",
+                            alignItems: "center",
                             maxWidth: 250
                         }}
                     >
