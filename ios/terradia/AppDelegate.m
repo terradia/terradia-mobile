@@ -17,6 +17,7 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+#import "RNPaypal.h"
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -54,10 +55,19 @@ static void InitializeFlipper(UIApplication *application) {
     controller.delegate = self;
     [controller startAndShowLaunchScreen:self.window];
   #endif
+  [BTAppSwitch setReturnURLScheme:@"com.terradia.terradiaApp.payments"];
 
+  [[RNPaypal sharedInstance] configure];
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
   return YES;
+}
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [[RNPaypal sharedInstance] application:application openURL:url options:options];
 }
 
 - (RCTBridge *)initializeReactNativeApp

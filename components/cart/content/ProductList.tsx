@@ -13,8 +13,10 @@ import DeliveryDate from "@components/cart/content/DeliveryDate";
 import i18n from "@i18n/i18n";
 import PaymentMethod from "@components/cart/content/PaymentMethod";
 import CartPayment from "@components/cart/payment/CartPayment";
+import { useNavigation } from "react-navigation-hooks";
 
 const ProductList: FunctionComponent = () => {
+    const { navigate } = useNavigation();
     const [dataLoading, setLoading] = useState(false);
     const { data, refetch } = useQuery(getCart, {
         notifyOnNetworkStatusChange: true,
@@ -136,7 +138,22 @@ const ProductList: FunctionComponent = () => {
                 previewOpenValue={-75}
                 stopRightSwipe={-100}
             />
-            <CartPayment cart={data.getCart} />
+            <TouchableOpacity
+                onPress={(): boolean =>
+                    navigate("PaymentPicker", { cart: data.getCart })
+                }
+                style={styles.priceContainer}
+            >
+                <Text style={styles.orderButton}>
+                    {i18n.t("cart.orderNow")}
+                </Text>
+                <View style={styles.priceTotalContainer}>
+                    <Text style={styles.total}>{i18n.t("cart.total")}</Text>
+                    <Text style={styles.totalPrice}>
+                        {data.getCart.totalPrice.toFixed(2)} €
+                    </Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };

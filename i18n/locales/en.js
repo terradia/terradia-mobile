@@ -61,7 +61,9 @@ export default {
         paymentMethod: "Payment method",
         total: "Total",
         orderNow: "Order now",
-        orderAccepted: "Your order has been accepted"
+        orderAccepted: "Your order has been accepted",
+        cards: "Credit or debit card",
+        otherPaymentMethod: "Other payment methods"
     },
     accountScreen: {
         updateFirstName: "Update first name",

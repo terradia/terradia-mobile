@@ -16,6 +16,7 @@ import CardListSelectorScreen from "../screens/growers/CardsListSelector";
 import OrdersScreen from "../screens/orders/Orders";
 import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
 import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
+import PaymentPickerScreen from "../screens/cart/PaymentPicker";
 
 import { createStackNavigator } from "react-navigation-stack";
 import i18n from "@i18n/i18n";
@@ -42,6 +43,9 @@ const GrowerStack = createStackNavigator(
         CardsListSelector: {
             screen: CardListSelectorScreen,
             path: "CardsList"
+        },
+        PaymentPicker: {
+            screen: PaymentPickerScreen
         }
     },
     {

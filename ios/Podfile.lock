@@ -1,5 +1,27 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - Braintree (4.35.0):
+    - Braintree/Card (= 4.35.0)
+    - Braintree/Core (= 4.35.0)
+    - Braintree/PayPal (= 4.35.0)
+    - Braintree/UI (= 4.35.0)
+  - Braintree/Card (4.35.0):
+    - Braintree/Core
+  - Braintree/Core (4.35.0)
+  - Braintree/PayPal (4.35.0):
+    - Braintree/Core
+    - Braintree/PayPalOneTouch
+  - Braintree/PayPalDataCollector (4.35.0):
+    - Braintree/Core
+    - Braintree/PayPalUtils
+  - Braintree/PayPalOneTouch (4.35.0):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+    - Braintree/PayPalUtils
+  - Braintree/PayPalUtils (4.35.0)
+  - Braintree/UI (4.35.0):
+    - Braintree/Card
+    - Braintree/Core
   - BVLinearGradient (2.5.6):
     - React
   - CocoaAsyncSocket (7.6.4)
@@ -383,6 +405,9 @@ PODS:
     - React
   - RNGestureHandler (1.7.0):
     - React
+  - RNPaypal (3.1.1):
+    - Braintree
+    - React
   - RNReanimated (1.13.1):
     - React
   - RNScreens (2.10.1):
@@ -412,6 +437,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - Braintree (~> 4.35.0)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
@@ -485,6 +511,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPaypal (from `../node_modules/react-native-paypal`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -506,6 +533,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - Braintree
     - CocoaAsyncSocket
     - CocoaLibEvent
     - FBSDKCoreKit
@@ -627,6 +655,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPaypal:
+    :path: "../node_modules/react-native-paypal"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -664,6 +694,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  Braintree: 7ff6755ba50506e403dc03779ae68c5ccf6b9808
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
@@ -729,6 +760,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: bc2f81cc1df90c267ce9ed30bb2dbc93b945a8ee
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
+  RNPaypal: ac01980ea29ad4df3b46f99ea58fa290914d734f
   RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
@@ -749,6 +781,6 @@ SPEC CHECKSUMS:
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 8a6d88c32d6b1f5e1f5833e15241fa64e4b9e228
+PODFILE CHECKSUM: 7ff9636ca2a8622badbe0eb4787f81d14f02d4ef
 
 COCOAPODS: 1.9.3

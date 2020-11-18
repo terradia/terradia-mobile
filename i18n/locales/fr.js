@@ -61,7 +61,9 @@ export default {
         paymentMethod: "Moyen de paiement",
         total: "Total",
         orderNow: "Commander",
-        orderAccepted: "Votre commande a été accéptée"
+        orderAccepted: "Votre commande a été accéptée",
+        cards: "Cartes bancaires",
+        otherPaymentMethod: "Autres moyens de paiement"
     },
     accountScreen: {
         updateFirstName: "Mettre à jour le prénom",
