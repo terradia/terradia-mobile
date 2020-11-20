@@ -120,6 +120,38 @@ type CompanyDeliveryDayHours {
     startTime: Date!
 }
 
+type CompanyGeo {
+    administrativeLevels: CompanyGeoAdministrativeLevels
+    building: String
+    city: String
+    country: String
+    countryCode: String
+    county: String
+    district: String
+    extra: CompanyGeoExtra
+    formattedAddress: String
+    latitude: Float
+    longitude: Float
+    provider: String
+    state: String
+    stateCode: String
+    streetName: String
+    streetNumber: String
+    zipcode: String
+}
+
+type CompanyGeoAdministrativeLevels {
+    level1long: String
+    level1short: String
+    level2long: String
+    level2short: String
+}
+
+type CompanyGeoExtra {
+    confidence: Int
+    googlePlaceId: String
+}
+
 type CompanyImage {
     createdAt: Date
     filename: String
@@ -178,10 +210,10 @@ type CompanyProductImage {
 }
 
 type CompanyProductsCategory {
-    company: Company!
+    company: Company
     id: ID!
     name: String!
-    products: [Product]!
+    products: [Product]
 }
 
 type CompanyReview {
@@ -319,10 +351,10 @@ type Mutation {
     inviteNewMember(companyId: String!, invitationEmail: String!): CompanyUserInvitation
     joinCompany(companyId: String!, userId: String!): Company!
     leaveCompany(companyId: String!, userId: String!): Company!
-    login(email: String!, password: String!): SigninAnswer!
+    login(email: String!, exponentPushToken: String, password: String!): SigninAnswer!
     passwordValidation(password: String!): Boolean
     receiveOrder(id: ID!): OrderHistory
-    register(defineUserAsCustomer: Boolean, email: String!, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
+    register(defineUserAsCustomer: Boolean, email: String!, exponentPushToken: String, firstName: String!, lastName: String!, password: String!, phone: String): SignupAnswer!
     removeCompanyImage(imageId: ID!): CompanyImage
     removeCompanyImages(imagesId: [ID]!): [CompanyImage]
     removeCompanyProductsCategory(categoryId: String!): CompanyProductsCategory
@@ -454,6 +486,7 @@ type Query {
     _: Boolean
     checkSiren(siren: String!): CompanyInfo
     doesFacebookAccountExistWithEmail(facebookToken: String!): Boolean!
+    geocode(address: String!): [CompanyGeo]
     getActiveCustomerAddress: CustomerAddress
     getAllCategories: [Category]!
     getAllCompanies(page: Int, pageSize: Int): [Company]
@@ -549,6 +582,7 @@ type User {
     createdAt: Date
     customer: Customer
     email: String!
+    expoPushToken: String
     firstName: String!
     id: ID!
     lastName: String!

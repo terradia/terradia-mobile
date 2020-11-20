@@ -132,9 +132,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
             ) : (
                 <VerticalList
                     categories={
-                        tags && tags.getAllCompanyTags
-                            ? tags.getAllCompanyTags
-                            : DATA
+                        DATA
                     }
                     title={"Toutes les catégories"}
                     ListHeaderComponent={_renderItem}

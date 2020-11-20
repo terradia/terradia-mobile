@@ -11,6 +11,7 @@ import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Kohana } from "react-native-textinput-effects";
 import { useNavigation } from "react-navigation-hooks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
 
 declare interface LoginFormProps {
     navigateRegister?: any;
@@ -111,7 +112,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     style={[{ borderColor: "#FFFFFF" }]}
                     titleStyle={[{ color: "#FFFFFF" }]}
                     loading={mutationLoading}
-                    onPress={(): void => {
+                    onPress={async (): void => {
                         if (email.length === 0) {
                             setError(i18n.t("loginScreen.fillEmail"));
                             return;
@@ -120,8 +121,13 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                             setError(i18n.t("loginScreen.fillPassword"));
                             return;
                         }
+                        const token = await registerForPushNotificationsAsync();
                         login({
-                            variables: { email: email, password: password }
+                            variables: {
+                                email: email,
+                                password: password,
+                                exponentPushToken: token
+                            }
                         }).then();
                     }}
                 />

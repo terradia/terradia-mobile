@@ -1,5 +1,5 @@
-mutation loginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+mutation loginMutation($email: String!, $password: String!, $exponentPushToken: String) {
+    login(email: $email, password: $password, exponentPushToken: $exponentPushToken) {
         token
         userId
     }

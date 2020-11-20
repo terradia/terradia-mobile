@@ -27,6 +27,8 @@ PODS:
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
   - DoubleConversion (1.1.6)
+  - EXApplication (2.3.0):
+    - UMCore
   - EXConstants (9.2.0):
     - UMConstantsInterface
     - UMCore
@@ -68,6 +70,9 @@ PODS:
     - UMCore
     - UMPermissionsInterface
     - UMTaskManagerInterface
+  - EXNotifications (0.7.2):
+    - UMCore
+    - UMPermissionsInterface
   - EXPaymentsStripe (8.3.0):
     - Stripe (~> 14.0.1)
     - UMCore
@@ -440,6 +445,7 @@ DEPENDENCIES:
   - Braintree (~> 4.35.0)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - EXApplication (from `../node_modules/expo-application/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXErrorRecovery (from `../node_modules/expo-error-recovery/ios`)
   - EXFacebook (from `../node_modules/expo-facebook/ios`)
@@ -453,6 +459,7 @@ DEPENDENCIES:
   - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
+  - EXNotifications (from `../node_modules/expo-notifications/ios`)
   - EXPaymentsStripe (from `../node_modules/expo-payments-stripe/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSharing (from `../node_modules/expo-sharing/ios`)
@@ -555,6 +562,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  EXApplication:
+    :path: "../node_modules/expo-application/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   EXErrorRecovery:
@@ -581,6 +590,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-localization/ios"
   EXLocation:
     :path: "../node_modules/expo-location/ios"
+  EXNotifications:
+    :path: "../node_modules/expo-notifications/ios"
   EXPaymentsStripe:
     :path: "../node_modules/expo-payments-stripe/ios"
   EXPermissions:
@@ -698,7 +709,8 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
-  DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
+  DoubleConversion: cde416483dac037923206447da6e1454df403714
+  EXApplication: 256b2a1348fc4a178d56bdbf45abeb08bee571c5
   EXConstants: 6ec1ea4a13ec734c7e2274bc9e5b7408d73007a1
   EXErrorRecovery: cfb65ec51567cf57a00b2720a2367ac009298319
   EXFacebook: 6b4fc2232f41ccf2b3c1532040a2270225ee724d
@@ -712,6 +724,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: 54bec9b1b4940407fc498cab6a0c49c617c8cf54
   EXLocalization: dfd0cd6505eb3e598b4e72e0d9ae373e93751253
   EXLocation: 210d39a6e5d793f9721117a11c0b27dc523a3183
+  EXNotifications: ca8ece365fd80604c4afd7a7b2d9e3c6b53ebe8e
   EXPaymentsStripe: 6dd43d5d143465a6a50643db1c663df955b47334
   EXPermissions: 5797c6c72efb411b2bbf502cd5acd841e3ffeefa
   EXSharing: 083511ae20d3e0c7c26ce70b2b1501fff9edc171
@@ -731,7 +744,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
   FlipperKit: 6dc9b8f4ef60d9e5ded7f0264db299c91f18832e
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
-  glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   lottie-react-native: 3d8181d43619b1fe804c828bd5a09d20fe8bdea7
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355

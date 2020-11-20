@@ -8,9 +8,8 @@ import {
 } from "react-native";
 import CartPayment from "@components/cart/payment/CartPayment";
 import { useNavigation, useNavigationParam } from "react-navigation-hooks";
-import HeaderAccount from "@components/account/Header";
+import HeaderAccount from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
-import PaymentMethod from "@components/cart/content/PaymentMethod";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { GetCardsReq } from "@interfaces/Wallet";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
@@ -20,7 +19,7 @@ import styles from "../growers/styles/CardsListSelector.style";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { requestOneTimePayment } from "react-native-paypal";
 import axios from "axios";
-import { CartData } from "@interfaces/User";
+
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
     // eslint-disable-next-line @typescript-eslint/camelcase
