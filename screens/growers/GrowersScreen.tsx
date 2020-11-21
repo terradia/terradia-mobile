@@ -12,7 +12,7 @@ import DeepLinking from "@components/routing/DeepLinking";
 import CardListLoader from "@components/growers/CardListLoader";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 import HeaderFooter from "@components/header/HeaderFooter";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
