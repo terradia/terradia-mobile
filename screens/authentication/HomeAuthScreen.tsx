@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 import {
     ImageBackground,
     SafeAreaView,
@@ -9,10 +9,21 @@ import {
 } from "react-native";
 import TerradiaWhite from "../../assets/svg/terradia_white.svg";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
-import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+//import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
+
 import i18n from "@i18n/i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IntroSlider from "./intro/IntroSlider";
+
+import { StackScreenProps } from "@react-navigation/stack";
+
+type RootStackParamList = {
+    Home: undefined;
+    HomeAuthScreen: { firstConnection: string };
+};
+
+type Props = StackScreenProps<RootStackParamList, "HomeAuthScreen">;
 
 const styles = StyleSheet.create({
     title: {
@@ -44,8 +55,8 @@ const styles = StyleSheet.create({
     }
 });
 
-const HomeAuthScreen: FunctionComponent = () => {
-    const firstConnection = useNavigationParam("firstConnection");
+const HomeAuthScreen = ({ route }: Props): ReactElement => {
+    const { firstConnection } = route.params;
     const [showSlider, setShowSlider] = useState(!firstConnection);
 
     const _onSliderDone = async (): Promise<void> => {

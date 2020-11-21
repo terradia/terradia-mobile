@@ -1,18 +1,14 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import { Avatar } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
 import style from "./styles/UpcomingCard.style";
-import { NavigationParams } from "react-navigation";
 import UpcomingCardContent from "./UpcomingCardContent";
 
-import { CompanyData } from "@interfaces/Companies";
 import i18n from "@i18n/i18n";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { OrderData } from "@interfaces/Orders";
 
 declare interface GrowerCard {
-    navigation?: NavigationParams;
     order?: OrderData;
 }
 
@@ -56,7 +52,7 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.4}
-                            onPress={(): boolean =>
+                            onPress={(): void =>
                                 navigate("GrowersProducts", {
                                     grower: order.company.id
                                 })

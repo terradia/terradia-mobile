@@ -12,8 +12,7 @@ import AddressInformation from "@components/cart/content/AddressInformations";
 import DeliveryDate from "@components/cart/content/DeliveryDate";
 import i18n from "@i18n/i18n";
 import PaymentMethod from "@components/cart/content/PaymentMethod";
-import CartPayment from "@components/cart/payment/CartPayment";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductList: FunctionComponent = () => {
     const { navigate } = useNavigation();
@@ -139,7 +138,7 @@ const ProductList: FunctionComponent = () => {
                 stopRightSwipe={-100}
             />
             <TouchableOpacity
-                onPress={(): boolean =>
+                onPress={(): void =>
                     navigate("PaymentPicker", { cart: data.getCart })
                 }
                 style={styles.priceContainer}

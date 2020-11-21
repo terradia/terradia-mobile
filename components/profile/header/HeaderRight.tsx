@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'react-navigation-hooks';
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container: {

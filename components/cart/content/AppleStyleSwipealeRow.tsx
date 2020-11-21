@@ -1,16 +1,14 @@
 import React, {
-    Component,
     forwardRef,
-    FunctionComponent,
     RefForwardingComponent,
     useImperativeHandle,
     useRef
-} from 'react';
-import { Animated, StyleSheet, Text, View, I18nManager } from 'react-native';
+} from "react";
+import { Animated, StyleSheet, Text, View, I18nManager } from "react-native";
 
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton } from "react-native-gesture-handler";
 
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 /**
  * From https://github.com/software-mansion/react-native-gesture-handler/blob/6fc5e07ccd5027b090c17c59e0971ee32f559991/Example/swipeable/AppleStyleSwipeableRow.js#L8
@@ -18,16 +16,16 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const styles = StyleSheet.create({
     actionText: {
-        color: 'white',
+        color: "white",
         fontSize: 16,
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         padding: 10,
-        fontFamily: 'MontserratBold'
+        fontFamily: "MontserratBold"
     },
     rightAction: {
-        alignItems: 'center',
+        alignItems: "center",
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: "center"
     }
 });
 
@@ -81,10 +79,10 @@ const AppleStyleSwipeableRow: RefForwardingComponent<
         <View
             style={{
                 width: 120,
-                flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
+                flexDirection: I18nManager.isRTL ? "row-reverse" : "row"
             }}
         >
-            {renderRightAction('Supprimer', '#FF4A4A', 150, progress)}
+            {renderRightAction("Supprimer", "#FF4A4A", 150, progress)}
         </View>
     );
 

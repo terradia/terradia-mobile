@@ -1,11 +1,18 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { View } from "react-native";
-import { useNavigationParam } from "react-navigation-hooks";
 import Header from "@components/product/header";
 import FeedbackContent from "@components/product/feedback";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ProductData } from "@interfaces/Companies";
 
-const Feedback: FunctionComponent = () => {
-    const product = useNavigationParam("product");
+type RootStackParamList = {
+    Home: undefined;
+    Feedback: { product: ProductData };
+};
+type Props = StackScreenProps<RootStackParamList, "Feedback">;
+
+const Feedback = ({ route }: Props): ReactElement => {
+    const { product } = route.params;
     return (
         <View style={{ flex: 1 }}>
             <Header title={product.name} />

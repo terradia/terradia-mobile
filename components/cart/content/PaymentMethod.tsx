@@ -5,7 +5,7 @@ import i18n from "@i18n/i18n";
 import { useQuery } from "@apollo/react-hooks";
 import getStripeCustomerDefaultSource from "../../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const Icons = {
     cvc: require("../../../assets/icons/stp_card_cvc.png"),

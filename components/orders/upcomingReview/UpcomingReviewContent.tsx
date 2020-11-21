@@ -29,7 +29,7 @@ import receiveOrder from "../../../graphql/orders/receiveOrder.graphql";
 import TerradiaSimpleDialog from "@components/modals/dialogs/TerradiaSimpleDialog";
 import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
 import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 interface UpcomingReviewContentData {
     order: OrderData;
@@ -212,7 +212,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     swiperColor={"#5CC04A"}
                     backgroundColor={"white"}
                     borderWidth={2}
-                    onAnimationDone={(): boolean => goBack()}
+                    onAnimationDone={(): void => goBack()}
                     isRequestDone={isRequestDone}
                 />
             </View>

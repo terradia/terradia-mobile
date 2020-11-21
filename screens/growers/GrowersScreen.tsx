@@ -12,7 +12,7 @@ import DeepLinking from "@components/routing/DeepLinking";
 import CardListLoader from "@components/growers/CardListLoader";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 import HeaderFooter from "@components/header/HeaderFooter";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+// import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -38,7 +38,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
         return <CardListLoader />;
     }
     return (
-        <ThemedContainer style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
             <HeaderFooter />
             <AnimatedFlatList
                 style={{ flex: 1 }}
@@ -52,25 +52,23 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
             />
             <Cart />
             <DeepLinking />
-        </ThemedContainer>
+        </View>
     );
 };
 
-const collapsibleParams = {};
-
 // @ts-ignore
-GrowersScreen.navigationOptions = {
-    headerTitle: (): ReactElement => <NavBar />,
-    headerBackground: (): ReactElement => (
-        <LinearGradient
-            style={{ flex: 1, height: 80 }}
-            colors={["#8FDD3D", "#5CC04A"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-        />
-    ),
-    headerStyle: { height: 80, backgroundColor: "transparent" }
-};
+// GrowersScreen.navigationOptions = {
+//     headerTitle: (): ReactElement => <NavBar />,
+//     headerBackground: (): ReactElement => (
+//         <LinearGradient
+//             style={{ flex: 1, height: 80 }}
+//             colors={["#8FDD3D", "#5CC04A"]}
+//             start={{ x: 0, y: 1 }}
+//             end={{ x: 1, y: 0 }}
+//         />
+//     ),
+//     headerStyle: { height: 80, backgroundColor: "transparent" }
+// };
 
 // export default withCollapsible(GrowersScreen, collapsibleParams);
 export default GrowersScreen;

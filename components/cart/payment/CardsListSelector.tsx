@@ -6,7 +6,7 @@ import i18n from "@i18n/i18n";
 import { useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./style/CardsListSelector.style";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { GetCardsReq } from "@interfaces/Wallet";
 import getStripeCustomerDefaultSource from "../../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 
@@ -32,7 +32,6 @@ const CardsListSelector: FunctionComponent = () => {
         const newYear = year.substr(2, 4);
         return newMonth + "/" + newYear;
     };
-    console.log(defaultSource);
     return (
         <View>
             <MainHeader title={"Mon porte feuille"} backButton={false} />

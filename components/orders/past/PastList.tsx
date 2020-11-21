@@ -8,7 +8,7 @@ import {
     ViewProps
 } from "react-native";
 import PastCardHeader from "./PastCardHeader";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/react-hooks";
 import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
@@ -23,7 +23,7 @@ interface GetMyOrdersHistoriesData {
 }
 
 interface EmptyElementProps {
-    navigate: (route: string) => boolean;
+    navigate: (route: string) => void;
     title: string;
     callToAction: string;
 }
@@ -40,7 +40,7 @@ export const EmptyListElement: FunctionComponent<EmptyElementProps> = ({
             <Text style={styles.youHaveNoOrderText}>{title}</Text>
             <TouchableOpacity
                 style={styles.discoverProducersContainer}
-                onPress={(): boolean => navigate("Grower")}
+                onPress={(): void => navigate("Grower")}
             >
                 <Text style={styles.discoverProducersText}>{callToAction}</Text>
             </TouchableOpacity>

@@ -8,7 +8,7 @@ import REGISTER from "../../graphql/register.graphql";
 import { Kohana } from "react-native-textinput-effects";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { registerForPushNotificationsAsync } from '@helpers/pushNotification';
+import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
 
 declare interface RegisterFormProps {
     navigateHome?: () => void;

@@ -9,7 +9,7 @@ import LOGIN from "../../graphql/login.graphql";
 import ThirdPartyLogin from "@components/login/ThirdPartyLogin";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Kohana } from "react-native-textinput-effects";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
 
@@ -112,7 +112,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                     style={[{ borderColor: "#FFFFFF" }]}
                     titleStyle={[{ color: "#FFFFFF" }]}
                     loading={mutationLoading}
-                    onPress={async (): void => {
+                    onPress={async (): Promise<void> => {
                         if (email.length === 0) {
                             setError(i18n.t("loginScreen.fillEmail"));
                             return;

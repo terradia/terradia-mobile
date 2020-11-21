@@ -1,7 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, {
+    FunctionComponent,
+    ReactElement,
+    useEffect,
+    useState
+} from "react";
 
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import COMPANY from "../../graphql/company.graphql";
 import getCompany from "../../graphql/getCompany.graphql";
@@ -14,20 +18,19 @@ const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 135;
 
-declare interface GrowersProductsScreen {
-    navigation?: NavigationStackScreenProps;
+interface GrowerProductsData {
+    growerId: string;
 }
-
 interface GetCompanyProductsCategoriesData {
     getCompanyProductsCategories: [ProductsCategoryData];
 }
-
-const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
-    navigation
-}) => {
+const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
+    growerId
+}): ReactElement => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
-    const growerId = useNavigationParam("grower");
+
+    //TODO: Update this
     const [company, setCompany] = useState(null);
     const { navigate } = useNavigation();
 
@@ -113,7 +116,6 @@ const GrowerProducts: FunctionComponent<GrowersProductsScreen> = ({
                 products={products}
                 company={company}
                 positionArray={positionArray}
-                navigation={navigation}
             />
         );
     } else {

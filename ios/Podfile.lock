@@ -413,8 +413,8 @@ PODS:
   - RNPaypal (3.1.1):
     - Braintree
     - React
-  - RNReanimated (1.13.1):
-    - React
+  - RNReanimated (1.13.2):
+    - React-Core
   - RNScreens (2.10.1):
     - React
   - RNSVG (12.1.0):
@@ -774,7 +774,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNPaypal: ac01980ea29ad4df3b46f99ea58fa290914d734f
-  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
+  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Stripe: 4305b646743612854819fb5d5cf67aaeb93577c0

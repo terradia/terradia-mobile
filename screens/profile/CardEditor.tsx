@@ -1,9 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { View } from "react-native";
-import {
-    CreditCardInput,
-    LiteCreditCardInput
-} from "react-native-input-credit-card";
+import { CreditCardInput } from "react-native-input-credit-card";
 import MainHeader from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
@@ -12,7 +9,7 @@ import CreateCard from "../../graphql/wallet/createCard.graphql";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import Spinner from "react-native-loading-spinner-overlay";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const CardEditor: FunctionComponent = () => {
     const [isValid, setValid] = useState(false);
@@ -51,7 +48,6 @@ const CardEditor: FunctionComponent = () => {
             expYear: parseInt(card.expiry.substr(3, 4)),
             cvc: card.cvc
         };
-        console.log(params);
         const token = await Stripe.createTokenWithCardAsync(params);
         createCard({ variables: { cardId: token.tokenId } });
         console.log(token);
@@ -64,10 +60,7 @@ const CardEditor: FunctionComponent = () => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <MainHeader
-                title={"Editer/ajouter une carte"}
-                backButton={true}
-            />
+            <MainHeader title={"Editer/ajouter une carte"} backButton={true} />
             <CreditCardInput
                 onChange={_onChange}
                 allowScroll={true}

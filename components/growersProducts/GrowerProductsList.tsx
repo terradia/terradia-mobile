@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useRef, useState } from "react";
+import React, {
+    FunctionComponent,
+    ReactElement,
+    useRef,
+    useState
+} from "react";
 import { TouchableOpacity, SectionList, View } from "react-native";
 import ParallaxScrollView from "react-native-parallax-scroll-view";
 import GrowersProductsForegroundHeader from "@components/growersProducts/products/GrowersProductsForegroundHeader";
@@ -11,29 +16,28 @@ import {
     renderHeaders,
     renderItems
 } from "@components/growersProducts/products/GrowersProductsListRender";
-import { NavigationStackScreenProps } from "react-navigation-stack";
 import styles from "./styles/GrowerProducts.style";
 import Cart from "@components/cart";
 import { CompanyData, ProductData } from "@interfaces/Companies";
 import DeepLinking from "@components/routing/DeepLinking";
+import { useNavigation } from "@react-navigation/native";
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 135;
 
 declare interface GrowersProductsListProps {
-    navigation?: NavigationStackScreenProps;
     products: any;
     company: CompanyData;
     positionArray: any;
 }
 
 const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
-    navigation,
     products,
     company,
     positionArray
 }) => {
+    const { navigate, goBack } = useNavigation();
     const list = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [blockUpdateIndex, setBlockUpdateIndex] = useState(false);
@@ -101,7 +105,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 renderItem={({ item }: { item: ProductData }): any => (
                     <TouchableOpacity
                         onPress={(): void => {
-                            navigation.navigate("Product", {
+                            navigate("Product", {
                                 product: item.id
                             });
                         }}
@@ -133,8 +137,8 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                         backgroundColor="white"
                         parallaxHeaderHeight={300}
                         stickyHeaderHeight={133}
-                        renderFixedHeader={(): any =>
-                            renderFixedHeader({ navigation })
+                        renderFixedHeader={(): ReactElement =>
+                            renderFixedHeader({goBack})
                         }
                         renderBackground={(): any =>
                             renderImageBackground({ grower: company })

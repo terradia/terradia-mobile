@@ -5,7 +5,7 @@ import styles from "./styles/UpcomingCardContent.style";
 import { OrderData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import Moment from "moment";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 declare interface UpcomingCardContentData {
     order?: OrderData;
@@ -77,7 +77,7 @@ const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
                     </View>
                 </View>
                 <TouchableOpacity
-                    onPress={(): boolean =>
+                    onPress={(): void =>
                         navigate("UpcomingOrderReview", { order })
                     }
                     style={styles.buttonContainer}

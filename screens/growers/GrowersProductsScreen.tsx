@@ -1,16 +1,16 @@
 import React, { FunctionComponent, ReactElement } from "react";
 
-import { NavigationStackScreenProps } from "react-navigation-stack";
 import GrowerProducts from "@components/growersProducts";
+import { StackScreenProps } from "@react-navigation/stack";
 
-declare interface GrowersProductsScreen {
-    navigation?: NavigationStackScreenProps;
-}
+type RootStackParamList = {
+    GrowerProducts: { grower: string };
+};
+type Props = StackScreenProps<RootStackParamList, "GrowerProducts">;
 
-const GrowerProductsScreen: FunctionComponent<GrowersProductsScreen> = ({
-    navigation
-}) => {
-    return <GrowerProducts navigation={navigation} />;
+const GrowerProductsScreen = ({ route }: Props) => {
+    const { grower } = route.params;
+    return <GrowerProducts growerId={grower} />;
 };
 
 // @ts-ignore

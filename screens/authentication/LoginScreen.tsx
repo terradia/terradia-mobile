@@ -2,7 +2,6 @@ import React, { FunctionComponent, useRef } from "react";
 import {
     View,
     Image,
-    KeyboardAvoidingView,
     Text,
     SafeAreaView,
     TouchableOpacity
@@ -12,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import styles from "./styles/Login.style";
 import Preload from "./Preload";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 declare interface LoginScreenProps {
@@ -42,7 +41,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
             <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): boolean => goBack()}
+                        onPress={(): void => goBack()}
                         style={{ marginLeft: 20 }}
                     >
                         <Feather

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { TouchableOpacity } from "react-native";
 import { Header } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { ThemeContext, ThemedBox } from "@components/theme/Theme";
 
 declare interface Props {

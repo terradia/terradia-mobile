@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import RegisterForm from "../../components/register/RegisterForm";
 import Preload from "./Preload";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const RegisterScreen: FunctionComponent<any> = props => {
@@ -31,7 +31,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
             <KeyboardAwareScrollView>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): boolean => goBack()}
+                        onPress={(): void => goBack()}
                         style={{ marginLeft: 20 }}
                     >
                         <Feather

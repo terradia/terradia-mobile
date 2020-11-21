@@ -16,7 +16,7 @@ import { GetUserData } from "@interfaces/User";
 import getUser from "../../graphql/getUser.graphql";
 import AccountImage from "@components/account/AccountImage";
 import styles from "./styles/Account.style";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const Account: FunctionComponent = () => {
     const [currentEditing, setCurrentEditing] = useState(null);
