@@ -4,9 +4,9 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    TextInput,
-    AsyncStorage
+    TextInput
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainHeader from "@components/theme/MainHeader";
 import { Entypo } from "@expo/vector-icons";
 import AccountModal from "@components/account/modal/AccountModal";
@@ -133,7 +133,9 @@ const Account: FunctionComponent = () => {
             <TouchableOpacity
                 onPress={() => {
                     AsyncStorage.removeItem("token").then(() => {
-                        navigate("Login");
+                        AsyncStorage.removeItem("userId").then(() => {
+                            navigate("Login");
+                        });
                     });
                 }}
                 style={styles.signOutContainer}

@@ -14,6 +14,7 @@ const AuthLoadingScreen: FunctionComponent<AuthLoadingScreen> = ({
 
     useEffect(() => {
         AsyncStorage.getItem("token").then(async data => {
+            console.log(data);
             if (!data) {
                 const value = await AsyncStorage.getItem("@first_connection");
                 return navigation.navigate("HomeAuth", {

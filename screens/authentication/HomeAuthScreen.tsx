@@ -79,8 +79,7 @@ const HomeAuthScreen = ({ route }: Props): ReactElement => {
                     <View style={styles.containers}>
                         <TerradiaWhite style={styles.title} />
                         <Text style={styles.subTitle}>
-                            L’application qui facilite l’accès aux produits
-                            locaux
+                            Facilitez votre accès aux produits locaux
                         </Text>
                     </View>
                     <View style={[styles.containers, styles.bottomContainer]}>

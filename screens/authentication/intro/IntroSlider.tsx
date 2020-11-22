@@ -46,7 +46,7 @@ const slides = [
     {
         key: "one",
         title: "Bienvenue sur Terradia",
-        text: "L’application qui facilite \nl’accès aux produits locaux",
+        text: "Facilitez votre accès aux produits locaux",
         image: <Welcome width={320} height={320} />,
         bg: "#59b2ab"
     },

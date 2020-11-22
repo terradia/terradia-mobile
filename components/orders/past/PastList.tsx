@@ -16,7 +16,8 @@ import styles from "@components/orders/upcoming/styles/UpcomingList.style";
 import Cart from "../../../assets/svg/cart.svg";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
-import { ThemedBox } from "@components/theme/Theme";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 interface GetMyOrdersHistoriesData {
     getMyOrderHistories: [OrderHistoryData];
@@ -60,7 +61,7 @@ const PastList: FunctionComponent = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1, marginTop: calcWidth(4) }}>
             <FlatList
                 data={orders && orders.getMyOrderHistories}
                 style={{ flex: 1 }}
@@ -84,7 +85,7 @@ const PastList: FunctionComponent = () => {
                     />
                 )}
             />
-        </View>
+        </ThemedContainer>
     );
 };
 

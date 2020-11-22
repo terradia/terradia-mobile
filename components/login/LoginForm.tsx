@@ -12,15 +12,21 @@ import { Kohana } from "react-native-textinput-effects";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
+import { ThemedBox, ThemedContainer, withTheme } from '@components/theme/Theme';
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { Divider } from "react-native-elements";
 
 declare interface LoginFormProps {
     navigateRegister?: any;
     navigateHome?: () => void;
+    theme?: any;
 }
 
 const LoginForm: FunctionComponent<LoginFormProps> = ({
     navigateHome,
-    navigateRegister
+    navigateRegister,
+    theme,
 }) => {
     const { navigate } = useNavigation();
     const [email, setEmail] = useState("");
@@ -73,23 +79,48 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
         console.log("Apple login");
     };
 
+    const onPressLogin = async (): Promise<void> => {
+        if (email.length === 0) {
+            setError(i18n.t("loginScreen.fillEmail"));
+            return;
+        }
+        if (password.length === 0) {
+            setError(i18n.t("loginScreen.fillPassword"));
+            return;
+        }
+        // const token = await registerForPushNotificationsAsync();
+        login({
+            variables: {
+                email: email,
+                password: password,
+                exponentPushToken: ""
+            }
+        }).then();
+    };
+
     return (
-        <View style={styles.container}>
-            <View style={styles.wrapper}>
-                <View style={styles.containerView}>
+        <ThemedBox style={styles.container}>
+            <ThemedBox style={styles.wrapper}>
+                <ThemedBox style={styles.containerView}>
                     <Kohana
                         style={styles.inputContainer}
                         label={i18n.t("registerScreen.addrEmail")}
                         keyboardType={"email-address"}
                         onChangeText={(text: string): void => setEmail(text)}
-                        iconClass={MaterialIcons}
-                        iconName={"email"}
+                        iconClass={FontAwesome}
+                        iconName={"envelope"}
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
-                        labelContainerStyle={{ padding: 10 }}
-                        iconContainerStyle={{ padding: 10 }}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
+                        labelContainerStyle={{ padding: calcWidth(2) }}
+                        iconContainerStyle={{
+                            padding: calcWidth(2),
+                            width: calcWidth(10)
+                        }}
                     />
                     <Kohana
                         style={styles.inputContainer}
@@ -101,70 +132,67 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
-                        labelContainerStyle={{ padding: 10 }}
-                        iconContainerStyle={{ padding: 10 }}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
+                        labelContainerStyle={{ padding: calcWidth(2) }}
+                        iconContainerStyle={{
+                            padding: calcWidth(2),
+                            width: calcWidth(10)
+                        }}
                     />
-                </View>
+                </ThemedBox>
                 <Text style={styles.errorText}>{error}</Text>
-                <ButtonTerradia
+                <ButtonWithIcon
                     title={i18n.t("loginScreen.login")}
-                    style={[{ borderColor: "#FFFFFF" }]}
-                    titleStyle={[{ color: "#FFFFFF" }]}
+                    onPress={onPressLogin}
+                    radius={8}
                     loading={mutationLoading}
-                    onPress={async (): Promise<void> => {
-                        if (email.length === 0) {
-                            setError(i18n.t("loginScreen.fillEmail"));
-                            return;
-                        }
-                        if (password.length === 0) {
-                            setError(i18n.t("loginScreen.fillPassword"));
-                            return;
-                        }
-                        const token = await registerForPushNotificationsAsync();
-                        login({
-                            variables: {
-                                email: email,
-                                password: password,
-                                exponentPushToken: token
-                            }
-                        }).then();
+                    type={"full"}
+                    width={calcWidth(92)}
+                    size={50}
+                    textSize={20}
+                    style={{
+                        marginBottom: calcWidth(3)
                     }}
                 />
-            </View>
+                <ButtonWithIcon
+                    onPress={forgotPassword}
+                    type={"clear"}
+                    title={i18n.t("loginScreen.forgot")}
+                    width={calcWidth(92)}
+                    size={50}
+                    textSize={20}
+                    style={{
+                        marginBottom: calcWidth(3)
+                    }}
+                />
+            </ThemedBox>
 
-            <TouchableOpacity
-                onPress={forgotPassword}
-                style={styles.forgotPasswordStyle}
-            >
-                <Text style={styles.forgotPasswordText}>
-                    {i18n.t("loginScreen.forgot")}
-                </Text>
-            </TouchableOpacity>
-
-            <View style={styles.registerView}>
-                <ButtonEmpty
-                    title={i18n.t("loginScreen.register")}
-                    style={[{ borderColor: "#5CC04A" }]}
-                    titleStyle={[{ color: "#5CC04A" }]}
+            <ThemedBox style={styles.registerView}>
+                <ButtonWithIcon
                     onPress={register}
+                    type={"outline"}
+                    radius={8}
+                    title={i18n.t("loginScreen.register")}
+                    width={calcWidth(92)}
+                    size={50}
+                    textSize={20}
+                    style={{
+                        marginBottom: calcWidth(3)
+                    }}
                 />
                 <ThirdPartyLogin navigateHome={navigateHome} />
-                {/*<ButtonEmpty*/}
-                {/*    title={i18n.t('loginScreen.loginFacebook')}*/}
-                {/*    style={[{ borderColor: 'blue' }]}*/}
-                {/*    titleStyle={[{ color: 'blue' }]}*/}
-                {/*    onPress={facebookLogin}*/}
-                {/*/>*/}
                 {/*<ButtonEmpty*/}
                 {/*    title={i18n.t('loginScreen.loginApple')}*/}
                 {/*    style={[{ borderColor: 'black' }]}*/}
                 {/*    titleStyle={[{ color: 'black' }]}*/}
                 {/*    onPress={appleLogin}*/}
                 {/*/>*/}
-            </View>
-        </View>
+            </ThemedBox>
+        </ThemedBox>
     );
 };
 
-export default LoginForm;
+export default withTheme(LoginForm);

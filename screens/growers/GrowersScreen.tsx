@@ -2,8 +2,6 @@ import React, { FunctionComponent, ReactElement } from "react";
 import { FlatList, Animated, View } from "react-native";
 import GrowerCard from "../../components/cards/GrowerCard";
 import { NavigationStackScreenProps } from "react-navigation-stack";
-import NavBar from "../../components/header/NavBar";
-import { LinearGradient } from "expo-linear-gradient";
 import Cart from "../../components/cart";
 import { useQuery } from "@apollo/react-hooks";
 import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistanceByCustomer.graphql";
@@ -12,7 +10,7 @@ import DeepLinking from "@components/routing/DeepLinking";
 import CardListLoader from "@components/growers/CardListLoader";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 import HeaderFooter from "@components/header/HeaderFooter";
-// import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -38,7 +36,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
         return <CardListLoader />;
     }
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1 }}>
             <HeaderFooter />
             <AnimatedFlatList
                 style={{ flex: 1 }}
@@ -52,7 +50,7 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
             />
             <Cart />
             <DeepLinking />
-        </View>
+        </ThemedContainer>
     );
 };
 

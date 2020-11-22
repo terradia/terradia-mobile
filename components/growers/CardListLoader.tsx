@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { View, StyleSheet } from "react-native";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { ThemeContext, ThemedBox } from "@components/theme/Theme";
+import { ThemeContext, ThemedBox, withTheme } from "@components/theme/Theme";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
@@ -18,25 +18,25 @@ const styles = StyleSheet.create({
     }
 });
 
-const CardListLoader: FunctionComponent = () => {
+interface Props {
+    theme: any;
+}
+
+const CardListLoader: FunctionComponent<Props> = ({ theme, ...props }) => {
     return (
-        <ThemeContext.Consumer>
-            {({ theme }) => (
-                <SkeletonPlaceholder
-                    backgroundColor={theme.palette.lighterBackgroundColor}
-                    highlightColor={theme.palette.card.backgroundColor}
-                >
-                    <ThemedBox style={styles.container}>
-                        <View style={styles.box} />
-                        <View style={styles.box} />
-                        <View style={styles.box} />
-                        <View style={styles.box} />
-                        <View style={styles.box} />
-                    </ThemedBox>
-                </SkeletonPlaceholder>
-            )}
-        </ThemeContext.Consumer>
+        <SkeletonPlaceholder
+            backgroundColor={theme.palette.lighterBackgroundColor}
+            highlightColor={theme.palette.card.backgroundColor}
+        >
+            <ThemedBox style={styles.container}>
+                <View style={styles.box} />
+                <View style={styles.box} />
+                <View style={styles.box} />
+                <View style={styles.box} />
+                <View style={styles.box} />
+            </ThemedBox>
+        </SkeletonPlaceholder>
     );
 };
 
-export default CardListLoader;
+export default withTheme(CardListLoader);

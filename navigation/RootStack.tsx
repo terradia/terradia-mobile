@@ -41,16 +41,29 @@ import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
 import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
 import OrdersScreen from "../screens/orders/OrdersScreen";
 
+import i18n from "@i18n/i18n";
+import { useTheme, withTheme } from "@components/theme/Theme";
+
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const RootStack: FunctionComponent = () => {
-    const Tab = createBottomTabNavigator();
+interface Props {
+    theme: any;
+}
 
+const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {
     const MyTabs = () => {
         return (
-            <Tab.Navigator>
+            <Tab.Navigator
+                tabBarOptions={{
+                    activeTintColor: theme.palette.primary,
+                    style: {
+                        backgroundColor: theme.palette.card.backgroundColor
+                    }
+                }}
+            >
                 <Tab.Screen
-                    name="Growers"
+                    name={i18n.t("navigation.growers")}
                     component={GrowersStack}
                     options={{
                         tabBarIcon: ({ focused }) => {
@@ -63,7 +76,7 @@ const RootStack: FunctionComponent = () => {
                     }}
                 />
                 <Tab.Screen
-                    name="Search"
+                    name={i18n.t("navigation.search")}
                     component={SearchScreen}
                     options={{
                         tabBarIcon: ({ focused }) => {
@@ -76,27 +89,27 @@ const RootStack: FunctionComponent = () => {
                     }}
                 />
                 <Tab.Screen
-                    name="Orders"
+                    name={i18n.t("navigation.orders")}
                     component={OrdersScreen}
-                    options={{
-                        tabBarIcon: ({ focused }): ReactElement => {
-                            return focused ? (
-                                <ProfileActive width={25} height={25} />
-                            ) : (
-                                <ProfileInactive width={25} height={25} />
-                            );
-                        }
-                    }}
-                />
-                <Tab.Screen
-                    name="profile"
-                    component={ProfileScreen}
                     options={{
                         tabBarIcon: ({ focused }): ReactElement => {
                             return focused ? (
                                 <OrderActive width={25} height={25} />
                             ) : (
                                 <OrderInactive width={25} height={25} />
+                            );
+                        }
+                    }}
+                />
+                <Tab.Screen
+                    name={i18n.t("navigation.profile")}
+                    component={ProfileScreen}
+                    options={{
+                        tabBarIcon: ({ focused }): ReactElement => {
+                            return focused ? (
+                                <ProfileActive width={25} height={25} />
+                            ) : (
+                                <ProfileInactive width={25} height={25} />
                             );
                         }
                     }}
@@ -168,4 +181,4 @@ const RootStack: FunctionComponent = () => {
     );
 };
 
-export default RootStack;
+export default withTheme(RootStack);

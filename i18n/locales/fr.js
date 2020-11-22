@@ -9,10 +9,16 @@ export default {
     tags: {
         new: "NOUVEAUTE"
     },
+    navigation: {
+        growers: "Producteurs",
+        search: "Recherche",
+        orders: "Commandes",
+        profile: "Profil"
+    },
     loginScreen: {
         addrEmail: "Adresse email",
         password: "Mot de passe",
-        login: "Connexion",
+        login: "Se connecter",
         forgot: "Mot de passe oublié ?",
         register: "S'enregister",
         loginFacebook: "Connexion avec facebook",
@@ -145,7 +151,6 @@ export default {
         validateOrderPickUp:
             "Voullez-vous valider le retrait de cette commande ? Cette opération doit être effectuée par le producteur",
         orderCompleted: "Order completed & received"
-
     },
     common: {
         yes: "Oui"

@@ -12,6 +12,8 @@ import { OrderData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
 import { EmptyListElement } from "@components/orders/past/PastList";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { calcWidth } from '../../../utils/deviceResponsiveHelper';
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];
@@ -27,7 +29,7 @@ const UpcomingList: FunctionComponent = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1, marginTop: calcWidth(4) }}>
             <FlatList
                 data={orders && orders.getMyOrders}
                 style={{ flex: 1 }}
@@ -50,7 +52,7 @@ const UpcomingList: FunctionComponent = () => {
                     />
                 )}
             />
-        </View>
+        </ThemedContainer>
     );
 };
 

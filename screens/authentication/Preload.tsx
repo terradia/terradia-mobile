@@ -62,7 +62,6 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         }
     });
     const _loadData = async () => {
-        console.log("HAHA");
         Linking.getInitialURL().then(data => {
             if (data) {
                 console.log(data);

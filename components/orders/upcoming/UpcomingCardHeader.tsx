@@ -7,6 +7,7 @@ import UpcomingCardContent from "./UpcomingCardContent";
 import i18n from "@i18n/i18n";
 import { useNavigation } from "@react-navigation/native";
 import { OrderData } from "@interfaces/Orders";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 declare interface GrowerCard {
     order?: OrderData;
@@ -29,7 +30,6 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                 <View style={style.brightness} />
                 <View style={style.growerImageContainer}>
                     <Avatar
-                        size={100}
                         rounded
                         source={{
                             uri: order.company.logo
@@ -43,8 +43,8 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                     <View
                         style={{
                             flexDirection: "column",
-                            marginLeft: 10,
-                            marginTop: 10
+                            marginLeft: calcWidth(4),
+                            marginTop: calcWidth(2)
                         }}
                     >
                         <Text style={style.growerName}>

@@ -53,8 +53,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
                     </View>
                     <View style={styles.sloganView}>
                         <Text style={styles.subTitle}>
-                            L’application qui facilite l’accès aux produits
-                            locaux
+                            Facilitez votre accès aux produits locaux
                         </Text>
                     </View>
                     <View style={styles.container}>
