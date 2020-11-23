@@ -43,6 +43,7 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
+    // uri: "https://api.terradia.eu/graphql",
     uri: "http://localhost:8000/graphql",
     fetch: fetch
 });
@@ -145,6 +146,12 @@ export default function App(props): ReactElement {
     // Linking.addEventListener('url', _handleLink);
     // Linking.addEventListener('url', callback);
     const prefixPath = Linking.makeUrl("/");
+
+    const [theme, setTheme] = React.useState<"light" | "dark">("dark");
+
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
+    };
 
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return null;
