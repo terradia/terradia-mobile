@@ -1,10 +1,17 @@
-import React, { FunctionComponent } from "react";
-import { useNavigationParam } from "react-navigation-hooks";
+import React, { ReactElement } from "react";
 import PastReviewHeader from "@components/orders/pastReview/PastReviewHeader";
 import PastReviewContent from "@components/orders/pastReview/PastReviewContent";
+import { StackScreenProps } from "@react-navigation/stack";
+import { OrderHistoryData } from "@interfaces/Orders";
 
-const PastOrderReview: FunctionComponent = () => {
-    const order = useNavigationParam("order");
+type RootStackParamList = {
+    Home: undefined;
+    PastOrderReview: { order: OrderHistoryData };
+};
+type Props = StackScreenProps<RootStackParamList, "PastOrderReview">;
+
+const PastOrderReview = ({ route }: Props): ReactElement => {
+    const { order } = route.params;
     return (
         <>
             <PastReviewHeader order={order} />

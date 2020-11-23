@@ -12,7 +12,7 @@ import i18n from "@i18n/i18n";
 import { useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/Wallet.style";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { GetCardsReq } from "@interfaces/Wallet";
 
 const Icons = {
@@ -39,10 +39,7 @@ const Account: FunctionComponent = () => {
     };
     return (
         <View>
-            <MainHeader
-                title={i18n.t("profileScreen.myWallet")}
-                backButton
-            />
+            <MainHeader title={i18n.t("profileScreen.myWallet")} backButton />
 
             <View style={styles.fieldContainer}>
                 <Text style={styles.fieldTitle}>
@@ -57,7 +54,7 @@ const Account: FunctionComponent = () => {
                         <TouchableOpacity
                             style={styles.subFieldContainer}
                             key={val.id}
-                            onPress={(): boolean =>
+                            onPress={(): void =>
                                 navigate("CardDisplay", {
                                     number: val.last4,
                                     expiry: _formatExpiry(

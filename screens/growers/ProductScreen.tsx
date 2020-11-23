@@ -2,29 +2,30 @@ import React, { FunctionComponent, ReactElement } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import getProduct from "../../graphql/product/getProduct.graphql";
 import getProductReviews from "../../graphql/getProductReviews.graphql";
-import { useNavigationParam } from "react-navigation-hooks";
 import Content from "@components/product/content";
+import { StackScreenProps } from "@react-navigation/stack";
 
-const ProductScreen: FunctionComponent = () => {
-    const productId = useNavigationParam("product");
-    const { data: product, loading } = useQuery(getProduct, {
+type RootStackParamList = {
+    Home: undefined;
+    ProductScreen: { product: string };
+};
+type Props = StackScreenProps<RootStackParamList, "ProductScreen">;
+
+const ProductScreen = ({ route }: Props): ReactElement => {
+    console.log(route);
+    const { product: productId } = route.params;
+    const { data, loading } = useQuery(getProduct, {
         variables: { id: productId }
     });
     const { data: reviews } = useQuery(getProductReviews, {
         variables: { id: productId, limit: 10, offset: 0 }
     });
-    if (!product) {
+    console.log(data);
+    if (!data) {
         return <Content product={null} />;
     }
     // return <Content product={null} />;
-    return <Content product={product.getProduct} />;
-};
-
-// @ts-ignore
-ProductScreen.navigationOptions = {
-    headerMode: "none",
-    header: (): ReactElement => null,
-    tabBarVisible: false
+    return <Content product={data.getProduct} />;
 };
 
 export default ProductScreen;

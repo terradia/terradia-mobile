@@ -10,7 +10,7 @@ import { Avatar } from 'react-native-elements';
 import getUser from '../../../graphql/getUser.graphql';
 import { useQuery } from '@apollo/react-hooks';
 import { GetUserData } from '@interfaces/User';
-import { useNavigation } from 'react-navigation-hooks';
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container: {

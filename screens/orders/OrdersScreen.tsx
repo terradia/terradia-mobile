@@ -7,7 +7,7 @@ import PastList from "@components/orders/past/PastList";
 
 import MainHeader from "@components/theme/MainHeader";
 import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
-import Cart from '@components/cart';
+import Cart from "@components/cart";
 
 const initialLayout = { width: Dimensions.get("window").width };
 

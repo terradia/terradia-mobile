@@ -2,15 +2,13 @@ import React, { FunctionComponent } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-elements";
 import style from "./styles/PastCard.style";
-import { NavigationParams } from "react-navigation";
 import PastCardContent from "./PastCardContent";
 
 import i18n from "@i18n/i18n";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 
 declare interface GrowerCard {
-    navigation?: NavigationParams;
     order?: OrderHistoryData;
 }
 
@@ -52,7 +50,7 @@ const PastCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.4}
-                            onPress={(): boolean =>
+                            onPress={(): void =>
                                 navigate("GrowersProducts", {
                                     grower: order.companyId
                                 })

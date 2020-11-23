@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { ThemedBox, withTheme } from "@components/theme/Theme";
 
 declare interface ItemMenuCardsProps {
@@ -58,7 +58,7 @@ const ItemMenuCard: FunctionComponent<ItemMenuCardsProps> = ({
                     backgroundColor: theme.palette.card.backgroundColor
                 }
             ]}
-            onPress={(): boolean => navigate(routeName)}
+            onPress={(): void => navigate(routeName)}
         >
             <View style={styles.icon}>{icon}</View>
             <Text

@@ -5,7 +5,7 @@ import i18n from "@i18n/i18n";
 import { ProductData } from "@interfaces/Companies";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import AddProductToCart from "../../../graphql/cart/addProductToCart.graphql";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import getCart from "../../../graphql/cart/getCart.graphql";
 import Spinner from "react-native-loading-spinner-overlay";
 import { CartData } from "@interfaces/User";

@@ -7,16 +7,23 @@ import { Image } from "react-native";
 import { Text } from "react-native";
 import GrowersProductsCategories from "./GrowersProductsCategories";
 import { LinearGradient } from "expo-linear-gradient";
-import * as Sharing from "expo-sharing";
 import { CompanyData } from "@interfaces/Companies";
 import * as Linking from "expo-linking";
+import { useNavigation } from "@react-navigation/native";
 
-export const renderFixedHeader: FunctionComponent<any> = ({ navigation }) => {
+interface RenderFixedHeaderData {
+    goBack: () => void;
+}
+
+export const renderFixedHeader: FunctionComponent<RenderFixedHeaderData> = ({
+    goBack
+}) => {
+    // const { goBack } = useNavigation();
     return (
         <TouchableOpacity
             style={{ top: 40, left: 10, height: 35, position: "absolute" }}
             onPress={(): void => {
-                navigation.goBack();
+                goBack();
             }}
         >
             <FontAwesome

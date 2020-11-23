@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import style from "./styles/PastReviewHeader.style";
 import { Avatar } from "react-native-elements";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import i18n from "@i18n/i18n";
 import { Feather } from "@expo/vector-icons";
 import { OrderHistoryData } from "@interfaces/Orders";
@@ -33,7 +33,7 @@ const UpcomingReviewHeader: FunctionComponent<UpcomingReviewHeaderData> = ({
                         marginLeft: 20
                     }}
                 >
-                    <TouchableOpacity onPress={(): boolean => goBack()}>
+                    <TouchableOpacity onPress={(): void => goBack()}>
                         <Feather name="arrow-left" size={28} color={"white"} />
                     </TouchableOpacity>
                     <Text style={style.growerName}>

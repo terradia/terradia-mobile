@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { View, Text } from "react-native";
 import styles from "./style/ModalPaymentValidated";
 import LottieView from "lottie-react-native";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import i18n from "@i18n/i18n";
 
 declare interface ModalPaymentValidatedProps {

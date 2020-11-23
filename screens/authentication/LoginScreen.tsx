@@ -2,7 +2,6 @@ import React, { FunctionComponent, useRef } from "react";
 import {
     View,
     Image,
-    KeyboardAvoidingView,
     Text,
     SafeAreaView,
     TouchableOpacity
@@ -12,8 +11,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import styles from "./styles/Login.style";
 import Preload from "./Preload";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import HeaderFooter from "@components/header/HeaderFooter";
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
 
 declare interface LoginScreenProps {
     navigation?: any;
@@ -42,14 +44,14 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
             <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): boolean => goBack()}
-                        style={{ marginLeft: 20 }}
+                        onPress={(): void => goBack()}
+                        style={{
+                            marginTop: calcWidth(2),
+                            marginLeft: calcWidth(4),
+                            marginBottom: calcWidth(5)
+                        }}
                     >
-                        <Feather
-                            name="chevron-left"
-                            size={28}
-                            style={{ color: "white" }}
-                        />
+                        <Feather name="arrow-left" size={24} color={"white"} />
                     </TouchableOpacity>
                     <View style={styles.imageView}>
                         <Image
@@ -64,16 +66,16 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
                     </View>
                     <View style={styles.sloganView}>
                         <Text style={styles.subTitle}>
-                            L’application qui facilite l’accès aux produits
-                            locaux
+                            Facilitez votre accès aux produits locaux
                         </Text>
                     </View>
-                    <View style={styles.container}>
+                    <HeaderFooter light={true} />
+                    <ThemedBox>
                         <LoginForm
                             navigateRegister={navigateRegister}
                             navigateHome={successLogin}
                         />
-                    </View>
+                    </ThemedBox>
                     <Preload ref={preloadRef} />
                 </SafeAreaView>
             </KeyboardAwareScrollView>

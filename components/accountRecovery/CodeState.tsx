@@ -6,7 +6,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 import { useMutation } from '@apollo/react-hooks';
 import SignInWithgeneratedCode from '../../graphql/user/signInWithCode.graphql';
 // import * as Notifications from 'expo-notifications';
-import { useNavigation } from 'react-navigation-hooks';
+import { useNavigation } from "@react-navigation/native";
 import Spinner from 'react-native-loading-spinner-overlay';
 import Preload from '../../screens/authentication/Preload';
 

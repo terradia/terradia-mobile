@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
     orderContainer: {
@@ -9,73 +10,71 @@ const styles = StyleSheet.create({
     },
     orderText: {
         fontFamily: "MontserratMedium",
-        color: "#575757",
         fontSize: 14
     },
     orderNumber: {
         fontFamily: "MontserratBold",
-        color: "#575757",
         fontSize: 14
     },
     statusContainer: {
-        marginRight: 20,
-        marginLeft: 20
+        marginRight: calcWidth(4),
+        marginLeft: calcWidth(4)
     },
     statusLine: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 5
+        marginTop: calcWidth(2)
+    },
+    statusIconContainer: {
+        width: 20,
+        justifyContent: "center"
     },
     statusText: {
-        marginLeft: 10,
+        marginLeft: calcWidth(4),
         fontFamily: "MontserratMedium",
-        fontSize: 14,
-        color: "#575757"
+        fontSize: 14
     },
     divider: {
-        width: "60%",
+        flex: 1,
         backgroundColor: "#E8E8E8",
         height: 1
     },
     dateText: {
-        marginLeft: 10,
+        marginLeft: calcWidth(2),
+        textAlign: "right",
         fontFamily: "MontserratMedium",
-        color: "#575757",
         fontSize: 12
     },
     dividerDate: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 10
+        maxWidth: calcWidth(84),
+        marginTop: calcWidth(2),
+        marginBottom: calcWidth(2)
     },
     numberProductsContainer: {
         width: 40,
         height: 40,
-        backgroundColor: "#E4E3E3",
         justifyContent: "center",
         alignItems: "center"
     },
     numberProductsNumber: {
         fontFamily: "MontserratBold",
-        fontSize: 16,
-        color: "#8B8B8B"
+        fontSize: 16
     },
     numberProductsText: {
         fontFamily: "MontserratMedium",
-        color: "#575757",
         fontSize: 13,
-        marginLeft: 5
+        marginLeft: calcWidth(2)
     },
     totalText: {
         fontFamily: "MontserratMedium",
-        color: "#575757",
         fontSize: 16,
         marginLeft: 10
     },
     totalNumber: {
         fontFamily: "MontserratSemiBold",
-        color: "#575757",
         fontSize: 16
     },
     buttonContainer: {

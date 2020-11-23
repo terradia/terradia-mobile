@@ -5,7 +5,7 @@ import getActiveAddress from "../../graphql/getActiveAddress.graphql";
 import getAddressesByUser from "../../graphql/getAddressesByUser.graphql";
 import getCompaniesByDistanceByCustomer from "../../graphql/getCompaniesByDistanceByCustomer.graphql";
 
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 import { CustomerAddressData } from "@interfaces/User";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -23,7 +23,7 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
     const [urlQueryParams, setQueryParams] = useState(null);
 
     const _redirect = () => {
-        if (path === "") navigate("Grower");
+        if (path === "") navigate("App", { screen: "Growers" });
         else if (path === "GrowersProducts" && urlQueryParams.company) {
             navigate("GrowersProducts", {
                 grower: urlQueryParams.company
@@ -62,7 +62,6 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         }
     });
     const _loadData = async () => {
-        console.log("HAHA");
         Linking.getInitialURL().then(data => {
             if (data) {
                 console.log(data);

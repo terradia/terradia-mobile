@@ -7,7 +7,7 @@ import {
     View
 } from "react-native";
 import CartPayment from "@components/cart/payment/CartPayment";
-import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import HeaderAccount from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -19,6 +19,8 @@ import styles from "../growers/styles/CardsListSelector.style";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { requestOneTimePayment } from "react-native-paypal";
 import axios from "axios";
+import { StackScreenProps } from "@react-navigation/stack";
+import { CartData } from '@interfaces/User';
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
@@ -33,8 +35,14 @@ const Icons = {
     visa: require("../../assets/icons/stp_card_visa.png")
 };
 
-const PaymentPicker: FunctionComponent = () => {
-    const cart = useNavigationParam("cart");
+type RootStackParamList = {
+    Home: undefined;
+    PaymentPicker: { cart: CartData };
+};
+type Props = StackScreenProps<RootStackParamList, "PaymentPicker">;
+
+const PaymentPicker = ({ route }: Props): ReactElement => {
+    const { cart } = route.params;
     const { navigate } = useNavigation();
     const { data: cards, loading: loadingCards } = useQuery<GetCardsReq>(
         ListCustomerCards
@@ -65,7 +73,7 @@ const PaymentPicker: FunctionComponent = () => {
                 lastName,
                 phone
             } = await requestOneTimePayment(token, {
-                amount: cart.totalPrice, // required
+                amount: cart.totalPrice.toString(), // required
                 // any PayPal supported currency (see here: https://developer.paypal.com/docs/integration/direct/rest/currency-codes/#paypal-account-payments)
                 currency: "EUR",
                 // any PayPal supported locale (see here: https://braintree.github.io/braintree_ios/Classes/BTPayPalRequest.html#/c:objc(cs)BTPayPalRequest(py)localeCode)

@@ -12,7 +12,7 @@ import CreateAddress from "../../graphql/createAddress.graphql";
 import Preload from "../authentication/Preload";
 import Spinner from "react-native-loading-spinner-overlay";
 import MainHeader from "@components/theme/MainHeader";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const currentLocation = [
     {
@@ -37,7 +37,8 @@ const LocationScreen: FunctionComponent = () => {
         <View style={styles.mainContainer}>
             <MainHeader
                 title={"Ajouter une adresse"}
-                back={(): boolean => navigate("HomeAuth")}
+                back={(): void => navigate("HomeAuth")}
+                backButton={false}
             />
             <Spinner
                 visible={loading}

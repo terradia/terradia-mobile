@@ -1,22 +1,22 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement } from "react";
 import {
     FlatList,
     View,
     Text,
     StyleSheet,
     TouchableOpacity
-} from 'react-native';
-import { Product } from '@interfaces/Companies';
-import Description from './Description';
-import { AirbnbRating } from 'react-native-ratings';
-import FeedbackItem from './FeedbackItem';
-import { useQuery } from '@apollo/react-hooks';
-import getProductReviews from '../../../graphql/getProductReviews.graphql';
-import { useNavigation } from 'react-navigation-hooks';
-import FeedBackLoader from './FeedBackLoader';
+} from "react-native";
+import { ProductData } from "@interfaces/Companies";
+import Description from "./Description";
+import { AirbnbRating } from "react-native-ratings";
+import FeedbackItem from "./FeedbackItem";
+import { useQuery } from "@apollo/react-hooks";
+import getProductReviews from "../../../graphql/getProductReviews.graphql";
+import { useNavigation } from "@react-navigation/native";
+import FeedBackLoader from "./FeedBackLoader";
 
 declare interface FeedbackProps {
-    product: Product;
+    product: ProductData;
 }
 
 const styles = StyleSheet.create({
@@ -26,27 +26,27 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     feedbackContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     feedbackText: {
-        fontFamily: 'MontserratBold',
+        fontFamily: "MontserratBold",
         fontSize: 25,
-        color: '#575757'
+        color: "#575757"
     },
     starsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: "row",
+        alignItems: "center"
     },
     nbVotes: {
-        fontFamily: 'MontserratSemiBold',
-        color: '#7D7D7D',
+        fontFamily: "MontserratSemiBold",
+        color: "#7D7D7D",
         fontSize: 16
     },
     textSeeAll: {
-        alignSelf: 'flex-end',
-        color: '#4AA542',
-        fontFamily: 'MontserratBold'
+        alignSelf: "flex-end",
+        color: "#4AA542",
+        fontFamily: "MontserratBold"
     }
 });
 
@@ -63,15 +63,15 @@ const Feedback: FunctionComponent<FeedbackProps> = ({ product }) => {
                     <Text style={styles.feedbackText}>AVIS</Text>
                     <View>
                         <TouchableOpacity
-                            onPress={(): boolean =>
-                                navigate('Feedback', { product: product })
+                            onPress={(): void =>
+                                navigate("Feedback", { product })
                             }
                         >
                             <Text style={styles.textSeeAll}>Voir tout</Text>
                         </TouchableOpacity>
                         <View style={styles.starsContainer}>
                             <AirbnbRating
-                                selectedColor={'#7D7D7D'}
+                                selectedColor={"#7D7D7D"}
                                 defaultRating={1}
                                 size={18}
                                 showRating={false}

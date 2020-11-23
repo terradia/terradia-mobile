@@ -3,25 +3,25 @@ import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import { AirbnbRating, Avatar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 import style from "./styles/GrowerCard.style";
-import { NavigationParams } from "react-navigation";
 
 import { CompanyData } from "@interfaces/Companies";
 import i18n from "@i18n/i18n";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
+import { useNavigation } from "@react-navigation/native";
 
 declare interface GrowerCard {
-    navigation?: NavigationParams;
     grower?: CompanyData;
 }
 
-const GrowerCard: FunctionComponent<GrowerCard> = ({ navigation, grower }) => {
+const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
+    const { navigate } = useNavigation();
     return (
         <ThemedContainer style={style.mainContainer}>
             <TouchableOpacity
                 activeOpacity={Platform.OS === "ios" ? 0.7 : 1}
                 style={[style.wrapper, style.shadow1]}
                 onPress={(): void =>
-                    navigation.navigate("GrowersProducts", {
+                    navigate("GrowersProducts", {
                         grower: grower.id
                     })
                 }

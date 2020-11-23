@@ -5,7 +5,7 @@ import EmailState from "@components/accountRecovery/EmailState";
 import CodeState from "@components/accountRecovery/CodeState";
 import i18n from "@i18n/i18n";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
 
 const AccountRecovery: FunctionComponent = () => {
@@ -16,7 +16,7 @@ const AccountRecovery: FunctionComponent = () => {
         <SafeAreaView>
             <View style={{ flexDirection: "row", marginLeft: 10 }}>
                 <TouchableOpacity
-                    onPress={(): boolean => navigate("Login")}
+                    onPress={(): void => navigate("Login")}
                     style={{}}
                 >
                     <AntDesign name="arrowleft" size={32} color={"#575757"} />

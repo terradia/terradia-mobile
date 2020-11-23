@@ -1,18 +1,15 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import { Avatar } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
 import style from "./styles/UpcomingCard.style";
-import { NavigationParams } from "react-navigation";
 import UpcomingCardContent from "./UpcomingCardContent";
 
-import { CompanyData } from "@interfaces/Companies";
 import i18n from "@i18n/i18n";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { OrderData } from "@interfaces/Orders";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 declare interface GrowerCard {
-    navigation?: NavigationParams;
     order?: OrderData;
 }
 
@@ -33,7 +30,6 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                 <View style={style.brightness} />
                 <View style={style.growerImageContainer}>
                     <Avatar
-                        size={100}
                         rounded
                         source={{
                             uri: order.company.logo
@@ -47,8 +43,8 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                     <View
                         style={{
                             flexDirection: "column",
-                            marginLeft: 10,
-                            marginTop: 10
+                            marginLeft: calcWidth(4),
+                            marginTop: calcWidth(2)
                         }}
                     >
                         <Text style={style.growerName}>
@@ -56,7 +52,7 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.4}
-                            onPress={(): boolean =>
+                            onPress={(): void =>
                                 navigate("GrowersProducts", {
                                     grower: order.company.id
                                 })

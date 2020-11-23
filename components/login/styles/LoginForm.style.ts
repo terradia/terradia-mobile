@@ -1,13 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 export default StyleSheet.create({
     container: {
-        paddingTop: 30,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%',
-        borderRadius: 16
+        alignItems: "center",
+        height: "100%",
+        width: "100%"
     },
     input: {
         marginTop: 4,
@@ -15,58 +13,55 @@ export default StyleSheet.create({
         marginRight: 0
     },
     containerView: {
-        width: '100%',
-        paddingBottom: 20,
-        paddingLeft: '10%'
+        width: "100%",
+        paddingBottom: calcWidth(3),
+        paddingLeft: calcWidth(4),
+        paddingRight: calcWidth(4)
     },
     wrapper: {
-        width: '100%',
-        alignItems: 'center'
+        width: "100%",
+        alignItems: "center"
     },
     forgotPasswordStyle: {
         paddingTop: 10,
-        color: 'red',
-        alignSelf: 'flex-end',
+        color: "red",
+        alignSelf: "flex-end",
         marginRight: 40
     },
     forgotPasswordText: {
-        textDecorationLine: 'underline',
-        fontFamily: 'Montserrat'
+        textDecorationLine: "underline",
+        fontFamily: "Montserrat"
     },
     textTouchable: {
-        color: 'red'
+        color: "red"
     },
     registerView: {
-        width: '100%',
-        alignItems: 'center',
+        width: "100%",
+        alignItems: "center",
         paddingTop: 40
     },
     imageView: {
-        height: '80%',
-        alignItems: 'center',
-        backgroundColor: 'transparent'
+        height: "80%",
+        alignItems: "center",
+        backgroundColor: "transparent"
     },
     inputContainer: {
-        backgroundColor: 'white',
-        flexDirection: 'row',
+        flexDirection: "row",
         borderBottomWidth: 1,
-        alignItems: 'center',
-        borderColor: '#575757',
-        width: '85%',
-        marginTop: 10
+        alignItems: "center",
+        borderColor: "#575757",
+        width: calcWidth(92),
+        marginTop: 10,
+        backgroundColor: "transparent"
     },
     inputLabelStyle: {
-        color: '#b3b3b3',
-        fontFamily: 'Montserrat'
-    },
-    inputStyle: {
-        color: '#575757',
-        fontFamily: 'Montserrat'
+        color: "#b3b3b3",
+        fontFamily: "Montserrat"
     },
     errorText: {
-        alignSelf: 'flex-start',
+        alignSelf: "flex-start",
         marginLeft: 40,
-        fontFamily: 'MontserratMedium',
-        color: 'red'
+        fontFamily: "MontserratMedium",
+        color: "red"
     }
 });

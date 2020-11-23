@@ -12,7 +12,7 @@ import i18n from "@i18n/i18n";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/CardsListSelector.style";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { GetCardsReq } from "@interfaces/Wallet";
 import getStripeCustomerDefaultSource from "../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 import updateCustomerDefaultSource from "../../graphql/wallet/updateCustomerDefaultSOurce.graphql";

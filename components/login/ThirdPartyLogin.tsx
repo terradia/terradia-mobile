@@ -10,6 +10,8 @@ import Spinner from "react-native-loading-spinner-overlay";
 import i18n from "@i18n/i18n";
 import ButtonEmpty from "@components/buttons/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { calcWidth } from '../../utils/deviceResponsiveHelper';
+import { ButtonWithIcon } from '@components/buttons/ButtonWithIcon';
 
 declare interface ThirdPartyLoginProps {
     navigateHome?: () => void;
@@ -119,11 +121,20 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <ButtonEmpty
-                title={i18n.t("loginScreen.loginFacebook")}
-                style={[{ borderColor: "blue" }]}
-                titleStyle={[{ color: "blue" }]}
+            <ButtonWithIcon
                 onPress={(): Promise<void> => logIn()}
+                type={"full"}
+                title={i18n.t("loginScreen.loginFacebook")}
+                color={"rgb(24, 119, 242)"}
+                width={calcWidth(92)}
+                size={50}
+                textSize={20}
+                radius={8}
+                iconTypes={"fontawesome"}
+                leftIcon={"facebook"}
+                style={{
+                    marginBottom: calcWidth(3)
+                }}
             />
         </>
     );

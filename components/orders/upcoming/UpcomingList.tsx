@@ -2,21 +2,18 @@ import React, { FunctionComponent, ReactElement, useState } from "react";
 import {
     FlatList,
     View,
-    Text,
-    TouchableOpacity,
     RefreshControl
 } from "react-native";
 import UpcomingCardHeader from "./UpcomingCardHeader";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/react-hooks";
 import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
 import { OrderData } from "@interfaces/Orders";
-import Cart from "../../../assets/svg/cart.svg";
-import styles from "./styles/UpcomingList.style";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
-import { ThemedBox } from "@components/theme/Theme";
 import { EmptyListElement } from "@components/orders/past/PastList";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { calcWidth } from '../../../utils/deviceResponsiveHelper';
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];
@@ -32,7 +29,7 @@ const UpcomingList: FunctionComponent = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1, marginTop: calcWidth(4) }}>
             <FlatList
                 data={orders && orders.getMyOrders}
                 style={{ flex: 1 }}
@@ -55,7 +52,7 @@ const UpcomingList: FunctionComponent = () => {
                     />
                 )}
             />
-        </View>
+        </ThemedContainer>
     );
 };
 

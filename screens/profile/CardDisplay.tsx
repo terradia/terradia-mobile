@@ -5,7 +5,7 @@ import i18n from "@i18n/i18n";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import Spinner from "react-native-loading-spinner-overlay";
 import DeleteCard from "../../graphql/wallet/deleteCard.graphql";
-import { useNavigation, useNavigationParam } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import CreditCardDisplay from "react-native-credit-card-display";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 

@@ -8,7 +8,7 @@ import {
     ViewProps
 } from "react-native";
 import PastCardHeader from "./PastCardHeader";
-import { useNavigation } from "react-navigation-hooks";
+import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/react-hooks";
 import getMyOrderHistories from "../../../graphql/orders/getMyOrderHistories.graphql";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
@@ -16,14 +16,15 @@ import styles from "@components/orders/upcoming/styles/UpcomingList.style";
 import Cart from "../../../assets/svg/cart.svg";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
-import { ThemedBox } from "@components/theme/Theme";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 interface GetMyOrdersHistoriesData {
     getMyOrderHistories: [OrderHistoryData];
 }
 
 interface EmptyElementProps {
-    navigate: (route: string) => boolean;
+    navigate: (route: string) => void;
     title: string;
     callToAction: string;
 }
@@ -40,7 +41,7 @@ export const EmptyListElement: FunctionComponent<EmptyElementProps> = ({
             <Text style={styles.youHaveNoOrderText}>{title}</Text>
             <TouchableOpacity
                 style={styles.discoverProducersContainer}
-                onPress={(): boolean => navigate("Grower")}
+                onPress={(): void => navigate("Grower")}
             >
                 <Text style={styles.discoverProducersText}>{callToAction}</Text>
             </TouchableOpacity>
@@ -60,7 +61,7 @@ const PastList: FunctionComponent = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1, marginTop: calcWidth(4) }}>
             <FlatList
                 data={orders && orders.getMyOrderHistories}
                 style={{ flex: 1 }}
@@ -84,7 +85,7 @@ const PastList: FunctionComponent = () => {
                     />
                 )}
             />
-        </View>
+        </ThemedContainer>
     );
 };
 

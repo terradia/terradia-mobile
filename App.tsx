@@ -8,20 +8,19 @@ import { setContext } from "apollo-link-context";
 import { ApolloProvider } from "react-apollo";
 import { withClientState } from "apollo-link-state";
 import * as Linking from "expo-linking";
-import { setExpoStatusBarHeight } from "react-navigation-collapsible";
-import Constants from "expo-constants";
 import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
 import { View, YellowBox } from "react-native";
 import { PaymentsStripe as Stripe } from "expo-payments-stripe";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import RootStack from "./navigation/RootStack";
 YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 
-setExpoStatusBarHeight(Constants.statusBarHeight);
+// setExpoStatusBarHeight(Constants.statusBarHeight);
 
-import AppNavigator from "./navigation/AppNavigator";
 import { ApolloLink } from "apollo-link";
-import { ThemeConstants, ThemeContext } from "@components/theme/Theme";
+import { withTheme, ThemeProvider, useTheme } from '@components/theme/Theme';
+import useThenable from "@react-navigation/native/lib/typescript/src/useThenable";
 
 {
     /**
@@ -131,7 +130,7 @@ function handleFinishLoading(setLoadingComplete): void {
 
 export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
-    const SimpleApp = AppNavigator;
+
     // YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
     loadResourcesAsync().then(() => {
         setLoadingComplete(true);
@@ -158,16 +157,13 @@ export default function App(props): ReactElement {
         return null;
     } else {
         return (
-            <ApolloProvider client={client}>
-                <ThemeContext.Provider
-                    value={{
-                        theme: { type: theme, palette: ThemeConstants[theme] },
-                        toggleTheme
-                    }}
-                >
-                    <SimpleApp theme={theme} uriPrefix={prefixPath} />
-                </ThemeContext.Provider>
-            </ApolloProvider>
+            <ThemeProvider value={"dark"}>
+                <NavigationContainer>
+                    <ApolloProvider client={client}>
+                        <RootStack />
+                    </ApolloProvider>
+                </NavigationContainer>
+            </ThemeProvider>
         );
     }
 }

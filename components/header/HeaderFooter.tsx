@@ -4,9 +4,18 @@ import { View } from "react-native";
 import React, { FunctionComponent } from "react";
 import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 
-const HeaderFooter: FunctionComponent = () => {
+interface Props {
+    light?: boolean;
+}
+
+const HeaderFooter: FunctionComponent<Props> = ({
+    light = false,
+    ...props
+}) => {
+    const ContainerComponent = light ? ThemedBox : ThemedContainer;
+
     return (
-        <ThemedContainer
+        <View
             style={{
                 position: "relative",
                 height: calcWidth(4)
@@ -18,7 +27,7 @@ const HeaderFooter: FunctionComponent = () => {
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             />
-            <ThemedContainer
+            <ContainerComponent
                 style={{
                     position: "absolute",
                     top: 0,
@@ -28,7 +37,7 @@ const HeaderFooter: FunctionComponent = () => {
                     borderRadius: calcWidth(4)
                 }}
             />
-        </ThemedContainer>
+        </View>
     );
 };
 

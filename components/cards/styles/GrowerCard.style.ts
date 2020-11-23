@@ -15,8 +15,7 @@ export default StyleSheet.create({
     shadow1: elevationShadowStyle(5),
     mainContainer: {
         height: 150 + calcWidth(4),
-        marginBottom: calcWidth(2),
-        marginTop: calcWidth(2)
+        marginBottom: calcWidth(4)
     },
     absoluteView: {
         position: "absolute",

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../../utils/deviceResponsiveHelper";
 
 function elevationShadowStyle(elevation) {
     return {
@@ -13,12 +14,11 @@ function elevationShadowStyle(elevation) {
 export default StyleSheet.create({
     shadow1: elevationShadowStyle(5),
     mainContainer: {
-        marginBottom: 10,
-        marginTop: 10
+        marginBottom: calcWidth(4)
     },
     wrapper: {
-        marginLeft: 15,
-        marginRight: 15,
+        marginLeft: calcWidth(4),
+        marginRight: calcWidth(4),
         flex: 1,
         marginBottom: -40
     },
@@ -28,7 +28,7 @@ export default StyleSheet.create({
         height: 140,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(0, 0, 0, .3)",
+        backgroundColor: "rgba(0, 0, 0, .5)",
         position: "absolute",
         borderRadius: 10
     },
@@ -46,12 +46,17 @@ export default StyleSheet.create({
         height: 140
     },
     growerImage: {
-        marginLeft: 20,
-        backgroundColor: "white"
+        width: calcWidth(27),
+        height: calcWidth(27),
+        borderRadius: calcWidth(15),
+        padding: calcWidth(3),
+        marginLeft: calcWidth(4),
+        backgroundColor: "white",
+        paddingVertical: calcWidth(2)
     },
     growerImageContainer: {
         position: "absolute",
-        top: 10,
+        top: calcWidth(3),
         zIndex: 10,
         width: "100%",
         flexDirection: "row"
@@ -61,14 +66,14 @@ export default StyleSheet.create({
         fontSize: 20,
         fontFamily: "MontserratSemiBold",
         maxHeight: 40,
-        maxWidth: 200
+        maxWidth: calcWidth(53)
     },
     openGrower: {
         fontFamily: "Montserrat",
         fontSize: 14,
         color: "white",
         maxWidth: 200,
-        marginTop: 5,
+        marginTop: calcWidth(2),
         textDecorationLine: "underline"
     }
 });
