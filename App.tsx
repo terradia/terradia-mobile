@@ -7,19 +7,19 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";
 import { ApolloProvider } from "react-apollo";
 import { withClientState } from "apollo-link-state";
-import * as Linking from "expo-linking";
 import { createUploadLink as CreateUploadLink } from "apollo-upload-client";
-import { View, YellowBox } from "react-native";
+import { Text, YellowBox } from "react-native";
 import { PaymentsStripe as Stripe } from "expo-payments-stripe";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RootStack from "./navigation/RootStack";
 YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
+import * as Linking from "expo-linking";
 
 // setExpoStatusBarHeight(Constants.statusBarHeight);
 
 import { ApolloLink } from "apollo-link";
-import { withTheme, ThemeProvider, useTheme } from '@components/theme/Theme';
+import { withTheme, ThemeProvider, useTheme } from "@components/theme/Theme";
 import useThenable from "@react-navigation/native/lib/typescript/src/useThenable";
 
 {
@@ -128,6 +128,8 @@ function handleFinishLoading(setLoadingComplete): void {
     setLoadingComplete(true);
 }
 
+const prefix = Linking.makeUrl("/");
+
 export default function App(props): ReactElement {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -135,17 +137,6 @@ export default function App(props): ReactElement {
     loadResourcesAsync().then(() => {
         setLoadingComplete(true);
     });
-    // Linking.getInitialURL().then((data) => {
-    //     setPrefix(data);
-    // });
-    //
-    // const _handleLink = (data) => {
-    //     console.log(data);
-    //     setPrefix(data);
-    // }
-    // Linking.addEventListener('url', _handleLink);
-    // Linking.addEventListener('url', callback);
-    const prefixPath = Linking.makeUrl("/");
 
     const [theme, setTheme] = React.useState<"light" | "dark">("dark");
 
@@ -153,12 +144,19 @@ export default function App(props): ReactElement {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
+    const linking = {
+        prefixes: [prefix]
+    };
+
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return null;
     } else {
         return (
             <ThemeProvider value={"dark"}>
-                <NavigationContainer>
+                <NavigationContainer
+                    linking={linking}
+                    fallback={<Text>Loading...</Text>}
+                >
                     <ApolloProvider client={client}>
                         <RootStack />
                     </ApolloProvider>

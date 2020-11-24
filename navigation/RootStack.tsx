@@ -122,10 +122,22 @@ const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {
         <Stack.Navigator initialRouteName={"AuthLoading"} headerMode={"none"}>
             {/*Auth*/}
             <Stack.Screen name={"AuthLoading"} component={AuthLoadingScreen} />
-            <Stack.Screen name={"Login"} component={LoginScreen} />
-            <Stack.Screen name={"Register"} component={RegisterScreen} />
+            <Stack.Screen
+                options={{ gestureEnabled: false }}
+                name={"Login"}
+                component={LoginScreen}
+            />
+            <Stack.Screen
+                options={{ gestureEnabled: false }}
+                name={"Register"}
+                component={RegisterScreen}
+            />
             <Stack.Screen name={"Location"} component={LocationScreen} />
-            <Stack.Screen name={"HomeAuth"} component={HomeAuthScreen} />
+            <Stack.Screen
+                options={{ gestureEnabled: false }}
+                name={"HomeAuth"}
+                component={HomeAuthScreen}
+            />
             <Stack.Screen
                 name={"AccountRecovery"}
                 component={AccountRecoveryScreen}

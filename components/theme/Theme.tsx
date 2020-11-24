@@ -48,7 +48,7 @@ export function withTheme(Component) {
     };
 }
 
-function useTheme(defaultValue?: string) {
+export function useTheme(defaultValue?: string) {
     const [theme, setTheme] = React.useState<"light" | "dark" | string>(
         defaultValue ? defaultValue : "light"
     );

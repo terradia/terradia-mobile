@@ -19,7 +19,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
     const successLogin = (): void => {
         preloadRef.current.preload();
     };
-    const { goBack } = useNavigation();
+    const { navigate } = useNavigation();
 
     return (
         <LinearGradient
@@ -31,7 +31,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
             <KeyboardAwareScrollView>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): void => goBack()}
+                        onPress={(): void => navigate("HomeAuth")}
                         style={{ marginLeft: 20 }}
                     >
                         <Feather
@@ -56,7 +56,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
                             Facilitez votre accès aux produits locaux
                         </Text>
                     </View>
-                    <View style={styles.container}>
+                    <View>
                         <RegisterForm navigateHome={successLogin} />
                     </View>
                 </SafeAreaView>

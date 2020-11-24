@@ -8,7 +8,6 @@ import DeepLinking from "@components/routing/DeepLinking";
 import searchCompanies from "../../graphql/search/searchCompanies.graphql";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import GrowerCard from "@components/cards/GrowerCard";
-import { NavigationParams } from "react-navigation";
 import { CompanyData } from "@interfaces/Companies";
 import Spinner from "react-native-loading-spinner-overlay";
 import CardListLoader from "@components/growers/CardListLoader";
@@ -17,7 +16,6 @@ import i18n from "@i18n/i18n";
 
 declare interface SearchScreenProps {
     collapsible: any;
-    navigation?: NavigationParams;
 }
 
 const DATA = [
@@ -38,7 +36,7 @@ const DATA = [
     "Maraicher"
 ];
 
-const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
+const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
     const [value, setValue] = useState("");
     const [listY, setListY] = useState(0);
     const [SearchCompanies, { data: companies, loading }] = useLazyQuery(
@@ -117,7 +115,6 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({ navigation }) => {
                                 item: CompanyData;
                             }): ReactElement => (
                                 <GrowerCard
-                                    navigation={navigation}
                                     grower={item}
                                 />
                             )}

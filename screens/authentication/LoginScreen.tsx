@@ -23,7 +23,7 @@ declare interface LoginScreenProps {
 
 const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
     const preloadRef = useRef(null);
-    const { goBack } = useNavigation();
+    const { navigate } = useNavigation();
 
     const navigateRegister = (): void => {
         const { navigate } = navigation;
@@ -44,7 +44,7 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
             <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
                     <TouchableOpacity
-                        onPress={(): void => goBack()}
+                        onPress={(): void => navigate("HomeAuth")}
                         style={{
                             marginTop: calcWidth(2),
                             marginLeft: calcWidth(4),

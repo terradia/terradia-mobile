@@ -134,7 +134,7 @@ const Account: FunctionComponent = () => {
                 onPress={() => {
                     AsyncStorage.removeItem("token").then(() => {
                         AsyncStorage.removeItem("userId").then(() => {
-                            navigate("Login");
+                            navigate("HomeAuth");
                         });
                     });
                 }}
