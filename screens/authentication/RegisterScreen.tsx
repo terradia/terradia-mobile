@@ -48,6 +48,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
                             onPress={() => navigate("Login")}
                             title={i18n.t("homeAuth.alreadyHaveAnAccount")}
                             textColor={"white"}
+                            textSize={18}
                         />
                     </View>
                     <View style={styles.imageView}>

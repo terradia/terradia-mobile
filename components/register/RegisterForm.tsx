@@ -128,6 +128,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         marginTop: calcWidth(4)
                     }}
                     size={50}
+                    textSize={20}
                     type={"full"}
                     width={calcWidth(92)}
                     onPress={async (): Promise<void> => {
