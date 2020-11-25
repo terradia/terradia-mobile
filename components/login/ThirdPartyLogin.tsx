@@ -8,10 +8,10 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Spinner from "react-native-loading-spinner-overlay";
 import i18n from "@i18n/i18n";
-import ButtonEmpty from "@components/buttons/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { calcWidth } from '../../utils/deviceResponsiveHelper';
-import { ButtonWithIcon } from '@components/buttons/ButtonWithIcon';
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { FontAwesome } from "@expo/vector-icons";
 
 declare interface ThirdPartyLoginProps {
     navigateHome?: () => void;
@@ -130,8 +130,7 @@ const ThirdPartyLogin: FunctionComponent<ThirdPartyLoginProps> = ({
                 size={50}
                 textSize={20}
                 radius={8}
-                iconTypes={"fontawesome"}
-                leftIcon={"facebook"}
+                leftIcon={<FontAwesome name={"facebook"} />}
                 style={{
                     marginBottom: calcWidth(3)
                 }}

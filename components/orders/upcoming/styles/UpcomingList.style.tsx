@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { elevationShadowStyle } from "@constants/Layout";
+import { calcWidth } from '../../../../utils/deviceResponsiveHelper';
 
 export default StyleSheet.create({
     shadow1: elevationShadowStyle(5, "black"),
@@ -7,7 +8,7 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: "auto",
-        margin: 20,
+        marginHorizontal: calcWidth(4),
         borderRadius: 10,
         paddingTop: 20,
         paddingBottom: 20
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     youHaveNoOrderText: {
         fontFamily: "Montserrat",
         color: "#8B8B8B",
-        fontSize: 20,
+        fontSize: 18,
         textAlign: "center",
         marginTop: 20,
         marginLeft: 20,

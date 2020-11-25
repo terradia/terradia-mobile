@@ -16,8 +16,9 @@ import styles from "@components/orders/upcoming/styles/UpcomingList.style";
 import Cart from "../../../assets/svg/cart.svg";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 import { calcWidth } from "../../../utils/deviceResponsiveHelper";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
 
 interface GetMyOrdersHistoriesData {
     getMyOrderHistories: [OrderHistoryData];
@@ -39,12 +40,17 @@ export const EmptyListElement: FunctionComponent<EmptyElementProps> = ({
         <ThemedBox style={[styles.emptyContainer, styles.shadow1]}>
             <Cart />
             <Text style={styles.youHaveNoOrderText}>{title}</Text>
-            <TouchableOpacity
-                style={styles.discoverProducersContainer}
+            <ButtonWithIcon
                 onPress={(): void => navigate("Grower")}
-            >
-                <Text style={styles.discoverProducersText}>{callToAction}</Text>
-            </TouchableOpacity>
+                type={"outline"}
+                size={50}
+                title={callToAction}
+                style={{
+                    marginTop: calcWidth(4),
+                    paddingHorizontal: calcWidth(4)
+                }}
+                width={"100%"}
+            />
         </ThemedBox>
     );
 };

@@ -24,5 +24,14 @@ export default StyleSheet.create({
         width: calcWidth(95),
         textAlign: "center",
         lineHeight: 25
+    },
+    headerContainer: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
+        width: "100%",
+        height: 50,
+        paddingHorizontal: calcWidth(4)
     }
 });

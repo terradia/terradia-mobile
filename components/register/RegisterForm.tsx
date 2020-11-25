@@ -9,6 +9,10 @@ import { Kohana } from "react-native-textinput-effects";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
+import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { calcWidth } from '../../utils/deviceResponsiveHelper';
+import { Divider } from 'react-native-elements';
 
 declare interface RegisterFormProps {
     navigateHome?: () => void;
@@ -43,7 +47,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
     });
 
     return (
-        <View style={styles.container}>
+        <ThemedBox style={styles.container}>
             <View style={styles.wrapper}>
                 <View style={styles.containerView}>
                     <Kohana
@@ -117,11 +121,15 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconContainerStyle={{ padding: 10 }}
                     />
                 </View>
-                <ButtonTerradia
+                <ButtonWithIcon
                     title={i18n.t("registerScreen.register")}
-                    style={[{ borderColor: "#FFFFFF" }]}
-                    titleStyle={[{ color: "#FFFFFF" }]}
                     loading={mutationLoading}
+                    style={{
+                        marginTop: calcWidth(4)
+                    }}
+                    size={50}
+                    type={"full"}
+                    width={calcWidth(92)}
                     onPress={async (): Promise<void> => {
                         const token = await registerForPushNotificationsAsync();
                         register({
@@ -137,7 +145,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     }}
                 />
             </View>
-        </View>
+        </ThemedBox>
     );
 };
 

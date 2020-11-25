@@ -102,7 +102,8 @@ export default {
     },
     homeAuth: {
         joinTerradia: "Rejoindre Terradia",
-        alreadyHaveAnAccount: "j'ai deja un compte"
+        createAccount: "S'enregistrer",
+        alreadyHaveAnAccount: "J'ai deja un compte"
     },
     AccountRecoveryScreen: {
         alreadyHaveTheCode: "J'ai deja le code",

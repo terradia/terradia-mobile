@@ -13,6 +13,10 @@ import Preload from "./Preload";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import HeaderFooter from '@components/header/HeaderFooter';
+import { calcWidth } from '../../utils/deviceResponsiveHelper';
+import { ButtonWithIcon } from '@components/buttons/ButtonWithIcon';
+import i18n from "@i18n/i18n";
 
 const RegisterScreen: FunctionComponent<any> = props => {
     const preloadRef = useRef(null);
@@ -30,16 +34,22 @@ const RegisterScreen: FunctionComponent<any> = props => {
         >
             <KeyboardAwareScrollView>
                 <SafeAreaView>
-                    <TouchableOpacity
-                        onPress={(): void => navigate("HomeAuth")}
-                        style={{ marginLeft: 20 }}
-                    >
-                        <Feather
-                            name="chevron-left"
-                            size={28}
-                            style={{ color: "white" }}
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
+                            onPress={(): void => navigate("HomeAuth")}
+                        >
+                            <Feather
+                                name="arrow-left"
+                                size={24}
+                                color={"white"}
+                            />
+                        </TouchableOpacity>
+                        <ButtonWithIcon
+                            onPress={() => navigate("Login")}
+                            title={i18n.t("homeAuth.alreadyHaveAnAccount")}
+                            textColor={"white"}
                         />
-                    </TouchableOpacity>
+                    </View>
                     <View style={styles.imageView}>
                         <Image
                             style={{
@@ -57,6 +67,7 @@ const RegisterScreen: FunctionComponent<any> = props => {
                         </Text>
                     </View>
                     <View>
+                        <HeaderFooter light={true} />
                         <RegisterForm navigateHome={successLogin} />
                     </View>
                 </SafeAreaView>

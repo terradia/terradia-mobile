@@ -1,18 +1,14 @@
 import * as React from "react";
 import { TouchableOpacity, View, Text, ViewStyle } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
-import FIcon from "react-native-vector-icons/Feather";
-import { FontAwesome } from "@expo/vector-icons";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
-import { useTheme, withTheme } from "@components/theme/Theme";
+import { withTheme } from "@components/theme/Theme";
 import i18n from "@i18n/i18n";
-import { Font } from "expo/build/removed.web";
 
 interface Props {
     onPress: () => void;
     title?: string;
-    rightIcon?: string;
-    leftIcon?: string;
+    rightIcon?: any; // THIS IS A COMPONENT
+    leftIcon?: any; // THIS IS A COMPONENT
     color?: string;
     size?: number;
     textColor?: string;
@@ -108,13 +104,20 @@ export const ButtonWithIcon: React.FunctionComponent<Props> = withTheme(
             }
         ];
 
-        const iconTypesList = {
-            feather: FIcon,
-            antd: Icon,
-            fontawesome: FontAwesome
+        const iconsProps: any = {
+            style: { marginRight: !!title ? 6 : 0 },
+            size: textSizeVal ? textSizeVal : 24,
+            color: text
         };
 
-        const IconComponent = iconTypesList[iconTypes];
+        // let RightIconComponent = undefined;
+        // let LeftIconComponent = undefined;
+        // if (React.isValidElement(leftIcon)) {
+        //     LeftIconComponent = React.cloneElement(leftIcon, iconsProps);
+        // }
+        // if (React.isValidElement(rightIcon)) {
+        //     RightIconComponent = React.cloneElement(rightIcon, iconsProps);
+        // }
 
         return (
             <TouchableOpacity
@@ -138,46 +141,27 @@ export const ButtonWithIcon: React.FunctionComponent<Props> = withTheme(
                             flexDirection: "row"
                         }}
                     >
-                        {leftIcon && (
-                            <IconComponent
-                                style={{
-                                    marginRight: !!title ? 6 : 0
-                                }}
-                                name={leftIcon}
-                                size={textSizeVal ? textSizeVal : 24}
-                                color={text}
-                            />
-                        )}
+                        {leftIcon && React.cloneElement(leftIcon, iconsProps)}
                         {title && (
                             <Text
                                 style={{
                                     fontSize: textSizeVal,
                                     color: text,
                                     textAlign: "center",
-                                    fontWeight:
-                                        titleWeight === "bold"
-                                            ? titleWeight
-                                            : "normal",
+                                    fontWeight: titleWeight
+                                        ? titleWeight
+                                        : "normal",
                                     marginRight: calcWidth(1.5),
                                     marginLeft: calcWidth(1.5),
                                     fontFamily: fontFamily
                                         ? fontFamily
-                                        : "MontserratSemiBold"
+                                        : "Montserrat"
                                 }}
                             >
                                 {loading ? i18n.t("loading") : title}
                             </Text>
                         )}
-                        {rightIcon && (
-                            <IconComponent
-                                style={{
-                                    marginRight: !!title ? 6 : 0
-                                }}
-                                name={rightIcon}
-                                size={textSizeVal ? textSizeVal : 24}
-                                color={text}
-                            />
-                        )}
+                        {rightIcon && React.cloneElement(rightIcon, iconsProps)}
                     </View>
                 </View>
             </TouchableOpacity>

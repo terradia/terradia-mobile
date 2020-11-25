@@ -13,9 +13,11 @@ import Preload from "./Preload";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import { ThemedBox } from "@components/theme/Theme";
 import HeaderFooter from "@components/header/HeaderFooter";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import i18n from "@i18n/i18n";
 
 declare interface LoginScreenProps {
     navigation?: any;
@@ -43,16 +45,22 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
         >
             <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
-                    <TouchableOpacity
-                        onPress={(): void => navigate("HomeAuth")}
-                        style={{
-                            marginTop: calcWidth(2),
-                            marginLeft: calcWidth(4),
-                            marginBottom: calcWidth(5)
-                        }}
-                    >
-                        <Feather name="arrow-left" size={24} color={"white"} />
-                    </TouchableOpacity>
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity
+                            onPress={(): void => navigate("HomeAuth")}
+                        >
+                            <Feather
+                                name="arrow-left"
+                                size={24}
+                                color={"white"}
+                            />
+                        </TouchableOpacity>
+                        <ButtonWithIcon
+                            onPress={() => navigate("Register")}
+                            title={i18n.t("homeAuth.createAccount")}
+                            textColor={"white"}
+                        />
+                    </View>
                     <View style={styles.imageView}>
                         <Image
                             style={{
