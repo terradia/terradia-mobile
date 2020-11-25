@@ -7,7 +7,6 @@ import LoginScreen from "../screens/authentication/LoginScreen";
 import RegisterScreen from "../screens/authentication/RegisterScreen";
 import AuthLoadingScreen from "../screens/authentication/AuthLoadingScreen";
 import LocationScreen from "../screens/location/LocationScreen";
-import HomeAuthScren from "../screens/authentication/HomeAuthScreen";
 import AccountRecoveryScreen from "../screens/authentication/AccountRecovery";
 
 const AuthStack = createStackNavigator(
@@ -16,7 +15,6 @@ const AuthStack = createStackNavigator(
         Login: { screen: LoginScreen, path: "login" },
         Register: RegisterScreen,
         Location: LocationScreen,
-        HomeAuth: HomeAuthScren,
         AccountRecovery: AccountRecoveryScreen
     },
     {
@@ -36,7 +34,7 @@ export default createAppContainer(
             Main: MainTabNavigator
         },
         {
-            initialRouteName: "Auth"
+            initialRouteName: "Login"
         }
     )
 );

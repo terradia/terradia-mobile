@@ -46,15 +46,16 @@ const LoginScreen: FunctionComponent<LoginScreenProps> = ({ navigation }) => {
             <KeyboardAwareScrollView style={{ flex: 1 }}>
                 <SafeAreaView>
                     <View style={styles.headerContainer}>
-                        <TouchableOpacity
-                            onPress={(): void => navigate("HomeAuth")}
-                        >
-                            <Feather
-                                name="arrow-left"
-                                size={24}
-                                color={"white"}
-                            />
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={(): void => navigate("HomeAuth")}*/}
+                        {/*>*/}
+                        {/*    <Feather*/}
+                        {/*        name="arrow-left"*/}
+                        {/*        size={24}*/}
+                        {/*        color={"white"}*/}
+                        {/*    />*/}
+                        {/*</TouchableOpacity>*/}
+                        <View/>
                         <ButtonWithIcon
                             onPress={() => navigate("Register")}
                             title={i18n.t("homeAuth.createAccount")}

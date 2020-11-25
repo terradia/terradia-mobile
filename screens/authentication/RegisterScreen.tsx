@@ -35,15 +35,16 @@ const RegisterScreen: FunctionComponent<any> = props => {
             <KeyboardAwareScrollView>
                 <SafeAreaView>
                     <View style={styles.headerContainer}>
-                        <TouchableOpacity
-                            onPress={(): void => navigate("HomeAuth")}
-                        >
-                            <Feather
-                                name="arrow-left"
-                                size={24}
-                                color={"white"}
-                            />
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={(): void => navigate("HomeAuth")}*/}
+                        {/*>*/}
+                        {/*    <Feather*/}
+                        {/*        name="arrow-left"*/}
+                        {/*        size={24}*/}
+                        {/*        color={"white"}*/}
+                        {/*    />*/}
+                        {/*</TouchableOpacity>*/}
+                        <View/>
                         <ButtonWithIcon
                             onPress={() => navigate("Login")}
                             title={i18n.t("homeAuth.alreadyHaveAnAccount")}
