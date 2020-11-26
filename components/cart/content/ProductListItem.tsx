@@ -1,68 +1,90 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import styles from '@components/cart/content/styles/ProductList.style';
-import QuantityModal from '@components/cart/quantity/QuantityModal';
+import React, { FunctionComponent, useState } from "react";
+import {
+    Image,
+    Text,
+    TouchableHighlight,
+    TouchableOpacity,
+    View
+} from "react-native";
+import styles from "@components/cart/content/styles/ProductList.style";
+import QuantityModal from "@components/cart/quantity/QuantityModal";
+import { ThemedBox, ThemedText, withTheme } from "@components/theme/Theme";
+import style from "@components/cards/styles/GrowerCard.style";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 declare interface ProductListItemProps {
     item: any;
     addProductToCart: any;
     removeProductFromCart: any;
 }
 
-const ProductListItem: FunctionComponent<ProductListItemProps> = ({
-    item,
-    addProductToCart,
-    removeProductFromCart
-}) => {
-    const [modalOpen, setModalOpen] = useState(false);
-    return (
-        <>
-            <QuantityModal
-                isModalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-                item={item}
-                addProductToCart={addProductToCart}
-                removeProductFromCart={removeProductFromCart}
-            />
-            <TouchableHighlight
-                onPress={(): void => setModalOpen(true)}
-                style={styles.rowFront}
-                activeOpacity={0.9}
-            >
-                <View style={{ backgroundColor: 'rgb(242, 242, 242)' }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginBottom: 20,
-                            paddingTop: 10
-                        }}
-                    >
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.itemGreen}>
-                                {item.quantity}
-                            </Text>
-                            <Text
-                                style={{
-                                    marginLeft: 10,
-                                    fontFamily: 'MontserratSemiBold'
-                                }}
-                            >
+const ProductListItem: FunctionComponent<ProductListItemProps> = withTheme(
+    ({ item, addProductToCart, removeProductFromCart, theme }) => {
+        const [modalOpen, setModalOpen] = useState(false);
+        return (
+            <>
+                <QuantityModal
+                    isModalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    item={item}
+                    addProductToCart={addProductToCart}
+                    removeProductFromCart={removeProductFromCart}
+                />
+                <TouchableHighlight
+                    onPress={(): void => setModalOpen(true)}
+                    style={styles.rowFront}
+                    activeOpacity={0.9}
+                >
+                    <ThemedBox style={styles.card}>
+                        {item.product.cover && (
+                            <View style={styles.productImageContainer}>
+                                <Image
+                                    source={{
+                                        uri:
+                                            "https://media.terradia.eu/" +
+                                            item.product.cover.companyImage.filename
+                                    }}
+                                    style={style.backgroundImage}
+                                />
+                            </View>
+                        )}
+                        <View style={styles.middleContainer}>
+                            <ThemedText style={styles.productName}>
                                 {item.product.name}
-                            </Text>
+                            </ThemedText>
+                            <ThemedText style={styles.productDescription}>
+                                {item.product.description}
+                            </ThemedText>
+                            <ThemedText
+                                style={[
+                                    styles.productPrice,
+                                    { color: theme.palette.primary }
+                                ]}
+                            >
+                                {item.product.price.toFixed(2) + "€"}
+                            </ThemedText>
                         </View>
-                        <View>
-                            <Text style={styles.itemGreen}>
-                                {(item.product.price * item.quantity).toFixed(
-                                    2
-                                ) + ' €'}
-                            </Text>
+                        <View style={styles.endContainer}>
+                            <View style={styles.endItem}>
+                                <ThemedText style={styles.endItemText}>
+                                    -
+                                </ThemedText>
+                            </View>
+                            <View style={styles.endItem}>
+                                <ThemedText style={styles.endItemText}>
+                                    {item.quantity}
+                                </ThemedText>
+                            </View>
+                            <View style={styles.endItem}>
+                                <ThemedText style={styles.endItemText}>
+                                    +
+                                </ThemedText>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.bottomItemDivider} />
-                </View>
-            </TouchableHighlight>
-        </>
-    );
-};
+                    </ThemedBox>
+                </TouchableHighlight>
+            </>
+        );
+    }
+);
 
 export default ProductListItem;

@@ -4,19 +4,28 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import i18n from "@i18n/i18n";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedIcon, ThemedText } from "@components/theme/Theme";
 
 const HeaderCart: FunctionComponent = () => {
     const { goBack } = useNavigation();
     return (
         <View style={styles.header}>
             <TouchableOpacity
-                style={{ padding: 3 }}
                 onPress={(): void => goBack()}
+                style={{
+                    width: "20%"
+                }}
             >
-                <Feather name="x" size={26} />
+                <ThemedIcon icon={<Feather name="x" />} size={26} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>{i18n.t("cart.viewCart")}</Text>
-            <View />
+            <ThemedText style={styles.headerTitle}>
+                {i18n.t("cart.viewCart")}
+            </ThemedText>
+            <View
+                style={{
+                    width: "20%"
+                }}
+            />
         </View>
     );
 };

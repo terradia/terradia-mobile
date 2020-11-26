@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ThemedBox, withTheme } from "@components/theme/Theme";
+import { Theme, ThemedBox, withTheme } from '@components/theme/Theme';
 
 declare interface ItemMenuCardsProps {
     title: string;
     icon: any;
     routeName: string;
-    theme: any;
+    theme: Theme;
 }
 
 function elevationShadowStyle(elevation, color) {

@@ -7,8 +7,8 @@ import i18n from "@i18n/i18n";
 interface Props {
     onPress: () => void;
     title?: string;
-    rightIcon?: any; // THIS IS A COMPONENT
-    leftIcon?: any; // THIS IS A COMPONENT
+    rightIcon?: React.ReactNode; // THIS IS A COMPONENT
+    leftIcon?: React.ReactNode; // THIS IS A COMPONENT
     color?: string;
     size?: number;
     textColor?: string;

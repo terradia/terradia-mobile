@@ -42,13 +42,13 @@ import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
 import OrdersScreen from "../screens/orders/OrdersScreen";
 
 import i18n from "@i18n/i18n";
-import { useTheme, withTheme } from "@components/theme/Theme";
+import { Theme, useTheme, withTheme } from '@components/theme/Theme';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 interface Props {
-    theme: any;
+    theme: Theme;
 }
 
 const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {

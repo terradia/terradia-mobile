@@ -10,6 +10,7 @@ import getPaymentIntentsCard from "../../../graphql/orders/getPaymentIntentsCard
 import { CardData } from "@interfaces/Wallet";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import PastReviewContentHeader from "./PastReviewContentHeader";
+import { OrderFooter } from "@components/orders/OrderFooter";
 
 interface UpcomingReviewContentData {
     order: OrderHistoryData;
@@ -42,37 +43,7 @@ const PastReviewContentFooter: FunctionComponent<UpcomingReviewContentData> = ({
     );
     return (
         <>
-            <View style={styles.divider} />
-            <View style={styles.bottomInfoContainers}>
-                <View style={styles.bottomContainerInfo}>
-                    <Text style={styles.bottomInfoText}>
-                        {i18n.t("orders.serviceFees")}
-                    </Text>
-                    <TouchableOpacity style={styles.infoContainer}>
-                        <Feather name="info" size={22} color="#575757" />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.bottomPriceText}>0.50€</Text>
-            </View>
-            <View style={styles.bottomInfoContainers}>
-                <View style={styles.bottomContainerInfo}>
-                    <Text style={styles.bottomInfoText}>
-                        {i18n.t("orders.smallOrderFee")}
-                    </Text>
-                    <TouchableOpacity style={styles.infoContainer}>
-                        <Feather name="info" size={22} color="#575757" />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.bottomPriceText}>
-                    {(order.price > 5 ? 0 : order.price - 5) + "€"}
-                </Text>
-            </View>
-            <View style={styles.bottomInfoContainers}>
-                <Text style={styles.totalText}>{i18n.t("orders.total")}</Text>
-                <Text style={styles.totalPrice}>
-                    {order.price.toFixed(2) + "€"}
-                </Text>
-            </View>
+            <OrderFooter order={order} />
             {card && card.getPaymentIntentsCard ? (
                 <View style={styles.cardContainer}>
                     <Text style={styles.paidWithText}>

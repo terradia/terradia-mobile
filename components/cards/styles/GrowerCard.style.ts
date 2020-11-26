@@ -80,6 +80,9 @@ export default StyleSheet.create({
         borderRadius: 10,
         height: 150
     },
+    productName: {
+        fontSize: 20
+    },
     growerImage: {
         marginLeft: calcWidth(4),
         width: calcWidth(27),
