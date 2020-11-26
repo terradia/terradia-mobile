@@ -107,6 +107,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                             style={{ height: 40 }}
                             onChangeText={(value): void => setValue(value)}
                             value={value}
+                            autoCorrect={false}
                             onSubmitEditing={(): void => {
                                 if (value.length === 0) return;
                                 scrollY.setValue(300);
