@@ -1,10 +1,20 @@
 import { StyleSheet } from "react-native";
 import { calcWidth } from "../../../../utils/deviceResponsiveHelper";
 
+function elevationShadowStyle(elevation) {
+    return {
+        elevation,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 0.5 * elevation },
+        shadowOpacity: 0.3,
+        shadowRadius: 0.8 * elevation
+    };
+}
+
 const styles = StyleSheet.create({
+    shadow1: elevationShadowStyle(5),
     container: {
-        paddingHorizontal: calcWidth(4),
-        flex: 1
+        flex: 1,
     },
     title: {
         fontFamily: "MontserratBold",
@@ -15,6 +25,7 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         borderRadius: 8,
+        marginHorizontal: calcWidth(4),
         height: calcWidth(30),
         padding: calcWidth(3),
         marginBottom: calcWidth(4),
@@ -32,8 +43,7 @@ const styles = StyleSheet.create({
         height: calcWidth(24),
         flex: 1,
         flexDirection: "column",
-        justifyContent: "space-between",
-        overflow: "hidden"
+        justifyContent: "space-between"
     },
     productName: {
         flex: 1,
@@ -44,12 +54,19 @@ const styles = StyleSheet.create({
         fontSize: 11,
         maxHeight: calcWidth(10)
     },
-    productPrice: {
+    productPriceContainer: {
         flex: 1,
-        height: "100%",
-        marginTop: calcWidth(2),
+        flexDirection: "row",
+        display: "flex",
+        alignItems: "flex-end"
+    },
+    productPrice: {
         fontFamily: "MontserratSemiBold",
         fontSize: 25
+    },
+    unit: {
+        marginTop: calcWidth(2),
+        fontSize: 15
     },
     endContainer: {
         width: calcWidth(10),
@@ -133,6 +150,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         height: "100%",
         marginLeft: calcWidth(4),
+        marginRight: calcWidth(4),
         marginBottom: calcWidth(4)
     },
     backRightBtn: {

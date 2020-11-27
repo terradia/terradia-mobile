@@ -13,44 +13,49 @@ import { useNavigation } from "@react-navigation/native";
 import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
 import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 import { Feather } from "@expo/vector-icons";
-import { OrderFooter } from '@components/orders/OrderFooter';
+import { OrderFooter } from "@components/orders/OrderFooter";
 
 const ProductList: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [dataLoading, setLoading] = useState(false);
     const { data, refetch } = useQuery(getCart, {
         notifyOnNetworkStatusChange: true,
+        onError: err => {
+            console.log(err);
+        },
         onCompleted: () => {
             setLoading(false);
         }
     });
     const [addProductToCart] = useMutation(AddProductToCart, {
-        onError: () => {
+        onError: err => {
             setLoading(false);
+            console.log(err);
         },
         onCompleted: () => {
             refetch();
+            setLoading(false);
         }
     });
     const [removeProductFromCart] = useMutation(RemoveProductFromCart, {
-        onError: () => {
+        onError: err => {
             setLoading(false);
+            console.log(err);
         },
         onCompleted: () => {
             refetch();
+            setLoading(false);
         }
     });
     const _addProduct = params => {
-        setTimeout(() => {
-            addProductToCart(params);
-            setLoading(true);
-        }, 200);
+        console.log(params);
+        addProductToCart(params);
+        setLoading(true);
     };
     const _removeProduct = params => {
-        setTimeout(() => {
-            removeProductFromCart(params);
-            setLoading(true);
-        }, 200);
+        console.log(params);
+        removeProductFromCart(params);
+        setLoading(true);
     };
 
     const renderItem = data => (
@@ -96,6 +101,8 @@ const ProductList: FunctionComponent = () => {
         );
     }
 
+    const [refreshing, setRefreshing] = React.useState(false);
+
     return (
         <View style={styles.container}>
             <Spinner
@@ -119,18 +126,34 @@ const ProductList: FunctionComponent = () => {
                 previewDuration={300}
                 previewOpenValue={-calcWidth(24)}
                 stopRightSwipe={-calcWidth(24)}
+                onRefresh={() => {
+                    setRefreshing(true);
+                    refetch().then(() => {
+                        setRefreshing(false);
+                    });
+                }}
+                refreshing={refreshing}
+                style={{
+                    paddingTop: calcWidth(2)
+                }}
             />
-            <OrderFooter cart={data.getCart} />
-            <ButtonWithIcon
-                onPress={(): void =>
-                    navigate("PaymentPicker", { cart: data.getCart })
-                }
-                size={50}
-                title={i18n.t("cart.orderNow")}
-                textSize={20}
-                width={calcWidth(92)}
-                type={"full"}
-            />
+            <View
+                style={{
+                    paddingHorizontal: calcWidth(4)
+                }}
+            >
+                <OrderFooter cart={data.getCart} />
+                <ButtonWithIcon
+                    onPress={(): void =>
+                        navigate("PaymentPicker", { cart: data.getCart })
+                    }
+                    size={50}
+                    title={i18n.t("cart.orderNow")}
+                    textSize={20}
+                    width={calcWidth(92)}
+                    type={"full"}
+                />
+            </View>
         </View>
     );
 };

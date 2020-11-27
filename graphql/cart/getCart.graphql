@@ -10,6 +10,11 @@ query getCart {
                         filename
                     }
                 }
+                quantityForUnit
+                unit {
+                    id
+                    notation
+                }
                 description
                 name
                 price
@@ -23,5 +28,7 @@ query getCart {
                 coordinates
             }
         }
+        updatedAt
+        createdAt
     }
 }

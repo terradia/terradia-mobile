@@ -1,3 +1,3 @@
-mutation removeProductFromCart($cartProductId: ID, $quantity: Int!) {
-    removeProductFromCart(cartProductId: $cartProductId, quantity: $quantity)
+mutation removeProductFromCart($productId: ID!, $quantity: Int!) {
+    removeProductFromCart(productId: $productId, quantity: $quantity)
 }

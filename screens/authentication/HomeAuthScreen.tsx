@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement, useState } from 'react';
+import React, { FunctionComponent, ReactElement, useState } from "react";
 import {
     ImageBackground,
     SafeAreaView,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 });
 
 const HomeAuthScreen = ({ route }: Props): ReactElement => {
-    const { firstConnection } = route.params;
+    const firstConnection = route?.params?.firstConnection || true;
     const [showSlider, setShowSlider] = useState(!firstConnection);
 
     const _onSliderDone = async (): Promise<void> => {
