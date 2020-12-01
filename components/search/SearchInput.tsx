@@ -1,15 +1,15 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import InputTerradia from '../input/InputTerradia';
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import InputTerradia from "../input/InputTerradia";
 import {
     Animated,
     Text,
     TouchableOpacity,
     SafeAreaView,
     Platform
-} from 'react-native';
-import layout from '@constants/Layout';
-import { LinearGradient } from 'expo-linear-gradient';
-import i18n from '@i18n/i18n';
+} from "react-native";
+import layout from "@constants/Layout";
+import { LinearGradient } from "expo-linear-gradient";
+import i18n from "@i18n/i18n";
 
 declare interface SearchInputProps {
     value: string;
@@ -51,14 +51,16 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
             setAnimated(true);
             Animated.timing(widthAnim, {
                 toValue: ANIMATED_WIDTH,
-                duration: 150
+                duration: 150,
+                useNativeDriver: false
             }).start();
         } else if (value.length === 0 && isAnimated) {
             setDisplayCompanies(false);
             setAnimated(false);
             Animated.timing(widthAnim, {
                 toValue: MAX_WIDTH,
-                duration: 150
+                duration: 150,
+                useNativeDriver: false
             }).start();
         }
     }, [value]);
@@ -69,16 +71,16 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                 height: scrollY.interpolate({
                     inputRange: [0, 150],
                     outputRange: [
-                        Platform.OS === 'ios' ? 150 : 120,
-                        Platform.OS === 'ios' ? 100 : 80
+                        Platform.OS === "ios" ? 150 : 120,
+                        Platform.OS === "ios" ? 100 : 80
                     ],
-                    extrapolate: 'clamp'
+                    extrapolate: "clamp"
                 })
             }}
         >
             <LinearGradient
                 style={{ flex: 1 }}
-                colors={['#8FDD3D', '#5CC04A']}
+                colors={["#8FDD3D", "#5CC04A"]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
@@ -87,8 +89,8 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                         borderTopLeftRadius: 10,
                         borderTopRightRadius: 10,
                         margin: 10,
-                        flexDirection: 'row',
-                        alignItems: 'center',
+                        flexDirection: "row",
+                        alignItems: "center",
                         flex: 1
                     }}
                 >
@@ -98,12 +100,12 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                             height: scrollY.interpolate({
                                 inputRange: [0, 150],
                                 outputRange: [70, 50],
-                                extrapolate: 'clamp'
+                                extrapolate: "clamp"
                             })
                         }}
                     >
                         <InputTerradia
-                            containerStyle={{ height: '100%' }}
+                            containerStyle={{ height: "100%" }}
                             style={{ height: 40 }}
                             onChangeText={(value): void => setValue(value)}
                             value={value}
@@ -121,18 +123,18 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
                     <TouchableOpacity
                         onPress={(): void => {
                             scrollY.setValue(0);
-                            setValue('');
+                            setValue("");
                         }}
                     >
                         <Text
                             style={{
-                                fontFamily: 'MontserratSemiBold',
-                                color: '#575757',
+                                fontFamily: "MontserratSemiBold",
+                                color: "#575757",
                                 margin: 15,
                                 fontSize: 16
                             }}
                         >
-                            {i18n.t('searchScreen.cancel')}
+                            {i18n.t("searchScreen.cancel")}
                         </Text>
                     </TouchableOpacity>
                 </SafeAreaView>

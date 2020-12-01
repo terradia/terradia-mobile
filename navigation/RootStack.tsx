@@ -35,6 +35,8 @@ import PaymentPickerScreen from "../screens/cart/PaymentPicker";
 import WalletScreen from "../screens/profile/Wallet";
 import AccountScreen from "../screens/profile/Account";
 import ProfileScreen from "../screens/profile/ProfileScreen";
+import CardEditorScreen from "../screens/profile/CardEditor";
+import CardDisplayScreen from "../screens/profile/CardDisplay";
 
 //Orders
 import PastOrderReviewScreen from "../screens/orders/PastOrderReview";
@@ -42,7 +44,7 @@ import UpcomingOrderReviewScreen from "../screens/orders/UpcomingOrderReview";
 import OrdersScreen from "../screens/orders/OrdersScreen";
 
 import i18n from "@i18n/i18n";
-import { Theme, useTheme, withTheme } from '@components/theme/Theme';
+import { Theme, useTheme, withTheme } from "@components/theme/Theme";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -181,6 +183,8 @@ const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {
 
             <Stack.Screen name="Wallet" component={WalletScreen} />
             <Stack.Screen name="Account" component={AccountScreen} />
+            <Stack.Screen name="CardEditor" component={CardEditorScreen} />
+            <Stack.Screen name="CardDisplay" component={CardDisplayScreen} />
 
             {/*TabNavigator*/}
 
