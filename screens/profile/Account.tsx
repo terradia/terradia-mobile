@@ -1,11 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import {
-    View,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    TextInput
-} from "react-native";
+import { View, TouchableOpacity, TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainHeader from "@components/theme/MainHeader";
 import { Entypo } from "@expo/vector-icons";
@@ -17,6 +11,7 @@ import getUser from "../../graphql/getUser.graphql";
 import AccountImage from "@components/account/AccountImage";
 import styles from "./styles/Account.style";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedContainer, ThemedText } from "@components/theme/Theme";
 
 const Account: FunctionComponent = () => {
     const [currentEditing, setCurrentEditing] = useState(null);
@@ -24,7 +19,7 @@ const Account: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const { data: me } = useQuery<GetUserData>(getUser);
     return (
-        <View>
+        <ThemedContainer style={{ flex: 1 }}>
             <AccountModal
                 currentEditing={currentEditing}
                 setCurrentEditing={setCurrentEditing}
@@ -41,14 +36,16 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("firstName");
                 }}
             >
-                <Text style={styles.fieldTitle}>
+                <ThemedText style={styles.fieldTitle}>
                     {i18n.t("accountScreen.firstName")}
-                </Text>
+                </ThemedText>
                 <View style={styles.subFieldContainer}>
-                    <Text style={styles.subFieldText}>
+                    <ThemedText style={styles.subFieldText}>
                         {me.getUser.firstName}
-                    </Text>
-                    <Entypo name="chevron-right" size={27} />
+                    </ThemedText>
+                    <ThemedText>
+                        <Entypo name="chevron-right" size={27} />
+                    </ThemedText>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -58,14 +55,16 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("lastName");
                 }}
             >
-                <Text style={styles.fieldTitle}>
+                <ThemedText style={styles.fieldTitle}>
                     {i18n.t("accountScreen.lastName")}
-                </Text>
+                </ThemedText>
                 <View style={styles.subFieldContainer}>
-                    <Text style={styles.subFieldText}>
+                    <ThemedText style={styles.subFieldText}>
                         {me.getUser.lastName}
-                    </Text>
-                    <Entypo name="chevron-right" size={27} />
+                    </ThemedText>
+                    <ThemedText>
+                        <Entypo name="chevron-right" size={27} />
+                    </ThemedText>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -75,16 +74,17 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("phoneNumber");
                 }}
             >
-                <Text style={styles.fieldTitle}>
+                <ThemedText style={styles.fieldTitle}>
                     {i18n.t("accountScreen.phoneNumber")}
-                </Text>
+                </ThemedText>
                 <View style={styles.subFieldContainer}>
-                    <Text style={styles.subFieldText}>{me.getUser.phone}</Text>
+                    <ThemedText style={styles.subFieldText}>
+                        {me.getUser.phone}
+                    </ThemedText>
                     <View style={styles.rightContent}>
-                        <Text style={styles.verifiedText}>
-                            {i18n.t("accountScreen.verified")}
-                        </Text>
-                        <Entypo name="chevron-right" size={27} />
+                        <ThemedText>
+                            <Entypo name="chevron-right" size={27} />
+                        </ThemedText>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -95,16 +95,20 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("email");
                 }}
             >
-                <Text style={styles.fieldTitle}>
+                <ThemedText style={styles.fieldTitle}>
                     {i18n.t("accountScreen.email")}
-                </Text>
+                </ThemedText>
                 <View style={styles.subFieldContainer}>
-                    <Text style={styles.subFieldText}>{me.getUser.email}</Text>
+                    <ThemedText style={styles.subFieldText}>
+                        {me.getUser.email}
+                    </ThemedText>
                     <View style={styles.rightContent}>
-                        <Text style={styles.nonVerifiedText}>
+                        <ThemedText style={styles.nonVerifiedText}>
                             {i18n.t("accountScreen.notVerified")}
-                        </Text>
-                        <Entypo name="chevron-right" size={27} />
+                        </ThemedText>
+                        <ThemedText>
+                            <Entypo name="chevron-right" size={27} />
+                        </ThemedText>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -115,18 +119,13 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("password");
                 }}
             >
-                <Text style={styles.fieldTitle}>Mot de passe</Text>
+                <ThemedText style={styles.fieldTitle}>Mot de passe</ThemedText>
                 <View style={styles.subFieldContainer}>
-                    <TextInput
-                        secureTextEntry={true}
-                        editable={false}
-                        style={styles.subFieldText}
-                    >
-                        Hello world
-                    </TextInput>
+                    <ThemedText>.........</ThemedText>
                     <View style={styles.rightContent}>
-                        <Text style={styles.nonVerifiedText}>Non vérifié</Text>
-                        <Entypo name="chevron-right" size={27} />
+                        <ThemedText>
+                            <Entypo name="chevron-right" size={27} />
+                        </ThemedText>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -140,11 +139,11 @@ const Account: FunctionComponent = () => {
                 }}
                 style={styles.signOutContainer}
             >
-                <Text style={styles.signOut}>
+                <ThemedText style={styles.signOut}>
                     {i18n.t("accountScreen.signOut")}
-                </Text>
+                </ThemedText>
             </TouchableOpacity>
-        </View>
+        </ThemedContainer>
     );
 };
 

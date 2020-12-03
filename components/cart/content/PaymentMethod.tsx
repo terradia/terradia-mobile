@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import getStripeCustomerDefaultSource from "../../../graphql/wallet/getStripeCustomerDefaultSource.graphql";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedContainer, ThemedText } from "@components/theme/Theme";
 
 const Icons = {
     cvc: require("../../../assets/icons/stp_card_cvc.png"),
@@ -22,8 +23,10 @@ const PaymentMethod: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const { data: defaultSource } = useQuery(getStripeCustomerDefaultSource);
     return (
-        <View>
-            <Text style={styles.title}>{i18n.t("cart.paymentMethod")}</Text>
+        <ThemedContainer>
+            <ThemedText style={styles.title}>
+                {i18n.t("cart.paymentMethod")}
+            </ThemedText>
             {defaultSource && defaultSource.getStripeCustomerDefaultSource && (
                 <TouchableOpacity
                     style={[styles.subFieldContainer, { marginBottom: 40 }]}
@@ -47,7 +50,7 @@ const PaymentMethod: FunctionComponent = () => {
                     <Entypo name="chevron-right" size={27} />
                 </TouchableOpacity>
             )}
-        </View>
+        </ThemedContainer>
     );
 };
 

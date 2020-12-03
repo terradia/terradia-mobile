@@ -1,10 +1,13 @@
 import React, { FunctionComponent, ReactElement } from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import SearchCard from "../../cards/SearchCard";
 import { CompanyTagData } from "@interfaces/Companies";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
+import { ThemedText } from "@components/theme/Theme";
+import HeaderFooter from "@components/header/HeaderFooter";
 
-const minWidth = 170;
-const maxWidth = minWidth * 2 + 20;
+const minWidth = calcWidth((100 - 8) / 2 - 2);
+const maxWidth = calcWidth(92);
 
 declare interface VerticalListProps {
     categories: Array<CompanyTagData>;
@@ -16,26 +19,33 @@ declare interface VerticalListProps {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 18,
+        fontSize: 25,
         fontFamily: "MontserratBold",
-        color: "#575757",
-        marginTop: 10,
-        marginLeft: 10
+        marginLeft: calcWidth(4)
     }
 });
 
 const VerticalList: FunctionComponent<VerticalListProps> = ({
     categories,
     title,
-    ListHeaderComponent,
     searchCompanies,
     onScroll
 }) => {
     return (
         <View style={{ flex: 1 }}>
-            <Text style={styles.title}>{title}</Text>
+            <HeaderFooter />
+            <ThemedText style={styles.title}>{title}</ThemedText>
             <FlatList
-                style={{ flex: 1 }}
+                style={{
+                    flex: 1,
+                    display: "flex",
+                    marginTop: calcWidth(4)
+                }}
+                contentContainerStyle={{
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    flexWrap: "wrap"
+                }}
                 data={categories}
                 onScroll={onScroll}
                 renderItem={({ item, index }): ReactElement => (
@@ -60,7 +70,6 @@ const VerticalList: FunctionComponent<VerticalListProps> = ({
                         }}
                     />
                 )}
-                // ListHeaderComponent={ListHeaderComponent}
                 numColumns={2}
                 keyExtractor={(item, index): string => String(index)}
             />

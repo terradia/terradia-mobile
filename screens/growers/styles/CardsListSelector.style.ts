@@ -1,10 +1,12 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
-    fieldContainer: {
-        marginLeft: 15,
-        marginRight: 15
+    mainCard: {
+        padding: calcWidth(4),
+        borderRadius: 8
     },
+    fieldContainer: {},
     subFieldContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -13,13 +15,11 @@ const styles = StyleSheet.create({
     },
     fieldTitle: {
         fontFamily: "MontserratBold",
-        fontSize: 18,
-        color: "#575757"
+        fontSize: 18
     },
     subFieldText: {
         fontFamily: "Montserrat",
-        fontSize: 14,
-        color: "#575757"
+        fontSize: 14
     },
     cardInfoContainer: {
         flexDirection: "row",

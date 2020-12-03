@@ -14,6 +14,11 @@ import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import styles from "./styles/Wallet.style";
 import { useNavigation } from "@react-navigation/native";
 import { GetCardsReq } from "@interfaces/Wallet";
+import {
+    ThemedBox,
+    ThemedContainer,
+    ThemedText
+} from "@components/theme/Theme";
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
@@ -38,13 +43,13 @@ const Account: FunctionComponent = () => {
         return newMonth + "/" + newYear;
     };
     return (
-        <View>
+        <ThemedContainer style={{ flex: 1 }}>
             <MainHeader title={i18n.t("profileScreen.myWallet")} backButton />
 
-            <View style={styles.fieldContainer}>
-                <Text style={styles.fieldTitle}>
+            <ThemedBox style={styles.fieldContainer}>
+                <ThemedText style={styles.fieldTitle}>
                     {i18n.t("walletScreen.paymentMethods")}
-                </Text>
+                </ThemedText>
                 {loadingCards && (
                     <ActivityIndicator color={"#5CC04A"} size={"large"} />
                 )}
@@ -71,9 +76,9 @@ const Account: FunctionComponent = () => {
                                     style={{ width: 50, height: 30 }}
                                     source={Icons[val.brand.toLowerCase()]}
                                 />
-                                <Text style={styles.subFieldText}>
+                                <ThemedText style={styles.subFieldText}>
                                     {val.last4}
-                                </Text>
+                                </ThemedText>
                             </View>
                             <Entypo name="chevron-right" size={27} />
                         </TouchableOpacity>
@@ -83,12 +88,12 @@ const Account: FunctionComponent = () => {
                         navigate("CardEditor");
                     }}
                 >
-                    <Text style={styles.addPaymentMethod}>
+                    <ThemedText style={styles.addPaymentMethod}>
                         {i18n.t("walletScreen.addPaymentMethod")}
-                    </Text>
+                    </ThemedText>
                 </TouchableOpacity>
-            </View>
-        </View>
+            </ThemedBox>
+        </ThemedContainer>
     );
 };
 

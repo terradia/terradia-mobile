@@ -8,12 +8,12 @@ import DeepLinking from "@components/routing/DeepLinking";
 import searchCompanies from "../../graphql/search/searchCompanies.graphql";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import GrowerCard from "@components/cards/GrowerCard";
-import { CompanyData, CompanyTagData } from '@interfaces/Companies';
+import { CompanyData, CompanyTagData } from "@interfaces/Companies";
 import Spinner from "react-native-loading-spinner-overlay";
 import CardListLoader from "@components/growers/CardListLoader";
 import getAllCompanyTags from "../../graphql/tags/getAllCompanyTags.graphql";
 import i18n from "@i18n/i18n";
-import { ThemedContainer } from '@components/theme/Theme';
+import { ThemedContainer } from "@components/theme/Theme";
 
 declare interface SearchScreenProps {
     collapsible: any;

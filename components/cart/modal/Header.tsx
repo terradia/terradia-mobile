@@ -6,7 +6,11 @@ import i18n from "@i18n/i18n";
 import { useNavigation } from "@react-navigation/native";
 import { ThemedIcon, ThemedText } from "@components/theme/Theme";
 
-const HeaderCart: FunctionComponent = () => {
+interface Props {
+    type?: string;
+}
+
+const HeaderCart: FunctionComponent<Props> = ({ type = "cart", ...props }) => {
     const { goBack } = useNavigation();
     return (
         <View style={styles.header}>
@@ -16,10 +20,17 @@ const HeaderCart: FunctionComponent = () => {
                     width: "20%"
                 }}
             >
-                <ThemedIcon icon={<Feather name="x" />} size={26} />
+                <ThemedIcon
+                    icon={
+                        <Feather name={type === "card" ? "x" : "arrow-left"} />
+                    }
+                    size={26}
+                />
             </TouchableOpacity>
             <ThemedText style={styles.headerTitle}>
-                {i18n.t("cart.viewCart")}
+                {type === "card"
+                    ? i18n.t("cart.viewCart")
+                    : i18n.t("cart.paymentMethod")}
             </ThemedText>
             <View
                 style={{

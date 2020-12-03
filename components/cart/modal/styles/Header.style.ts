@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontFamily: "MontserratBold",
+        fontFamily: "MontserratBold"
     }
 });
 

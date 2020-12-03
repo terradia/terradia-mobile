@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     imageContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         marginTop: 20,
         marginBottom: 10
     },
@@ -12,43 +12,41 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     subFieldContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        justifyContent: "space-between",
         marginLeft: 15,
         marginTop: 10
     },
     fieldTitle: {
-        fontFamily: 'MontserratBold',
-        fontSize: 18,
-        color: '#575757'
+        fontFamily: "MontserratBold",
+        fontSize: 18
     },
     subFieldText: {
-        fontFamily: 'Montserrat',
+        fontFamily: "Montserrat",
         fontSize: 14,
-        color: '#575757'
     },
     verifiedText: {
-        fontFamily: 'Montserrat',
+        fontFamily: "Montserrat",
         fontSize: 14,
-        color: '#4AA542'
+        color: "#4AA542"
     },
     nonVerifiedText: {
-        fontFamily: 'Montserrat',
+        fontFamily: "Montserrat",
         fontSize: 14,
-        color: '#F6A300'
+        color: "#F6A300"
     },
     rightContent: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: "row",
+        alignItems: "center"
     },
     signOutContainer: {
         marginTop: 40,
-        alignItems: 'center'
+        alignItems: "center"
     },
     signOut: {
-        fontFamily: 'MontserratSemiBold',
+        fontFamily: "MontserratSemiBold",
         fontSize: 20,
-        color: '#8FDD3D'
+        color: "#4AA542"
     }
 });
 

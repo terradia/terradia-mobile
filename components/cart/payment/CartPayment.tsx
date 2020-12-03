@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import styles from "@components/cart/content/styles/ProductList.style";
 import i18n from "@i18n/i18n";
 import { CartData } from "@interfaces/User";
@@ -8,8 +8,9 @@ import createACharge from "../../../graphql/cart/createACharge.graphql";
 import Spinner from "react-native-loading-spinner-overlay";
 import Modal from "react-native-modal";
 import ModalPaymentValidated from "./ModalPaymentValidated";
-import { ButtonWithIcon } from '@components/buttons/ButtonWithIcon';
-import { calcWidth } from '../../../utils/deviceResponsiveHelper';
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
+import { OrderFooter } from "@components/orders/OrderFooter";
 
 declare interface CartPaymentData {
     cart: CartData;
@@ -52,29 +53,21 @@ const CartPayment: FunctionComponent<CartPaymentData> = ({ cart }) => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <ButtonWithIcon
-                onPress={(): Promise<void> => createPaymentSource()}
-                style={styles.priceContainer}
-                size={50}
-                title={i18n.t("cart.orderNow")}
-                textSize={20}
-                width={calcWidth(90)}
-                type={"full"}
-            />
-            {/*<TouchableOpacity*/}
-            {/*    onPress={(): Promise<void> => createPaymentSource()}*/}
-            {/*    style={styles.priceContainer}*/}
-            {/*>*/}
-            {/*    <Text style={styles.orderButton}>*/}
-            {/*        {i18n.t("cart.orderNow")}*/}
-            {/*    </Text>*/}
-            {/*    <View style={styles.priceTotalContainer}>*/}
-            {/*        <Text style={styles.total}>{i18n.t("cart.total")}</Text>*/}
-            {/*        <Text style={styles.totalPrice}>*/}
-            {/*            {cart.totalPrice.toFixed(2)} €*/}
-            {/*        </Text>*/}
-            {/*    </View>*/}
-            {/*</TouchableOpacity>*/}
+            <View
+                style={{
+                    paddingHorizontal: calcWidth(4)
+                }}
+            >
+                <ButtonWithIcon
+                    onPress={(): Promise<void> => createPaymentSource()}
+                    style={styles.priceContainer}
+                    size={50}
+                    title={i18n.t("cart.orderNow")}
+                    textSize={20}
+                    width={calcWidth(92)}
+                    type={"full"}
+                />
+            </View>
         </>
     );
 };

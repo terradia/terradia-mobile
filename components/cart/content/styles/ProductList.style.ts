@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: "MontserratBold",
         fontSize: 16,
-        color: "#575757",
         marginBottom: 10
     },
     card: {
@@ -90,7 +89,6 @@ const styles = StyleSheet.create({
     bottomItemDivider: {
         height: 1,
         width: "100%",
-        backgroundColor: "#C7C7CC"
     },
     total: {
         fontFamily: "MontserratBold",
@@ -104,10 +102,7 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     priceContainer: {
-        marginBottom: 20,
-        position: "absolute",
         bottom: 0,
-        width: "110%",
         left: 2
     },
     rightAction: {

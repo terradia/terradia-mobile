@@ -21,8 +21,15 @@ import { requestOneTimePayment } from "react-native-paypal";
 import axios from "axios";
 import { StackScreenProps } from "@react-navigation/stack";
 import { CartData } from "@interfaces/User";
-import { ThemedContainer, ThemedText } from '@components/theme/Theme';
-import MainHeader from '@components/theme/MainHeader';
+import {
+    ThemedBox,
+    ThemedContainer,
+    ThemedSafeAreaView,
+    ThemedText
+} from "@components/theme/Theme";
+import MainHeader from "@components/theme/MainHeader";
+import HeaderCart from "@components/cart/modal/Header";
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
@@ -95,91 +102,115 @@ const PaymentPicker = ({ route }: Props): ReactElement => {
     };
 
     return (
-        <ThemedContainer style={{ flex: 1 }}>
-            <MainHeader title={i18n.t("cart.paymentMethod")} backButton />
-            <View style={{ paddingLeft: 20, paddingRight: 20, flex: 1 }}>
-                <View style={[styles.fieldContainer, { marginBottom: 20 }]}>
-                    <ThemedText style={styles.fieldTitle}>
-                        {i18n.t("cart.cards")}
-                    </ThemedText>
-                    {loadingCards && (
-                        <ActivityIndicator color={"#5CC04A"} size={"large"} />
-                    )}
-                    {cards &&
-                        cards.listCustomerCards.length > 0 &&
-                        cards.listCustomerCards.map(val => (
+        <ThemedSafeAreaView style={{ flex: 1 }}>
+            <HeaderCart type={"payment"} />
+            <View style={{ flex: 1, paddingHorizontal: calcWidth(4) }}>
+                <View style={{ flex: 1 }}>
+                    <ThemedBox style={styles.mainCard}>
+                        <View
+                            style={[
+                                styles.fieldContainer,
+                                { marginBottom: 20 }
+                            ]}
+                        >
+                            <ThemedText style={styles.fieldTitle}>
+                                {i18n.t("cart.cards")}
+                            </ThemedText>
+                            {loadingCards && (
+                                <ActivityIndicator
+                                    color={"#5CC04A"}
+                                    size={"large"}
+                                />
+                            )}
+                            {cards &&
+                                cards.listCustomerCards.length > 0 &&
+                                cards.listCustomerCards.map(val => (
+                                    <TouchableOpacity
+                                        style={styles.subFieldContainer}
+                                        key={val.id}
+                                        onPress={() => {
+                                            updateCustomerSource({
+                                                variables: { cardId: val.id }
+                                            }).then(() => {
+                                                refetch();
+                                            });
+                                        }}
+                                    >
+                                        <View style={styles.cardInfoContainer}>
+                                            <Image
+                                                style={{
+                                                    width: 50,
+                                                    height: 30
+                                                }}
+                                                source={
+                                                    Icons[
+                                                        val.brand.toLowerCase()
+                                                    ]
+                                                }
+                                            />
+                                            <ThemedText
+                                                style={styles.subFieldText}
+                                            >
+                                                {val.last4}
+                                            </ThemedText>
+                                        </View>
+                                        {defaultSource &&
+                                            defaultSource.getStripeCustomerDefaultSource &&
+                                            defaultSource
+                                                .getStripeCustomerDefaultSource
+                                                .id === val.id && (
+                                                <AntDesign
+                                                    name="check"
+                                                    size={24}
+                                                    color="green"
+                                                />
+                                            )}
+                                    </TouchableOpacity>
+                                ))}
+
                             <TouchableOpacity
-                                style={styles.subFieldContainer}
-                                key={val.id}
-                                onPress={() => {
-                                    updateCustomerSource({
-                                        variables: { cardId: val.id }
-                                    }).then(() => {
-                                        refetch();
-                                    });
+                                onPress={(): void => {
+                                    navigate("CardEditor");
                                 }}
                             >
-                                <View style={styles.cardInfoContainer}>
-                                    <Image
-                                        style={{ width: 50, height: 30 }}
-                                        source={Icons[val.brand.toLowerCase()]}
-                                    />
-                                    <ThemedText style={styles.subFieldText}>
-                                        {val.last4}
-                                    </ThemedText>
-                                </View>
-                                {defaultSource &&
-                                    defaultSource.getStripeCustomerDefaultSource &&
-                                    defaultSource.getStripeCustomerDefaultSource
-                                        .id === val.id && (
-                                        <AntDesign
-                                            name="check"
-                                            size={24}
-                                            color="green"
-                                        />
-                                    )}
+                                <ThemedText style={styles.addPaymentMethod}>
+                                    {i18n.t("walletScreen.addPaymentMethod")}
+                                </ThemedText>
                             </TouchableOpacity>
-                        ))}
-
-                    <TouchableOpacity
-                        onPress={(): void => {
-                            navigate("CardEditor");
-                        }}
-                    >
-                        <ThemedText style={styles.addPaymentMethod}>
-                            {i18n.t("walletScreen.addPaymentMethod")}
-                        </ThemedText>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ marginLeft: 10 }}>
-                    <Text style={styles.fieldTitle}>
-                        {i18n.t("cart.otherPaymentMethod")}
-                    </Text>
-                    <TouchableOpacity
-                        onPress={(): Promise<void> => _paypalPayment()}
-                        style={[styles.subFieldContainer, {}]}
-                    >
-                        <View style={styles.cardInfoContainer}>
-                            <Image
-                                style={{
-                                    width: 50,
-                                    height: 30,
-                                    marginRight: 10
-                                }}
-                                source={require("../../assets/images/pp-acceptance-large.png")}
-                            />
-                            <Text style={styles.subFieldText}>{"Paypal"}</Text>
                         </View>
-                        <Feather
-                            name="chevron-right"
-                            size={26}
-                            color="#575757"
-                        />
-                    </TouchableOpacity>
+                        {/*<View>*/}
+                        {/*    <ThemedText style={styles.fieldTitle}>*/}
+                        {/*        {i18n.t("cart.otherPaymentMethod")}*/}
+                        {/*    </ThemedText>*/}
+                        {/*    <TouchableOpacity*/}
+                        {/*        onPress={(): Promise<void> => _paypalPayment()}*/}
+                        {/*        style={[styles.subFieldContainer, {}]}*/}
+                        {/*    >*/}
+                        {/*        <View style={styles.cardInfoContainer}>*/}
+                        {/*            <Image*/}
+                        {/*                style={{*/}
+                        {/*                    width: 50,*/}
+                        {/*                    height: 30,*/}
+                        {/*                    marginRight: 10*/}
+                        {/*                }}*/}
+                        {/*                source={require("../../assets/images/pp-acceptance-large.png")}*/}
+                        {/*            />*/}
+                        {/*            <ThemedText style={styles.subFieldText}>*/}
+                        {/*                {"Paypal"}*/}
+                        {/*            </ThemedText>*/}
+                        {/*        </View>*/}
+                        {/*        <Feather*/}
+                        {/*            name="chevron-right"*/}
+                        {/*            size={26}*/}
+                        {/*            color="#575757"*/}
+                        {/*        />*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*</View>*/}
+                    </ThemedBox>
                 </View>
-                <CartPayment cart={cart} />
             </View>
-        </ThemedContainer>
+            <CartPayment cart={cart} />
+        </ThemedSafeAreaView>
     );
 };
 

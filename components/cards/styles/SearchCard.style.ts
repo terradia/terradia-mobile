@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
+import { calcWidth } from '../../../utils/deviceResponsiveHelper';
 
 function elevationShadowStyle(elevation) {
     return {
         elevation,
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOffset: { width: 0, height: 0.5 * elevation },
         shadowOpacity: 0.3,
         shadowRadius: 0.8 * elevation
@@ -12,14 +13,16 @@ function elevationShadowStyle(elevation) {
 
 export default StyleSheet.create({
     container: {
-        position: 'relative'
+        position: "relative",
+        borderRadius: 8,
+        marginLeft: calcWidth(4),
+        marginBottom: calcWidth(4),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     },
     name: {
-        position: 'absolute',
-        bottom: 25,
-        left: 6,
-        color: 'white',
-        fontFamily: 'MontserratSemiBold',
+        fontFamily: "MontserratSemiBold",
         fontSize: 16
     }
 });
