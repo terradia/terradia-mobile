@@ -27,7 +27,7 @@ import GrowersStack from "./GrowersStack";
 import ProductScreen from "../screens/growers/ProductScreen";
 import FeedbackScreen from "../screens/growers/Feedback";
 import GrowersProductsScreen from "../screens/growers/GrowersProductsScreen";
-import CartScreen from "../screens/growers/Cart";
+import CartScreen from "../screens/cart/Cart";
 import CardListSelectorScreen from "../screens/growers/CardsListSelector";
 import PaymentPickerScreen from "../screens/cart/PaymentPicker";
 
