@@ -2,38 +2,44 @@ import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { colors, Header } from "react-native-elements";
-import { Entypo } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { Input } from "react-native-elements";
-import ButtonTerradia from "@components/buttons/ButtonTerradia";
 import i18n from "@i18n/i18n";
 import updateUser from "../../../graphql/user/updateUser.graphql";
 import { useMutation } from "@apollo/react-hooks";
 import PhoneInput from "react-native-phone-input";
+import {
+    Theme,
+    ThemedContainer,
+    ThemedIcon,
+    ThemedText,
+    withTheme
+} from "@components/theme/Theme";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 declare interface AccountModalProps {
     currentEditing: string;
     setCurrentEditing: (string) => void;
     initialValue: string;
+    theme: Theme;
 }
 
 const styles = StyleSheet.create({
     labelInput: {
-        fontFamily: "MontserratSemiBold",
-        color: "#575757"
+        fontFamily: "MontserratSemiBold"
     },
     contentContainer: {
-        marginTop: 20,
-        marginLeft: 15,
-        marginRight: 15
+        marginTop: calcWidth(4),
+        marginLeft: calcWidth(4),
+        marginRight: calcWidth(4)
     },
     container: {
-        flex: 1,
-        backgroundColor: "white"
+        flex: 1
     },
     phoneInputUnderLine: {
         height: 1,
         backgroundColor: "rgb(136, 145, 155)",
-        marginLeft: 40,
         marginTop: 10
     },
     error: {
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
         color: colors.error
     },
     buttonUpdateContainer: {
-        marginTop: 30,
+        marginTop: calcWidth(4),
         justifyContent: "center",
         alignItems: "center"
     }
@@ -51,7 +57,8 @@ const styles = StyleSheet.create({
 const AccountModal: FunctionComponent<AccountModalProps> = ({
     currentEditing,
     setCurrentEditing,
-    initialValue
+    initialValue,
+    theme
 }) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [UpdateUser, { loading }] = useMutation(updateUser, {
@@ -103,20 +110,24 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
         }
     };
 
+    if (currentEditing === null) return null;
+
     return (
         <Modal isVisible={!!currentEditing} style={{ margin: 0 }}>
-            <View style={styles.container}>
+            <ThemedContainer style={styles.container}>
                 <Header
                     placement="left"
                     leftComponent={
                         <TouchableOpacity
-                            style={{ padding: 3 }}
                             onPress={() => {
                                 setErrorMessage("");
                                 setCurrentEditing(null);
                             }}
                         >
-                            <Entypo name="cross" size={26} />
+                            <ThemedIcon
+                                icon={<Feather name={"x"} />}
+                                size={26}
+                            />
                         </TouchableOpacity>
                     }
                     backgroundColor={"transparent"}
@@ -124,14 +135,9 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                 <View style={styles.contentContainer}>
                     {currentEditing === "phoneNumber" ? (
                         <View style={{}}>
-                            <Text
-                                style={[
-                                    styles.labelInput,
-                                    { marginBottom: 10 }
-                                ]}
-                            >
+                            <ThemedText style={styles.labelInput}>
                                 {i18n.t("accountScreen.phoneNumber")}
-                            </Text>
+                            </ThemedText>
                             <PhoneInput
                                 ref={phoneRef}
                                 initialCountry={"fr"}
@@ -139,12 +145,16 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                                 value={initialValue}
                             />
                             <View style={styles.phoneInputUnderLine} />
-                            <Text style={styles.error}>{errorMessage}</Text>
+                            <ThemedText style={styles.error}>
+                                {errorMessage}
+                            </ThemedText>
                         </View>
                     ) : (
                         <>
                             <Input
-                                style={{}}
+                                style={{
+                                    color: theme.palette.fontColor
+                                }}
                                 value={value}
                                 label={i18n.t(
                                     "accountScreen." + currentEditing
@@ -157,7 +167,12 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                             />
                             {currentEditing === "password" && (
                                 <Input
-                                    containerStyle={{ marginTop: 20 }}
+                                    containerStyle={{
+                                        marginTop: 20
+                                    }}
+                                    style={{
+                                        color: theme.palette.fontColor
+                                    }}
                                     value={checkPassword}
                                     label={i18n.t(
                                         "accountScreen.confirmNewPassword"
@@ -173,7 +188,7 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                         </>
                     )}
                     <View style={styles.buttonUpdateContainer}>
-                        <ButtonTerradia
+                        <ButtonWithIcon
                             title={
                                 currentEditing !== null
                                     ? i18n.t(
@@ -185,8 +200,10 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                                       )
                                     : ""
                             }
-                            style={[{ borderColor: "#FFFFFF" }]}
-                            titleStyle={[{ color: "#FFFFFF" }]}
+                            textSize={20}
+                            size={50}
+                            type={"full"}
+                            width={calcWidth(92)}
                             loading={loading}
                             onPress={(): void => {
                                 _update();
@@ -194,9 +211,9 @@ const AccountModal: FunctionComponent<AccountModalProps> = ({
                         />
                     </View>
                 </View>
-            </View>
+            </ThemedContainer>
         </Modal>
     );
 };
 
-export default AccountModal;
+export default withTheme(AccountModal);

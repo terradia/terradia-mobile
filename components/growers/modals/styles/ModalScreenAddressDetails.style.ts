@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     inputs: {
@@ -6,16 +6,15 @@ const styles = StyleSheet.create({
     },
     titlesText: {
         fontSize: 20,
-        fontFamily: 'MontserratSemiBold'
+        fontFamily: "MontserratSemiBold"
     },
     mainAddressContainer: {
-        borderBottomColor: '#ECECEC',
         borderBottomWidth: 1,
         marginRight: 20
     },
     mainAddressText: {
-        color: '#8FDD3D',
-        fontFamily: 'Montserrat',
+        color: "#8FDD3D",
+        fontFamily: "Montserrat",
         fontSize: 17
     },
     containers: {
@@ -24,28 +23,28 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     optionsContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: "row",
+        alignItems: "center"
     },
     optionsTexts: {
         marginLeft: 5,
         fontSize: 20
     },
     confirmButton: {
-        fontFamily: 'MontserratSemiBold',
+        fontFamily: "MontserratSemiBold",
         fontSize: 20,
-        color: '#8FDD3D'
+        color: "#8FDD3D"
     },
     mainContainer: {
         flex: 1,
-        width: '100%',
-        justifyContent: 'space-between',
+        width: "100%",
+        justifyContent: "space-between",
         marginLeft: 10,
         marginRight: 10
     },
     applyButtonContainer: {
         flex: 0.1,
-        alignItems: 'center'
+        alignItems: "center"
     }
 });
 

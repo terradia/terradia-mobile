@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 const MenuCard: FunctionComponent = () => {
     return (
-        <View style={{ marginTop: 21 }}>
+        <View style={{ }}>
             <View style={styles.menuContainers}>
                 <ItemMenuCards
                     title={i18n.t("profileScreen.myCart")}

@@ -51,7 +51,6 @@ export default StyleSheet.create({
         alignItems: "center",
         borderColor: "#575757",
         width: calcWidth(92),
-        marginTop: 10,
         backgroundColor: "transparent"
     },
     inputLabelStyle: {

@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 45,
-        color: "#424242",
         fontFamily: "Montserrat",
         backgroundColor: "transparent"
     },
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
     buttonBack: {
         fontFamily: "MontserratSemiBold",
         fontSize: 20,
-        color: "#575757"
     }
 });
 

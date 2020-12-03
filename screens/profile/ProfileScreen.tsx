@@ -7,6 +7,7 @@ import Cart from "@components/cart";
 import DeepLinking from "@components/routing/DeepLinking";
 import HeaderFooter from "@components/header/HeaderFooter";
 import { ThemedContainer } from '@components/theme/Theme';
+import { calcWidth } from '../../utils/deviceResponsiveHelper';
 
 const ProfileScreen: FunctionComponent<any> = () => {
     /**
@@ -16,8 +17,8 @@ const ProfileScreen: FunctionComponent<any> = () => {
     return (
         <ThemedContainer style={{ flex: 1 }}>
             <Header />
-            <View style={{ paddingLeft: 20, paddingRight: 20, flex: 1 }}>
-                <PremiumCard />
+            <View style={{ paddingHorizontal: calcWidth(4), flex: 1 }}>
+                {/*<PremiumCard />*/}
                 <MenuCard />
             </View>
             <Cart />

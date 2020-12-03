@@ -9,6 +9,7 @@ import CreateAddress from "../../../graphql/createAddress.graphql";
 import getActiveAddress from "../../../graphql/getActiveAddress.graphql";
 import Spinner from "react-native-loading-spinner-overlay";
 import getAddressesByUser from "../../../graphql/getAddressesByUser.graphql";
+import { ThemedContainer, ThemedText } from "@components/theme/Theme";
 
 declare interface ModalAddressProps {
     address: string;
@@ -47,16 +48,16 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
     const [info, setInfo] = useState(mainAddress.information);
     const [optionNumber, setOptionNumber] = useState(0);
     return (
-        <View style={styles.mainContainer}>
+        <ThemedContainer style={styles.mainContainer}>
             <Spinner
                 visible={loading}
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <View style={{ flex: 0.9 }}>
-                <Text style={styles.titlesText}>
+                <ThemedText style={styles.titlesText}>
                     {i18n.t("addressModal.deliveryAddress")}
-                </Text>
+                </ThemedText>
                 <View style={styles.containers}>
                     <View style={styles.mainAddressContainer}>
                         <Text style={styles.mainAddressText} numberOfLines={4}>
@@ -158,7 +159,7 @@ const ModalScreenAddressDetails: FunctionComponent<ModalScreenAddressDetailsProp
                     {i18n.t("addressModal.confirm")}
                 </Text>
             </TouchableOpacity>
-        </View>
+        </ThemedContainer>
     );
 };
 

@@ -1,11 +1,16 @@
-import React, { FunctionComponent, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import Modal from 'react-native-modal';
-import ModalScreenAddressSelect from './ModalScreenAddressSelect';
-import { Feather } from '@expo/vector-icons';
-import ModalScreenAddressDetails from './ModalScreenAddressDetails';
-import i18n from '@i18n/i18n';
-import styles from './styles/ModalScreenAddress.style';
+import React, { FunctionComponent, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import Modal from "react-native-modal";
+import ModalScreenAddressSelect from "./ModalScreenAddressSelect";
+import { Feather } from "@expo/vector-icons";
+import ModalScreenAddressDetails from "./ModalScreenAddressDetails";
+import i18n from "@i18n/i18n";
+import styles from "./styles/ModalScreenAddress.style";
+import {
+    ThemedContainer,
+    ThemedIcon,
+    ThemedText
+} from "@components/theme/Theme";
 
 declare interface ModalScreenAddressSelectProps {
     isOpen: boolean;
@@ -24,47 +29,57 @@ const ModalScreenAddress: FunctionComponent<ModalScreenAddressSelectProps> = ({
         setDisplayModalAddress(value);
     };
     return (
-        <View style={styles.container}>
+        <ThemedContainer style={styles.container}>
             <Modal
                 isVisible={isOpen}
                 style={styles.modalContainer}
                 onSwipeComplete={(): void => setDisplayModalAddress(false)}
-                swipeDirection={['down']}
+                swipeDirection={["down"]}
                 propagateSwipe={true}
             >
-                <View style={styles.header}>
+                <ThemedContainer>
+                    <View style={styles.header}>
+                        {isSearching ? (
+                            <TouchableOpacity
+                                onPress={() => setDisplayModalAddress(false)}
+                            >
+                                <ThemedIcon
+                                    icon={<Feather name="x" size={24} />}
+                                />
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity
+                                onPress={() => setIsSearching(true)}
+                            >
+                                <ThemedIcon
+                                    icon={
+                                        <Feather name="arrow-left" size={24} />
+                                    }
+                                />
+                            </TouchableOpacity>
+                        )}
+                        <ThemedText style={styles.headerTitle}>
+                            {isSearching
+                                ? i18n.t("addressModal.deliveryAddress")
+                                : i18n.t("addressModal.deliveryDetails")}
+                        </ThemedText>
+                        <View />
+                    </View>
                     {isSearching ? (
-                        <TouchableOpacity
-                            onPress={() => setDisplayModalAddress(false)}
-                        >
-                            <Feather name="x" size={24} />
-                        </TouchableOpacity>
+                        <ModalScreenAddressSelect
+                            setIsSearching={setIsSearching}
+                            setCurrentAddress={setCurrentAddress}
+                            setDisplayModalAddress={closeModal}
+                        />
                     ) : (
-                        <TouchableOpacity onPress={() => setIsSearching(true)}>
-                            <Feather name="arrow-left" size={26} />
-                        </TouchableOpacity>
+                        <ModalScreenAddressDetails
+                            mainAddress={currentAddress}
+                            setDisplayModalAddress={closeModal}
+                        />
                     )}
-                    <Text style={styles.headerTitle}>
-                        {isSearching
-                            ? i18n.t('addressModal.deliveryAddress')
-                            : i18n.t('addressModal.deliveryDetails')}
-                    </Text>
-                    <View />
-                </View>
-                {isSearching ? (
-                    <ModalScreenAddressSelect
-                        setIsSearching={setIsSearching}
-                        setCurrentAddress={setCurrentAddress}
-                        setDisplayModalAddress={closeModal}
-                    />
-                ) : (
-                    <ModalScreenAddressDetails
-                        mainAddress={currentAddress}
-                        setDisplayModalAddress={closeModal}
-                    />
-                )}
+                </ThemedContainer>
             </Modal>
-        </View>
+        </ThemedContainer>
     );
 };
 

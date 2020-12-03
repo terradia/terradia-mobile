@@ -1,29 +1,30 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
-import styles from '../../screens/authentication/styles/AccountRecovery.style';
-import i18n from '@i18n/i18n';
-import CodeInput from 'react-native-confirmation-code-input';
-import { useMutation } from '@apollo/react-hooks';
-import SignInWithgeneratedCode from '../../graphql/user/signInWithCode.graphql';
+import React, { FunctionComponent, useRef, useState } from "react";
+import { View, Text, TouchableOpacity, AsyncStorage } from "react-native";
+import styles from "../../screens/authentication/styles/AccountRecovery.style";
+import i18n from "@i18n/i18n";
+import CodeInput from "react-native-confirmation-code-input";
+import { useMutation } from "@apollo/react-hooks";
+import SignInWithgeneratedCode from "../../graphql/user/signInWithCode.graphql";
 // import * as Notifications from 'expo-notifications';
-import { useNavigation } from "@react-navigation/native";
-import Spinner from 'react-native-loading-spinner-overlay';
-import Preload from '../../screens/authentication/Preload';
+import Spinner from "react-native-loading-spinner-overlay";
+import Preload from "../../screens/authentication/Preload";
+import { Theme, ThemedText, withTheme } from "@components/theme/Theme";
 
 declare interface CodeStateProps {
     email: string;
+    theme: Theme;
 }
 
-const CodeState: FunctionComponent<CodeStateProps> = ({ email }) => {
-    const [error, setError] = useState('');
+const CodeState: FunctionComponent<CodeStateProps> = ({ email, theme }) => {
+    const [error, setError] = useState("");
     const preloadRef = useRef(null);
     const onCompletedHandler = async (data): Promise<void> => {
         await AsyncStorage.setItem(
-            'token',
+            "token",
             data.signInWithgeneratedCode.token
         ).then();
         await AsyncStorage.setItem(
-            'userId',
+            "userId",
             data.signInWithgeneratedCode.userId
         ).then();
         preloadRef.current.preload();
@@ -33,7 +34,7 @@ const CodeState: FunctionComponent<CodeStateProps> = ({ email }) => {
             onCompletedHandler(data);
         },
         onError: () => {
-            setError(i18n.t('AccountRecoveryScreen.InvalidCodeOrEmail'));
+            setError(i18n.t("AccountRecoveryScreen.InvalidCodeOrEmail"));
         }
     });
 
@@ -54,19 +55,19 @@ const CodeState: FunctionComponent<CodeStateProps> = ({ email }) => {
             variables: {
                 email,
                 code,
-                exponentPushToken: 'exponentToken'
+                exponentPushToken: "exponentToken"
             }
         });
     };
 
     return (
         <View>
-            <Spinner visible={loading} textContent={i18n.t('loading')} />
+            <Spinner visible={loading} textContent={i18n.t("loading")} />
             <Text
                 style={{
-                    fontFamily: 'Montserrat',
-                    color: 'black',
-                    alignSelf: 'center',
+                    fontFamily: "Montserrat",
+                    color: theme.palette.fontColor,
+                    alignSelf: "center",
                     marginTop: 20,
                     fontSize: 20
                 }}
@@ -74,24 +75,27 @@ const CodeState: FunctionComponent<CodeStateProps> = ({ email }) => {
                 {email}
             </Text>
             <TouchableOpacity onPress={() => {}} style={styles.forgotContainer}>
-                <Text style={styles.forgotText}>
-                    {i18n.t('AccountRecoveryScreen.resentCode')}
-                </Text>
+                <ThemedText style={styles.forgotText}>
+                    {i18n.t("AccountRecoveryScreen.resentCode")}
+                </ThemedText>
             </TouchableOpacity>
             <CodeInput
                 codeLength={6}
-                className={'border-b'}
+                className={"border-b"}
                 space={7}
                 autoFocus={true}
                 size={40}
-                activeColor={'black'}
-                inactiveColor={'black'}
+                activeColor={theme.palette.fontColor}
+                inactiveColor={theme.palette.fontColor}
                 keyboardType="numeric"
                 onFulfill={_fullFillCode}
                 containerStyle={{
                     marginTop: 40,
                     height: 50,
                     flex: 0
+                }}
+                codeInputStyle={{
+                    color: theme.palette.fontColor
                 }}
             />
             <Text style={[styles.errorText, { marginBottom: 40 }]}>
@@ -102,4 +106,4 @@ const CodeState: FunctionComponent<CodeStateProps> = ({ email }) => {
     );
 };
 
-export default CodeState;
+export default withTheme(CodeState);

@@ -7,25 +7,21 @@ import i18n from "@i18n/i18n";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import ButtonTerradia from "@components/buttons/ButtonTerradia";
+import MainHeader from "@components/theme/MainHeader";
+import { ThemedBox, ThemedContainer, ThemedSafeAreaView } from '@components/theme/Theme';
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
 
 const AccountRecovery: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [email, setEmail] = useState("");
     const [state, setState] = useState(true);
     return (
-        <SafeAreaView>
-            <View style={{ flexDirection: "row", marginLeft: 10 }}>
-                <TouchableOpacity
-                    onPress={(): void => navigate("Login")}
-                    style={{}}
-                >
-                    <AntDesign name="arrowleft" size={32} color={"#575757"} />
-                </TouchableOpacity>
-                <Text style={styles.titleText}>
-                    {i18n.t("AccountRecoveryScreen.accountRecovery")}
-                </Text>
-            </View>
-            <View style={styles.container}>
+        <ThemedContainer style={{ flex: 1 }}>
+            <MainHeader
+                title={i18n.t("AccountRecoveryScreen.accountRecovery")}
+                backButton
+            />
+            <ThemedBox style={styles.container}>
                 {state ? (
                     <EmailState
                         email={email}
@@ -35,20 +31,20 @@ const AccountRecovery: FunctionComponent = () => {
                 ) : (
                     <CodeState email={email} />
                 )}
-            </View>
+            </ThemedBox>
             {!state && (
                 <View style={styles.buttonContainer}>
-                    <ButtonTerradia
+                    <ButtonWithIcon
                         title={i18n.t("AccountRecoveryScreen.updateEmail")}
                         onPress={async (): Promise<void> => {
                             setState(true);
                         }}
-                        style={[{ borderColor: "#FFFFFF" }]}
-                        titleStyle={[{ color: "#FFFFFF" }]}
+                        size={50}
+                        textSize={20}
                     />
                 </View>
             )}
-        </SafeAreaView>
+        </ThemedContainer>
     );
 };
 

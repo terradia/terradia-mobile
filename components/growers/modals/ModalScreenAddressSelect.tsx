@@ -1,19 +1,25 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import * as Localization from 'expo-localization';
-import { Feather, FontAwesome } from '@expo/vector-icons';
-import i18n from '@i18n/i18n';
-import getLocationAsync from './CurrentPositionResolver';
-import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv';
-import styles from './styles/ModalScreenAddressSelect.style';
-import getAllAddressesByUser from '../../../graphql/getAddressesByUser.graphql';
-import { useQuery } from '@apollo/react-hooks';
-import getActiveAddress from '../../../graphql/getActiveAddress.graphql';
+import React, { FunctionComponent, ReactElement } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import * as Localization from "expo-localization";
+import { Feather, FontAwesome } from "@expo/vector-icons";
+import i18n from "@i18n/i18n";
+import getLocationAsync from "./CurrentPositionResolver";
+import { GOOGLE_MAP_API_KEY } from "react-native-dotenv";
+import styles from "./styles/ModalScreenAddressSelect.style";
+import getAllAddressesByUser from "../../../graphql/getAddressesByUser.graphql";
+import { useQuery } from "@apollo/react-hooks";
+import getActiveAddress from "../../../graphql/getActiveAddress.graphql";
+import {
+    Theme,
+    ThemedIcon,
+    ThemedText,
+    withTheme
+} from "@components/theme/Theme";
 
 const currentLocation = [
     {
-        address: i18n.t('addressModal.currentLocation'),
+        address: i18n.t("addressModal.currentLocation"),
         currentLocation: true,
         geometry: { location: { lat: 0, lng: 0 } }
     }
@@ -23,28 +29,30 @@ declare interface ModalScreenAddressSelectProps {
     setIsSearching: any;
     setCurrentAddress: any;
     setDisplayModalAddress: any;
+    theme: Theme;
 }
 
 const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps> = ({
     setIsSearching,
     setCurrentAddress,
-    setDisplayModalAddress
+    setDisplayModalAddress,
+    theme
 }) => {
     const { loading, data } = useQuery(getAllAddressesByUser, {
-        fetchPolicy: 'cache-first'
+        fetchPolicy: "cache-first"
     });
     const { data: activeAddress } = useQuery(getActiveAddress, {
-        fetchPolicy: 'cache-first'
+        fetchPolicy: "cache-first"
     });
     if (loading || !data) return <View style={styles.mainContainer} />;
     return (
         <View style={styles.mainContainer}>
             <GooglePlacesAutocomplete
-                placeholder={i18n.t('searchScreen.search1')}
+                placeholder={i18n.t("searchScreen.search1")}
                 minLength={2} // minimum length of text to search
                 autoFocus={false}
-                returnKeyType={'default'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+                returnKeyType={"default"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+                keyboardAppearance={"light"} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
                 listViewDisplayed={true} // true/false/undefined
                 fetchDetails={false}
                 renderDescription={row => {
@@ -52,65 +60,74 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                         return (
                             <View
                                 style={{
-                                    flexDirection: 'row',
+                                    flexDirection: "row",
                                     flex: 1,
                                     marginLeft: 8,
                                     marginRight: 25
                                 }}
                             >
                                 {row.currentLocation ? (
-                                    <FontAwesome
-                                        name="location-arrow"
-                                        size={19}
-                                        style={{ paddingRight: 10 }}
+                                    <ThemedIcon
+                                        icon={
+                                            <FontAwesome
+                                                name="location-arrow"
+                                                size={19}
+                                                style={{ paddingRight: 10 }}
+                                            />
+                                        }
                                     />
                                 ) : (
-                                    <Feather
-                                        name={
-                                            activeAddress
-                                                .getActiveCustomerAddress.id ===
-                                            row.id
-                                                ? 'check'
-                                                : 'clock'
+                                    <ThemedIcon
+                                        icon={
+                                            <Feather
+                                                name={
+                                                    activeAddress
+                                                        .getActiveCustomerAddress
+                                                        .id === row.id
+                                                        ? "check"
+                                                        : "clock"
+                                                }
+                                                size={19}
+                                                style={{
+                                                    paddingRight: 10,
+                                                    color:
+                                                        activeAddress
+                                                            .getActiveCustomerAddress
+                                                            .id === row.id
+                                                            ? "#8FDD3D"
+                                                            : theme.palette
+                                                                  .fontColor
+                                                }}
+                                            />
                                         }
-                                        size={19}
-                                        style={{
-                                            paddingRight: 10,
-                                            color:
-                                                activeAddress
-                                                    .getActiveCustomerAddress
-                                                    .id === row.id
-                                                    ? '#8FDD3D'
-                                                    : 'black'
-                                        }}
                                     />
                                 )}
-                                <Text
+                                <ThemedText
                                     style={{
-                                        fontFamily: 'Montserrat',
+                                        fontFamily: "Montserrat",
                                         fontSize: 16,
                                         color:
                                             activeAddress
                                                 .getActiveCustomerAddress.id ===
                                             row.id
-                                                ? '#8FDD3D'
-                                                : '#202020'
+                                                ? "#8FDD3D"
+                                                : theme.palette.fontColor
                                     }}
                                 >
                                     {row.address}
-                                </Text>
+                                </ThemedText>
                             </View>
                         );
                     } else {
                         return (
-                            <Text
+                            <ThemedText
                                 style={{
-                                    fontFamily: 'Montserrat',
+                                    fontFamily: "Montserrat",
                                     fontSize: 18
                                 }}
                             >
                                 {row.description}
-                            </Text>
+                            </ThemedText>
                         );
                     }
                 }} // custom description render
@@ -119,27 +136,27 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                         const addr = await getLocationAsync();
                         setCurrentAddress({
                             address: addr,
-                            apartment: '',
-                            information: ''
+                            apartment: "",
+                            information: ""
                         });
                         setIsSearching(false);
                     } else {
                         setCurrentAddress({
                             address: data.address || data.description,
                             id: data.isPredefinedPlace ? data.id : null,
-                            apartment: data.apartment ? data.apartment : '',
+                            apartment: data.apartment ? data.apartment : "",
                             information: data.information
                                 ? data.information
-                                : ''
+                                : ""
                         });
                         setIsSearching(false);
                     }
                 }}
-                getDefaultValue={() => ''}
-                currentLocationLabel={'address'}
+                getDefaultValue={() => ""}
+                currentLocationLabel={"address"}
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
-                    types: 'address',
+                    types: "address",
                     language: Localization.locale, // language of the results
                     key: GOOGLE_MAP_API_KEY
                 }}
@@ -160,7 +177,7 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 GooglePlacesSearchQuery={{}}
                 GooglePlacesDetailsQuery={{
                     // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                    fields: 'address_component'
+                    fields: "address_component"
                 }}
                 predefinedPlaces={currentLocation.concat(
                     data.getAllCustomerAddressesByUser
@@ -178,12 +195,12 @@ const ModalScreenAddressSelect: FunctionComponent<ModalScreenAddressSelectProps>
                 onPress={(): void => setDisplayModalAddress(false)}
                 style={styles.buttonBackContainer}
             >
-                <Text style={styles.buttonBack}>
-                    {i18n.t('addressModal.back')}
-                </Text>
+                <ThemedText style={styles.buttonBack}>
+                    {i18n.t("addressModal.back")}
+                </ThemedText>
             </TouchableOpacity>
         </View>
     );
 };
 
-export default ModalScreenAddressSelect;
+export default withTheme(ModalScreenAddressSelect);
