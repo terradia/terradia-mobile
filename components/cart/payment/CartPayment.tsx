@@ -8,6 +8,8 @@ import createACharge from "../../../graphql/cart/createACharge.graphql";
 import Spinner from "react-native-loading-spinner-overlay";
 import Modal from "react-native-modal";
 import ModalPaymentValidated from "./ModalPaymentValidated";
+import { ButtonWithIcon } from '@components/buttons/ButtonWithIcon';
+import { calcWidth } from '../../../utils/deviceResponsiveHelper';
 
 declare interface CartPaymentData {
     cart: CartData;
@@ -50,20 +52,29 @@ const CartPayment: FunctionComponent<CartPaymentData> = ({ cart }) => {
                 textContent={i18n.t("loading")}
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
-            <TouchableOpacity
+            <ButtonWithIcon
                 onPress={(): Promise<void> => createPaymentSource()}
                 style={styles.priceContainer}
-            >
-                <Text style={styles.orderButton}>
-                    {i18n.t("cart.orderNow")}
-                </Text>
-                <View style={styles.priceTotalContainer}>
-                    <Text style={styles.total}>{i18n.t("cart.total")}</Text>
-                    <Text style={styles.totalPrice}>
-                        {cart.totalPrice.toFixed(2)} €
-                    </Text>
-                </View>
-            </TouchableOpacity>
+                size={50}
+                title={i18n.t("cart.orderNow")}
+                textSize={20}
+                width={calcWidth(90)}
+                type={"full"}
+            />
+            {/*<TouchableOpacity*/}
+            {/*    onPress={(): Promise<void> => createPaymentSource()}*/}
+            {/*    style={styles.priceContainer}*/}
+            {/*>*/}
+            {/*    <Text style={styles.orderButton}>*/}
+            {/*        {i18n.t("cart.orderNow")}*/}
+            {/*    </Text>*/}
+            {/*    <View style={styles.priceTotalContainer}>*/}
+            {/*        <Text style={styles.total}>{i18n.t("cart.total")}</Text>*/}
+            {/*        <Text style={styles.totalPrice}>*/}
+            {/*            {cart.totalPrice.toFixed(2)} €*/}
+            {/*        </Text>*/}
+            {/*    </View>*/}
+            {/*</TouchableOpacity>*/}
         </>
     );
 };

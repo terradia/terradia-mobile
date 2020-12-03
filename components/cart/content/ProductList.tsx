@@ -148,7 +148,7 @@ const ProductList: FunctionComponent = () => {
                         navigate("PaymentPicker", { cart: data.getCart })
                     }
                     size={50}
-                    title={i18n.t("cart.orderNow")}
+                    title={i18n.t("cart.paymentMethod")}
                     textSize={20}
                     width={calcWidth(92)}
                     type={"full"}

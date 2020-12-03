@@ -21,6 +21,8 @@ import { requestOneTimePayment } from "react-native-paypal";
 import axios from "axios";
 import { StackScreenProps } from "@react-navigation/stack";
 import { CartData } from "@interfaces/User";
+import { ThemedContainer, ThemedText } from '@components/theme/Theme';
+import MainHeader from '@components/theme/MainHeader';
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),
@@ -93,13 +95,13 @@ const PaymentPicker = ({ route }: Props): ReactElement => {
     };
 
     return (
-        <>
-            <HeaderAccount title={i18n.t("cart.paymentMethod")} backButton />
+        <ThemedContainer style={{ flex: 1 }}>
+            <MainHeader title={i18n.t("cart.paymentMethod")} backButton />
             <View style={{ paddingLeft: 20, paddingRight: 20, flex: 1 }}>
                 <View style={[styles.fieldContainer, { marginBottom: 20 }]}>
-                    <Text style={styles.fieldTitle}>
+                    <ThemedText style={styles.fieldTitle}>
                         {i18n.t("cart.cards")}
-                    </Text>
+                    </ThemedText>
                     {loadingCards && (
                         <ActivityIndicator color={"#5CC04A"} size={"large"} />
                     )}
@@ -122,9 +124,9 @@ const PaymentPicker = ({ route }: Props): ReactElement => {
                                         style={{ width: 50, height: 30 }}
                                         source={Icons[val.brand.toLowerCase()]}
                                     />
-                                    <Text style={styles.subFieldText}>
+                                    <ThemedText style={styles.subFieldText}>
                                         {val.last4}
-                                    </Text>
+                                    </ThemedText>
                                 </View>
                                 {defaultSource &&
                                     defaultSource.getStripeCustomerDefaultSource &&
@@ -144,9 +146,9 @@ const PaymentPicker = ({ route }: Props): ReactElement => {
                             navigate("CardEditor");
                         }}
                     >
-                        <Text style={styles.addPaymentMethod}>
+                        <ThemedText style={styles.addPaymentMethod}>
                             {i18n.t("walletScreen.addPaymentMethod")}
-                        </Text>
+                        </ThemedText>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginLeft: 10 }}>
@@ -177,7 +179,7 @@ const PaymentPicker = ({ route }: Props): ReactElement => {
                 </View>
                 <CartPayment cart={cart} />
             </View>
-        </>
+        </ThemedContainer>
     );
 };
 

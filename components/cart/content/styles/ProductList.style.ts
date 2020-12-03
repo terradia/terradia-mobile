@@ -104,15 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     priceContainer: {
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "row",
         marginBottom: 20,
-        backgroundColor: "#8FDD3D",
-        height: 50,
-        paddingLeft: 10,
-        paddingRight: 10,
-        borderRadius: 10,
         position: "absolute",
         bottom: 0,
         width: "110%",
