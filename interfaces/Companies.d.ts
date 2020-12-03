@@ -80,3 +80,10 @@ export interface UnitData {
     referenceUnit: UnitData;
     multiplicationFactor: number;
 }
+
+export interface CompanyTagData {
+    color: string;
+    id: string;
+    slugName: string;
+    translationKey: string;
+}

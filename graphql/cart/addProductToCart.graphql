@@ -2,6 +2,5 @@ mutation addProductToCart($quantity: Int!, $productId: ID!) {
     addProductToCart(quantity: $quantity, productId: $productId) {
         id
         quantity
-
     }
 }

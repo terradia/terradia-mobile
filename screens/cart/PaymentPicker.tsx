@@ -20,7 +20,7 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import { requestOneTimePayment } from "react-native-paypal";
 import axios from "axios";
 import { StackScreenProps } from "@react-navigation/stack";
-import { CartData } from '@interfaces/User';
+import { CartData } from "@interfaces/User";
 
 const Icons = {
     cvc: require("../../assets/icons/stp_card_cvc.png"),

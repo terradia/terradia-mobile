@@ -1,7 +1,13 @@
 import React, { FunctionComponent } from "react";
-import { SafeAreaView, View, ViewProps, Text, TextProps } from 'react-native';
-import { Feather } from "@expo/vector-icons";
-import { IconProps } from "@expo/vector-icons/build/createIconSet";
+import {
+    SafeAreaView,
+    View,
+    ViewProps,
+    Text,
+    TextProps,
+    ViewStyle
+} from "react-native";
+import { SafeAreaViewProps } from "react-native-safe-area-context";
 
 export const ThemeContext = React.createContext(null);
 
@@ -37,6 +43,26 @@ export const ThemeConstants = {
         fontColor: "#FFFFFF"
     }
 };
+
+export interface Theme {
+    type: string;
+    palette: {
+        primary: string;
+        secondary: string;
+        third: string;
+        warning: string;
+        yellow: string;
+        error: string;
+        backgroundColor: string;
+        disabled: string;
+        lighterBackgroundColor: string;
+        card: {
+            backgroundColor: string;
+        };
+        fontColor: string;
+    };
+    toggleTheme: () => void;
+}
 
 export function withTheme(Component) {
     return function ThemeComponent(props) {
@@ -122,7 +148,7 @@ export const ThemedText: FunctionComponent<TextProps> = withTheme(
     }
 );
 
-export const ThemedSafeAreaView: FunctionComponent<ViewProps> = withTheme(
+export const ThemedSafeAreaView: FunctionComponent<SafeAreaViewProps> = withTheme(
     ({ style, theme, ...props }) => {
         return (
             <SafeAreaView
@@ -138,22 +164,21 @@ export const ThemedSafeAreaView: FunctionComponent<ViewProps> = withTheme(
     }
 );
 
-export const ThemedFeatherIcon: FunctionComponent<IconProps<any>> = ({
-    style,
-    size = 24,
-    color = undefined,
-    ...props
-}) => {
-    return (
-        <ThemeContext.Consumer>
-            {({ theme }) => (
-                <Feather
-                    name="arrow-left"
-                    size={size}
-                    color={color ? color : theme.palette.fontColor}
-                    {...props}
-                />
-            )}
-        </ThemeContext.Consumer>
-    );
-};
+interface ThemedIconProps {
+    icon: React.ReactNode;
+    style?: ViewStyle;
+    size?: number;
+    color?: string;
+    theme?: Theme;
+}
+
+export const ThemedIcon: FunctionComponent<ThemedIconProps> = withTheme(
+    ({ style = {}, size = 24, color = undefined, icon, theme, ...props }) => {
+        const iconsProps = {
+            size,
+            color: color ? color : theme.palette.fontColor,
+            ...props
+        };
+        return React.cloneElement(icon, iconsProps);
+    }
+);

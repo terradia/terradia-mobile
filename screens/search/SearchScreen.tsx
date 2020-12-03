@@ -8,11 +8,12 @@ import DeepLinking from "@components/routing/DeepLinking";
 import searchCompanies from "../../graphql/search/searchCompanies.graphql";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import GrowerCard from "@components/cards/GrowerCard";
-import { CompanyData } from "@interfaces/Companies";
+import { CompanyData, CompanyTagData } from '@interfaces/Companies';
 import Spinner from "react-native-loading-spinner-overlay";
 import CardListLoader from "@components/growers/CardListLoader";
 import getAllCompanyTags from "../../graphql/tags/getAllCompanyTags.graphql";
 import i18n from "@i18n/i18n";
+import { ThemedContainer } from '@components/theme/Theme';
 
 declare interface SearchScreenProps {
     collapsible: any;
@@ -36,6 +37,10 @@ const DATA = [
     "Maraicher"
 ];
 
+interface GetAllCompanyTagsData {
+    getAllCompanyTags: [CompanyTagData];
+}
+
 const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
     const [value, setValue] = useState("");
     const [listY, setListY] = useState(0);
@@ -43,7 +48,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
         searchCompanies
     );
     const [canDisplayCompanies, setDisplayCompanies] = useState(false);
-    const { data: tags } = useQuery(getAllCompanyTags);
+    const { data: tags } = useQuery<GetAllCompanyTagsData>(getAllCompanyTags);
     const _onCategoryClicked = category => {
         setValue(category);
         setDisplayCompanies(true);
@@ -86,7 +91,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1 }}>
             <Spinner
                 visible={loading}
                 textContent={i18n.t("loading")}
@@ -113,11 +118,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
                                 item
                             }: {
                                 item: CompanyData;
-                            }): ReactElement => (
-                                <GrowerCard
-                                    grower={item}
-                                />
-                            )}
+                            }): ReactElement => <GrowerCard grower={item} />}
                             keyExtractor={(item, index): string =>
                                 String(index)
                             }
@@ -128,9 +129,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
                 </>
             ) : (
                 <VerticalList
-                    categories={
-                        DATA
-                    }
+                    categories={tags?.getAllCompanyTags}
                     title={"Toutes les catégories"}
                     ListHeaderComponent={_renderItem}
                     searchCompanies={_onCategoryClicked}
@@ -139,7 +138,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
             )}
             <Cart />
             <DeepLinking />
-        </View>
+        </ThemedContainer>
     );
 };
 

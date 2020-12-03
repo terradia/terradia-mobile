@@ -88,12 +88,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
             setError(i18n.t("loginScreen.fillPassword"));
             return;
         }
-        // const token = await registerForPushNotificationsAsync();
+        const token = await registerForPushNotificationsAsync();
         login({
             variables: {
                 email: email,
                 password: password,
-                exponentPushToken: ""
+                exponentPushToken: token
             }
         }).then();
     };

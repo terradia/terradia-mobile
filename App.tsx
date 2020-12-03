@@ -138,12 +138,6 @@ export default function App(props): ReactElement {
         setLoadingComplete(true);
     });
 
-    const [theme, setTheme] = React.useState<"light" | "dark">("dark");
-
-    const toggleTheme = () => {
-        setTheme(theme === "light" ? "dark" : "light");
-    };
-
     const linking = {
         prefixes: [prefix]
     };

@@ -57,6 +57,8 @@ type Company {
     logo: CompanyImage
     name: String!
     numberOfMarks: Int
+    numberOrderHistories: Int
+    numberOrders: Int
     numberProducts: Int
     officialName: String
     openingDays: [CompanyOpeningDay]
@@ -223,6 +225,7 @@ type CompanyReview {
     customerMark: Int!
     description: String
     id: String!
+    reply: String
     title: String!
     updatedAt: Date
 }
@@ -320,6 +323,8 @@ type Mutation {
     addOpeningDay(companyId: String!, day: String!, hours: [ScheduleInput]): CompanyOpeningDay!
     addProductToCart(productId: ID!, quantity: Int!): CartProduct
     addProductToCompanyCategory(categoryId: String!, productId: String!): Product
+    addReplyToCompanyReview(reply: String!, reviewId: String!): CompanyReview
+    addReplyToProductReview(reply: String, reviewId: String!): ProductReview
     addTagToCompany(companyId: String!, companyTagId: String!): Company!
     addUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     cancelInvitation(id: String!): Boolean
@@ -332,6 +337,7 @@ type Mutation {
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
     createCompanyTag(color: String!, name: String!): CompanyTag!
     createOrUpdateCustomerAddress(address: String!, apartment: String, id: String, information: String): CustomerAddress
+    createOrderHistoryReview(comment: String, customerMark: Int!, orderHistoryId: ID!): OrderHistoryReview
     createProduct(companyId: String!, companyProductsCategoryId: String, coverId: String, description: String!, name: String!, price: Float!, quantityForUnit: Int, unitId: String): Product!
     createProductReview(customerMark: Int!, description: String, productId: String!, title: String): ProductReview
     createStripeCustomer: Boolean!
@@ -342,9 +348,11 @@ type Mutation {
     deleteCategory(id: String!): Category!
     deleteCompany(companyId: String!): Company!
     deleteCompanyProductAdvise(id: ID!): CompanyProductAdvise
+    deleteCompanyReply(reviewId: String): CompanyReview
     deleteCompanyTag(companyTagId: String!): CompanyTag!
     deleteImageFromProduct(companyImageId: String!, productId: String!): CompanyImage
     deleteProduct(productId: String!): Int
+    deleteProductReply(reviewId: String!): ProductReview
     deleteTagFromCompany(companyId: String!, companyTagId: String!): Company!
     deleteUser(password: String): User!
     generateCodePasswordForgot(email: String!): Boolean
@@ -363,7 +371,7 @@ type Mutation {
     removeFavoriteCompany(companyId: String!): Customer
     removeOpeningDay(openingDayId: String!): CompanyOpeningDay!
     removeOpeningHours(hourId: String!): CompanyOpeningDayHours!
-    removeProductFromCart(cartProductId: ID, productId: ID, quantity: Int!): Int
+    removeProductFromCart(productId: ID!, quantity: Int!): Int
     removeProductFromCompanyCategory(productId: String!): Product
     removeUserCompanyRole(companyUserId: String!, roleId: String!): CompanyUser!
     restoreCompany(companyId: String!): Company!
@@ -408,11 +416,13 @@ type Order {
 type OrderHistory {
     code: String!
     companyAddress: String
+    companyCover: String
     companyId: String
     companyLogo: String
     companyName: String
     createdAt: Date!
     customerId: String
+    customerReview: OrderHistoryReview
     decliningReason: String
     id: ID!
     numberProducts: Int!
@@ -422,6 +432,14 @@ type OrderHistory {
     status: OrderHistoryStatus
     stripePaymentIntent: String
     updatedAt: Date!
+}
+
+type OrderHistoryReview {
+    comment: String
+    createdAt: Date
+    customerMark: Int!
+    id: String!
+    orderHistory: OrderHistory
 }
 
 type OrderProduct {
@@ -478,6 +496,7 @@ type ProductReview {
     description: String
     id: String!
     product: Product
+    reply: String
     title: String!
     updatedAt: Date
 }

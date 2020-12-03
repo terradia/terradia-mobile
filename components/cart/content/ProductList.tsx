@@ -8,48 +8,54 @@ import Spinner from "react-native-loading-spinner-overlay";
 import AddProductToCart from "../../../graphql/cart/addProductToCart.graphql";
 import RemoveProductFromCart from "../../../graphql/cart/removeProductFromCart.graphql";
 import { SwipeListView } from "react-native-swipe-list-view";
-import AddressInformation from "@components/cart/content/AddressInformations";
-import DeliveryDate from "@components/cart/content/DeliveryDate";
 import i18n from "@i18n/i18n";
-import PaymentMethod from "@components/cart/content/PaymentMethod";
 import { useNavigation } from "@react-navigation/native";
+import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
+import { Feather } from "@expo/vector-icons";
+import { OrderFooter } from "@components/orders/OrderFooter";
 
 const ProductList: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [dataLoading, setLoading] = useState(false);
     const { data, refetch } = useQuery(getCart, {
         notifyOnNetworkStatusChange: true,
+        onError: err => {
+            console.log(err);
+        },
         onCompleted: () => {
             setLoading(false);
         }
     });
     const [addProductToCart] = useMutation(AddProductToCart, {
-        onError: () => {
+        onError: err => {
             setLoading(false);
+            console.log(err);
         },
         onCompleted: () => {
             refetch();
+            setLoading(false);
         }
     });
     const [removeProductFromCart] = useMutation(RemoveProductFromCart, {
-        onError: () => {
+        onError: err => {
             setLoading(false);
+            console.log(err);
         },
         onCompleted: () => {
             refetch();
+            setLoading(false);
         }
     });
     const _addProduct = params => {
-        setTimeout(() => {
-            addProductToCart(params);
-            setLoading(true);
-        }, 200);
+        console.log(params);
+        addProductToCart(params);
+        setLoading(true);
     };
     const _removeProduct = params => {
-        setTimeout(() => {
-            removeProductFromCart(params);
-            setLoading(true);
-        }, 200);
+        console.log(params);
+        removeProductFromCart(params);
+        setLoading(true);
     };
 
     const renderItem = data => (
@@ -74,7 +80,7 @@ const ProductList: FunctionComponent = () => {
                 style={styles.rowBack}
             >
                 <View style={[styles.backRightBtn, styles.backRightBtnRight]}>
-                    <Text style={styles.backTextWhite}>Delete</Text>
+                    <Feather name={"trash"} size={30} color={"white"} />
                 </View>
             </TouchableOpacity>
         );
@@ -95,6 +101,8 @@ const ProductList: FunctionComponent = () => {
         );
     }
 
+    const [refreshing, setRefreshing] = React.useState(false);
+
     return (
         <View style={styles.container}>
             <Spinner
@@ -103,56 +111,49 @@ const ProductList: FunctionComponent = () => {
                 textStyle={{ fontFamily: "MontserratSemiBold" }}
             />
             <SwipeListView
-                ListHeaderComponent={(): ReactElement => {
-                    return (
-                        <View>
-                            <AddressInformation cart={data.getCart} />
-                            <DeliveryDate />
-                            <Text style={styles.title}>
-                                {i18n.t("cart.yourOrder")}
-                            </Text>
-                        </View>
-                    );
-                }}
-                ListFooterComponent={(): ReactElement => {
-                    return (
-                        <View style={styles.bottomList}>
-                            <PaymentMethod />
-                        </View>
-                    );
-                }}
                 disableRightSwipe
                 useFlatList={true}
                 data={data.getCart.products}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
-                leftOpenValue={75}
+                leftOpenValue={calcWidth(20)}
                 keyExtractor={(item, index): string => index.toString()}
-                rightOpenValue={-75}
+                rightOpenValue={-calcWidth(24)}
                 closeOnRowBeginSwipe
                 closeOnScroll
                 closeOnRowPress
                 previewRowKey={"0"}
-                previewDuration={500}
-                previewOpenValue={-75}
-                stopRightSwipe={-100}
+                previewDuration={300}
+                previewOpenValue={-calcWidth(24)}
+                stopRightSwipe={-calcWidth(24)}
+                onRefresh={() => {
+                    setRefreshing(true);
+                    refetch().then(() => {
+                        setRefreshing(false);
+                    });
+                }}
+                refreshing={refreshing}
+                style={{
+                    paddingTop: calcWidth(2)
+                }}
             />
-            <TouchableOpacity
-                onPress={(): void =>
-                    navigate("PaymentPicker", { cart: data.getCart })
-                }
-                style={styles.priceContainer}
+            <View
+                style={{
+                    paddingHorizontal: calcWidth(4)
+                }}
             >
-                <Text style={styles.orderButton}>
-                    {i18n.t("cart.orderNow")}
-                </Text>
-                <View style={styles.priceTotalContainer}>
-                    <Text style={styles.total}>{i18n.t("cart.total")}</Text>
-                    <Text style={styles.totalPrice}>
-                        {data.getCart.totalPrice.toFixed(2)} €
-                    </Text>
-                </View>
-            </TouchableOpacity>
+                <OrderFooter cart={data.getCart} />
+                <ButtonWithIcon
+                    onPress={(): void =>
+                        navigate("PaymentPicker", { cart: data.getCart })
+                    }
+                    size={50}
+                    title={i18n.t("cart.orderNow")}
+                    textSize={20}
+                    width={calcWidth(92)}
+                    type={"full"}
+                />
+            </View>
         </View>
     );
 };

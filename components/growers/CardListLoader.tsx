@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { View, StyleSheet } from "react-native";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { ThemeContext, ThemedBox, withTheme } from "@components/theme/Theme";
+import { Theme, ThemeContext, ThemedBox, withTheme } from '@components/theme/Theme';
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-    theme: any;
+    theme: Theme;
 }
 
 const CardListLoader: FunctionComponent<Props> = ({ theme, ...props }) => {

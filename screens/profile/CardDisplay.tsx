@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, ReactElement, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import MainHeader from "@components/theme/MainHeader";
 import i18n from "@i18n/i18n";
@@ -8,12 +8,22 @@ import DeleteCard from "../../graphql/wallet/deleteCard.graphql";
 import { useNavigation } from "@react-navigation/native";
 import CreditCardDisplay from "react-native-credit-card-display";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
+import { StackScreenProps } from "@react-navigation/stack";
 
-const CardEditor: FunctionComponent = () => {
-    const number = useNavigationParam("number");
-    const expiry = useNavigationParam("expiry");
-    const brand = useNavigationParam("brand");
-    const cardId = useNavigationParam("cardId");
+type RootStackParamList = {
+    Home: undefined;
+    CardEditor: {
+        number: number;
+        expiry: string;
+        brand: string;
+        cardId: string;
+    };
+};
+type Props = StackScreenProps<RootStackParamList, "CardEditor">;
+
+const CardEditor = ({ route }: Props): ReactElement => {
+    const { number, expiry, brand, cardId } = route.params;
+
     const { goBack } = useNavigation();
     const [isLoading, setIsLoading] = useState(false);
     const [getCardList] = useLazyQuery(ListCustomerCards, {
@@ -28,10 +38,6 @@ const CardEditor: FunctionComponent = () => {
             getCardList();
         }
     });
-
-    const _createStripeToken = async (): Promise<void> => {
-        return;
-    };
 
     return (
         <>

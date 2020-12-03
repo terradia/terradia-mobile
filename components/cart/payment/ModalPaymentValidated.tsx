@@ -4,6 +4,8 @@ import styles from "./style/ModalPaymentValidated";
 import LottieView from "lottie-react-native";
 import { useNavigation } from "@react-navigation/native";
 import i18n from "@i18n/i18n";
+import { useApolloClient } from "@apollo/react-hooks";
+import getCart from "../../../graphql/cart/getCart.graphql";
 
 declare interface ModalPaymentValidatedProps {
     setIsValidated: (boolean) => void;
@@ -14,6 +16,7 @@ const ModalPaymentValidated: FunctionComponent<ModalPaymentValidatedProps> = ({
 }) => {
     const lottieRef = useRef(null);
     const { navigate } = useNavigation();
+    const client = useApolloClient();
 
     useEffect(() => {
         lottieRef.current.play();
@@ -30,7 +33,11 @@ const ModalPaymentValidated: FunctionComponent<ModalPaymentValidatedProps> = ({
                     loop={false}
                     onAnimationFinish={(): void => {
                         setIsValidated(false);
-                        navigate("Orders");
+                        client.query({
+                            query: getCart,
+                            fetchPolicy: "network-only"
+                        });
+                        navigate(i18n.t("navigation.orders"));
                     }}
                     style={styles.lottieAnimation}
                     source={require("../../../assets/json/33028-input-validation-correct.json")}

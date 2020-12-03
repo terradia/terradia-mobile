@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
     header: {
@@ -7,13 +8,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: calcWidth(4),
+        paddingRight: calcWidth(4)
     },
     headerTitle: {
         fontSize: 20,
         fontFamily: "MontserratBold",
-        color: "#575757"
     }
 });
 

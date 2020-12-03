@@ -37,7 +37,8 @@ const UpcomingList: FunctionComponent = () => {
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={(): void => {
-                            refetch();
+                            setRefreshing(true);
+                            refetch().then(() => setRefreshing(false));
                         }}
                     />
                 }

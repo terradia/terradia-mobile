@@ -1,16 +1,13 @@
-import React, { FunctionComponent, ReactElement } from 'react';
-import {
-    Animated,
-    FlatList,
-    Image,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
-import SearchCard from '../../cards/SearchCard';
+import React, { FunctionComponent, ReactElement } from "react";
+import { FlatList, StyleSheet, View, Text } from "react-native";
+import SearchCard from "../../cards/SearchCard";
+import { CompanyTagData } from "@interfaces/Companies";
+
+const minWidth = 170;
+const maxWidth = minWidth * 2 + 20;
 
 declare interface VerticalListProps {
-    categories: Array<string>;
+    categories: Array<CompanyTagData>;
     title: string;
     ListHeaderComponent: any;
     searchCompanies: any;
@@ -20,8 +17,8 @@ declare interface VerticalListProps {
 const styles = StyleSheet.create({
     title: {
         fontSize: 18,
-        fontFamily: 'MontserratBold',
-        color: '#575757',
+        fontFamily: "MontserratBold",
+        color: "#575757",
         marginTop: 10,
         marginLeft: 10
     }
@@ -36,24 +33,30 @@ const VerticalList: FunctionComponent<VerticalListProps> = ({
 }) => {
     return (
         <View style={{ flex: 1 }}>
-            {/*<Text style={styles.title}>{title}</Text>*/}
+            <Text style={styles.title}>{title}</Text>
             <FlatList
                 style={{ flex: 1 }}
                 data={categories}
                 onScroll={onScroll}
-                renderItem={({ item }): ReactElement => (
+                renderItem={({ item, index }): ReactElement => (
                     <SearchCard
                         searchCompanies={searchCompanies}
-                        width={170}
+                        width={
+                            index === categories.length - 1
+                                ? categories.length * 2 === 0
+                                    ? minWidth
+                                    : maxWidth
+                                : minWidth
+                        }
                         height={130}
                         textBottomPositionPercentage={30}
-                        textLeftPosition={15}
+                        textLeftPosition={20}
                         title={item.slugName}
                         containerStyle={{
                             marginTop: 10,
                             marginBottom: 10,
                             flex: 1,
-                            alignItems: 'center'
+                            alignItems: "center"
                         }}
                     />
                 )}

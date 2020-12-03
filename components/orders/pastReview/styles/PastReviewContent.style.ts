@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { calcWidth } from "../../../../utils/deviceResponsiveHelper";
 
 const styles = StyleSheet.create({
     statusLine: {
@@ -16,43 +17,6 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         flex: 1
-    },
-    divider: {
-        backgroundColor: "#E8E8E8",
-        width: "100%",
-        height: 2,
-        marginTop: 20
-    },
-    bottomInfoContainers: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginTop: 10
-    },
-    bottomInfoText: {
-        fontFamily: "Montserrat",
-        fontSize: 16,
-        color: "#575757"
-    },
-    bottomPriceText: {
-        fontFamily: "MontserratMedium",
-        fontSize: 16,
-        color: "#575757"
-    },
-    bottomContainerInfo: {
-        flexDirection: "row"
-    },
-    infoContainer: {
-        marginLeft: 10
-    },
-    totalText: {
-        fontFamily: "Montserrat",
-        fontSize: 25,
-        color: "#575757"
-    },
-    totalPrice: {
-        fontFamily: "MontserratSemiBold",
-        fontSize: 25,
-        color: "#575757"
     },
     cardContainer: {
         justifyContent: "flex-end",

@@ -5,7 +5,7 @@ import GrowersScreen from "../screens/growers/GrowersScreen";
 import ProductScreen from "../screens/growers/ProductScreen";
 import FeedbackScreen from "../screens/growers/Feedback";
 import ProfileScreen from "../screens/profile/ProfileScreen";
-import CartScreen from "../screens/growers/Cart";
+import CartScreen from "../screens/cart/Cart";
 import AccountScreen from "../screens/profile/Account";
 import WalletScreen from "../screens/profile/Wallet";
 import CardEditorScreen from "../screens/profile/CardEditor";
