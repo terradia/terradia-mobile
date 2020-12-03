@@ -43,8 +43,9 @@ const stateLink = withClientState({
 });
 
 const uploadLink = new CreateUploadLink({
-    // uri: "https://api.terradia.eu/graphql",
-    uri: "http://localhost:8000/graphql",
+    uri: __DEV__
+        ? "http://localhost:8000/graphql"
+        : "https://api.terradia.eu/graphql",
     fetch: fetch
 });
 

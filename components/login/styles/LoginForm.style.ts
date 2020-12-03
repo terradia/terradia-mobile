@@ -20,7 +20,8 @@ export default StyleSheet.create({
     },
     wrapper: {
         width: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 5
     },
     forgotPasswordStyle: {
         paddingTop: 10,

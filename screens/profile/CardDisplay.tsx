@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import CreditCardDisplay from "react-native-credit-card-display";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import { StackScreenProps } from "@react-navigation/stack";
+import { ThemedContainer } from '@components/theme/Theme';
 
 type RootStackParamList = {
     Home: undefined;
@@ -40,7 +41,7 @@ const CardEditor = ({ route }: Props): ReactElement => {
     });
 
     return (
-        <>
+        <ThemedContainer style={{ flex :1}}>
             <Spinner
                 visible={isLoading}
                 textContent={i18n.t("loading")}
@@ -71,7 +72,7 @@ const CardEditor = ({ route }: Props): ReactElement => {
                     Supprimer la carte
                 </Text>
             </TouchableOpacity>
-        </>
+        </ThemedContainer>
     );
 };
 

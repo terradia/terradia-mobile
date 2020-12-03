@@ -19,6 +19,7 @@ declare interface VerticalListProps {
 
 const styles = StyleSheet.create({
     title: {
+        marginTop: 7,
         fontSize: 25,
         fontFamily: "MontserratBold",
         marginLeft: calcWidth(4)

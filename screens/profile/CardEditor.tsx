@@ -10,6 +10,7 @@ import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import Spinner from "react-native-loading-spinner-overlay";
 import ListCustomerCards from "../../graphql/wallet/listCustomerCards.graphql";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedContainer } from '@components/theme/Theme';
 
 const CardEditor: FunctionComponent = () => {
     const [isValid, setValid] = useState(false);
@@ -54,7 +55,7 @@ const CardEditor: FunctionComponent = () => {
     };
 
     return (
-        <>
+        <ThemedContainer style={{ flex: 1 }}>
             <Spinner
                 visible={isLoading}
                 textContent={i18n.t("loading")}
@@ -90,7 +91,7 @@ const CardEditor: FunctionComponent = () => {
                     }}
                 />
             </View>
-        </>
+        </ThemedContainer>
     );
 };
 
