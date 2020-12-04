@@ -8,6 +8,7 @@ query getProduct($id: ID!) {
         price
         cover {
             companyImage {
+                id
                 filename
             }
         }
