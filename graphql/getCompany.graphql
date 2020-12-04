@@ -7,9 +7,11 @@ query getCompanyAndDistance($id: ID!) {
         description
         distance
         cover {
+            id
             filename
         }
         logo {
+            id
             filename
         }
         productsCategories {
