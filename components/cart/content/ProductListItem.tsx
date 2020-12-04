@@ -60,7 +60,9 @@ const ProductListItem: FunctionComponent<ProductListItemProps> = withTheme(
                             >
                                 {` / ${item.product.quantityForUnit *
                                     item.quantity}${
-                                    item.product.unit.notation
+                                    item.product.unit
+                                        ? item.product.unit.notation
+                                        : " Pièce"
                                 }`}
                             </ThemedText>
                         </View>
