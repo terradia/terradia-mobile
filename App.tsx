@@ -148,7 +148,7 @@ export default function App(props): ReactElement {
         return null;
     } else {
         return (
-            <ThemeProvider value={"dark"}>
+            <ThemeProvider value={"light"}>
                 <NavigationContainer
                     linking={linking}
                     fallback={<Text>Loading...</Text>}

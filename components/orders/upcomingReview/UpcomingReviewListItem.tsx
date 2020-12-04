@@ -28,7 +28,9 @@ const UpcomingReviewListItem: FunctionComponent<UpcomingReviewListItem> = ({
             <View style={styles.UnitContainer}>
                 <Text style={styles.textInfoItem}>
                     {orderProduct.product.quantityForUnit +
-                        orderProduct.product.unit.notation}
+                        (orderProduct.product.unit
+                            ? orderProduct.product.unit.notation
+                            : " Pièce(s)")}
                 </Text>
             </View>
             <View style={styles.horizontalDivider} />
