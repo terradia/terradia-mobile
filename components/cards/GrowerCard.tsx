@@ -81,7 +81,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                 <ThemedBox style={style.bottomView}>
                     <View style={style.bottomElements}>
                         <Text style={style.discoverProducts}>
-                            {grower.numberProducts > 9
+                            {!grower.numberProducts
                                 ? "(9+)"
                                 : grower.numberProducts}{" "}
                             {i18n.t("growersCard.productsToDiscover")}
