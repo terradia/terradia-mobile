@@ -2,13 +2,14 @@ import React, { FunctionComponent } from "react";
 import { Image, Text, View } from "react-native";
 import styles from "./styles/GrowersProductsListRender.style";
 import { ProductData } from "@interfaces/Companies";
+import { ThemedContainer, ThemedText } from "@components/theme/Theme";
 
 export const renderHeaders: FunctionComponent<string> = (title: string) => {
     return (
         <View style={{ flex: 1, justifyContent: "center", paddingLeft: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: "600" }}>
+            <ThemedText style={{ fontSize: 20, fontWeight: "600" }}>
                 {title.toUpperCase()}
-            </Text>
+            </ThemedText>
         </View>
     );
 };
@@ -21,30 +22,34 @@ export const renderItems: FunctionComponent<RenderListProductsProps> = ({
     product
 }) => {
     return (
-        <View style={styles.mainContainer}>
+        <ThemedContainer style={styles.mainContainer}>
             <View style={styles.container}>
                 <View style={styles.textsContainer}>
                     <View style={styles.spacer}>
-                        <Text style={[styles.textsColor, styles.productTitle]}>
+                        <ThemedText
+                            style={[styles.textsColor, styles.productTitle]}
+                        >
                             {product.name}
-                        </Text>
+                        </ThemedText>
                     </View>
                     <View style={[styles.spacer, { marginRight: 10 }]}>
-                        <Text
+                        <ThemedText
                             style={[
                                 styles.textsColor,
                                 styles.productDescription
                             ]}
                         >
                             {product.description}
-                        </Text>
+                        </ThemedText>
                     </View>
                     <View style={[styles.priceContainer, styles.spacer]}>
                         <View />
                         <View>
-                            <Text style={[styles.priceTag, styles.textsColor]}>
+                            <ThemedText
+                                style={[styles.priceTag, styles.textsColor]}
+                            >
                                 {product.price.toFixed(2)}€
-                            </Text>
+                            </ThemedText>
                         </View>
                     </View>
                 </View>
@@ -67,6 +72,6 @@ export const renderItems: FunctionComponent<RenderListProductsProps> = ({
                     />
                 </View>
             </View>
-        </View>
+        </ThemedContainer>
     );
 };

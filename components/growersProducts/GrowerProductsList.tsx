@@ -21,6 +21,7 @@ import Cart from "@components/cart";
 import { CompanyData, ProductData } from "@interfaces/Companies";
 import DeepLinking from "@components/routing/DeepLinking";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -83,7 +84,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <ThemedContainer style={{ flex: 1 }}>
             <SectionList
                 initialNumToRender={2000}
                 style={styles.containerBox}
@@ -97,9 +98,9 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 refreshing={true}
                 renderSectionHeader={({ section: { title } }): any => {
                     return (
-                        <View style={{ height: LIST_HEADER_HEIGHT }}>
+                        <ThemedContainer style={{ height: LIST_HEADER_HEIGHT }}>
                             {renderHeaders(title)}
-                        </View>
+                        </ThemedContainer>
                     );
                 }}
                 renderItem={({ item }: { item: ProductData }): any => (
@@ -170,7 +171,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                 <Cart />
                 <DeepLinking />
             </View>
-        </View>
+        </ThemedContainer>
     );
 };
 

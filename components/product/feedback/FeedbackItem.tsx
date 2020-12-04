@@ -1,7 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { AirbnbRating } from 'react-native-ratings';
-import { Review } from '@interfaces/Companies';
+import React, { FunctionComponent } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { AirbnbRating } from "react-native-ratings";
+import { Review } from "@interfaces/Companies";
+import {
+    ThemedBox,
+    ThemedContainer,
+    ThemedText
+} from "@components/theme/Theme";
 
 declare interface FeedbackItemProductProps {
     review: Review;
@@ -9,7 +14,6 @@ declare interface FeedbackItemProductProps {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#e4e4e4',
         paddingRight: 10,
         paddingLeft: 10,
         borderRadius: 10,
@@ -20,21 +24,18 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     title: {
-        color: '#575757',
-        fontFamily: 'MontserratBold'
+        fontFamily: "MontserratBold"
     },
     subText: {
-        color: '#8E8E93',
-        fontFamily: 'MontserratSemiBold'
+        fontFamily: "MontserratSemiBold"
     },
     comment: {
-        color: '#7D7D7D',
-        fontFamily: 'MontserratMedium',
+        fontFamily: "MontserratMedium",
         marginTop: 10
     }
 });
@@ -43,15 +44,15 @@ const FeedbackItem: FunctionComponent<FeedbackItemProductProps> = ({
     review
 }) => {
     return (
-        <View style={styles.container}>
+        <ThemedContainer style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>
+                <ThemedText style={styles.title}>
                     {review.title.length < 25
                         ? `${review.title}`
                         : `${review.title.substring(0, 23)}...`}
-                </Text>
+                </ThemedText>
                 <AirbnbRating
-                    selectedColor={'#4AA542'}
+                    selectedColor={"#FADB14"}
                     defaultRating={review.customerMark}
                     size={18}
                     showRating={false}
@@ -59,17 +60,17 @@ const FeedbackItem: FunctionComponent<FeedbackItemProductProps> = ({
                 />
             </View>
             <View style={styles.header}>
-                <Text style={styles.subText}>24 Jan</Text>
-                <Text style={styles.subText}>
+                <ThemedText style={styles.subText}>24 Jan</ThemedText>
+                <ThemedText style={styles.subText}>
                     {review.customer.user.firstName.charAt(0).toUpperCase() +
                         review.customer.user.firstName.slice(1) +
-                        ' ' +
+                        " " +
                         review.customer.user.lastName[0].toUpperCase() +
-                        '.'}
-                </Text>
+                        "."}
+                </ThemedText>
             </View>
-            <Text style={styles.comment}>{review.description}</Text>
-        </View>
+            <ThemedText style={styles.comment}>{review.description}</ThemedText>
+        </ThemedContainer>
     );
 };
 

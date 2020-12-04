@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { CompanyData } from "@interfaces/Companies";
 import * as Linking from "expo-linking";
 import { useNavigation } from "@react-navigation/native";
+import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
 
 interface RenderFixedHeaderData {
     goBack: () => void;
@@ -54,14 +55,14 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
     grower
 }) => {
     return (
-        <View style={styles.navContainer}>
+        <ThemedContainer style={styles.navContainer}>
             <LinearGradient
                 colors={["#8FDD3D", "#5CC04A"]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
                 <View style={styles.statusBar} />
-                <View style={styles.navBar}>
+                <ThemedContainer style={styles.navBar}>
                     <Text style={styles.navBarGrowerName}>{grower.name}</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity
@@ -94,14 +95,14 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                             />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </ThemedContainer>
             </LinearGradient>
             <LinearGradient
                 colors={["#8FDD3D", "#5CC04A"]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
-                <View style={styles.categoriesBackground}>
+                <ThemedBox style={styles.categoriesBackground}>
                     <GrowersProductsCategories
                         onPress={(index: number): void => {
                             setBlockUpdateIndex(true);
@@ -139,9 +140,9 @@ export const renderNavBar: FunctionComponent<NavBarProductsHeaderProps> = ({
                         }))}
                         currentIndex={currentIndex}
                     />
-                </View>
+                </ThemedBox>
             </LinearGradient>
-        </View>
+        </ThemedContainer>
     );
 };
 

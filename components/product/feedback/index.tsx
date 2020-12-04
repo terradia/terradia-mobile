@@ -15,6 +15,7 @@ import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import getProductReviews from '../../../graphql/getProductReviews.graphql';
 import { Product, Review } from '@interfaces/Companies';
 import FeedbackItem from '@components/product/feedback/FeedbackItem';
+import { ThemedBox, ThemedText } from '@components/theme/Theme';
 
 declare interface FeedbackProductProps {
     product: Product;
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     title: {
-        color: '#575757',
         fontFamily: 'MontserratBold',
         marginBottom: 20,
         marginLeft: 15,
@@ -41,11 +41,11 @@ const index: FunctionComponent<FeedbackProductProps> = ({ product }) => {
     });
 
     const _listHeader = () => (
-        <View>
-            <Text style={styles.title}>
+        <ThemedBox>
+            <ThemedText style={styles.title}>
                 Évaluations ({product.numberOfMarks})
-            </Text>
-        </View>
+            </ThemedText>
+        </ThemedBox>
     );
     if (!reviews || !reviews.getProductReviews) {
         return <View />;
@@ -74,7 +74,7 @@ const index: FunctionComponent<FeedbackProductProps> = ({ product }) => {
     };
 
     return (
-        <View style={styles.container}>
+        <ThemedBox style={styles.container}>
             <FlatList
                 ListHeaderComponent={_listHeader}
                 onEndReachedThreshold={0}
@@ -85,7 +85,7 @@ const index: FunctionComponent<FeedbackProductProps> = ({ product }) => {
                     <FeedbackItem review={comment.item} />
                 )}
             />
-        </View>
+        </ThemedBox>
     );
 };
 

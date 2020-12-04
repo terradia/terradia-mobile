@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { View, Text } from 'react-native';
-import { Review } from '@interfaces/Companies';
-import { AirbnbRating } from 'react-native-ratings';
+import React, { FunctionComponent } from "react";
+import { View, Text } from "react-native";
+import { Review } from "@interfaces/Companies";
+import { AirbnbRating } from "react-native-ratings";
+import { ThemedText } from "@components/theme/Theme";
 
 declare interface FeedbackProps {
     review: Review;
@@ -11,40 +12,38 @@ const FeedbackItem: FunctionComponent<FeedbackProps> = ({ review }) => {
         <View style={{ marginLeft: 15, marginRight: 15, marginBottom: 10 }}>
             <View
                 style={{
-                    justifyContent: 'space-between',
-                    flexDirection: 'row'
+                    justifyContent: "space-between",
+                    flexDirection: "row"
                 }}
             >
-                <Text
+                <ThemedText
                     style={{
-                        fontFamily: 'MontserratBold',
-                        color: '#575757',
+                        fontFamily: "MontserratBold",
                         fontSize: 14
                     }}
                 >
-                    <Text numberOfLines={1}>
+                    <ThemedText numberOfLines={1}>
                         {review.title.length < 30
                             ? `${review.title}`
                             : `${review.title.substring(0, 28)}...`}
-                    </Text>
-                </Text>
-                <Text
+                    </ThemedText>
+                </ThemedText>
+                <ThemedText
                     style={{
-                        fontFamily: 'MontserratBold',
-                        color: '#575757',
+                        fontFamily: "MontserratBold",
                         fontSize: 14
                     }}
                 >
                     {review.customer.user.firstName.charAt(0).toUpperCase() +
                         review.customer.user.firstName.slice(1) +
-                        ' ' +
+                        " " +
                         review.customer.user.lastName[0].toUpperCase() +
-                        '.'}
-                </Text>
+                        "."}
+                </ThemedText>
             </View>
-            <View style={{ alignSelf: 'flex-start' }}>
+            <View style={{ alignSelf: "flex-start" }}>
                 <AirbnbRating
-                    selectedColor={'#575757'}
+                    selectedColor={"#FADB14"}
                     defaultRating={1}
                     size={15}
                     showRating={false}
@@ -52,7 +51,7 @@ const FeedbackItem: FunctionComponent<FeedbackProps> = ({ review }) => {
                 />
             </View>
             <View>
-                <Text>{review.description}</Text>
+                <ThemedText>{review.description}</ThemedText>
             </View>
         </View>
     );

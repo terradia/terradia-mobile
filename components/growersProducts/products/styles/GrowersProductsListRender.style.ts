@@ -1,29 +1,28 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     mainContainer: {
-        overflow: 'hidden',
+        overflow: "hidden",
         flex: 1,
         paddingLeft: 20,
         paddingRight: 20
     },
     container: {
-        flexDirection: 'row',
-        width: '100%'
+        flexDirection: "row",
+        width: "100%"
     },
     textsContainer: {
-        width: '70%'
+        width: "70%"
     },
     textsColor: {
-        color: '#575757',
-        fontFamily: 'Montserrat'
+        fontFamily: "Montserrat"
     },
     productTitle: {
         fontSize: 18,
-        fontFamily: 'MontserratSemiBold'
+        fontFamily: "MontserratSemiBold"
     },
     productDescription: {
-        fontFamily: 'MontserratLight',
+        fontFamily: "MontserratLight",
         fontSize: 13,
         maxHeight: 65
     },
@@ -35,13 +34,13 @@ const styles = StyleSheet.create({
     },
     priceContainer: {
         paddingTop: 5,
-        alignItems: 'flex-end',
+        alignItems: "flex-end",
         paddingRight: 20
     },
     imageContainer: {
-        justifyContent: 'center',
-        width: '30%',
-        alignItems: 'center'
+        justifyContent: "center",
+        width: "30%",
+        alignItems: "center"
     },
     image: {
         borderRadius: 20

@@ -14,6 +14,7 @@ import { useQuery } from "@apollo/react-hooks";
 import getProductReviews from "../../../graphql/getProductReviews.graphql";
 import { useNavigation } from "@react-navigation/native";
 import FeedBackLoader from "./FeedBackLoader";
+import { ThemedText } from '@components/theme/Theme';
 
 declare interface FeedbackProps {
     product: ProductData;
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
     },
     nbVotes: {
         fontFamily: "MontserratSemiBold",
-        color: "#7D7D7D",
         fontSize: 16
     },
     textSeeAll: {
@@ -60,26 +60,26 @@ const Feedback: FunctionComponent<FeedbackProps> = ({ product }) => {
             <View style={styles.container}>
                 <Description product={product} />
                 <View style={styles.feedbackContainer}>
-                    <Text style={styles.feedbackText}>AVIS</Text>
+                    <ThemedText style={styles.feedbackText}>AVIS</ThemedText>
                     <View>
                         <TouchableOpacity
                             onPress={(): void =>
                                 navigate("Feedback", { product })
                             }
                         >
-                            <Text style={styles.textSeeAll}>Voir tout</Text>
+                            <ThemedText style={styles.textSeeAll}>Voir tout</ThemedText>
                         </TouchableOpacity>
                         <View style={styles.starsContainer}>
                             <AirbnbRating
-                                selectedColor={"#7D7D7D"}
+                                selectedColor={"#FADB14"}
                                 defaultRating={1}
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
                             />
-                            <Text style={styles.nbVotes}>
+                            <ThemedText style={styles.nbVotes}>
                                 ({product.numberOfMarks})
-                            </Text>
+                            </ThemedText>
                         </View>
                     </View>
                 </View>
