@@ -7,6 +7,10 @@ query getCompanyProductsCategories($companyId: String!) {
             id
             description
             price
+            cover {
+                id
+                filename
+            }
         }
     }
 }

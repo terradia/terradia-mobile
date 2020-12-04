@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#5CC04A"
     },
     categoriesBackground: {
-        backgroundColor: "white",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10
     },

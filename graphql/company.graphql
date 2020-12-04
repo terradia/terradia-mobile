@@ -7,12 +7,17 @@ query IsUserLoggedIn($id: ID) {
         numberOfMarks
         description
         productsCategories {
+            id
             name
             products {
                 name
                 id
                 description
                 prices
+                cover {
+                    filename
+                    id
+                }
             }
         }
     }

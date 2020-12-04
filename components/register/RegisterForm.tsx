@@ -1,25 +1,24 @@
 import React, { FunctionComponent, useState } from "react";
 import styles from "../login/styles/LoginForm.style";
 import { View, Alert } from "react-native";
-import ButtonTerradia from "../buttons/ButtonTerradia";
 import { useMutation } from "@apollo/react-hooks";
 import i18n from "@i18n/i18n";
 import REGISTER from "../../graphql/register.graphql";
 import { Kohana } from "react-native-textinput-effects";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
-import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
+import { Theme, ThemedBox, withTheme } from "@components/theme/Theme";
 import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
-import { calcWidth } from '../../utils/deviceResponsiveHelper';
-import { Divider } from 'react-native-elements';
+import { calcWidth } from "../../utils/deviceResponsiveHelper";
 
 declare interface RegisterFormProps {
     navigateHome?: () => void;
+    theme: Theme;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = ({
-    navigateHome
+    navigateHome,
+    theme
 }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -60,7 +59,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
                         labelContainerStyle={{ padding: 10 }}
                         iconContainerStyle={{ padding: 10 }}
                     />
@@ -74,7 +76,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
                         labelContainerStyle={{ padding: 10 }}
                         iconContainerStyle={{ padding: 10 }}
                     />
@@ -87,7 +92,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
                         labelContainerStyle={{ padding: 10 }}
                         iconContainerStyle={{ padding: 10 }}
                     />
@@ -102,7 +110,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
                         labelContainerStyle={{ padding: 10 }}
                         iconContainerStyle={{ padding: 10 }}
                     />
@@ -116,7 +127,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                         iconColor={"#8FDD3D"}
                         inputPadding={0}
                         labelStyle={styles.inputLabelStyle}
-                        inputStyle={styles.inputStyle}
+                        inputStyle={{
+                            color: theme.palette.fontColor,
+                            fontFamily: "Montserrat"
+                        }}
                         labelContainerStyle={{ padding: 10 }}
                         iconContainerStyle={{ padding: 10 }}
                     />
@@ -132,7 +146,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                     type={"full"}
                     width={calcWidth(92)}
                     onPress={async (): Promise<void> => {
-                        const token = await registerForPushNotificationsAsync();
+                        // const token = await registerForPushNotificationsAsync();
                         register({
                             variables: {
                                 email: email,
@@ -140,7 +154,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
                                 firstName: firstName,
                                 phone: phone,
                                 lastName: lastName,
-                                exponentPushToken: token
+                                exponentPushToken: ""
                             }
                         }).then();
                     }}
@@ -150,4 +164,4 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = ({
     );
 };
 
-export default RegisterForm;
+export default withTheme(RegisterForm);

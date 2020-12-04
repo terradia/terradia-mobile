@@ -53,12 +53,12 @@ const Preload: React.ForwardRefExoticComponent<React.PropsWithoutRef<{
         onCompleted: data => {
             if (data && data.getUser) {
                 loadActiveAddress();
-            } else navigate("HomeAuth");
+            } else navigate("Login");
         },
         onError: async onerror => {
             console.warn(onerror);
             await AsyncStorage.removeItem("token");
-            navigate("HomeAuth");
+            navigate("Login");
         }
     });
     const _loadData = async () => {

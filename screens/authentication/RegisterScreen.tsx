@@ -44,7 +44,6 @@ const RegisterScreen: FunctionComponent<any> = props => {
                         {/*        color={"white"}*/}
                         {/*    />*/}
                         {/*</TouchableOpacity>*/}
-                        <View/>
                         <ButtonWithIcon
                             onPress={() => navigate("Login")}
                             title={i18n.t("homeAuth.alreadyHaveAnAccount")}

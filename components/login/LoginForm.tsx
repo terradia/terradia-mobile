@@ -1,21 +1,17 @@
 import React, { FunctionComponent, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import ButtonTerradia from "../buttons/ButtonTerradia";
-import ButtonEmpty from "../buttons/Button";
+import { Text } from "react-native";
 import styles from "./styles/LoginForm.style";
 import { useMutation } from "@apollo/react-hooks";
 import i18n from "@i18n/i18n";
 import LOGIN from "../../graphql/login.graphql";
 import ThirdPartyLogin from "@components/login/ThirdPartyLogin";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { Kohana } from "react-native-textinput-effects";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { registerForPushNotificationsAsync } from "@helpers/pushNotification";
-import { ThemedBox, ThemedContainer, withTheme } from '@components/theme/Theme';
+import { ThemedBox, withTheme } from "@components/theme/Theme";
 import { calcWidth } from "../../utils/deviceResponsiveHelper";
 import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
-import { Divider } from "react-native-elements";
 
 declare interface LoginFormProps {
     navigateRegister?: any;
@@ -26,7 +22,7 @@ declare interface LoginFormProps {
 const LoginForm: FunctionComponent<LoginFormProps> = ({
     navigateHome,
     navigateRegister,
-    theme,
+    theme
 }) => {
     const { navigate } = useNavigation();
     const [email, setEmail] = useState("");
@@ -88,12 +84,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
             setError(i18n.t("loginScreen.fillPassword"));
             return;
         }
-        const token = await registerForPushNotificationsAsync();
+        // const token = await registerForPushNotificationsAsync();
         login({
             variables: {
                 email: email,
                 password: password,
-                exponentPushToken: token
+                exponentPushToken: ""
             }
         }).then();
     };

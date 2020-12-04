@@ -154,7 +154,7 @@ export const renderImageBackground: FunctionComponent<RenderImageProps> = ({
     grower
 }) => {
     return (
-        <View>
+        <ThemedContainer>
             <Image
                 source={{
                     uri: grower.cover
@@ -167,6 +167,6 @@ export const renderImageBackground: FunctionComponent<RenderImageProps> = ({
                 // }}
             />
             <View style={styles.brightness} />
-        </View>
+        </ThemedContainer>
     );
 };

@@ -21,7 +21,12 @@ import Cart from "@components/cart";
 import { CompanyData, ProductData } from "@interfaces/Companies";
 import DeepLinking from "@components/routing/DeepLinking";
 import { useNavigation } from "@react-navigation/native";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
+import {
+    Theme,
+    ThemedBox,
+    ThemedContainer,
+    withTheme
+} from "@components/theme/Theme";
 
 const HEADER_SIZE = 170;
 const LIST_HEADER_HEIGHT = 40;
@@ -31,12 +36,14 @@ declare interface GrowersProductsListProps {
     products: any;
     company: CompanyData;
     positionArray: any;
+    theme: Theme;
 }
 
 const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
     products,
     company,
-    positionArray
+    positionArray,
+    theme
 }) => {
     const { navigate, goBack } = useNavigation();
     const list = useRef(null);
@@ -87,7 +94,10 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
         <ThemedContainer style={{ flex: 1 }}>
             <SectionList
                 initialNumToRender={2000}
-                style={styles.containerBox}
+                style={{
+                    ...styles.containerBox,
+                    backgroundColor: theme.palette.backgroundColor
+                }}
                 sections={products}
                 ref={list}
                 keyExtractor={(item): string => item.id.toString()}
@@ -134,8 +144,12 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                                 });
                             }
                         }}
-                        style={{ flex: 1, width: "100%" }}
-                        backgroundColor="white"
+                        style={{
+                            flex: 1,
+                            width: "100%",
+                            backgroundColor: theme.palette.backgroundColor
+                        }}
+                        backgroundColor={theme.palette.backgroundColor}
                         parallaxHeaderHeight={300}
                         stickyHeaderHeight={133}
                         renderFixedHeader={(): ReactElement =>
@@ -175,4 +189,4 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
     );
 };
 
-export default GrowerProductsList;
+export default withTheme(GrowerProductsList);
