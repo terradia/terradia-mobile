@@ -131,7 +131,7 @@ export default {
     },
     orders: {
         current: "En cours",
-        past: "passée",
+        past: "Passée(s)",
         order: "Commande",
         pending: "En cours d'acceptation",
         orderAccepted: "Commande accéptée",
