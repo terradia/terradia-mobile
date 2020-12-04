@@ -331,7 +331,7 @@ type Mutation {
     cancelOrder(id: ID!): OrderHistory
     createACharge: Boolean
     createCategory(name: String!, parentCategoryId: String): Category!
-    createCompany(address: String!, description: String, email: String!, name: String!, phone: String!, siren: String!): Company!
+    createCompany(address: String!, description: String, email: String!, name: String!, phone: String!, siren: String!, tokenAccount: String!): Company!
     createCompanyProductAdvise(companyId: ID!, content: String!, productId: ID!, title: String!): CompanyProductAdvise
     createCompanyProductsCategory(companyId: String!, name: String!): CompanyProductsCategory
     createCompanyReview(companyId: String!, customerMark: Int!, description: String, title: String): CompanyReview
@@ -381,12 +381,14 @@ type Mutation {
     signInWithgeneratedCode(code: String!, email: String!, exponentPushToken: String): SigninAnswer!
     signUpWithFacebook(defineUserAsCostumer: Boolean, exponentPushToken: String, facebookToken: String!): SignupAnswer!
     updateCompany(companyId: ID!, newValues: CompanyUpdateInput): Company!
+    updateCompanyExternalAccount(companyId: String!, token: String!): Boolean
     updateCompanyImageName(imageId: ID!, name: String!): CompanyImage
     updateCompanyProductAdvise(content: String, id: ID!, title: String): CompanyProductAdvise
     updateCompanyProductsCategory(categoryId: String!, name: String): CompanyProductsCategory
     updateCustomerDefaultSource(cardId: String!): Boolean
     updateDeliveryDay(DeliveryDayId: String!, hours: [ScheduleInput]): CompanyDeliveryDay!
     updateDeliveryHours(hourId: String!, hours: ScheduleInput!): CompanyDeliveryDayHours!
+    updateMailsNotifications: User!
     updateOpeningDay(hours: [ScheduleInput], openingDayId: String!): CompanyOpeningDay!
     updateOpeningHours(hourId: String!, hours: ScheduleInput!): CompanyOpeningDayHours!
     updateProduct(coverId: String, description: String, name: String, price: Float, productId: String, quantityForUnit: Float, unitId: String): Product
@@ -526,13 +528,15 @@ type Query {
     getCompaniesByUser(userId: ID!): [CompanyUser]
     getCompaniesInvitations(companyId: String): [CompanyUserInvitation]
     getCompany(companyId: ID!): Company
+    getCompanyAndDistance(companyId: ID!): Company
     getCompanyByName(name: String!): Company
     getCompanyImages(companyId: ID, page: Int, pageSize: Int): [CompanyImage]
-    getCompanyOrderHistories(companyId: ID!, fromDate: Date, limit: Int = 10, offset: Int = 0, status: String, toDate: Date): [OrderHistory]
+    getCompanyOrderHistories(companyId: ID!, fromDate: Date, limit: Int, offset: Int, status: String, toDate: Date): [OrderHistory]
     getCompanyProductAdvises(companyId: ID, limit: Int, offset: Int, productId: ID): [CompanyProductAdvise]
     getCompanyProductsCategories(companyId: String!): [CompanyProductsCategory]
     getCompanyProductsCategory(categoryId: String, companyId: String!, name: String): CompanyProductsCategory
     getCompanyReviews(id: ID!, limit: Int!, offset: Int!): [CompanyReview]
+    getCompanyStripeAccount(companyId: ID!): StripeCompany
     getCompanyTag(companyTagId: String, slugName: String): CompanyTag
     getCurrentOrders(companyId: ID!, limit: Int = 10, offset: Int = 0, status: String): [Order]
     getCustomer(userId: String!): Customer
@@ -577,9 +581,28 @@ type SignupAnswer {
     userId: String!
 }
 
+type StripeCompany {
+    external_accounts: StripeExternalAccount
+    id: String!
+    payouts_enabled: Boolean
+}
+
 type StripeCustomer {
     default_source: String!
     id: String!
+}
+
+type StripeExternalAccount {
+    data: [StripeExternalAccountData]
+}
+
+type StripeExternalAccountData {
+    account_holder_name: String
+    bank_name: String
+    country: String
+    currency: String
+    id: String!
+    last4: String
 }
 
 type Subscription {
@@ -605,6 +628,7 @@ type User {
     firstName: String!
     id: ID!
     lastName: String!
+    mailsNotifications: Boolean
     password: String!
     phone: String!
     validated: Boolean

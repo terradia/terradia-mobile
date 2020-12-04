@@ -41,12 +41,12 @@ const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
     });
 
     const [loadCompany] = useLazyQuery<{
-        getCompany: CompanyData;
+        getCompanyAndDistance: CompanyData;
     }>(getCompany, {
         variables: { id: growerId },
         fetchPolicy: "network-only",
         onCompleted: data => {
-            setCompany(data.getCompany);
+            setCompany(data.getCompanyAndDistance);
         },
         onError: error => {
             console.warn(error);

@@ -1,10 +1,11 @@
-query getCompany($id: ID!) {
-    getCompany(companyId: $id) {
+query getCompanyAndDistance($id: ID!) {
+    getCompanyAndDistance(companyId: $id) {
         id
         name
         averageMark
         numberOfMarks
         description
+        distance
         cover {
             filename
         }

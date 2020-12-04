@@ -138,7 +138,7 @@ const GrowerProductsList: FunctionComponent<GrowersProductsListProps> = ({
                         parallaxHeaderHeight={300}
                         stickyHeaderHeight={133}
                         renderFixedHeader={(): ReactElement =>
-                            renderFixedHeader({goBack})
+                            renderFixedHeader({ goBack })
                         }
                         renderBackground={(): any =>
                             renderImageBackground({ grower: company })

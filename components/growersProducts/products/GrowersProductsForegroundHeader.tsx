@@ -40,7 +40,12 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                     NOUVEAUTE
                                 </Text>
                             </View>
-                            <Text style={styles.distanceText}>~1km</Text>
+                            <Text style={styles.distanceText}>
+                                {!grower.distance
+                                    ? "~1 km"
+                                    : (grower.distance / 1000).toFixed(2) +
+                                      " km"}
+                            </Text>
                         </View>
                         <View>
                             <Text style={styles.growerName}>{grower.name}</Text>

@@ -1,25 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     categoriesBackgroundContainer: {
-        backgroundColor: '#5CC04A'
+        backgroundColor: "#5CC04A"
     },
     categoriesBackground: {
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10
     },
     backgroundContainer: {
-        backgroundColor: 'transparent'
+        backgroundColor: "transparent"
     },
     navBarGrowerName: {
-        color: 'white',
-        fontSize: 20,
-        fontFamily: 'MontserratSemiBold',
+        color: "white",
+        fontSize: 18,
+        fontFamily: "MontserratSemiBold",
         marginLeft: 35
     },
-    iconsContainer: {
-    },
+    iconsContainer: {},
     shareIcon: {
         margin: 3,
         marginRight: 8
@@ -30,12 +29,12 @@ const styles = StyleSheet.create({
     },
     brightness: {
         flex: 1,
-        width: '100%',
+        width: "100%",
         height: 300,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, .3)',
-        position: 'absolute',
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, .3)",
+        position: "absolute",
         borderRadius: 10
     },
     navContainer: {
@@ -43,24 +42,24 @@ const styles = StyleSheet.create({
     },
     statusBar: {
         height: 30,
-        backgroundColor: 'transparent'
+        backgroundColor: "transparent"
     },
     navBar: {
         height: 50,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: "row",
+        backgroundColor: "transparent",
         marginHorizontal: 10
     },
     tabContainer: {
-        borderBottomColor: '#090909'
+        borderBottomColor: "#090909"
     },
     tabText: {
         padding: 15,
-        color: '#9e9e9e',
+        color: "#9e9e9e",
         fontSize: 18,
-        fontWeight: '500'
+        fontWeight: "500"
     }
 });
 
