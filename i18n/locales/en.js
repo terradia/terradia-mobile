@@ -9,6 +9,12 @@ export default {
     tags: {
         new: "NEW"
     },
+    navigation: {
+        growers: "Growers",
+        search: "Search",
+        orders: "Orders",
+        profile: "Profile"
+    },
     loginScreen: {
         addrEmail: "Email address",
         password: "Password",
@@ -33,10 +39,11 @@ export default {
         search: "Search",
         search1: "Search",
         cancel: "Cancel",
-        noResultFound: "No result found"
+        noResultFound: "No result found",
+        allCategories: "All categories"
     },
     addressModal: {
-        deliveryAddress: "Delivery address",
+        deliveryAddress: "Your address",
         deliveryDetails: "Delivery details",
         back: "Back",
         confirm: "Apply",
@@ -108,12 +115,22 @@ export default {
         invalidEmail: "Invalid email",
         InvalidCodeOrEmail: "Invalid Code or email"
     },
+    walletScreen: {
+        paymentMethods: "Payment Methods",
+        addPaymentMethod: "Add a payment method",
+        cardNumber: "Card number",
+        expiry: "expiry",
+        addCard: "Add card"
+    },
     profileScreen: {
         myCart: "My cart",
         myOrders: "My orders",
-        myWallet: "My wallet"
+        myWallet: "My wallet",
+        myAccount: "My account"
     },
     orders: {
+        current: "Current",
+        past: "Past",
         order: "Order",
         pending: "Order pending",
         orderAccepted: "Order accepted",

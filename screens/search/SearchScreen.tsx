@@ -130,7 +130,7 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
             ) : (
                 <VerticalList
                     categories={tags?.getAllCompanyTags}
-                    title={"Toutes les catégories"}
+                    title={i18n.t("searchScreen.allCategories")}
                     ListHeaderComponent={_renderItem}
                     searchCompanies={_onCategoryClicked}
                     onScroll={_onScroll}

@@ -74,7 +74,9 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                         containerStyle={[style.shadow1, style.growerImage]}
                         imageProps={{ resizeMode: "contain" }}
                     />
-                    <Text style={style.growerName}>{grower.name}</Text>
+                    <View style={style.growerNameContainer}>
+                        <Text style={style.growerName}>{grower.name}</Text>
+                    </View>
                 </View>
                 <ThemedBox style={style.bottomView}>
                     <View style={style.bottomElements}>

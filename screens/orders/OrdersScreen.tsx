@@ -8,14 +8,15 @@ import PastList from "@components/orders/past/PastList";
 import MainHeader from "@components/theme/MainHeader";
 import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 import Cart from "@components/cart";
+import i18n from "@i18n/i18n";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 const OrdersScreen: FunctionComponent = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: "first", title: "En cours" },
-        { key: "second", title: "Passées" }
+        { key: "first", title: i18n.t("orders.current") },
+        { key: "second", title: i18n.t("orders.past") }
     ]);
 
     const renderScene = SceneMap({
@@ -47,7 +48,10 @@ const OrdersScreen: FunctionComponent = () => {
     );
     return (
         <ThemedContainer style={{ flex: 1 }}>
-            <MainHeader title={"Mes commandes"} backButton={false} />
+            <MainHeader
+                title={i18n.t("profileScreen.myOrders")}
+                backButton={false}
+            />
             <TabView
                 navigationState={{ index, routes }}
                 renderTabBar={renderTabBar}

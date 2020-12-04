@@ -39,10 +39,11 @@ export default {
         search: "Recherche",
         search1: "Rechercher",
         cancel: "Annuler",
-        noResultFound: "Nous n'avons pas trouvé de résultat"
+        noResultFound: "Nous n'avons pas trouvé de résultat",
+        allCategories: "Toutes les catégories"
     },
     addressModal: {
-        deliveryAddress: "Adresse de livraison",
+        deliveryAddress: "Votre adresse",
         deliveryDetails: "Détails de livraison",
         back: "Retour",
         confirm: "Confirmer",
@@ -125,9 +126,12 @@ export default {
     profileScreen: {
         myCart: "Mon panier",
         myOrders: "Mes commandes",
-        myWallet: "Mon porte feuille"
+        myWallet: "Mon porte feuille",
+        myAccount: "Mon compte"
     },
     orders: {
+        current: "En cours",
+        past: "passée",
         order: "Commande",
         pending: "En cours d'acceptation",
         orderAccepted: "Commande accéptée",

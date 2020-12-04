@@ -25,7 +25,10 @@ const Account: FunctionComponent = () => {
                 setCurrentEditing={setCurrentEditing}
                 initialValue={initialValue}
             />
-            <MainHeader title={"Mon compte"} backButton={true} />
+            <MainHeader
+                title={i18n.t("profileScreen.myAccount")}
+                backButton={true}
+            />
             <View style={styles.imageContainer}>
                 <AccountImage me={me && me.getUser} />
             </View>
@@ -103,9 +106,11 @@ const Account: FunctionComponent = () => {
                         {me.getUser.email}
                     </ThemedText>
                     <View style={styles.rightContent}>
-                        <ThemedText style={styles.nonVerifiedText}>
-                            {i18n.t("accountScreen.notVerified")}
-                        </ThemedText>
+                        {!me.getUser.validated && (
+                            <ThemedText style={styles.nonVerifiedText}>
+                                {i18n.t("accountScreen.notVerified")}
+                            </ThemedText>
+                        )}
                         <ThemedText>
                             <Entypo name="chevron-right" size={27} />
                         </ThemedText>
@@ -119,7 +124,9 @@ const Account: FunctionComponent = () => {
                     setCurrentEditing("password");
                 }}
             >
-                <ThemedText style={styles.fieldTitle}>Mot de passe</ThemedText>
+                <ThemedText style={styles.fieldTitle}>
+                    {i18n.t("loginScreen.password")}
+                </ThemedText>
                 <View style={styles.subFieldContainer}>
                     <ThemedText>.........</ThemedText>
                     <View style={styles.rightContent}>

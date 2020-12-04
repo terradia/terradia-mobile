@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from 'react-native';
 import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 function elevationShadowStyle(elevation) {
@@ -94,18 +94,20 @@ export default StyleSheet.create({
     },
     growerImageContainer: {
         position: "absolute",
-        bottom: calcWidth(3),
+        bottom: calcWidth(4),
         zIndex: 10,
         flexDirection: "row"
     },
     growerName: {
-        marginLeft: calcWidth(2),
-        marginTop: calcWidth(4),
         color: "white",
-        fontSize: 20,
+        fontSize: 17,
         fontFamily: "MontserratSemiBold",
-        maxHeight: 40,
         maxWidth: calcWidth(54)
+    },
+    growerNameContainer: {
+        marginLeft: calcWidth(2),
+        maxHeight: 50,
+        justifyContent: "center"
     },
     discoverProducts: {
         marginLeft: calcWidth(4),

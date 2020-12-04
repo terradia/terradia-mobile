@@ -6,5 +6,6 @@ query getUser {
         email
         phone
         avatar
+        validated
     }
 }
