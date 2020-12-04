@@ -14,10 +14,6 @@ query IsUserLoggedIn($id: ID) {
                 id
                 description
                 prices
-                cover {
-                    filename
-                    id
-                }
             }
         }
     }
