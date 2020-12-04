@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 function elevationShadowStyle(elevation) {
     return {
         elevation,
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOffset: { width: 0, height: 0.5 * elevation },
         shadowOpacity: 0.3,
         shadowRadius: 0.8 * elevation
@@ -12,74 +12,74 @@ function elevationShadowStyle(elevation) {
 
 const styles = StyleSheet.create({
     shadow1: elevationShadowStyle(5),
-    growerImage: {},
+    growerImage: {
+        backgroundColor: "white",
+        padding: 10
+    },
     container: {
         height: 300,
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
+        alignItems: "center",
+        justifyContent: "flex-end"
     },
     secondContainer: {
         height: 300 / 2,
-        backgroundColor: '#ECECEC',
-        width: '100%',
+        width: "100%",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         padding: 10
     },
     topContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
     informationTop: {
-        flexDirection: 'row',
+        flexDirection: "row",
         marginBottom: 10
     },
     tag: {
         padding: 3,
         borderRadius: 10,
-        backgroundColor: '#FFE732'
+        backgroundColor: "#FFE732"
     },
     rates: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     textNumberRates: {
-        color: '#4AA542',
+        color: "#4AA542",
         fontSize: 16
     },
     distanceText: {
         fontSize: 18,
-        fontFamily: 'Montserrat',
-        color: '#707070'
+        fontFamily: "Montserrat"
     },
     growerName: {
-        fontFamily: 'MontserratBold',
+        fontFamily: "MontserratBold",
         fontSize: 20,
-        color: '#575757',
-        fontWeight: '500'
+        fontWeight: "500"
     },
     middleContainer: {
         marginLeft: 10,
         flex: 1,
-        justifyContent: 'space-between'
+        justifyContent: "space-between"
     },
     descriptionContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: "center",
         marginLeft: 10
     },
     description: {
-        width: '85%',
-        fontFamily: 'Montserrat'
+        width: "85%",
+        fontFamily: "Montserrat"
     },
     showMoreContainer: {
-        width: '15%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        width: "15%",
+        justifyContent: "center",
+        alignItems: "center"
     },
     showMore: {
         margin: 3

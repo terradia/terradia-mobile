@@ -40,7 +40,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                     <View style={style.headerView}>
                         <View style={style.rates}>
                             <AirbnbRating
-                                selectedColor={"white"}
+                                selectedColor={"#FADB14"}
                                 defaultRating={grower.averageMark}
                                 size={18}
                                 showRating={false}

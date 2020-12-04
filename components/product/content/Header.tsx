@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { ProductData } from "@interfaces/Companies";
 import { elevationShadowStyle } from "@constants/Layout";
+import { ThemedBox, ThemedText } from "@components/theme/Theme";
 
 declare interface HeaderProps {
     product: ProductData;
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
     },
     container: {
         height: 110,
-        backgroundColor: "#F3F3F3",
         paddingLeft: 15,
         paddingRight: 15,
         flexDirection: "row"
@@ -59,18 +59,20 @@ const styles = StyleSheet.create({
 
 const Header: FunctionComponent<HeaderProps> = ({ product }) => {
     return (
-        <View style={styles.container}>
+        <ThemedBox style={styles.container}>
             <View style={styles.leftContainer}>
                 <View>
-                    <Text style={styles.productName}>{product.name}</Text>
+                    <ThemedText style={styles.productName}>
+                        {product.name}
+                    </ThemedText>
                 </View>
                 <View style={styles.tag}>
-                    <Text style={styles.tagText}>NOUVEAUTE</Text>
+                    <ThemedText style={styles.tagText}>NOUVEAUTE</ThemedText>
                 </View>
-                <Text style={styles.priceText}>
+                <ThemedText style={styles.priceText}>
                     {product.price.toFixed(2) + " €"}
-                </Text>
-                <Text style={styles.unitPrice}>Prix unitaire</Text>
+                </ThemedText>
+                <ThemedText style={styles.unitPrice}>Prix unitaire</ThemedText>
             </View>
             <View style={styles.rightContainer}>
                 <View style={elevationShadowStyle(5, "black")}>
@@ -87,7 +89,7 @@ const Header: FunctionComponent<HeaderProps> = ({ product }) => {
                     />
                 </View>
             </View>
-        </View>
+        </ThemedBox>
     );
 };
 

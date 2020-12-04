@@ -4,6 +4,7 @@ import { Avatar, AirbnbRating } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import styles from "./styles/GrowersProductsForegroundHeader.style";
 import { CompanyData } from "@interfaces/Companies";
+import { ThemedBox, ThemedText } from "@components/theme/Theme";
 
 declare interface GrowersProductsForegroundHeaderProps {
     grower?: CompanyData;
@@ -14,7 +15,7 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
 }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.secondContainer}>
+            <ThemedBox style={styles.secondContainer}>
                 <View style={styles.informationTop}>
                     <Avatar
                         size={80}
@@ -26,11 +27,12 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                 : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                         }}
                         containerStyle={[styles.shadow1, styles.growerImage]}
+                        imageProps={{ resizeMode: "contain" }}
                     />
                     <View style={styles.middleContainer}>
                         <View style={styles.topContainer}>
                             <View style={styles.tag}>
-                                <Text
+                                <ThemedText
                                     style={{
                                         fontFamily: "MontserratSemiBold",
                                         color: "white",
@@ -38,12 +40,16 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                     }}
                                 >
                                     NOUVEAUTE
-                                </Text>
+                                </ThemedText>
                             </View>
-                            <Text style={styles.distanceText}>~1km</Text>
+                            <ThemedText style={styles.distanceText}>
+                                ~1km
+                            </ThemedText>
                         </View>
                         <View>
-                            <Text style={styles.growerName}>{grower.name}</Text>
+                            <ThemedText style={styles.growerName}>
+                                {grower.name}
+                            </ThemedText>
                         </View>
                         <View style={styles.rates}>
                             <AirbnbRating
@@ -51,20 +57,20 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                                 size={18}
                                 showRating={false}
                                 isDisabled={true}
-                                selectedColor={"#4AA542"}
+                                selectedColor={"#FADB14"}
                             />
-                            <Text style={styles.textNumberRates}>
+                            <ThemedText style={styles.textNumberRates}>
                                 {grower.numberOfMarks > 99
                                     ? "(99+)"
                                     : "(" + grower.numberOfMarks + ")"}
-                            </Text>
+                            </ThemedText>
                         </View>
                     </View>
                 </View>
                 <View style={styles.descriptionContainer}>
-                    <Text numberOfLines={2} style={styles.description}>
+                    <ThemedText numberOfLines={2} style={styles.description}>
                         {grower.description}
-                    </Text>
+                    </ThemedText>
                     <TouchableOpacity style={styles.showMoreContainer}>
                         <FontAwesome
                             style={styles.showMore}
@@ -74,7 +80,7 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ThemedBox>
         </View>
     );
 };
