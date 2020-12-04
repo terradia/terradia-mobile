@@ -7,6 +7,7 @@ query getCart {
                 id
                 cover {
                     companyImage {
+                        id
                         filename
                     }
                 }

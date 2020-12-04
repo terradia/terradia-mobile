@@ -28,11 +28,11 @@ const Description: FunctionComponent<DescriptionProps> = ({ product }) => {
         <View style={styles.container}>
             <ThemedText style={styles.title}>Description du produit</ThemedText>
             <ThemedText style={styles.text}>{product.description}</ThemedText>
-            <ThemedText style={styles.title}>Conseil du brasseur</ThemedText>
-            <ThemedText style={styles.text}>
-                Bière « apéritive » et festive ou à déguster tout au long d’un
-                repas en accompagnement de plats traditionnels alsaciens.
-            </ThemedText>
+            {/*<ThemedText style={styles.title}>Conseil du brasseur</ThemedText>*/}
+            {/*<ThemedText style={styles.text}>*/}
+            {/*    Bière « apéritive » et festive ou à déguster tout au long d’un*/}
+            {/*    repas en accompagnement de plats traditionnels alsaciens.*/}
+            {/*</ThemedText>*/}
         </View>
     );
 };
