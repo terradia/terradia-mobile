@@ -1,22 +1,30 @@
 query searchCompanies($query: String!){
     searchCompanies(query: $query) {
-    id
-    name
-    averageMark
-    numberOfMarks
-    description
-    productsCategories {
+        id
         name
+        averageMark
+        numberOfMarks
+        description
+        cover {
+            id
+            filename
+        }
+        logo {
+            id
+            filename
+        }
+        productsCategories {
+            name
+            products {
+                name
+                id
+                description
+            }
+        }
         products {
             name
             id
             description
+            price
         }
-    }
-    products {
-        name
-        id
-        description
-        price
-    }
 }}

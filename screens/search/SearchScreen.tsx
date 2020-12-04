@@ -47,6 +47,8 @@ const SearchScreen: FunctionComponent<SearchScreenProps> = ({}) => {
     const [SearchCompanies, { data: companies, loading }] = useLazyQuery(
         searchCompanies
     );
+
+    console.log(companies);
     const [canDisplayCompanies, setDisplayCompanies] = useState(false);
     const { data: tags } = useQuery<GetAllCompanyTagsData>(getAllCompanyTags);
     const _onCategoryClicked = category => {
