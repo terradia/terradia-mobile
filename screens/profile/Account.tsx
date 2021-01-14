@@ -5,7 +5,7 @@ import MainHeader from "@components/theme/MainHeader";
 import { Entypo } from "@expo/vector-icons";
 import AccountModal from "@components/account/modal/AccountModal";
 import i18n from "@i18n/i18n";
-import { useQuery } from "@apollo/react-hooks";
+import { useApolloClient, useQuery } from "@apollo/react-hooks";
 import { GetUserData } from "@interfaces/User";
 import getUser from "../../graphql/getUser.graphql";
 import AccountImage from "@components/account/AccountImage";
@@ -16,6 +16,8 @@ import { ThemedContainer, ThemedText } from "@components/theme/Theme";
 const Account: FunctionComponent = () => {
     const [currentEditing, setCurrentEditing] = useState(null);
     const [initialValue, setInitialValue] = useState("");
+    const client = useApolloClient();
+
     const { navigate } = useNavigation();
     const { data: me } = useQuery<GetUserData>(getUser);
     return (
@@ -138,9 +140,11 @@ const Account: FunctionComponent = () => {
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    AsyncStorage.removeItem("token").then(() => {
-                        AsyncStorage.removeItem("userId").then(() => {
-                            navigate("Login");
+                    client.cache.reset().then(() => {
+                        AsyncStorage.removeItem("token").then(() => {
+                            AsyncStorage.removeItem("userId").then(() => {
+                                navigate("Login");
+                            });
                         });
                     });
                 }}
