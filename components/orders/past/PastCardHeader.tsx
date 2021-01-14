@@ -14,6 +14,8 @@ declare interface GrowerCard {
 
 const PastCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
     const { navigate } = useNavigation();
+    console.log(order);
+
     return (
         <View style={style.mainContainer}>
             <View style={[style.wrapper, style.shadow1]}>
@@ -52,7 +54,7 @@ const PastCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                             activeOpacity={0.4}
                             onPress={(): void =>
                                 navigate("GrowersProducts", {
-                                    grower: order.companyId
+                                    growerId: order.companyId
                                 })
                             }
                         >

@@ -54,7 +54,7 @@ const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
                             activeOpacity={0.4}
                             onPress={(): void =>
                                 navigate("GrowersProducts", {
-                                    grower: order.company.id
+                                    growerId: order.company.id
                                 })
                             }
                         >

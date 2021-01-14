@@ -1,4 +1,4 @@
-query getMyOrders {
+query getMyOrder {
     getMyOrders {
         id
         code

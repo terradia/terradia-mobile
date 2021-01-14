@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, useState } from "react";
-import { FlatList, View, RefreshControl } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import UpcomingCardHeader from "./UpcomingCardHeader";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/react-hooks";

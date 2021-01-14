@@ -1,11 +1,10 @@
 query getCompany($id: ID!) {
     getCompany(companyId: $id) {
-        __typename
         id
         name
         averageMark
-        numberOfMarks
         distance
+        numberOfMarks
         description
         productsCategories {
             id
@@ -19,12 +18,11 @@ query getCompany($id: ID!) {
         }
         cover {
             filename
+            id
         }
         logo {
             filename
-        }
-        companyImages {
-            filename
+            id
         }
     }
 }

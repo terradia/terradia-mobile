@@ -22,7 +22,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                 style={[style.wrapper, style.shadow1]}
                 onPress={(): void =>
                     navigate("GrowersProducts", {
-                        grower: grower
+                        growerId: grower.id
                     })
                 }
             >

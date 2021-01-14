@@ -5,14 +5,14 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { CompanyData } from "@interfaces/Companies";
 
 type RootStackParamList = {
-    GrowerProducts: { grower: CompanyData };
+    GrowerProducts: { growerId: string };
 };
 type Props = StackScreenProps<RootStackParamList, "GrowerProducts">;
 
 const GrowerProductsScreen = ({ route }: Props) => {
-    const { grower } = route.params;
+    const { growerId } = route.params;
 
-    return <GrowerProducts grower={grower} />;
+    return <GrowerProducts growerId={growerId} />;
 };
 
 // @ts-ignore

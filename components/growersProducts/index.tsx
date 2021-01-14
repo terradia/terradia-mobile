@@ -6,6 +6,7 @@ import React, {
 } from "react";
 
 import { useQuery } from "@apollo/react-hooks";
+import COMPANY from "../../graphql/company.graphql";
 import { CompanyData, ProductsCategoryData } from "@interfaces/Companies";
 import LoadingState from "./Loading";
 import GrowerProductsList from "./GrowerProductsList";
@@ -16,24 +17,32 @@ const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 135;
 
 interface GrowerProductsData {
-    grower: CompanyData;
+    growerId: string;
 }
 interface GetCompanyProductsCategoriesData {
     getCompanyProductsCategories: [ProductsCategoryData];
 }
 const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
-    grower
+    growerId
 }): ReactElement => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
+    const [company, setCompany] = useState(null);
+    const [products, setProducts] = useState([]);
+
+    const { data } = useQuery(COMPANY, {
+        variables: { id: growerId },
+        onCompleted: data => {
+            console.log(data);
+            setCompany(data?.getCompany);
+        }
+    });
 
     const { data: categoriesProducts } = useQuery<
         GetCompanyProductsCategoriesData
     >(getCompanyProductsCategories, {
-        variables: { companyId: grower.id }
+        variables: { companyId: growerId }
     });
-
-    const [products, setProducts] = useState([]);
 
     const getArrayGoodName = (): any => {
         const obj = categoriesProducts.getCompanyProductsCategories.map(
@@ -80,11 +89,11 @@ const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
         setDisplay(true);
     }, [categoriesProducts]);
 
-    if (display && grower) {
+    if (display && company) {
         return (
             <GrowerProductsList
                 products={products}
-                company={grower}
+                company={company}
                 positionArray={positionArray}
             />
         );
