@@ -9,6 +9,7 @@ query getMyOrderHistories {
         companyName
         decliningReason
         orderCreationDate
+        companyCover
         companyId
         products {
             id

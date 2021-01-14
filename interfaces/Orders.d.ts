@@ -18,6 +18,7 @@ export interface OrderHistoryData {
     status: string;
     orderCreationDate: string;
     stripePaymentIntent: string;
+    companyCover: string;
 }
 
 export interface OrderProductHistoryData {

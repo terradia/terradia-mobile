@@ -14,15 +14,14 @@ declare interface GrowerCard {
 
 const PastCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
     const { navigate } = useNavigation();
-    console.log(order);
-
     return (
         <View style={style.mainContainer}>
             <View style={[style.wrapper, style.shadow1]}>
                 <Image
                     source={{
-                        uri:
-                            "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
+                        uri: order.companyCover
+                            ? "https://media.terradia.eu/" + order.companyCover
+                            : "https://media.terradia.eu/20b6aef5bacab850344aa3036f8253e6.jpg"
                     }}
                     style={style.backgroundImage}
                 />
