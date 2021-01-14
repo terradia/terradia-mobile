@@ -36,7 +36,7 @@ const UpcomingReviewListItem: FunctionComponent<UpcomingReviewListItem> = ({
             <View style={styles.horizontalDivider} />
             <View style={styles.priceContainer}>
                 <Text style={styles.textInfoItem}>
-                    {orderProduct.price.toFixed(2) + "€"}
+                    {orderProduct.price.toFixed(2).replace(".", ",") + " €"}
                 </Text>
             </View>
         </View>

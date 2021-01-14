@@ -50,7 +50,7 @@ const ProductListItem: FunctionComponent<ProductListItemProps> = withTheme(
                                     { color: theme.palette.primary }
                                 ]}
                             >
-                                {`${item.product.price.toFixed(2)}€`}
+                                {`${item.product.price.toFixed(2).replace(".", ",")} €`}
                             </ThemedText>
                             <ThemedText
                                 style={[

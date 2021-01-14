@@ -48,7 +48,7 @@ export const renderItems: FunctionComponent<RenderListProductsProps> = ({
                             <ThemedText
                                 style={[styles.priceTag, styles.textsColor]}
                             >
-                                {product.price.toFixed(2)}€
+                                {product.price.toFixed(2).replace(".", ",")} €
                             </ThemedText>
                         </View>
                     </View>

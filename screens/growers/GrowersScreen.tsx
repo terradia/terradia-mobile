@@ -1,5 +1,5 @@
-import React, { FunctionComponent, ReactElement } from "react";
-import { FlatList, Animated, View } from "react-native";
+import React, { FunctionComponent, ReactElement, useState } from "react";
+import { FlatList, Animated, View, RefreshControl } from "react-native";
 import GrowerCard from "../../components/cards/GrowerCard";
 import { NavigationStackScreenProps } from "react-navigation-stack";
 import Cart from "../../components/cart";
@@ -24,12 +24,11 @@ declare interface GetCompaniesByDistanceByCustomerData {
 }
 
 const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
-    const { data: growers } = useQuery<GetCompaniesByDistanceByCustomerData>(
-        getCompaniesByDistanceByCustomer,
-        {
-            fetchPolicy: "cache-only"
-        }
-    );
+    const { data: growers, refetch } = useQuery<
+        GetCompaniesByDistanceByCustomerData
+    >(getCompaniesByDistanceByCustomer);
+
+    const [refreshing, setRefreshing] = useState(false);
 
     // const { paddingHeight, animatedY, onScroll } = collapsible;
     if (!growers || !growers.getCompaniesByDistanceByCustomer) {
@@ -44,6 +43,15 @@ const GrowersScreen: FunctionComponent<GrowersScreen> = ({ navigation }) => {
                 renderItem={({ item }): ReactElement => (
                     <GrowerCard navigation={navigation} grower={item} />
                 )}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={(): void => {
+                            setRefreshing(true);
+                            refetch().then(() => setRefreshing(false));
+                        }}
+                    />
+                }
                 keyExtractor={(item, index): string => String(index)}
                 contentContainerStyle={{ paddingTop: calcWidth(0) }}
                 scrollIndicatorInsets={{ top: calcWidth(0) }}

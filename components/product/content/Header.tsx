@@ -70,7 +70,7 @@ const Header: FunctionComponent<HeaderProps> = ({ product }) => {
                     <ThemedText style={styles.tagText}>NOUVEAUTE</ThemedText>
                 </View>
                 <ThemedText style={styles.priceText}>
-                    {product.price.toFixed(2) + " €"}
+                    {product.price.toFixed(2).replace(".", ",") + " €"}
                 </ThemedText>
                 <ThemedText style={styles.unitPrice}>Prix unitaire</ThemedText>
             </View>

@@ -44,9 +44,10 @@ const GrowersProductsForegroundHeader: FunctionComponent<GrowersProductsForegrou
                             </View>
                             <ThemedText style={styles.distanceText}>
                                 {!grower.distance
-                                    ? "~1 km"
-                                    : (grower.distance / 1000).toFixed(2) +
-                                      " km"}
+                                    ? "--"
+                                    : (grower.distance / 1000)
+                                          .toFixed(2)
+                                          .replace(".", ",") + " km"}
                             </ThemedText>
                         </View>
                         <View>

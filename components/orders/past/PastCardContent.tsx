@@ -84,7 +84,7 @@ const PastCardContent: FunctionComponent<UpcomingCardContentData> = ({
                             {i18n.t("orders.total")}
                         </Text>
                         <Text style={styles.totalNumber}>
-                            {order.price.toFixed(2)}
+                            {order.price.toFixed(2).replace(".", ",")}
                         </Text>
                     </View>
                 </View>

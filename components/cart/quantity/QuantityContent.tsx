@@ -79,7 +79,7 @@ const QuantityContent: FunctionComponent<QuantityContentProps> = ({
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={[styles.texts, styles.rightText]}>
-                        {(item.product.price * count).toFixed(2)}€
+                        {(item.product.price * count).toFixed(2).replace(".", ",")} €
                     </Text>
                 </View>
             </TouchableOpacity>
