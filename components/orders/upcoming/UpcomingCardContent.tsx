@@ -96,7 +96,7 @@ const UpcomingCardContent: FunctionComponent<UpcomingCardContentData> = ({
                             {i18n.t("orders.total")}
                         </ThemedText>
                         <ThemedText style={styles.totalNumber}>
-                            {order.price.toFixed(2) + "€"}
+                            {order.price.toFixed(2).replace(".", ",") + " €"}
                         </ThemedText>
                     </View>
                 </View>

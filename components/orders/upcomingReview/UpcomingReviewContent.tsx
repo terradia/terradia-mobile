@@ -76,7 +76,7 @@ const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> 
                         <Feather name="info" size={22} color="#575757" />
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.bottomPriceText}>0.50€</Text>
+                <Text style={styles.bottomPriceText}>0,50 €</Text>
             </View>
             <View style={styles.bottomInfoContainers}>
                 <View style={styles.bottomContainerInfo}>
@@ -88,13 +88,13 @@ const UpcomingReviewContentFooter: FunctionComponent<UpcomingReviewContentData> 
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.bottomPriceText}>
-                    {(order.price > 5 ? 0 : order.price - 5) + "€"}
+                    {(order.price > 5 ? 0 : order.price - 5) + " €"}
                 </Text>
             </View>
             <View style={styles.bottomInfoContainers}>
                 <Text style={styles.totalText}>{i18n.t("orders.total")}</Text>
                 <Text style={styles.totalPrice}>
-                    {order.price.toFixed(2) + "€"}
+                    {order.price.toFixed(2).replace(".", ",") + " €"}
                 </Text>
             </View>
             {card && card.getPaymentIntentsCard ? (

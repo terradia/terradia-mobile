@@ -148,7 +148,7 @@ export default {
         youHaveNoOrder: "Vous n’avez aucune commande en cours",
         youHaveNoOrderHistory: "Vous n'avez pas encore passé de commande",
         myOrder: "Ma commande",
-        serviceFees: "Service fees",
+        serviceFees: "Frais de service",
         smallOrderFee: "Frais de petite commande",
         paidWith: "Paid with :",
         myReceipt: "Mon reçu",

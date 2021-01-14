@@ -5,7 +5,6 @@ query getCompanyAndDistance($id: ID!) {
         averageMark
         numberOfMarks
         description
-        distance
         cover {
             id
             filename

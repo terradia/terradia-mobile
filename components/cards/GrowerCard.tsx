@@ -22,7 +22,8 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                 style={[style.wrapper, style.shadow1]}
                 onPress={(): void =>
                     navigate("GrowersProducts", {
-                        growerId: grower.id
+                        growerId: grower.id,
+                        distance: grower.distance
                     })
                 }
             >
@@ -99,8 +100,9 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                             </View>
                             {grower.distance && (
                                 <Text style={style.bottomInformationDistance}>
-                                    {(grower.distance / 1000).toFixed(2) +
-                                        " km"}
+                                    {(grower.distance / 1000)
+                                        .toFixed(2)
+                                        .replace(".", ",") + " km"}
                                 </Text>
                             )}
                             <Text style={style.bottomInformationDistance}>

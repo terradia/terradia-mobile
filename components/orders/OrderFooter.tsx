@@ -5,7 +5,7 @@ import React from "react";
 import i18n from "@i18n/i18n";
 import { OrderData, OrderHistoryData } from "@interfaces/Orders";
 import { CartData } from "@interfaces/User";
-import { ThemedBox, ThemedText } from '@components/theme/Theme';
+import { ThemedBox, ThemedText } from "@components/theme/Theme";
 
 interface OrderFooterProps {
     order?: OrderData | OrderHistoryData;
@@ -28,7 +28,7 @@ export const OrderFooter: React.FunctionComponent<OrderFooterProps> = ({
                         <Feather name="info" size={22} color="#575757" />
                     </TouchableOpacity>
                 </View>
-                <ThemedText style={styles.bottomPriceText}>0.50€</ThemedText>
+                <ThemedText style={styles.bottomPriceText}>0,50 €</ThemedText>
             </View>
             <View style={styles.bottomInfoContainers}>
                 <View style={styles.bottomContainerInfo}>
@@ -41,8 +41,8 @@ export const OrderFooter: React.FunctionComponent<OrderFooterProps> = ({
                 </View>
                 <ThemedText style={styles.bottomPriceText}>
                     {cart &&
-                        (cart.totalPrice > 5 ? 0 : cart.totalPrice - 5) + "€"}
-                    {order && (order.price > 5 ? 0 : order.price - 5) + "€"}
+                        (cart.totalPrice > 5 ? 0 : cart.totalPrice - 5) + " €"}
+                    {order && (order.price > 5 ? 0 : order.price - 5) + " €"}
                 </ThemedText>
             </View>
             <View style={styles.bottomInfoContainers}>
@@ -50,8 +50,9 @@ export const OrderFooter: React.FunctionComponent<OrderFooterProps> = ({
                     {i18n.t("orders.total")}
                 </ThemedText>
                 <ThemedText style={styles.totalPrice}>
-                    {cart && cart.totalPrice.toFixed(2) + "€"}
-                    {order && order.price.toFixed(2) + "€"}
+                    {cart &&
+                        cart.totalPrice.toFixed(2).replace(".", ",") + " €"}
+                    {order && order.price.toFixed(2).replace(".", ",") + " €"}
                 </ThemedText>
             </View>
         </View>

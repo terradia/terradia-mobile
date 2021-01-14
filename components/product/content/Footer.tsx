@@ -119,7 +119,7 @@ const Footer: FunctionComponent<FooterProps> = ({ product }) => {
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={[styles.texts, styles.rightText]}>
-                        {(product.price * count).toFixed(2)}€
+                        {(product.price * count).toFixed(2).replace(".", ",")} €
                     </Text>
                 </View>
             </TouchableOpacity>

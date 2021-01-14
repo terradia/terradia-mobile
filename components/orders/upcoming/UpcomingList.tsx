@@ -10,6 +10,7 @@ import CardListLoader from "@components/growers/CardListLoader";
 import { EmptyListElement } from "@components/orders/past/PastList";
 import { ThemedContainer } from "@components/theme/Theme";
 import { calcWidth } from "../../../utils/deviceResponsiveHelper";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];
@@ -18,7 +19,10 @@ interface GetMyOrdersData {
 const UpcomingList: FunctionComponent = () => {
     const { navigate } = useNavigation();
     const [refreshing, setRefreshing] = useState(false);
-    const { data: orders, refetch } = useQuery<GetMyOrdersData>(getMyOrders);
+    const { data: orders, loading, refetch } = useQuery<GetMyOrdersData>(
+        getMyOrders
+    );
+    console.log(orders, loading, AsyncStorage.getItem("token"));
 
     if (!orders) {
         return <CardListLoader />;

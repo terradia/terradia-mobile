@@ -18,12 +18,14 @@ const LIST_ELEM_HEIGHT = 135;
 
 interface GrowerProductsData {
     growerId: string;
+    distance: number;
 }
 interface GetCompanyProductsCategoriesData {
     getCompanyProductsCategories: [ProductsCategoryData];
 }
 const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
-    growerId
+    growerId,
+    distance
 }): ReactElement => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
@@ -34,7 +36,7 @@ const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
         variables: { id: growerId },
         onCompleted: data => {
             console.log(data);
-            setCompany(data?.getCompany);
+            setCompany({ ...data?.getCompany, distance });
         }
     });
 

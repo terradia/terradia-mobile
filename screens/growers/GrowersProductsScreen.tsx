@@ -10,9 +10,9 @@ type RootStackParamList = {
 type Props = StackScreenProps<RootStackParamList, "GrowerProducts">;
 
 const GrowerProductsScreen = ({ route }: Props) => {
-    const { growerId } = route.params;
+    const { growerId, distance } = route.params;
 
-    return <GrowerProducts growerId={growerId} />;
+    return <GrowerProducts growerId={growerId} distance={distance} />;
 };
 
 // @ts-ignore
