@@ -48,12 +48,10 @@ const ProductList: FunctionComponent = () => {
         }
     });
     const _addProduct = params => {
-        console.log(params);
         addProductToCart(params);
         setLoading(true);
     };
     const _removeProduct = params => {
-        console.log(params);
         removeProductFromCart(params);
         setLoading(true);
     };

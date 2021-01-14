@@ -5,10 +5,7 @@ import React, {
     useState
 } from "react";
 
-import { useNavigation } from "@react-navigation/native";
-import { useLazyQuery, useQuery } from "@apollo/react-hooks";
-import COMPANY from "../../graphql/company.graphql";
-import getCompany from "../../graphql/getCompany.graphql";
+import { useQuery } from "@apollo/react-hooks";
 import { CompanyData, ProductsCategoryData } from "@interfaces/Companies";
 import LoadingState from "./Loading";
 import GrowerProductsList from "./GrowerProductsList";
@@ -19,48 +16,21 @@ const LIST_HEADER_HEIGHT = 40;
 const LIST_ELEM_HEIGHT = 135;
 
 interface GrowerProductsData {
-    growerId: string;
+    grower: CompanyData;
 }
 interface GetCompanyProductsCategoriesData {
     getCompanyProductsCategories: [ProductsCategoryData];
 }
 const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
-    growerId
+    grower
 }): ReactElement => {
     const [display, setDisplay] = useState(false);
     const [positionArray, setPositionArray] = useState([]);
 
-    //TODO: Update this
-    const [company, setCompany] = useState(null);
-    const { navigate } = useNavigation();
-
     const { data: categoriesProducts } = useQuery<
         GetCompanyProductsCategoriesData
     >(getCompanyProductsCategories, {
-        variables: { companyId: growerId }
-    });
-
-    const [loadCompany] = useLazyQuery<{
-        getCompanyAndDistance: CompanyData;
-    }>(getCompany, {
-        variables: { id: growerId },
-        fetchPolicy: "network-only",
-        onCompleted: data => {
-            setCompany(data.getCompanyAndDistance);
-        },
-        onError: error => {
-            console.warn(error);
-            navigate("Grower");
-        }
-    });
-    useQuery(COMPANY, {
-        fetchPolicy: "cache-only",
-        variables: { id: growerId },
-        onCompleted: data => {
-            if (!data || !data.company) {
-                loadCompany();
-            } else setCompany(data.company);
-        }
+        variables: { companyId: grower.id }
     });
 
     const [products, setProducts] = useState([]);
@@ -85,7 +55,7 @@ const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
         setProducts(obj);
         return obj;
     };
-    // const [products, setProducts] = useState(getArrayGoodName());
+
     /**
      * Create an array of positions
      * Each element of this array is the position of each section
@@ -110,11 +80,11 @@ const GrowerProducts: FunctionComponent<GrowerProductsData> = ({
         setDisplay(true);
     }, [categoriesProducts]);
 
-    if (display && company) {
+    if (display && grower) {
         return (
             <GrowerProductsList
                 products={products}
-                company={company}
+                company={grower}
                 positionArray={positionArray}
             />
         );

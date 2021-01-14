@@ -179,7 +179,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                     <UpcomingReviewListItem orderProduct={item} />
                 )}
             />
-            <View style={{ position: "absolute", bottom: 30, width: "100%" }}>
+            <View style={{ position: "absolute", bottom: 40, width: "100%" }}>
                 <Swiper
                     ref={swiperRef}
                     height={60}

@@ -2,15 +2,17 @@ import React, { FunctionComponent, ReactElement } from "react";
 
 import GrowerProducts from "@components/growersProducts";
 import { StackScreenProps } from "@react-navigation/stack";
+import { CompanyData } from "@interfaces/Companies";
 
 type RootStackParamList = {
-    GrowerProducts: { grower: string };
+    GrowerProducts: { grower: CompanyData };
 };
 type Props = StackScreenProps<RootStackParamList, "GrowerProducts">;
 
 const GrowerProductsScreen = ({ route }: Props) => {
     const { grower } = route.params;
-    return <GrowerProducts growerId={grower} />;
+
+    return <GrowerProducts grower={grower} />;
 };
 
 // @ts-ignore

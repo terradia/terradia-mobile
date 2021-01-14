@@ -135,11 +135,11 @@ const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {
                 component={RegisterScreen}
             />
             <Stack.Screen name={"Location"} component={LocationScreen} />
-            {/*<Stack.Screen*/}
-            {/*    options={{ gestureEnabled: false }}*/}
-            {/*    name={"HomeAuth"}*/}
-            {/*    component={HomeAuthScreen}*/}
-            {/*/>*/}
+            <Stack.Screen
+                options={{ gestureEnabled: false }}
+                name={"HomeAuth"}
+                component={HomeAuthScreen}
+            />
             <Stack.Screen
                 name={"AccountRecovery"}
                 component={AccountRecoveryScreen}
@@ -177,6 +177,7 @@ const RootStack: FunctionComponent<Props> = ({ theme, ...props }) => {
             <Stack.Screen
                 name="UpcomingOrderReview"
                 component={UpcomingOrderReviewScreen}
+                options={{ gestureEnabled: false }}
             />
 
             {/*Profile*/}

@@ -1,9 +1,5 @@
 import React, { FunctionComponent, ReactElement, useState } from "react";
-import {
-    FlatList,
-    View,
-    RefreshControl
-} from "react-native";
+import { FlatList, View, RefreshControl } from "react-native";
 import UpcomingCardHeader from "./UpcomingCardHeader";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/react-hooks";
@@ -12,8 +8,8 @@ import { OrderData } from "@interfaces/Orders";
 import i18n from "@i18n/i18n";
 import CardListLoader from "@components/growers/CardListLoader";
 import { EmptyListElement } from "@components/orders/past/PastList";
-import { ThemedBox, ThemedContainer } from '@components/theme/Theme';
-import { calcWidth } from '../../../utils/deviceResponsiveHelper';
+import { ThemedContainer } from "@components/theme/Theme";
+import { calcWidth } from "../../../utils/deviceResponsiveHelper";
 
 interface GetMyOrdersData {
     getMyOrders: [OrderData];

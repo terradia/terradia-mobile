@@ -10,20 +10,27 @@ import Modal from "react-native-modal";
 import ModalPaymentValidated from "./ModalPaymentValidated";
 import { ButtonWithIcon } from "@components/buttons/ButtonWithIcon";
 import { calcWidth } from "../../../utils/deviceResponsiveHelper";
-import { OrderFooter } from "@components/orders/OrderFooter";
+import getMyOrders from "../../../graphql/orders/getMyOrders.graphql";
 
 declare interface CartPaymentData {
     cart: CartData;
 }
 
 const CartPayment: FunctionComponent<CartPaymentData> = ({ cart }) => {
-    const [CreateACharge, { loading }] = useMutation(createACharge);
+    const [CreateACharge, { loading, client }] = useMutation(createACharge);
     const [isValidated, setIsValidated] = useState(false);
 
     const createPaymentSource = async () => {
         CreateACharge()
             .then(() => {
-                setIsValidated(true);
+                client
+                    .query({
+                        query: getMyOrders,
+                        fetchPolicy: "network-only"
+                    })
+                    .then(() => {
+                        setIsValidated(true);
+                    });
                 // client
                 //     .query({ query: getCart, fetchPolicy: "network-only" })
                 //     .then(() => setIsValidated(true));

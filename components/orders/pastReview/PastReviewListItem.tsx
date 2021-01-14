@@ -10,7 +10,6 @@ interface UpcomingReviewListItem {
 const PastReviewListItem: FunctionComponent<UpcomingReviewListItem> = ({
     orderProduct
 }) => {
-    console.log(orderProduct);
     return (
         <View style={{ flexDirection: "row", marginTop: 10 }}>
             <View style={styles.numberProductsMainContainer}>

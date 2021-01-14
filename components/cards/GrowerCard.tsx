@@ -10,7 +10,7 @@ import { ThemedBox, ThemedContainer } from "@components/theme/Theme";
 import { useNavigation } from "@react-navigation/native";
 
 declare interface GrowerCard {
-    grower?: CompanyData;
+    grower: CompanyData;
 }
 
 const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
@@ -22,7 +22,7 @@ const GrowerCard: FunctionComponent<GrowerCard> = ({ grower }) => {
                 style={[style.wrapper, style.shadow1]}
                 onPress={(): void =>
                     navigate("GrowersProducts", {
-                        grower: grower.id
+                        grower: grower
                     })
                 }
             >

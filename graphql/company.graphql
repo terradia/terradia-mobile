@@ -1,10 +1,11 @@
-query IsUserLoggedIn($id: ID) {
-    company(id: $id) {
+query getCompany($id: ID!) {
+    getCompany(companyId: $id) {
         __typename
         id
         name
         averageMark
         numberOfMarks
+        distance
         description
         productsCategories {
             id
@@ -13,8 +14,17 @@ query IsUserLoggedIn($id: ID) {
                 name
                 id
                 description
-                prices
+                price
             }
+        }
+        cover {
+            filename
+        }
+        logo {
+            filename
+        }
+        companyImages {
+            filename
         }
     }
 }

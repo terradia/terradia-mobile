@@ -1,5 +1,5 @@
 query getCompaniesByDistanceByCustomer {
-    getCompaniesByDistanceByCustomer(page: 1, pageSize: 50) {
+    getCompaniesByDistanceByCustomer(page: 0, pageSize: 50) {
         id
         name
         averageMark

@@ -21,7 +21,6 @@ declare interface RenderListProductsProps {
 export const renderItems: FunctionComponent<RenderListProductsProps> = ({
     product
 }) => {
-    console.log(product);
     return (
         <ThemedContainer style={styles.mainContainer}>
             <View style={styles.container}>

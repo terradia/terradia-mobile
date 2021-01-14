@@ -57,7 +57,10 @@ const styles = StyleSheet.create({
 
 const HomeAuthScreen = ({ route }: Props): ReactElement => {
     const firstConnection = route?.params?.firstConnection || true;
-    const [showSlider, setShowSlider] = useState(!firstConnection);
+    console.log(firstConnection);
+    const [showSlider, setShowSlider] = useState(
+        firstConnection === "true" ? false : true
+    );
 
     const _onSliderDone = async (): Promise<void> => {
         await AsyncStorage.setItem("@first_connection", "true");
