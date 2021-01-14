@@ -15,6 +15,7 @@ declare interface GrowerCard {
 
 const UpcomingCardHeader: FunctionComponent<GrowerCard> = ({ order }) => {
     const { navigate } = useNavigation();
+    console.log(order);
     return (
         <View style={style.mainContainer}>
             <View style={[style.wrapper, style.shadow1]}>
