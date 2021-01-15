@@ -203,7 +203,7 @@ const UpcomingReviewContent: FunctionComponent<UpcomingReviewContentData> = ({
                         >
                             {order.status === "PENDING"
                                 ? "Attente d'acceptation"
-                                : "Glisser pour accépter"}
+                                : "Glisser pour accepter"}
                         </Text>
                     }
                     enabled={order.status !== "PENDING"}

@@ -68,7 +68,7 @@ export default {
         paymentMethod: "Moyen de paiement",
         total: "Total",
         orderNow: "Commander",
-        orderAccepted: "Votre commande a été accéptée",
+        orderAccepted: "Votre commande a été acceptée",
         cards: "Cartes bancaires",
         otherPaymentMethod: "Autres moyens de paiement"
     },
@@ -134,7 +134,7 @@ export default {
         past: "Passée(s)",
         order: "Commande",
         pending: "En cours d'acceptation",
-        orderAccepted: "Commande accéptée",
+        orderAccepted: "Commande acceptée",
         scheduleWaiting: "Horaires disponibles une fois la commande acceptée",
         productsNumbers: "Nombre de produits",
         total: "Total : ",
